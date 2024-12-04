@@ -806,83 +806,13 @@
 						<attDef ident="resp" mode="delete"/>
 						<attDef ident="source" mode="delete"/>
 						<attDef ident="subtype" mode="delete"/>
-						<attDef ident="rend" mode="change">
-							<valList type="closed" mode="change">
-								<valItem mode="delete" ident="center"/>
-								<valItem mode="delete" ident="noIndent"/>
-								<valItem mode="delete" ident="right"/>
-								<valItem mode="delete" ident="indent"/>
-								<valItem mode="delete" ident="dash"/>
-								<valItem mode="delete" ident="decimal"/>
-								<valItem mode="delete" ident="disc"/>
-								<valItem mode="delete" ident="lower-greek"/>
-								<valItem mode="delete" ident="lower-latin"/>
-								<valItem mode="delete" ident="lower-roman"/>
-								<valItem mode="delete" ident="upper-latin"/>
-								<valItem mode="delete" ident="upper-roman"/>
-								<valItem mode="delete" ident="borderedCellTable"/>
-								<valItem mode="delete" ident="bottomBorderedRowsTable"/>
-								<valItem mode="delete" ident="centeredTable"/>
-								<valItem mode="delete" ident="paddedTable"/>
-								<valItem mode="delete" ident="condensedTableCells"/>
-								<valItem mode="delete" ident="equalWidthTable2"/>
-								<valItem mode="delete" ident="equalWidthTable3"/>
-								<valItem mode="delete" ident="equalWidthTable4"/>
-								<valItem mode="delete" ident="bold"/>
-								<valItem mode="delete" ident="botBorder"/>
-								<valItem mode="delete" ident="rightBorder"/>
-								<valItem mode="delete" ident="verticalCenter"/>
-								<valItem mode="delete" ident="encircled"/>
-								<valItem mode="delete" ident="expanded"/>
-								<valItem mode="delete" ident="italics"/>
-								<valItem mode="delete" ident="larger"/>
-								<valItem mode="delete" ident="raised"/>
-								<valItem mode="delete" ident="smaller"/>
-								<valItem mode="delete" ident="sub"/>
-								<valItem mode="delete" ident="underline"/>
-								<valItem mode="delete" ident="uppercase"/>
-								<valItem mode="delete" ident="strikethrough"/>
-								<valItem mode="delete" ident="printed"/>
-								<valItem mode="delete" ident="stamped"/>
-								<valItem mode="delete" ident="underlineDashed"/>
-								<valItem mode="delete" ident="underlineDouble"/>
-							</valList>
-						</attDef>
+						<attDef ident="rend" mode="delete"/>
 						<attDef ident="type" mode="change">
 							<valList type="closed" mode="change">
-								<valItem mode="delete" ident="labelledAbove"/>
-								<valItem mode="delete" ident="labelledMargin"/>
-								<valItem mode="delete" ident="labelledLinesBefore"/>
-								<valItem mode="delete" ident="author"/>
-								<valItem mode="delete" ident="edition"/>
-								<valItem mode="delete" ident="labelledLinesAfter"/>
-								<valItem mode="delete" ident="orig"/>
-								<valItem mode="delete" ident="other"/>
-								<valItem mode="delete" ident="h1"/>
-								<valItem mode="delete" ident="h2"/>
-								<valItem mode="delete" ident="h3"/>
-								<valItem mode="delete" ident="h4"/>
-								<valItem mode="delete" ident="h5"/>
-								<valItem mode="delete" ident="h6"/>
-								<valItem mode="delete" ident="motto"/>
-								<valItem mode="delete" ident="subtitle"/>
-								<valItem mode="delete" ident="placeholder"/>
-								<valItem mode="delete" ident="asterisk"/>
-								<valItem mode="delete" ident="bar"/>
-								<valItem mode="delete" ident="dashedLine"/>
-								<valItem mode="delete" ident="block"/>
-								<valItem mode="delete" ident="mediaCollection"/>
-								<valItem mode="delete" ident="choice"/>
-								<valItem mode="delete" ident="noAnchor"/>
-								<valItem mode="delete" ident="move"/>
-								<valItem mode="delete" ident="empty"/>
-								<valItem mode="delete" ident="comment"/>
-								<valItem mode="delete" ident="introduction"/>
-								<valItem mode="delete" ident="readingtext"/>
-								<valItem mode="delete" ident="url"/>
-								<valItem mode="delete" ident="xref"/>
-								<valItem mode="delete" ident="received"/>
-								<valItem mode="delete" ident="sent"/>
+								<valItem mode="add" ident="letter"/>
+								<valItem mode="add" ident="letterpart"/>
+								<valItem mode="add" ident="poem"/>
+								<valItem mode="add" ident="prose"/>
 							</valList>
 						</attDef>
 					</attList>
