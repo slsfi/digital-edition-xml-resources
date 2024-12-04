@@ -123,6 +123,12 @@
 						>RomaJS</ref></desc>
 				</application>
 			</appInfo>
+			<appInfo>
+				<application ident="RomaJS" version="1.1.2" when="2024-12-04T13:25:33.333Z">
+					<desc>File edited with <ref target="https://github.com/TEIC/romajs"
+						>RomaJS</ref></desc>
+				</application>
+			</appInfo>
 		</encodingDesc>
 	</teiHeader>
 	<text>
@@ -164,7 +170,7 @@
 
 				<!-- required textstructure elements (TEI, text, and body) -->
 				<moduleRef key="textstructure"
-					include="TEI text body closer dateline div opener postscript salute signed"/>
+					include="TEI text body closer dateline div opener postscript salute signed argument"/>
 
 				<!-- required module tei instantiates lots of classes used for further expansion of this odd -->
 				<moduleRef key="tei"/>
@@ -3464,6 +3470,20 @@
 						<attDef ident="notAfter" mode="delete"/>
 					</attList>
 				</classSpec>
+				<elementSpec ident="argument" mode="change">
+					<attList>
+						<attDef ident="source" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+					</attList>
+				</elementSpec>
 			</schemaSpec>
 		</body>
 	</text>
