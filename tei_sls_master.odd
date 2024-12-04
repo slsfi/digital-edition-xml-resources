@@ -348,42 +348,7 @@
 						<attDef ident="subtype" mode="delete"/>
 						<attDef ident="type" mode="change">
 							<valList type="closed" mode="change">
-								<valItem mode="delete" ident="letter"/>
-								<valItem mode="delete" ident="letterpart"/>
-								<valItem mode="delete" ident="poem"/>
-								<valItem mode="delete" ident="prose"/>
-								<valItem mode="delete" ident="labelledAbove"/>
-								<valItem mode="delete" ident="labelledMargin"/>
-								<valItem mode="delete" ident="labelledLinesBefore"/>
-								<valItem mode="delete" ident="author"/>
-								<valItem mode="delete" ident="edition"/>
-								<valItem mode="delete" ident="labelledLinesAfter"/>
-								<valItem mode="delete" ident="orig"/>
-								<valItem mode="delete" ident="other"/>
-								<valItem mode="delete" ident="h1"/>
-								<valItem mode="delete" ident="h2"/>
-								<valItem mode="delete" ident="h3"/>
-								<valItem mode="delete" ident="h4"/>
-								<valItem mode="delete" ident="h5"/>
-								<valItem mode="delete" ident="h6"/>
-								<valItem mode="delete" ident="motto"/>
-								<valItem mode="delete" ident="subtitle"/>
-								<valItem mode="delete" ident="placeholder"/>
-								<valItem mode="delete" ident="asterisk"/>
-								<valItem mode="delete" ident="bar"/>
-								<valItem mode="delete" ident="dashedLine"/>
-								<valItem mode="delete" ident="block"/>
-								<valItem mode="delete" ident="mediaCollection"/>
-								<valItem mode="delete" ident="choice"/>
-								<valItem mode="delete" ident="noAnchor"/>
-								<valItem mode="delete" ident="move"/>
-								<valItem mode="delete" ident="empty"/>
-								<valItem mode="delete" ident="comment"/>
-								<valItem mode="delete" ident="introduction"/>
-								<valItem mode="delete" ident="readingtext"/>
-								<valItem mode="delete" ident="url"/>
-								<valItem mode="delete" ident="received"/>
-								<valItem mode="delete" ident="sent"/>
+								<valItem mode="add" ident="xref"/>
 							</valList>
 						</attDef>
 					</attList>
