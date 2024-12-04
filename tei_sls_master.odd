@@ -178,6 +178,7 @@
 				<moduleRef key="figures" include="cell figDesc figure row table"/>
 				<moduleRef key="msdescription" include="origDate"/>
 				<moduleRef key="namesdates" include="persName placeName"/>
+
 				<elementSpec ident="ab" mode="change">
 					<classes mode="change">
 						<memberOf key="att.fragmentable" mode="delete"/>
@@ -195,73 +196,23 @@
 						<attDef ident="subtype" mode="delete"/>
 						<attDef ident="rend" mode="change">
 							<valList type="closed" mode="change">
-								<valItem mode="delete" ident="borderedCellTable"/>
-								<valItem mode="delete" ident="botBorder"/>
-								<valItem mode="delete" ident="bottomBorderedRowsTable"/>
-								<valItem mode="delete" ident="center"/>
-								<valItem mode="delete" ident="centeredTable"/>
-								<valItem mode="delete" ident="condensedTableCells"/>
-								<valItem mode="delete" ident="dash"/>
-								<valItem mode="delete" ident="decimal"/>
-								<valItem mode="delete" ident="disc"/>
-								<valItem mode="delete" ident="equalWidthTable2"/>
-								<valItem mode="delete" ident="equalWidthTable3"/>
-								<valItem mode="delete" ident="equalWidthTable4"/>
-								<valItem mode="delete" ident="indent"/>
-								<valItem mode="delete" ident="lower-greek"/>
-								<valItem mode="delete" ident="lower-latin"/>
-								<valItem mode="delete" ident="lower-roman"/>
-								<valItem mode="delete" ident="noIndent"/>
-								<valItem mode="delete" ident="paddedTable"/>
-								<valItem mode="delete" ident="parIndent"/>
-								<valItem mode="delete" ident="printed"/>
-								<valItem mode="delete" ident="right"/>
-								<valItem mode="delete" ident="rightBorder"/>
-								<valItem mode="delete" ident="stamped"/>
-								<valItem mode="delete" ident="upper-latin"/>
-								<valItem mode="delete" ident="upper-roman"/>
-								<valItem mode="delete" ident="verticalCenter"/>
+								<valItem mode="add" ident="bold"/>
+								<valItem mode="add" ident="encircled"/>
+								<valItem mode="add" ident="expanded"/>
+								<valItem mode="add" ident="italics"/>
+								<valItem mode="add" ident="larger"/>
+								<valItem mode="add" ident="raised"/>
+								<valItem mode="add" ident="smaller"/>
+								<valItem mode="add" ident="strikethrough"/>
+								<valItem mode="add" ident="sub"/>
+								<valItem mode="add" ident="sup"/>
+								<valItem mode="add" ident="underline"/>
+								<valItem mode="add" ident="underlineDashed"/>
+								<valItem mode="add" ident="underlineDouble"/>
+								<valItem mode="add" ident="uppercase"/>
 							</valList>
 						</attDef>
-						<attDef ident="type" mode="change">
-							<valList type="closed" mode="change">
-								<valItem mode="delete" ident="letter"/>
-								<valItem mode="delete" ident="letterpart"/>
-								<valItem mode="delete" ident="poem"/>
-								<valItem mode="delete" ident="prose"/>
-								<valItem mode="delete" ident="labelledAbove"/>
-								<valItem mode="delete" ident="labelledMargin"/>
-								<valItem mode="delete" ident="labelledLinesBefore"/>
-								<valItem mode="delete" ident="author"/>
-								<valItem mode="delete" ident="edition"/>
-								<valItem mode="delete" ident="labelledLinesAfter"/>
-								<valItem mode="delete" ident="orig"/>
-								<valItem mode="delete" ident="other"/>
-								<valItem mode="delete" ident="h1"/>
-								<valItem mode="delete" ident="h2"/>
-								<valItem mode="delete" ident="h3"/>
-								<valItem mode="delete" ident="h4"/>
-								<valItem mode="delete" ident="h5"/>
-								<valItem mode="delete" ident="h6"/>
-								<valItem mode="delete" ident="placeholder"/>
-								<valItem mode="delete" ident="asterisk"/>
-								<valItem mode="delete" ident="bar"/>
-								<valItem mode="delete" ident="dashedLine"/>
-								<valItem mode="delete" ident="block"/>
-								<valItem mode="delete" ident="mediaCollection"/>
-								<valItem mode="delete" ident="choice"/>
-								<valItem mode="delete" ident="noAnchor"/>
-								<valItem mode="delete" ident="move"/>
-								<valItem mode="delete" ident="empty"/>
-								<valItem mode="delete" ident="comment"/>
-								<valItem mode="delete" ident="introduction"/>
-								<valItem mode="delete" ident="readingtext"/>
-								<valItem mode="delete" ident="url"/>
-								<valItem mode="delete" ident="xref"/>
-								<valItem mode="delete" ident="received"/>
-								<valItem mode="delete" ident="sent"/>
-							</valList>
-						</attDef>
+						<attDef ident="type" mode="delete"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="abbr" mode="change">
@@ -300,49 +251,21 @@
 						<attDef ident="subtype" mode="delete"/>
 						<attDef ident="place" mode="change">
 							<valList type="closed" mode="change">
-								<valItem mode="delete" ident="above"/>
-								<valItem mode="delete" ident="end"/>
-								<valItem mode="delete" ident="foot"/>
-								<valItem mode="delete" ident="margin"/>
+								<valItem mode="add" ident="botMargin"/>
+								<valItem mode="add" ident="leftMargin"/>
+								<valItem mode="add" ident="rightMargin"/>
+								<valItem mode="add" ident="topMargin"/>
+								<valItem mode="add" ident="inline"/>
+								<valItem mode="add" ident="sublinear"/>
+								<valItem mode="add" ident="other"/>
+								<valItem mode="add" ident="nextPage"/>
+								<valItem mode="add" ident="previousPage"/>
 							</valList>
 						</attDef>
 						<attDef ident="type" mode="change">
 							<valList type="closed" mode="change">
-								<valItem mode="delete" ident="letter"/>
-								<valItem mode="delete" ident="letterpart"/>
-								<valItem mode="delete" ident="poem"/>
-								<valItem mode="delete" ident="prose"/>
-								<valItem mode="delete" ident="labelledAbove"/>
-								<valItem mode="delete" ident="labelledMargin"/>
-								<valItem mode="delete" ident="labelledLinesBefore"/>
-								<valItem mode="delete" ident="author"/>
-								<valItem mode="delete" ident="edition"/>
-								<valItem mode="delete" ident="labelledLinesAfter"/>
-								<valItem mode="delete" ident="orig"/>
-								<valItem mode="delete" ident="other"/>
-								<valItem mode="delete" ident="h1"/>
-								<valItem mode="delete" ident="h2"/>
-								<valItem mode="delete" ident="h3"/>
-								<valItem mode="delete" ident="h4"/>
-								<valItem mode="delete" ident="h5"/>
-								<valItem mode="delete" ident="h6"/>
-								<valItem mode="delete" ident="motto"/>
-								<valItem mode="delete" ident="subtitle"/>
-								<valItem mode="delete" ident="placeholder"/>
-								<valItem mode="delete" ident="asterisk"/>
-								<valItem mode="delete" ident="bar"/>
-								<valItem mode="delete" ident="dashedLine"/>
-								<valItem mode="delete" ident="block"/>
-								<valItem mode="delete" ident="mediaCollection"/>
-								<valItem mode="delete" ident="move"/>
-								<valItem mode="delete" ident="empty"/>
-								<valItem mode="delete" ident="comment"/>
-								<valItem mode="delete" ident="introduction"/>
-								<valItem mode="delete" ident="readingtext"/>
-								<valItem mode="delete" ident="url"/>
-								<valItem mode="delete" ident="xref"/>
-								<valItem mode="delete" ident="received"/>
-								<valItem mode="delete" ident="sent"/>
+								<valItem mode="add" ident="choice"/>
+								<valItem mode="add" ident="noAnchor"/>
 							</valList>
 						</attDef>
 					</attList>
@@ -366,53 +289,19 @@
 						<attDef ident="subtype" mode="delete"/>
 						<attDef ident="place" mode="change" usage="req">
 							<valList type="closed" mode="change">
-								<valItem mode="delete" ident="above"/>
-								<valItem mode="delete" ident="end"/>
-								<valItem mode="delete" ident="foot"/>
-								<valItem mode="delete" ident="inline"/>
-								<valItem mode="delete" ident="margin"/>
-								<valItem mode="delete" ident="sublinear"/>
+								<valItem mode="add" ident="botMargin"/>
+								<valItem mode="add" ident="leftMargin"/>
+								<valItem mode="add" ident="rightMargin"/>
+								<valItem mode="add" ident="topMargin"/>
+								<valItem mode="add" ident="other"/>
+								<valItem mode="add" ident="nextPage"/>
+								<valItem mode="add" ident="previousPage"/>
 							</valList>
 						</attDef>
 						<attDef ident="spanTo" mode="change" usage="req"/>
 						<attDef ident="type" mode="change">
 							<valList type="closed" mode="change">
-								<valItem mode="delete" ident="letter"/>
-								<valItem mode="delete" ident="letterpart"/>
-								<valItem mode="delete" ident="poem"/>
-								<valItem mode="delete" ident="prose"/>
-								<valItem mode="delete" ident="labelledAbove"/>
-								<valItem mode="delete" ident="labelledMargin"/>
-								<valItem mode="delete" ident="labelledLinesBefore"/>
-								<valItem mode="delete" ident="author"/>
-								<valItem mode="delete" ident="edition"/>
-								<valItem mode="delete" ident="labelledLinesAfter"/>
-								<valItem mode="delete" ident="orig"/>
-								<valItem mode="delete" ident="other"/>
-								<valItem mode="delete" ident="h1"/>
-								<valItem mode="delete" ident="h2"/>
-								<valItem mode="delete" ident="h3"/>
-								<valItem mode="delete" ident="h4"/>
-								<valItem mode="delete" ident="h5"/>
-								<valItem mode="delete" ident="h6"/>
-								<valItem mode="delete" ident="motto"/>
-								<valItem mode="delete" ident="subtitle"/>
-								<valItem mode="delete" ident="placeholder"/>
-								<valItem mode="delete" ident="asterisk"/>
-								<valItem mode="delete" ident="bar"/>
-								<valItem mode="delete" ident="dashedLine"/>
-								<valItem mode="delete" ident="block"/>
-								<valItem mode="delete" ident="mediaCollection"/>
-								<valItem mode="delete" ident="choice"/>
-								<valItem mode="delete" ident="move"/>
-								<valItem mode="delete" ident="empty"/>
-								<valItem mode="delete" ident="comment"/>
-								<valItem mode="delete" ident="introduction"/>
-								<valItem mode="delete" ident="readingtext"/>
-								<valItem mode="delete" ident="url"/>
-								<valItem mode="delete" ident="xref"/>
-								<valItem mode="delete" ident="received"/>
-								<valItem mode="delete" ident="sent"/>
+								<valItem mode="add" ident="noAnchor"/>
 							</valList>
 						</attDef>
 					</attList>
@@ -3299,6 +3188,7 @@
 						<attDef ident="resp" mode="change" usage="req"/>
 					</attList>
 				</elementSpec>
+
 				<classSpec ident="att.anchoring" type="atts" mode="delete"/>
 				<classSpec ident="att.ascribed" type="atts" mode="delete"/>
 				<classSpec ident="att.cReferencing" type="atts" mode="delete"/>
@@ -3447,47 +3337,7 @@
 				<classSpec ident="att.global.rendition" type="atts" mode="change">
 					<attList>
 						<attDef ident="rend" mode="change">
-							<valList type="closed" mode="change">
-								<valItem mode="add" ident="parIndent"/>
-								<valItem mode="add" ident="center"/>
-								<valItem mode="add" ident="noIndent"/>
-								<valItem mode="add" ident="right"/>
-								<valItem mode="add" ident="indent"/>
-								<valItem mode="add" ident="dash"/>
-								<valItem mode="add" ident="decimal"/>
-								<valItem mode="add" ident="disc"/>
-								<valItem mode="add" ident="lower-greek"/>
-								<valItem mode="add" ident="lower-latin"/>
-								<valItem mode="add" ident="lower-roman"/>
-								<valItem mode="add" ident="upper-latin"/>
-								<valItem mode="add" ident="upper-roman"/>
-								<valItem mode="add" ident="borderedCellTable"/>
-								<valItem mode="add" ident="bottomBorderedRowsTable"/>
-								<valItem mode="add" ident="centeredTable"/>
-								<valItem mode="add" ident="paddedTable"/>
-								<valItem mode="add" ident="condensedTableCells"/>
-								<valItem mode="add" ident="equalWidthTable2"/>
-								<valItem mode="add" ident="equalWidthTable3"/>
-								<valItem mode="add" ident="equalWidthTable4"/>
-								<valItem mode="add" ident="bold"/>
-								<valItem mode="add" ident="botBorder"/>
-								<valItem mode="add" ident="rightBorder"/>
-								<valItem mode="add" ident="verticalCenter"/>
-								<valItem mode="add" ident="encircled"/>
-								<valItem mode="add" ident="expanded"/>
-								<valItem mode="add" ident="italics"/>
-								<valItem mode="add" ident="larger"/>
-								<valItem mode="add" ident="raised"/>
-								<valItem mode="add" ident="smaller"/>
-								<valItem mode="add" ident="sub"/>
-								<valItem mode="add" ident="underline"/>
-								<valItem mode="add" ident="uppercase"/>
-								<valItem mode="add" ident="strikethrough"/>
-								<valItem mode="add" ident="printed"/>
-								<valItem mode="add" ident="stamped"/>
-								<valItem mode="add" ident="underlineDashed"/>
-								<valItem mode="add" ident="underlineDouble"/>
-							</valList>
+							<valList type="closed" mode="change"/>
 						</attDef>
 						<attDef ident="style" mode="delete"/>
 						<attDef ident="rendition" mode="delete"/>
@@ -3572,19 +3422,10 @@
 					<attList>
 						<attDef ident="place" mode="change">
 							<valList type="closed" mode="change">
-								<valItem mode="change" ident="above"/>
-								<valItem mode="change" ident="margin"/>
-								<valItem mode="change" ident="end"/>
-								<valItem mode="add" ident="foot"/>
-								<valItem mode="add" ident="leftMargin"/>
-								<valItem mode="add" ident="other"/>
-								<valItem mode="add" ident="rightMargin"/>
-								<valItem mode="add" ident="topMargin"/>
-								<valItem mode="add" ident="botMargin"/>
-								<valItem mode="change" ident="inline"/>
-								<valItem mode="add" ident="sublinear"/>
-								<valItem mode="add" ident="nextPage"/>
-								<valItem mode="add" ident="previousPage"/>
+								<valItem mode="delete" ident="above"/>
+								<valItem mode="delete" ident="margin"/>
+								<valItem mode="delete" ident="end"/>
+								<valItem mode="delete" ident="inline"/>
 								<valItem mode="delete" ident="top"/>
 								<valItem mode="delete" ident="bottom"/>
 								<valItem mode="delete" ident="opposite"/>
@@ -3637,61 +3478,10 @@
 				<classSpec ident="att.typed" type="atts" mode="change">
 					<attList>
 						<attDef ident="type" mode="change">
-							<valList type="closed" mode="change">
-								<valItem mode="add" ident="letter"/>
-								<valItem mode="add" ident="letterpart"/>
-								<valItem mode="add" ident="poem"/>
-								<valItem mode="add" ident="prose"/>
-								<valItem mode="add" ident="labelledAbove"/>
-								<valItem mode="add" ident="labelledMargin"/>
-								<valItem mode="add" ident="labelledLinesBefore"/>
-								<valItem mode="add" ident="author"/>
-								<valItem mode="add" ident="edition"/>
-								<valItem mode="add" ident="labelledLinesAfter"/>
-								<valItem mode="add" ident="orig"/>
-								<valItem mode="add" ident="other"/>
-								<valItem mode="add" ident="h1"/>
-								<valItem mode="add" ident="h2"/>
-								<valItem mode="add" ident="h3"/>
-								<valItem mode="add" ident="h4"/>
-								<valItem mode="add" ident="h5"/>
-								<valItem mode="add" ident="h6"/>
-								<valItem mode="add" ident="motto"/>
-								<valItem mode="add" ident="subtitle"/>
-								<valItem mode="add" ident="placeholder"/>
-								<valItem mode="add" ident="asterisk"/>
-								<valItem mode="add" ident="bar"/>
-								<valItem mode="add" ident="dashedLine"/>
-								<valItem mode="add" ident="block"/>
-								<valItem mode="add" ident="mediaCollection"/>
-								<valItem mode="add" ident="choice"/>
-								<valItem mode="add" ident="noAnchor"/>
-								<valItem mode="add" ident="move"/>
-								<valItem mode="add" ident="empty"/>
-								<valItem mode="add" ident="comment"/>
-								<valItem mode="add" ident="introduction"/>
-								<valItem mode="add" ident="readingtext"/>
-								<valItem mode="add" ident="url"/>
-								<valItem mode="add" ident="xref"/>
-								<valItem mode="add" ident="received"/>
-								<valItem mode="add" ident="sent"/>
-							</valList>
+							<valList type="closed" mode="change"/>
 						</attDef>
 						<attDef ident="subtype" mode="change">
-							<valList type="closed" mode="change">
-								<valItem mode="add" ident="title"/>
-								<valItem mode="add" ident="part"/>
-								<valItem mode="add" ident="section"/>
-								<valItem mode="add" ident="suite"/>
-								<valItem mode="add" ident="chapter"/>
-								<valItem mode="add" ident="sub"/>
-								<valItem mode="add" ident="sub2"/>
-								<valItem mode="add" ident="sub3"/>
-								<valItem mode="add" ident="unnumbered">
-									<desc versionDate="2024-09-30" xml:lang="en">the page lacks a
-										written or printed numbering</desc>
-								</valItem>
-							</valList>
+							<valList type="closed" mode="change"/>
 						</attDef>
 					</attList>
 				</classSpec>
