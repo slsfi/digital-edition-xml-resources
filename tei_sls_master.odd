@@ -210,8 +210,8 @@
 								<valItem mode="add" ident="raised"/>
 								<valItem mode="add" ident="smaller"/>
 								<valItem mode="add" ident="strikethrough"/>
-								<valItem mode="add" ident="sub"/>
-								<valItem mode="add" ident="sup"/>
+								<valItem mode="add" ident="subscript"/>
+								<valItem mode="add" ident="superscript"/>
 								<valItem mode="add" ident="underline"/>
 								<valItem mode="add" ident="underlineDashed"/>
 								<valItem mode="add" ident="underlineDouble"/>
@@ -482,8 +482,8 @@
 								<valItem mode="add" ident="raised"/>
 								<valItem mode="add" ident="smaller"/>
 								<valItem mode="add" ident="strikethrough"/>
-								<valItem mode="add" ident="sub"/>
-								<valItem mode="add" ident="sup"/>
+								<valItem mode="add" ident="subscript"/>
+								<valItem mode="add" ident="superscript"/>
 								<valItem mode="add" ident="underline"/>
 								<valItem mode="add" ident="underlineDashed"/>
 								<valItem mode="add" ident="underlineDouble"/>
@@ -702,8 +702,8 @@
 								<valItem mode="add" ident="raised"/>
 								<valItem mode="add" ident="smaller"/>
 								<valItem mode="add" ident="strikethrough"/>
-								<valItem mode="add" ident="sub"/>
-								<valItem mode="add" ident="sup"/>
+								<valItem mode="add" ident="subscript"/>
+								<valItem mode="add" ident="superscript"/>
 								<valItem mode="add" ident="underline"/>
 								<valItem mode="add" ident="underlineDashed"/>
 								<valItem mode="add" ident="underlineDouble"/>
@@ -733,8 +733,8 @@
 								<valItem mode="add" ident="raised"/>
 								<valItem mode="add" ident="smaller"/>
 								<valItem mode="add" ident="strikethrough"/>
-								<valItem mode="add" ident="sub"/>
-								<valItem mode="add" ident="sup"/>
+								<valItem mode="add" ident="subscript"/>
+								<valItem mode="add" ident="superscript"/>
 								<valItem mode="add" ident="underline"/>
 								<valItem mode="add" ident="underlineDashed"/>
 								<valItem mode="add" ident="underlineDouble"/>
@@ -1304,7 +1304,7 @@
 								<valItem mode="add" ident="larger"/>
 								<valItem mode="add" ident="raised"/>
 								<valItem mode="add" ident="smaller"/>
-								<valItem mode="add" ident="sub"/>
+								<valItem mode="add" ident="subscript"/>
 								<valItem mode="add" ident="underline"/>
 								<valItem mode="add" ident="uppercase"/>
 								<valItem mode="add" ident="underlineDashed"/>
@@ -1364,7 +1364,7 @@
 								<valItem mode="add" ident="larger"/>
 								<valItem mode="add" ident="raised"/>
 								<valItem mode="add" ident="smaller"/>
-								<valItem mode="add" ident="sub"/>
+								<valItem mode="add" ident="subscript"/>
 								<valItem mode="add" ident="underline"/>
 								<valItem mode="add" ident="uppercase"/>
 								<valItem mode="add" ident="underlineDashed"/>
@@ -2134,7 +2134,7 @@
 								<valItem mode="add" ident="larger"/>
 								<valItem mode="add" ident="raised"/>
 								<valItem mode="add" ident="smaller"/>
-								<valItem mode="add" ident="sub"/>
+								<valItem mode="add" ident="subscript"/>
 								<valItem mode="add" ident="underline"/>
 								<valItem mode="add" ident="uppercase"/>
 								<valItem mode="add" ident="underlineDashed"/>
@@ -2191,7 +2191,7 @@
 								<valItem mode="add" ident="larger"/>
 								<valItem mode="add" ident="raised"/>
 								<valItem mode="add" ident="smaller"/>
-								<valItem mode="add" ident="sub"/>
+								<valItem mode="add" ident="subscript"/>
 								<valItem mode="add" ident="underline"/>
 								<valItem mode="add" ident="uppercase"/>
 								<valItem mode="add" ident="underlineDashed"/>
@@ -2679,7 +2679,7 @@
 								<valItem mode="add" ident="larger"/>
 								<valItem mode="add" ident="raised"/>
 								<valItem mode="add" ident="smaller"/>
-								<valItem mode="add" ident="sub"/>
+								<valItem mode="add" ident="subscript"/>
 								<valItem mode="add" ident="underline"/>
 								<valItem mode="add" ident="uppercase"/>
 								<valItem mode="add" ident="underlineDashed"/>
@@ -3108,7 +3108,7 @@
 								<valItem mode="add" ident="larger"/>
 								<valItem mode="add" ident="raised"/>
 								<valItem mode="add" ident="smaller"/>
-								<valItem mode="add" ident="sub"/>
+								<valItem mode="add" ident="subscript"/>
 								<valItem mode="add" ident="underline"/>
 								<valItem mode="add" ident="uppercase"/>
 								<valItem mode="add" ident="underlineDashed"/>
