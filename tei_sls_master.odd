@@ -124,7 +124,7 @@
 				</application>
 			</appInfo>
 			<appInfo>
-				<application ident="RomaJS" version="1.1.2" when="2024-12-04T13:25:33.333Z">
+				<application ident="RomaJS" version="1.1.2" when="2024-12-04T13:35:57.383Z">
 					<desc>File edited with <ref target="https://github.com/TEIC/romajs"
 						>RomaJS</ref></desc>
 				</application>
@@ -166,11 +166,11 @@
 
 				<!-- required core elements (p and title for use in titleStmt) -->
 				<moduleRef key="core"
-					include="p title abbr add address addrLine author choice corr date del expan foreign gap graphic head hi item l label lb lg list milestone name note orig pb ptr publisher pubPlace quote ref reg resp respStmt rs unclear"/>
+					include="p title abbr add address addrLine author choice corr date del expan foreign gap graphic head hi item l label lb lg list milestone name note orig pb ptr publisher pubPlace quote ref reg resp respStmt rs unclear bibl cit q"/>
 
 				<!-- required textstructure elements (TEI, text, and body) -->
 				<moduleRef key="textstructure"
-					include="TEI text body closer dateline div opener postscript salute signed argument"/>
+					include="TEI text body closer dateline div opener postscript salute signed argument byline epigraph floatingText"/>
 
 				<!-- required module tei instantiates lots of classes used for further expansion of this odd -->
 				<moduleRef key="tei"/>
@@ -3482,6 +3482,106 @@
 						<attDef ident="xml:lang" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
 						<attDef ident="xml:space" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="bibl" mode="change">
+					<attList>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+						<attDef ident="type" mode="delete"/>
+						<attDef ident="subtype" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="byline" mode="change">
+					<attList>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+						<attDef ident="rend" usage="opt">
+							<datatype>
+								<dataRef key="teidata.word"/>
+							</datatype>
+							<valList type="closed"/>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="cit" mode="change">
+					<attList>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+						<attDef ident="type" mode="delete"/>
+						<attDef ident="subtype" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="epigraph" mode="change">
+					<attList>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="floatingText" mode="change">
+					<attList>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+						<attDef ident="subtype" mode="delete"/>
+						<attDef ident="type" usage="opt">
+							<datatype>
+								<dataRef key="teidata.enumerated"/>
+							</datatype>
+							<valList type="closed"/>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="q" mode="change">
+					<attList>
+						<attDef ident="type" mode="delete"/>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
 					</attList>
 				</elementSpec>
 			</schemaSpec>
