@@ -41,8 +41,7 @@
 						licences. The CC+BY licence is generally appropriate for usages which treat
 						TEI content as data or documentation. The BSD-2 licence is generally
 						appropriate for usage of TEI content in a software environment. For further
-						information or clarification, please contact the <ref
-							target="mailto:info@tei-c.org">TEI Consortium</ref>. </p>
+						information or clarification, please contact the <ref target="mailto:info@tei-c.org">TEI Consortium</ref>. </p>
 				</availability>
 			</publicationStmt>
 			<sourceDesc>
@@ -53,83 +52,70 @@
 		<encodingDesc>
 			<appInfo>
 				<application ident="RomaJS" version="1.1.1" when="2024-09-27T11:04:09.056Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs"
-						>RomaJS</ref></desc>
+					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
 				</application>
 			</appInfo>
 			<appInfo>
 				<application ident="RomaJS" version="1.1.1" when="2024-09-27T12:44:46.880Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs"
-						>RomaJS</ref></desc>
+					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
 				</application>
 			</appInfo>
 			<appInfo>
 				<application ident="RomaJS" version="1.1.1" when="2024-09-27T17:49:56.516Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs"
-						>RomaJS</ref></desc>
+					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
 				</application>
 			</appInfo>
 			<appInfo>
 				<application ident="RomaJS" version="1.1.1" when="2024-10-08T14:59:16.458Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs"
-						>RomaJS</ref></desc>
+					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
 				</application>
 			</appInfo>
 			<appInfo>
 				<application ident="RomaJS" version="1.1.1" when="2024-10-08T15:09:56.827Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs"
-						>RomaJS</ref></desc>
+					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
 				</application>
 			</appInfo>
 			<appInfo>
 				<application ident="RomaJS" version="1.1.1" when="2024-10-08T15:32:42.946Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs"
-						>RomaJS</ref></desc>
+					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
 				</application>
 			</appInfo>
 			<appInfo>
 				<application ident="RomaJS" version="1.1.1" when="2024-10-10T08:43:06.684Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs"
-						>RomaJS</ref></desc>
+					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
 				</application>
 			</appInfo>
 			<appInfo>
 				<application ident="RomaJS" version="1.1.1" when="2024-10-10T08:46:19.390Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs"
-						>RomaJS</ref></desc>
+					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
 				</application>
 			</appInfo>
 			<appInfo>
 				<application ident="RomaJS" version="1.1.1" when="2024-10-11T03:54:38.930Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs"
-						>RomaJS</ref></desc>
+					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
 				</application>
 			</appInfo>
 			<appInfo>
 				<application ident="RomaJS" version="1.1.1" when="2024-10-11T06:05:06.942Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs"
-						>RomaJS</ref></desc>
+					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
 				</application>
 			</appInfo>
 			<appInfo>
 				<application ident="RomaJS" version="1.1.1" when="2024-10-11T06:31:57.495Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs"
-						>RomaJS</ref></desc>
+					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
 				</application>
 			</appInfo>
 			<appInfo>
 				<application ident="RomaJS" version="1.1.1" when="2024-10-11T08:31:25.202Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs"
-						>RomaJS</ref></desc>
+					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
 				</application>
 			</appInfo>
 			<appInfo>
 				<application ident="RomaJS" version="1.1.2" when="2024-12-04T13:35:57.383Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs"
-						>RomaJS</ref></desc>
+					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
 				</application>
 			</appInfo>
-		</encodingDesc>
+		<appInfo><application ident="RomaJS" version="1.1.2" when="2024-12-04T19:58:42.510Z"><desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc></application></appInfo></encodingDesc>
 	</teiHeader>
 	<text>
 		<body>
@@ -157,28 +143,23 @@
 						text</item>
 				</list>
 			</p>
-			<schemaSpec ident="tei_sls_master" start="TEI" prefix="tei_" targetLang="en"
-				docLang="en">
+			<schemaSpec ident="tei_sls_master" start="TEI" prefix="tei_" targetLang="en" docLang="en">
 
 				<!-- required minimal header elements -->
-				<moduleRef key="header"
-					include="teiHeader fileDesc titleStmt publicationStmt sourceDesc availability change correspAction correspDesc encodingDesc handNote idno licence notesStmt profileDesc revisionDesc seriesStmt"/>
+				<moduleRef key="header" include="teiHeader fileDesc titleStmt publicationStmt sourceDesc availability change correspAction correspDesc encodingDesc handNote idno licence notesStmt profileDesc revisionDesc seriesStmt"/>
 
 				<!-- required core elements (p and title for use in titleStmt) -->
-				<moduleRef key="core"
-					include="p title abbr add address addrLine author choice corr date del expan foreign gap graphic head hi item l label lb lg list milestone name note orig pb ptr publisher pubPlace quote ref reg resp respStmt rs unclear bibl cit q"/>
+				<moduleRef key="core" include="p title abbr add address addrLine author choice corr date del expan foreign gap graphic head hi item l label lb lg list milestone name note orig pb ptr publisher pubPlace quote ref reg resp respStmt rs unclear bibl cit q"/>
 
 				<!-- required textstructure elements (TEI, text, and body) -->
-				<moduleRef key="textstructure"
-					include="TEI text body closer dateline div opener postscript salute signed argument byline epigraph floatingText"/>
+				<moduleRef key="textstructure" include="TEI text body closer dateline div opener postscript salute signed argument byline epigraph floatingText"/>
 
 				<!-- required module tei instantiates lots of classes used for further expansion of this odd -->
 				<moduleRef key="tei"/>
 
 
 				<moduleRef key="linking" include="ab anchor seg"/>
-				<moduleRef key="transcr"
-					include="addSpan delSpan handNotes handShift metamark restore space subst supplied"/>
+				<moduleRef key="transcr" include="addSpan delSpan handNotes handShift metamark restore space subst supplied"/>
 				<moduleRef key="textcrit" include="app lem rdg"/>
 				<moduleRef key="analysis" include="c pc"/>
 				<moduleRef key="figures" include="cell figDesc figure row table"/>
@@ -794,7 +775,7 @@
 				</elementSpec>
 				<elementSpec ident="div" mode="change">
 					<classes mode="change">
-						<memberOf key="att.fragmentable" mode="delete"/>
+						<memberOf key="att.fragmentable"/>
 						<memberOf key="att.written" mode="delete"/>
 					</classes>
 					<attList>
@@ -813,6 +794,12 @@
 								<valItem mode="add" ident="letterpart"/>
 								<valItem mode="add" ident="poem"/>
 								<valItem mode="add" ident="prose"/>
+							</valList>
+						</attDef>
+						<attDef ident="part" mode="change">
+							<valList type="closed" mode="change">
+								<valItem mode="delete" ident="M"/>
+								<valItem mode="delete" ident="F2"/>
 							</valList>
 						</attDef>
 					</attList>
@@ -3153,7 +3140,7 @@
 								</valItem>
 								<valItem mode="change" ident="F">
 									<desc versionDate="2024-09-30" xml:lang="en">this is the final
-										part of a fragmented element if there are three fragments,
+										part of a fragmented element if there are two or three fragments,
 										or the second to last part if there are four
 										fragments</desc>
 								</valItem>
@@ -3163,7 +3150,6 @@
 										the fragmented element</desc>
 								</valItem>
 								<valItem mode="delete" ident="Y"/>
-								<valItem mode="delete" ident="N"/>
 							</valList>
 						</attDef>
 					</attList>
