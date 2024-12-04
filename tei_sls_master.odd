@@ -535,40 +535,11 @@
 						<attDef ident="source" mode="delete"/>
 						<attDef ident="rend" mode="change">
 							<valList type="closed" mode="change">
-								<valItem mode="delete" ident="parIndent"/>
-								<valItem mode="delete" ident="noIndent"/>
-								<valItem mode="delete" ident="right"/>
-								<valItem mode="delete" ident="indent"/>
-								<valItem mode="delete" ident="dash"/>
-								<valItem mode="delete" ident="decimal"/>
-								<valItem mode="delete" ident="disc"/>
-								<valItem mode="delete" ident="lower-greek"/>
-								<valItem mode="delete" ident="lower-latin"/>
-								<valItem mode="delete" ident="lower-roman"/>
-								<valItem mode="delete" ident="upper-latin"/>
-								<valItem mode="delete" ident="upper-roman"/>
-								<valItem mode="delete" ident="borderedCellTable"/>
-								<valItem mode="delete" ident="bottomBorderedRowsTable"/>
-								<valItem mode="delete" ident="centeredTable"/>
-								<valItem mode="delete" ident="paddedTable"/>
-								<valItem mode="delete" ident="condensedTableCells"/>
-								<valItem mode="delete" ident="equalWidthTable2"/>
-								<valItem mode="delete" ident="equalWidthTable3"/>
-								<valItem mode="delete" ident="equalWidthTable4"/>
-								<valItem mode="delete" ident="encircled"/>
-								<valItem mode="delete" ident="expanded"/>
-								<valItem mode="delete" ident="italics"/>
-								<valItem mode="delete" ident="larger"/>
-								<valItem mode="delete" ident="raised"/>
-								<valItem mode="delete" ident="smaller"/>
-								<valItem mode="delete" ident="sub"/>
-								<valItem mode="delete" ident="underline"/>
-								<valItem mode="delete" ident="uppercase"/>
-								<valItem mode="delete" ident="strikethrough"/>
-								<valItem mode="delete" ident="printed"/>
-								<valItem mode="delete" ident="stamped"/>
-								<valItem mode="delete" ident="underlineDashed"/>
-								<valItem mode="delete" ident="underlineDouble"/>
+								<valItem mode="add" ident="bold"/>
+								<valItem mode="add" ident="botBorder"/>
+								<valItem mode="add" ident="center"/>
+								<valItem mode="add" ident="rightBorder"/>
+								<valItem mode="add" ident="verticalCenter"/>
 							</valList>
 						</attDef>
 					</attList>
@@ -2726,9 +2697,9 @@
 						<attDef ident="rows" mode="delete"/>
 						<attDef ident="rend" mode="change">
 							<valList type="closed" mode="change">
-								<valItem mode="add" ident="center"/>
 								<valItem mode="add" ident="bold"/>
 								<valItem mode="add" ident="botBorder"/>
+								<valItem mode="add" ident="center"/>
 								<valItem mode="add" ident="rightBorder"/>
 								<valItem mode="add" ident="verticalCenter"/>
 							</valList>
