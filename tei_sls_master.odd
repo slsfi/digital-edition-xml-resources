@@ -2780,11 +2780,11 @@
 								<valItem mode="add" ident="borderedCellTable"/>
 								<valItem mode="add" ident="bottomBorderedRowsTable"/>
 								<valItem mode="add" ident="centeredTable"/>
-								<valItem mode="add" ident="paddedTable"/>
 								<valItem mode="add" ident="condensedTableCells"/>
 								<valItem mode="add" ident="equalWidthTable2"/>
 								<valItem mode="add" ident="equalWidthTable3"/>
 								<valItem mode="add" ident="equalWidthTable4"/>
+								<valItem mode="add" ident="paddedTable"/>
 							</valList>
 						</attDef>
 						<attDef ident="rows" mode="delete"/>
@@ -2916,11 +2916,13 @@
 								<valItem mode="add" ident="larger"/>
 								<valItem mode="add" ident="raised"/>
 								<valItem mode="add" ident="smaller"/>
+								<valItem mode="add" ident="strikethrough"/>
 								<valItem mode="add" ident="subscript"/>
+								<valItem mode="add" ident="superscript"/>
 								<valItem mode="add" ident="underline"/>
-								<valItem mode="add" ident="uppercase"/>
 								<valItem mode="add" ident="underlineDashed"/>
 								<valItem mode="add" ident="underlineDouble"/>
+								<valItem mode="add" ident="uppercase"/>
 							</valList>
 						</attDef>
 						<attDef ident="calendar" mode="delete"/>
