@@ -1494,10 +1494,10 @@
 						<attDef ident="subtype" mode="delete"/>
 						<attDef ident="rend" mode="change">
 							<valList type="closed" mode="change">
-								<valItem mode="add" ident="indent"/>
 								<valItem mode="add" ident="dash"/>
 								<valItem mode="add" ident="decimal"/>
 								<valItem mode="add" ident="disc"/>
+								<valItem mode="add" ident="indent"/>
 								<valItem mode="add" ident="lower-greek"/>
 								<valItem mode="add" ident="lower-latin"/>
 								<valItem mode="add" ident="lower-roman"/>
