@@ -1520,7 +1520,9 @@
 						<attDef ident="exclude" mode="delete"/>
 						<attDef ident="select" mode="delete"/>
 						<attDef ident="function" mode="change" usage="req">
-							<valList type="closed" mode="change"/>
+							<valList type="closed" mode="change">
+								<valItem ident="instruction" mode="add"/>
+							</valList>
 						</attDef>
 						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="n" mode="delete"/>
