@@ -798,8 +798,25 @@
 						</attDef>
 						<attDef ident="part" mode="change">
 							<valList type="closed" mode="change">
+								<valItem mode="change" ident="I">
+									<desc versionDate="2024-09-30" xml:lang="en">this is the
+										initial part of a fragmented element</desc>
+								</valItem>
+								<valItem mode="change" ident="F">
+									<desc versionDate="2024-09-30" xml:lang="en">this is the final
+										part of a fragmented element if there are three fragments,
+										or the second to last part if there are four
+										fragments</desc>
+								</valItem>
+								<valItem mode="change" ident="N">
+									<desc versionDate="2024-09-30" xml:lang="en">the element is not
+										fragmented, or no claim is made as to its completeness;
+										this value is equivalent to not having the part-attribute
+										on the element</desc>
+								</valItem>
 								<valItem mode="delete" ident="M"/>
 								<valItem mode="delete" ident="F2"/>
+								<valItem mode="delete" ident="Y"/>
 							</valList>
 						</attDef>
 					</attList>
@@ -1259,7 +1276,11 @@
 						<attDef ident="resp" mode="delete"/>
 						<attDef ident="source" mode="delete"/>
 						<attDef ident="part" mode="change">
-							<valList mode="change">
+							<valList type="closed" mode="change">
+								<valItem mode="change" ident="I">
+									<desc versionDate="2024-09-30" xml:lang="en">this is the
+										initial part of a fragmented element</desc>
+								</valItem>
 								<valItem mode="change" ident="M">
 									<desc versionDate="2024-09-30" xml:lang="en">this is a medial
 										part of a fragmented element if there are three fragments,
@@ -1276,8 +1297,13 @@
 										are four fragments, in that case this is the final part of
 										the fragmented element</desc>
 								</valItem>
+								<valItem mode="change" ident="N">
+									<desc versionDate="2024-09-30" xml:lang="en">the element is not
+										fragmented, or no claim is made as to its completeness;
+										this value is equivalent to not having the part-attribute
+										on the element</desc>
+								</valItem>
 								<valItem mode="delete" ident="Y"/>
-								<valItem mode="delete" ident="N"/>
 							</valList>
 						</attDef>
 						<attDef ident="rend" mode="change">
@@ -1315,16 +1341,8 @@
 						<attDef ident="hand" mode="delete"/>
 						<attDef ident="place" mode="change" usage="opt">
 							<valList type="closed" mode="change">
-								<valItem mode="delete" ident="top"/>
-								<valItem mode="delete" ident="bottom"/>
-								<valItem mode="delete" ident="opposite"/>
-								<valItem mode="delete" ident="overleaf"/>
-								<valItem mode="delete" ident="right"/>
-								<valItem mode="delete" ident="below"/>
-								<valItem mode="delete" ident="left"/>
-								<valItem mode="delete" ident="end"/>
-								<valItem mode="delete" ident="inline"/>
-								<valItem mode="delete" ident="inspace"/>
+								<valItem mode="add" ident="above"/>
+								<valItem mode="add" ident="margin"/>
 							</valList>
 						</attDef>
 					</attList>
@@ -3072,7 +3090,11 @@
 				<classSpec ident="att.fragmentable" type="atts" mode="change">
 					<attList>
 						<attDef ident="part" mode="change">
-							<valList mode="change">
+							<valList type="closed" mode="change">
+								<valItem mode="change" ident="I">
+									<desc versionDate="2024-09-30" xml:lang="en">this is the
+										initial part of a fragmented element</desc>
+								</valItem>
 								<valItem mode="change" ident="M">
 									<desc versionDate="2024-09-30" xml:lang="en">this is a medial
 										part of a fragmented element if there are three fragments,
@@ -3081,13 +3103,18 @@
 								<valItem mode="change" ident="F">
 									<desc versionDate="2024-09-30" xml:lang="en">this is the final
 										part of a fragmented element if there are two or three fragments,
-										or the second to last part if there are four
-										fragments</desc>
+										or the second to last part if there are four fragments</desc>
 								</valItem>
 								<valItem mode="add" ident="F2">
 									<desc versionDate="2024-09-30" xml:lang="en">only used if there
 										are four fragments, in that case this is the final part of
 										the fragmented element</desc>
+								</valItem>
+								<valItem mode="change" ident="N">
+									<desc versionDate="2024-09-30" xml:lang="en">the element is not
+										fragmented, or no claim is made as to its completeness;
+										this option is equivalent to not having the part-attribute
+										on the element</desc>
 								</valItem>
 								<valItem mode="delete" ident="Y"/>
 							</valList>
@@ -3214,17 +3241,17 @@
 						<attDef ident="place" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="delete" ident="above"/>
-								<valItem mode="delete" ident="margin"/>
+								<valItem mode="delete" ident="below"/>
+								<valItem mode="delete" ident="bottom"/>
 								<valItem mode="delete" ident="end"/>
 								<valItem mode="delete" ident="inline"/>
-								<valItem mode="delete" ident="top"/>
-								<valItem mode="delete" ident="bottom"/>
+								<valItem mode="delete" ident="inspace"/>
+								<valItem mode="delete" ident="left"/>
+								<valItem mode="delete" ident="margin"/>
 								<valItem mode="delete" ident="opposite"/>
 								<valItem mode="delete" ident="overleaf"/>
 								<valItem mode="delete" ident="right"/>
-								<valItem mode="delete" ident="below"/>
-								<valItem mode="delete" ident="left"/>
-								<valItem mode="delete" ident="inspace"/>
+								<valItem mode="delete" ident="top"/>
 							</valList>
 						</attDef>
 					</attList>
