@@ -1641,22 +1641,12 @@
 						<attDef ident="subtype" mode="delete"/>
 						<attDef ident="place" mode="change" usage="req">
 							<valList type="closed" mode="change">
+								<valItem mode="add" ident="end"/>
 								<valItem mode="add" ident="foot"/>
 								<valItem mode="add" ident="leftMargin"/>
 								<valItem mode="add" ident="other"/>
 								<valItem mode="add" ident="rightMargin"/>
 								<valItem mode="add" ident="topMargin"/>
-								<valItem mode="delete" ident="top"/>
-								<valItem mode="delete" ident="bottom"/>
-								<valItem mode="delete" ident="margin"/>
-								<valItem mode="delete" ident="opposite"/>
-								<valItem mode="delete" ident="overleaf"/>
-								<valItem mode="delete" ident="above"/>
-								<valItem mode="delete" ident="right"/>
-								<valItem mode="delete" ident="below"/>
-								<valItem mode="delete" ident="left"/>
-								<valItem mode="delete" ident="inline"/>
-								<valItem mode="delete" ident="inspace"/>
 							</valList>
 						</attDef>
 						<attDef ident="xml:id" mode="change" usage="req"/>
@@ -1844,9 +1834,9 @@
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="author"/>
 								<valItem mode="add" ident="edition"/>
+								<valItem mode="add" ident="facs"/>
 								<valItem mode="add" ident="orig"/>
 								<valItem mode="add" ident="other"/>
-								<valItem mode="add" ident="facs"/>
 							</valList>
 						</attDef>
 						<attDef ident="subtype" mode="change">
@@ -1941,11 +1931,13 @@
 								<valItem mode="add" ident="larger"/>
 								<valItem mode="add" ident="raised"/>
 								<valItem mode="add" ident="smaller"/>
+								<valItem mode="add" ident="strikethrough"/>
 								<valItem mode="add" ident="subscript"/>
+								<valItem mode="add" ident="superscript"/>
 								<valItem mode="add" ident="underline"/>
-								<valItem mode="add" ident="uppercase"/>
 								<valItem mode="add" ident="underlineDashed"/>
 								<valItem mode="add" ident="underlineDouble"/>
+								<valItem mode="add" ident="uppercase"/>
 							</valList>
 						</attDef>
 						<attDef ident="calendar" mode="delete"/>
@@ -1998,11 +1990,13 @@
 								<valItem mode="add" ident="larger"/>
 								<valItem mode="add" ident="raised"/>
 								<valItem mode="add" ident="smaller"/>
+								<valItem mode="add" ident="strikethrough"/>
 								<valItem mode="add" ident="subscript"/>
+								<valItem mode="add" ident="superscript"/>
 								<valItem mode="add" ident="underline"/>
-								<valItem mode="add" ident="uppercase"/>
 								<valItem mode="add" ident="underlineDashed"/>
 								<valItem mode="add" ident="underlineDouble"/>
+								<valItem mode="add" ident="uppercase"/>
 							</valList>
 						</attDef>
 						<attDef ident="calendar" mode="delete"/>
