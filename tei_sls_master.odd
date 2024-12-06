@@ -2169,6 +2169,11 @@
 						<attDef ident="cert" mode="delete"/>
 						<attDef ident="resp" mode="delete"/>
 						<attDef ident="source" mode="delete"/>
+						<attDef ident="rend" mode="change">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="parIndent"/>
+							</valList>
+						</attDef>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="quote" mode="change">
@@ -3002,6 +3007,7 @@
 
 				<classSpec ident="att.anchoring" type="atts" mode="delete"/>
 				<classSpec ident="att.ascribed" type="atts" mode="delete"/>
+				<classSpec ident="att.ascribed.directed" type="atts" mode="delete"/>
 				<classSpec ident="att.cReferencing" type="atts" mode="delete"/>
 				<classSpec ident="att.calendarSystem" type="atts" mode="delete"/>
 				<classSpec ident="att.cmc" type="atts" mode="delete"/>
