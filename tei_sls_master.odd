@@ -45,104 +45,21 @@
 				</availability>
 			</publicationStmt>
 			<sourceDesc>
-				<p>Created from scratch by James Cummings, but looking at previous tei_minimal and
-					tei_bare exemplars by SPQR and LR.</p>
+				<p>TEI Minimal.</p>
 			</sourceDesc>
 		</fileDesc>
 		<encodingDesc>
 			<appInfo>
-				<application ident="RomaJS" version="1.1.1" when="2024-09-27T11:04:09.056Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
-				</application>
+				<application ident="RomaJS" version="1.1.2" when="2024-12-04T19:58:42.510Z"><desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc></application>
 			</appInfo>
-			<appInfo>
-				<application ident="RomaJS" version="1.1.1" when="2024-09-27T12:44:46.880Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
-				</application>
-			</appInfo>
-			<appInfo>
-				<application ident="RomaJS" version="1.1.1" when="2024-09-27T17:49:56.516Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
-				</application>
-			</appInfo>
-			<appInfo>
-				<application ident="RomaJS" version="1.1.1" when="2024-10-08T14:59:16.458Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
-				</application>
-			</appInfo>
-			<appInfo>
-				<application ident="RomaJS" version="1.1.1" when="2024-10-08T15:09:56.827Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
-				</application>
-			</appInfo>
-			<appInfo>
-				<application ident="RomaJS" version="1.1.1" when="2024-10-08T15:32:42.946Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
-				</application>
-			</appInfo>
-			<appInfo>
-				<application ident="RomaJS" version="1.1.1" when="2024-10-10T08:43:06.684Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
-				</application>
-			</appInfo>
-			<appInfo>
-				<application ident="RomaJS" version="1.1.1" when="2024-10-10T08:46:19.390Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
-				</application>
-			</appInfo>
-			<appInfo>
-				<application ident="RomaJS" version="1.1.1" when="2024-10-11T03:54:38.930Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
-				</application>
-			</appInfo>
-			<appInfo>
-				<application ident="RomaJS" version="1.1.1" when="2024-10-11T06:05:06.942Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
-				</application>
-			</appInfo>
-			<appInfo>
-				<application ident="RomaJS" version="1.1.1" when="2024-10-11T06:31:57.495Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
-				</application>
-			</appInfo>
-			<appInfo>
-				<application ident="RomaJS" version="1.1.1" when="2024-10-11T08:31:25.202Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
-				</application>
-			</appInfo>
-			<appInfo>
-				<application ident="RomaJS" version="1.1.2" when="2024-12-04T13:35:57.383Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
-				</application>
-			</appInfo>
-		<appInfo><application ident="RomaJS" version="1.1.2" when="2024-12-04T19:58:42.510Z"><desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc></application></appInfo></encodingDesc>
+		</encodingDesc>
 	</teiHeader>
 	<text>
 		<body>
-			<head>A Minimal TEI Customization</head>
+			<head>Master TEI Customization of the Society of Swedish Literature in Finland (SLS)</head>
+			
+			<p>This TEI ODD defines a TEI customization that is used as the master TEI customization for TEI-encoded text by the Society of Swedish Literature in Finland (<ref target="https://www.sls.fi/">SLS</ref>). This customization can be further customized for different text types or editions. The ODD was originally created in October–December 2024, first with RomaJS 1.1.1, then by manual editing to fix problems that RomaJS caused.</p>
 
-			<p>This TEI ODD defines a TEI customization that is as minimal as possible and the
-				schema generated from it will validate a document that is minimally valid against
-				the TEI scheme. It includes only the ten required elements: <list rend="numbered">
-					<item><gi>teiHeader</gi> from the header module to store required
-						metadata</item>
-					<item><gi>fileDesc</gi> from the header module to record information about this
-						file</item>
-					<item><gi>titleStmt</gi> from the header module to record information about the
-						title</item>
-					<item><gi>publicationStmt</gi> from the header module to detail how it is
-						published</item>
-					<item><gi>sourceDesc</gi> from the header module to record where it is
-						from</item>
-					<item><gi>p</gi> from the core module for use in the header and the body</item>
-					<item><gi>title</gi> from the core module for use in the titleStmt</item>
-					<item><gi>TEI</gi> from the textstructure module because what is a TEI file
-						without that?</item>
-					<item><gi>text</gi> from the textstructure module to hold some text</item>
-					<item><gi>body</gi> from the textstructure module as a place to put that
-						text</item>
-				</list>
-			</p>
 			<schemaSpec ident="tei_sls_master" start="TEI" prefix="tei_" targetLang="en" docLang="en">
 
 				<!-- required minimal header elements -->
