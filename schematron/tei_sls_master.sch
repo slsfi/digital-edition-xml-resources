@@ -216,4 +216,14 @@ The element indicated by @spanTo (<value-of select="@spanTo"/>) must follow the 
                         but this <name/> element has no textual content.</assert>
                 </rule>
             </pattern>
+
+	<!-- ADDITIONAL CONSTRAINTS BASED ON SLS TEXT ENCODING GUIDELINES -->
+	<pattern id="check-letter-has-correspdesc">
+		<rule context="/tei:TEI">
+			<!-- Assert that if there is a <tei:div> or <tei:text> with @type="letter", then <tei:correspDesc> must be in /tei:teiHeader/tei:profileDesc -->
+			<assert test="not((//tei:div[@type='letter'] or //tei:text[@type='letter']) and not(tei:teiHeader/tei:profileDesc/tei:correspDesc))">
+				If the document contains a div or text-element with @type="letter", it must also contain a correspDesc-element within /tei:teiHeader/tei:profileDesc with metadata about the letter.
+			</assert>
+		</rule>
+	</pattern>
 </schema>
