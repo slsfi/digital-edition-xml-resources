@@ -1121,7 +1121,7 @@
 						<attDef ident="exclude" mode="delete"/>
 						<attDef ident="select" mode="delete"/>
 						<attDef ident="type" mode="change">
-							<valList type="semi" mode="change">
+							<valList type="closed" mode="change">
 								<valItem mode="add" ident="dbPublicationId">
 									<desc versionDate="2024-10-09" xml:lang="en">ID of the text in
 										the publication table in the digitaledition database.</desc>
