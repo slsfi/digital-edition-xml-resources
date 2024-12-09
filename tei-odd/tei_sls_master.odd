@@ -546,6 +546,10 @@
 						<attDef ident="subtype" mode="delete"/>
 						<attDef ident="type" mode="change" usage="req">
 							<valList type="closed" mode="change">
+								<valItem mode="add" ident="sent"/>
+								<valItem mode="add" ident="received"/>
+								<valItem mode="delete" ident="received"/>
+								<valItem mode="delete" ident="sent"/>
 								<valItem mode="delete" ident="transmitted"/>
 								<valItem mode="delete" ident="redirected"/>
 								<valItem mode="delete" ident="forwarded"/>
