@@ -12,3 +12,7 @@ This repository contains XML resources like schemas and transformation styleshee
 
 - All modifications should primarily be made to the TEI SLS Master ODD file, which is then converted to Schematron and XSD files using [TEI Garage](https://teigarage.tei-c.org/). However, some manual editing of Schematron and XSD files is necessary, so be observant of existing changes when generating new Schematron and XSD files and committing them.
 - The file extension of ISO Schematron files served by TEI Garage is `.xml`, but you should save the Schematron files with the `.sch` extension for Oxygen to recognize them.
+
+## Oxygen
+
+For [Oxygen XML Editor](https://www.oxygenxml.com/) to run validation against XML schemas on GitHub, you need to add `raw.githubusercontent.com` to its Trusted Hosts (Options -> Preferences -> Network Connection Settings -> Trusted Hosts). Oxygen will likely suggest adding `raw.githubusercontent.com:443` to its Trusted Hosts the first time you open an XML document with schemas on GitHub, however, the URL needs to be added without the port `:443`.
