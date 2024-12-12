@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2024-12-09T15:20:19Z. . 
+    Schema generated from ODD source 2024-12-12T04:59:41Z. . 
     TEI Edition: P5 Version 4.8.1. Last updated on 1st November 2024, revision 0a2bff95a 
     TEI Edition Location: https://www.tei-c.org/Vault/P5/4.8.1/ 
     
@@ -1810,6 +1810,11 @@
                             <xs:documentation/>
                           </xs:annotation>
                         </xs:enumeration>
+                        <xs:enumeration value="smallCaps">
+                          <xs:annotation>
+                            <xs:documentation/>
+                          </xs:annotation>
+                        </xs:enumeration>
                         <xs:enumeration value="smaller">
                           <xs:annotation>
                             <xs:documentation/>
@@ -1907,6 +1912,11 @@
                           </xs:annotation>
                         </xs:enumeration>
                         <xs:enumeration value="raised">
+                          <xs:annotation>
+                            <xs:documentation/>
+                          </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="smallCaps">
                           <xs:annotation>
                             <xs:documentation/>
                           </xs:annotation>
@@ -2599,6 +2609,11 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</xs:documentation>
                             <xs:documentation/>
                           </xs:annotation>
                         </xs:enumeration>
+                        <xs:enumeration value="smallCaps">
+                          <xs:annotation>
+                            <xs:documentation/>
+                          </xs:annotation>
+                        </xs:enumeration>
                         <xs:enumeration value="smaller">
                           <xs:annotation>
                             <xs:documentation/>
@@ -2716,6 +2731,11 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</xs:documentation>
                       </xs:annotation>
                     </xs:enumeration>
                     <xs:enumeration value="raised">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="smallCaps">
                       <xs:annotation>
                         <xs:documentation/>
                       </xs:annotation>
@@ -3062,6 +3082,11 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</xs:documentation>
                       </xs:annotation>
                     </xs:enumeration>
                     <xs:enumeration value="raised">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="smallCaps">
                       <xs:annotation>
                         <xs:documentation/>
                       </xs:annotation>
@@ -3424,6 +3449,11 @@ Elements 7.2.5. Speech Contents]</xs:documentation>
                           </xs:annotation>
                         </xs:enumeration>
                         <xs:enumeration value="raised">
+                          <xs:annotation>
+                            <xs:documentation/>
+                          </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="smallCaps">
                           <xs:annotation>
                             <xs:documentation/>
                           </xs:annotation>
@@ -4221,6 +4251,11 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationMsId; 3] DOI; 4] I
                         <xs:documentation/>
                       </xs:annotation>
                     </xs:enumeration>
+                    <xs:enumeration value="smallCaps">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:enumeration>
                     <xs:enumeration value="smaller">
                       <xs:annotation>
                         <xs:documentation/>
@@ -4316,6 +4351,11 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationMsId; 3] DOI; 4] I
                       </xs:annotation>
                     </xs:enumeration>
                     <xs:enumeration value="raised">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="smallCaps">
                       <xs:annotation>
                         <xs:documentation/>
                       </xs:annotation>
@@ -4505,6 +4545,11 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationMsId; 3] DOI; 4] I
                           </xs:annotation>
                         </xs:enumeration>
                         <xs:enumeration value="raised">
+                          <xs:annotation>
+                            <xs:documentation/>
+                          </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="smallCaps">
                           <xs:annotation>
                             <xs:documentation/>
                           </xs:annotation>
@@ -5469,6 +5514,11 @@ Suggested values include: 1] label; 2] data</xs:documentation>
                             <xs:documentation/>
                           </xs:annotation>
                         </xs:enumeration>
+                        <xs:enumeration value="smallCaps">
+                          <xs:annotation>
+                            <xs:documentation/>
+                          </xs:annotation>
+                        </xs:enumeration>
                         <xs:enumeration value="smaller">
                           <xs:annotation>
                             <xs:documentation/>
@@ -5567,6 +5617,11 @@ Suggested values include: 1] label; 2] data</xs:documentation>
                           </xs:annotation>
                         </xs:enumeration>
                         <xs:enumeration value="raised">
+                          <xs:annotation>
+                            <xs:documentation/>
+                          </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="smallCaps">
                           <xs:annotation>
                             <xs:documentation/>
                           </xs:annotation>
