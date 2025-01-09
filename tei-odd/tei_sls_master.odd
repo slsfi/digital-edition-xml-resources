@@ -1349,7 +1349,6 @@
 						<attDef ident="exclude" mode="delete"/>
 						<attDef ident="select" mode="delete"/>
 						<attDef ident="xml:id" mode="delete"/>
-						<attDef ident="n" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
 						<attDef ident="xml:space" mode="delete"/>
 						<attDef ident="facs" mode="delete"/>
