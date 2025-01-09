@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2024-12-12T04:59:41Z. . 
+    Schema generated from ODD source 2025-01-09T06:35:12Z. . 
     TEI Edition: P5 Version 4.8.1. Last updated on 1st November 2024, revision 0a2bff95a 
     TEI Edition Location: https://www.tei-c.org/Vault/P5/4.8.1/ 
     
@@ -3645,6 +3645,7 @@ Elements 7.2.5. Speech Contents]</xs:documentation>
           <xs:group minOccurs="0" maxOccurs="unbounded" ref="tei:tei_model.global"/>
         </xs:sequence>
       </xs:sequence>
+      <xs:attributeGroup ref="tei:tei_att.global.attribute.n"/>
       <xs:attributeGroup ref="tei:tei_att.global.attribute.xmllang"/>
       <xs:attribute name="type">
         <xs:annotation>
