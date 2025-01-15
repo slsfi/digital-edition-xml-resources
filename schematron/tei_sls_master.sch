@@ -226,4 +226,12 @@ The element indicated by @spanTo (<value-of select="@spanTo"/>) must follow the 
 			</assert>
 		</rule>
 	</pattern>
+	<pattern id="only-one-genre-type-term-in-textclass">
+		<rule context="tei:textClass/tei:keywords">
+			<!-- Assert that there is a maximum of one <tei:term> with @type="genre" in /tei:teiHeader/tei:profileDesc/tei:textClass/tei:keywords -->
+			<assert test="count(/descendant::tei:term[@type='genre']) le 1">
+				The keywords-element in textClass cannot contain more than one term-element with a type-attribute value of "genre".
+			</assert>
+		</rule>
+	</pattern>
 </schema>
