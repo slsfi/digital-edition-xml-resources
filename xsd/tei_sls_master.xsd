@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2025-01-09T06:35:12Z. . 
+    Schema generated from ODD source 2025-01-15T04:12:47Z. . 
     TEI Edition: P5 Version 4.8.1. Last updated on 1st November 2024, revision 0a2bff95a 
     TEI Edition Location: https://www.tei-c.org/Vault/P5/4.8.1/ 
     
@@ -47,6 +47,12 @@
       <xs:group ref="tei:tei_model.global"/>
     </xs:choice>
   </xs:complexType>
+  <xs:group name="anyElement_xenoData_1">
+    <xs:choice>
+      <xs:any namespace="##other" processContents="skip"/>
+      <xs:any namespace="##local" processContents="skip"/>
+    </xs:choice>
+  </xs:group>
   <xs:attributeGroup name="tei_att.canonical.attributes">
     <xs:attributeGroup ref="tei:tei_att.canonical.attribute.key"/>
   </xs:attributeGroup>
@@ -1670,6 +1676,7 @@
     <xs:choice>
       <xs:element ref="tei:encodingDesc"/>
       <xs:element ref="tei:profileDesc"/>
+      <xs:element ref="tei:xenoData"/>
     </xs:choice>
   </xs:group>
   <xs:group name="tei_model.profileDescPart">
@@ -3963,6 +3970,14 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationMsId; 3] DOI; 4] I
           </xs:restriction>
         </xs:simpleType>
       </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="xenoData">
+    <xs:annotation>
+      <xs:documentation>(non-TEI metadata) provides a container element into which metadata in non-TEI formats may be placed. [2.5. Non-TEI Metadata]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType mixed="true">
+      <xs:group minOccurs="0" ref="tei:anyElement_xenoData_1"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="revisionDesc">
