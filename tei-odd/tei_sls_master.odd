@@ -52,7 +52,7 @@
 			<appInfo>
 				<application ident="RomaJS" version="1.1.2" when="2024-12-04T19:58:42.510Z"><desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc></application>
 			</appInfo>
-		<appInfo><application ident="RomaJS" version="1.1.2" when="2025-01-15T04:01:04.221Z"><desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc></application></appInfo></encodingDesc>
+		<appInfo><application ident="RomaJS" version="1.1.2" when="2025-01-15T10:14:01.901Z"><desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc></application></appInfo></encodingDesc>
 	</teiHeader>
 	<text>
 		<body>
@@ -63,10 +63,10 @@
 			<schemaSpec ident="tei_sls_master" start="TEI" prefix="tei_" targetLang="en" docLang="en">
 
 				<!-- required minimal header elements -->
-				<moduleRef key="header" include="teiHeader fileDesc titleStmt publicationStmt sourceDesc availability change correspAction correspDesc encodingDesc handNote idno licence notesStmt profileDesc revisionDesc seriesStmt xenoData"/>
+				<moduleRef key="header" include="teiHeader fileDesc titleStmt publicationStmt sourceDesc availability change correspAction correspDesc encodingDesc handNote idno licence notesStmt profileDesc revisionDesc seriesStmt xenoData textClass keywords"/>
 
 				<!-- required core elements (p and title for use in titleStmt) -->
-				<moduleRef key="core" include="p title abbr add address addrLine author choice corr date del expan foreign gap graphic head hi item l label lb lg list milestone name note orig pb ptr publisher pubPlace quote ref reg resp respStmt rs unclear bibl cit q"/>
+				<moduleRef key="core" include="p title abbr add address addrLine author choice corr date del expan foreign gap graphic head hi item l label lb lg list milestone name note orig pb ptr publisher pubPlace quote ref reg resp respStmt rs unclear bibl cit q term"/>
 
 				<!-- required textstructure elements (TEI, text, and body) -->
 				<moduleRef key="textstructure" include="TEI text body closer dateline div opener postscript salute signed argument byline epigraph floatingText"/>
@@ -1181,6 +1181,19 @@
 						<attDef ident="prev" mode="delete"/>
 						<attDef ident="exclude" mode="delete"/>
 						<attDef ident="select" mode="delete"/>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="keywords" mode="change">
+					<attList>
 						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="n" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
@@ -2779,6 +2792,30 @@
 						<attDef ident="source" mode="delete"/>
 					</attList>
 				</elementSpec>
+				<elementSpec ident="term" mode="change">
+					<attList>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+						<attDef ident="ref" usage="opt">
+							<datatype>
+								<dataRef key="teidata.pointer"/>
+							</datatype>
+						</attDef>
+						<attDef ident="target" mode="delete"/>
+						<attDef ident="type" mode="change">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="genre"/>
+							</valList>
+						</attDef>
+						<attDef ident="subtype" mode="delete"/>
+					</attList>
+				</elementSpec>
 				<elementSpec ident="text" mode="change">
 					<attList>
 						<attDef ident="ana" mode="delete"/>
@@ -2809,6 +2846,20 @@
 								<valItem mode="add" ident="prose"/>
 							</valList>
 						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="textClass" mode="change">
+					<attList>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="title" mode="change">

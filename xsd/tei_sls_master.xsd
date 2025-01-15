@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2025-01-15T04:12:47Z. . 
+    Schema generated from ODD source 2025-01-15T10:25:13Z. . 
     TEI Edition: P5 Version 4.8.1. Last updated on 1st November 2024, revision 0a2bff95a 
     TEI Edition Location: https://www.tei-c.org/Vault/P5/4.8.1/ 
     
@@ -594,36 +594,42 @@
   <xs:group name="tei_model.emphLike">
     <xs:choice>
       <xs:element ref="tei:foreign"/>
+      <xs:element ref="tei:term"/>
       <xs:element ref="tei:title"/>
     </xs:choice>
   </xs:group>
   <xs:group name="tei_model.emphLike_alternation">
     <xs:choice>
       <xs:element ref="tei:foreign"/>
+      <xs:element ref="tei:term"/>
       <xs:element ref="tei:title"/>
     </xs:choice>
   </xs:group>
   <xs:group name="tei_model.emphLike_sequence">
     <xs:sequence>
       <xs:element ref="tei:foreign"/>
+      <xs:element ref="tei:term"/>
       <xs:element ref="tei:title"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="tei_model.emphLike_sequenceOptional">
     <xs:sequence>
       <xs:element minOccurs="0" ref="tei:foreign"/>
+      <xs:element minOccurs="0" ref="tei:term"/>
       <xs:element minOccurs="0" ref="tei:title"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="tei_model.emphLike_sequenceOptionalRepeatable">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:foreign"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:term"/>
       <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:title"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="tei_model.emphLike_sequenceRepeatable">
     <xs:sequence>
       <xs:element maxOccurs="unbounded" ref="tei:foreign"/>
+      <xs:element maxOccurs="unbounded" ref="tei:term"/>
       <xs:element maxOccurs="unbounded" ref="tei:title"/>
     </xs:sequence>
   </xs:group>
@@ -1681,6 +1687,7 @@
   </xs:group>
   <xs:group name="tei_model.profileDescPart">
     <xs:choice>
+      <xs:element ref="tei:textClass"/>
       <xs:element ref="tei:correspDesc"/>
       <xs:element ref="tei:handNotes"/>
     </xs:choice>
@@ -2054,6 +2061,44 @@
         <xs:element ref="tei:pc"/>
         <xs:element ref="tei:q"/>
       </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="term">
+    <xs:annotation>
+      <xs:documentation>(term) contains a single-word, multi-word, or symbolic designation which is regarded as a technical term. [3.4.1. Terms and Glosses]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="tei:tei_macro.phraseSeq">
+          <xs:attributeGroup ref="tei:tei_att.global.attribute.xmlid"/>
+          <xs:attributeGroup ref="tei:tei_att.global.attribute.xmllang"/>
+          <xs:attributeGroup ref="tei:tei_att.canonical.attributes"/>
+          <xs:attribute name="type">
+            <xs:annotation>
+              <xs:documentation>characterizes the element in some sense, using any convenient classification scheme or typology.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="genre">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name="ref">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:anyURI">
+                <xs:pattern value="\S+"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:extension>
+      </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:element name="corr">
@@ -3929,6 +3974,35 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationMsId; 3] DOI; 4] I
           <xs:attribute ref="xml:id" use="required"/>
         </xs:extension>
       </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="textClass">
+    <xs:annotation>
+      <xs:documentation>(text classification) groups information which describes the nature or topic of a text in terms of a standard classification scheme, thesaurus, etc. [2.4.3. The Text Classification]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:keywords"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="keywords">
+    <xs:annotation>
+      <xs:documentation>(keywords) contains a list of keywords or phrases identifying the topic or nature of a text. [2.4.3. The Text Classification]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice>
+        <xs:element maxOccurs="unbounded" ref="tei:term"/>
+        <xs:element ref="tei:list"/>
+      </xs:choice>
+      <xs:attributeGroup ref="tei:tei_att.global.attribute.xmllang"/>
+      <xs:attribute name="scheme">
+        <xs:simpleType>
+          <xs:restriction base="xs:anyURI">
+            <xs:pattern value="\S+"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
     </xs:complexType>
   </xs:element>
   <xs:element name="correspDesc">
