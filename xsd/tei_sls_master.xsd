@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2025-01-15T10:25:13Z. . 
+    Schema generated from ODD source 2025-01-15T16:57:49Z. . 
     TEI Edition: P5 Version 4.8.1. Last updated on 1st November 2024, revision 0a2bff95a 
     TEI Edition Location: https://www.tei-c.org/Vault/P5/4.8.1/ 
     
@@ -3795,7 +3795,7 @@ Elements 7.2.5. Speech Contents]</xs:documentation>
       <xs:attribute name="type">
         <xs:annotation>
           <xs:documentation>categorizes the identifier, for example as an ISBN, Social Security number, etc.
-Suggested values include: 1] dbPublicationId; 2] dbPublicationMsId; 3] DOI; 4] ISBN; 5] ISSN; 6] URI</xs:documentation>
+Suggested values include: 1] dbPublicationId; 2] dbPublicationComId; 3] dbPublicationMsId; 4] dbPublicationVarId; 5] DOI; 6] ISBN; 7] ISSN; 8] URI</xs:documentation>
         </xs:annotation>
         <xs:simpleType>
           <xs:union>
@@ -3803,7 +3803,16 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationMsId; 3] DOI; 4] I
               <xs:restriction base="xs:token">
                 <xs:enumeration value="dbPublicationId">
                   <xs:annotation>
-                    <xs:documentation>ID of the text in the publication table in the digitaledition database.</xs:documentation>
+                    <xs:documentation>ID of the main text in the publication table in the digitaledition database.</xs:documentation>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="dbPublicationComId">
+                  <xs:annotation>
+                    <xs:documentation>ID of the comment text in the publication_comment table in the digitaledition database.</xs:documentation>
                   </xs:annotation>
                 </xs:enumeration>
               </xs:restriction>
@@ -3812,7 +3821,16 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationMsId; 3] DOI; 4] I
               <xs:restriction base="xs:token">
                 <xs:enumeration value="dbPublicationMsId">
                   <xs:annotation>
-                    <xs:documentation>ID of the text in the publication_manuscript table in the digitaledition database.</xs:documentation>
+                    <xs:documentation>ID of the manuscript text in the publication_manuscript table in the digitaledition database.</xs:documentation>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="dbPublicationVarId">
+                  <xs:annotation>
+                    <xs:documentation>ID of the variant text in the publication_version table in the digitaledition database.</xs:documentation>
                   </xs:annotation>
                 </xs:enumeration>
               </xs:restriction>

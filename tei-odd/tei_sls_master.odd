@@ -1134,12 +1134,22 @@
 						<attDef ident="type" mode="change">
 							<valList type="semi" mode="change">
 								<valItem mode="add" ident="dbPublicationId">
-									<desc versionDate="2024-10-09" xml:lang="en">ID of the text in
+									<desc versionDate="2024-10-09" xml:lang="en">ID of the main text in
 										the publication table in the digitaledition database.</desc>
 								</valItem>
+								<valItem mode="add" ident="dbPublicationComId">
+									<desc versionDate="2024-10-09" xml:lang="en">ID of the comment text in
+										the publication_comment table in the digitaledition
+										database.</desc>
+								</valItem>
 								<valItem mode="add" ident="dbPublicationMsId">
-									<desc versionDate="2024-10-09" xml:lang="en">ID of the text in
+									<desc versionDate="2024-10-09" xml:lang="en">ID of the manuscript text in
 										the publication_manuscript table in the digitaledition
+										database.</desc>
+								</valItem>
+								<valItem mode="add" ident="dbPublicationVarId">
+									<desc versionDate="2024-10-09" xml:lang="en">ID of the variant text in
+										the publication_version table in the digitaledition
 										database.</desc>
 								</valItem>
 								<valItem mode="add" ident="DOI"/>
