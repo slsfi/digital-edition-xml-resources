@@ -2980,7 +2980,7 @@
 						<attDef ident="min" mode="delete"/>
 						<attDef ident="max" mode="delete"/>
 						<attDef ident="confidence" mode="delete"/>
-						<attDef ident="reason" mode="change" usage="req">
+						<attDef ident="reason" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="binding"/>
 								<valItem mode="add" ident="damage"/>
@@ -3001,6 +3001,8 @@
 								<valItem mode="delete" ident="eccentric_ductus"/>
 							</valList>
 						</attDef>
+						<attDef ident="agent" mode="delete"/>
+						<attDef ident="hand" mode="delete"/>
 						<attDef ident="unit" mode="delete"/>
 						<attDef ident="quantity" mode="delete"/>
 						<attDef ident="xml:id" mode="delete"/>
@@ -3012,7 +3014,7 @@
 						<attDef ident="rend" mode="delete"/>
 						<attDef ident="cert" mode="delete"/>
 						<attDef ident="source" mode="delete"/>
-						<attDef ident="resp" mode="change" usage="req"/>
+						<attDef ident="resp" mode="change" usage="opt"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="xenoData" mode="change">

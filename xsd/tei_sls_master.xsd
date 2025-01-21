@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2025-01-21T09:49:16Z. . 
+    Schema generated from ODD source 2025-01-21T10:26:27Z. . 
     TEI Edition: P5 Version 4.8.1. Last updated on 1st November 2024, revision 0a2bff95a 
     TEI Edition Location: https://www.tei-c.org/Vault/P5/4.8.1/ 
     
@@ -2449,8 +2449,7 @@ Normalization 13. Critical Apparatus]</xs:documentation>
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="tei:tei_macro.paraContent">
-          <xs:attributeGroup ref="tei:tei_att.written.attributes"/>
-          <xs:attribute name="resp" use="required">
+          <xs:attribute name="resp">
             <xs:annotation>
               <xs:documentation>(responsible party) indicates the agency responsible for the intervention or interpretation, for example an editor or transcriber.</xs:documentation>
             </xs:annotation>
@@ -2469,7 +2468,7 @@ Normalization 13. Critical Apparatus]</xs:documentation>
               </xs:restriction>
             </xs:simpleType>
           </xs:attribute>
-          <xs:attribute name="reason" use="required">
+          <xs:attribute name="reason">
             <xs:annotation>
               <xs:documentation>indicates why the material is hard to transcribe.</xs:documentation>
             </xs:annotation>
@@ -2554,17 +2553,6 @@ Normalization 13. Critical Apparatus]</xs:documentation>
                   </xs:list>
                 </xs:simpleType>
                 <xs:minLength value="1"/>
-              </xs:restriction>
-            </xs:simpleType>
-          </xs:attribute>
-          <xs:attribute name="agent">
-            <xs:annotation>
-              <xs:documentation>Where the difficulty in transcription arises from damage, categorizes the cause of the damage, if it can be identified.
-Sample values include: 1] rubbing; 2] mildew; 3] smoke</xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-              <xs:restriction base="xs:token">
-                <xs:pattern value="[^\p{C}\p{Z}]+"/>
               </xs:restriction>
             </xs:simpleType>
           </xs:attribute>
