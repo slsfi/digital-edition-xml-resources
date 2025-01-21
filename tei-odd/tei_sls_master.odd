@@ -910,7 +910,7 @@
 						<attDef ident="precision" mode="delete"/>
 						<attDef ident="scope" mode="delete"/>
 						<attDef ident="agent" mode="delete"/>
-						<attDef ident="unit" mode="change" usage="req">
+						<attDef ident="unit" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="chars">
 									<desc versionDate="2024-09-30" xml:lang="en">characters of
@@ -931,8 +931,8 @@
 								<valItem mode="delete" ident="char"/>
 							</valList>
 						</attDef>
-						<attDef ident="quantity" mode="change" usage="req"/>
-						<attDef ident="reason" mode="change" usage="req">
+						<attDef ident="quantity" mode="change"/>
+						<attDef ident="reason" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="binding"/>
 								<valItem mode="add" ident="damage"/>
@@ -946,6 +946,13 @@
 								<valItem mode="add" ident="seal"/>
 								<valItem mode="add" ident="stamp"/>
 								<valItem mode="add" ident="writing"/>
+								<valItem mode="delete" ident="cancelled"/>
+								<valItem mode="delete" ident="deleted"/>
+								<valItem mode="delete" ident="editorial"/>
+								<valItem mode="delete" ident="illegible"/>
+								<valItem mode="delete" ident="inaudible"/>
+								<valItem mode="delete" ident="irrelevant"/>
+								<valItem mode="delete" ident="sampling"/>
 							</valList>
 						</attDef>
 					</attList>
