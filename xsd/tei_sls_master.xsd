@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2025-01-15T16:57:49Z. . 
+    Schema generated from ODD source 2025-01-21T09:49:16Z. . 
     TEI Edition: P5 Version 4.8.1. Last updated on 1st November 2024, revision 0a2bff95a 
     TEI Edition Location: https://www.tei-c.org/Vault/P5/4.8.1/ 
     
@@ -2189,7 +2189,7 @@ Normalization 13. Critical Apparatus]</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:attributeGroup ref="tei:tei_att.written.attributes"/>
-      <xs:attribute name="unit" use="required">
+      <xs:attribute name="unit">
         <xs:annotation>
           <xs:documentation>names the unit used for the measurement</xs:documentation>
         </xs:annotation>
@@ -2228,7 +2228,7 @@ Normalization 13. Critical Apparatus]</xs:documentation>
           </xs:restriction>
         </xs:simpleType>
       </xs:attribute>
-      <xs:attribute name="quantity" use="required">
+      <xs:attribute name="quantity">
         <xs:annotation>
           <xs:documentation>specifies the length in the units specified</xs:documentation>
         </xs:annotation>
@@ -2242,7 +2242,7 @@ Normalization 13. Critical Apparatus]</xs:documentation>
           </xs:union>
         </xs:simpleType>
       </xs:attribute>
-      <xs:attribute name="reason" use="required">
+      <xs:attribute name="reason">
         <xs:annotation>
           <xs:documentation>(reason) gives the reason for omission</xs:documentation>
         </xs:annotation>
@@ -2252,41 +2252,6 @@ Normalization 13. Critical Apparatus]</xs:documentation>
               <xs:list>
                 <xs:simpleType>
                   <xs:restriction base="xs:token">
-                    <xs:enumeration value="cancelled">
-                      <xs:annotation>
-                        <xs:documentation>(cancelled) </xs:documentation>
-                      </xs:annotation>
-                    </xs:enumeration>
-                    <xs:enumeration value="deleted">
-                      <xs:annotation>
-                        <xs:documentation>(deleted) </xs:documentation>
-                      </xs:annotation>
-                    </xs:enumeration>
-                    <xs:enumeration value="editorial">
-                      <xs:annotation>
-                        <xs:documentation>(editorial) for features omitted from transcription due to editorial policy</xs:documentation>
-                      </xs:annotation>
-                    </xs:enumeration>
-                    <xs:enumeration value="illegible">
-                      <xs:annotation>
-                        <xs:documentation>(illegible) </xs:documentation>
-                      </xs:annotation>
-                    </xs:enumeration>
-                    <xs:enumeration value="inaudible">
-                      <xs:annotation>
-                        <xs:documentation>(inaudible) </xs:documentation>
-                      </xs:annotation>
-                    </xs:enumeration>
-                    <xs:enumeration value="irrelevant">
-                      <xs:annotation>
-                        <xs:documentation>(irrelevant) </xs:documentation>
-                      </xs:annotation>
-                    </xs:enumeration>
-                    <xs:enumeration value="sampling">
-                      <xs:annotation>
-                        <xs:documentation>(sampling) </xs:documentation>
-                      </xs:annotation>
-                    </xs:enumeration>
                     <xs:enumeration value="binding">
                       <xs:annotation>
                         <xs:documentation/>
