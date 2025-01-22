@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2025-01-21T10:26:27Z. . 
+    Schema generated from ODD source 2025-01-22T13:12:12Z. . 
     TEI Edition: P5 Version 4.8.1. Last updated on 1st November 2024, revision 0a2bff95a 
     TEI Edition Location: https://www.tei-c.org/Vault/P5/4.8.1/ 
     
@@ -2400,6 +2400,11 @@ Normalization 13. Critical Apparatus]</xs:documentation>
             <xs:simpleType>
               <xs:restriction base="xs:token">
                 <xs:enumeration value="choice">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="move">
                   <xs:annotation>
                     <xs:documentation/>
                   </xs:annotation>
