@@ -170,6 +170,7 @@
 						<attDef ident="type" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="choice"/>
+								<valItem mode="add" ident="move"/>
 								<valItem mode="add" ident="noAnchor"/>
 							</valList>
 						</attDef>
