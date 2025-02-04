@@ -997,6 +997,7 @@
 						<attDef ident="cert" mode="delete"/>
 						<attDef ident="resp" mode="delete"/>
 						<attDef ident="source" mode="delete"/>
+						<attDef ident="scope" mode="delete"/>
 						<attDef ident="xml:id" mode="change" usage="req"/>
 					</attList>
 				</elementSpec>
@@ -1026,6 +1027,7 @@
 						<attDef ident="cert" mode="delete"/>
 						<attDef ident="resp" mode="delete"/>
 						<attDef ident="source" mode="delete"/>
+						<attDef ident="scope" mode="delete"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="head" mode="change">
@@ -3078,6 +3080,7 @@
 				<classSpec ident="att.notated" type="atts" mode="delete"/>
 				<classSpec ident="att.personal" type="atts" mode="delete"/>
 				<classSpec ident="att.ranging" type="atts" mode="delete"/>
+				<classSpec ident="att.scope" type="atts" mode="delete"/>
 				<classSpec ident="att.sortable" type="atts" mode="delete"/>
 				<classSpec ident="att.timed" type="atts" mode="delete"/>
 				<classSpec ident="att.transcriptional" type="atts" mode="delete"/>
