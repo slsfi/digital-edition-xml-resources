@@ -50,9 +50,12 @@
 		</fileDesc>
 		<encodingDesc>
 			<appInfo>
-				<application ident="RomaJS" version="1.1.2" when="2024-12-04T19:58:42.510Z"><desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc></application>
+				<application ident="RomaJS" version="1.1.2" when="2025-02-04T05:47:47.824Z"><desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc></application>
 			</appInfo>
-		<appInfo><application ident="RomaJS" version="1.1.2" when="2025-01-15T10:14:01.901Z"><desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc></application></appInfo></encodingDesc>
+		</encodingDesc>
+		<revisionDesc>
+			<change when="2025-02-04">Support TEI <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/readme-4.9.0.html">P5 version 4.9.0</ref>.</change>
+		</revisionDesc>
 	</teiHeader>
 	<text>
 		<body>
@@ -141,6 +144,7 @@
 					<classes mode="change">
 						<memberOf key="att.dimensions" mode="delete"/>
 						<memberOf key="att.written"/>
+						<memberOf key="att.placement"/>
 					</classes>
 					<attList>
 						<attDef ident="xml:id" mode="delete"/>
@@ -180,6 +184,7 @@
 					<classes mode="change">
 						<memberOf key="att.dimensions" mode="delete"/>
 						<memberOf key="att.written"/>
+						<memberOf key="att.placement"/>
 					</classes>
 					<attList>
 						<attDef ident="xml:id" mode="delete"/>
@@ -342,6 +347,7 @@
 						<attDef ident="source" mode="delete"/>
 						<attDef ident="type" mode="delete"/>
 						<attDef ident="subtype" mode="delete"/>
+						<attDef ident="key" mode="delete"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="body" mode="change">
@@ -620,6 +626,9 @@
 					</attList>
 				</elementSpec>
 				<elementSpec ident="dateline" mode="change">
+					<classes mode="change">
+						<memberOf key="att.written" mode="delete"/>
+					</classes>
 					<attList>
 						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="n" mode="delete"/>
@@ -704,6 +713,7 @@
 					<classes mode="change">
 						<memberOf key="att.fragmentable"/>
 						<memberOf key="att.written" mode="delete"/>
+						<memberOf key="att.placement" mode="delete"/>
 					</classes>
 					<attList>
 						<attDef ident="n" mode="delete"/>
@@ -987,6 +997,7 @@
 						<attDef ident="cert" mode="delete"/>
 						<attDef ident="resp" mode="delete"/>
 						<attDef ident="source" mode="delete"/>
+						<attDef ident="scope" mode="delete"/>
 						<attDef ident="xml:id" mode="change" usage="req"/>
 					</attList>
 				</elementSpec>
@@ -1016,6 +1027,7 @@
 						<attDef ident="cert" mode="delete"/>
 						<attDef ident="resp" mode="delete"/>
 						<attDef ident="source" mode="delete"/>
+						<attDef ident="scope" mode="delete"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="head" mode="change">
@@ -1972,6 +1984,9 @@
 					</attList>
 				</elementSpec>
 				<elementSpec ident="postscript" mode="change">
+					<classes mode="change">
+						<memberOf key="att.placement" mode="delete"/>
+					</classes>
 					<attList>
 						<attDef ident="ana" mode="delete"/>
 						<attDef ident="change" mode="delete"/>
@@ -3065,6 +3080,7 @@
 				<classSpec ident="att.notated" type="atts" mode="delete"/>
 				<classSpec ident="att.personal" type="atts" mode="delete"/>
 				<classSpec ident="att.ranging" type="atts" mode="delete"/>
+				<classSpec ident="att.scope" type="atts" mode="delete"/>
 				<classSpec ident="att.sortable" type="atts" mode="delete"/>
 				<classSpec ident="att.timed" type="atts" mode="delete"/>
 				<classSpec ident="att.transcriptional" type="atts" mode="delete"/>

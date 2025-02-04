@@ -2,9 +2,9 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2025-01-22T14:51:10Z. . 
-    TEI Edition: P5 Version 4.8.1. Last updated on 1st November 2024, revision 0a2bff95a 
-    TEI Edition Location: https://www.tei-c.org/Vault/P5/4.8.1/ 
+    Schema generated from ODD source 2025-02-04T08:35:17Z. . 
+    TEI Edition: P5 Version 4.9.0. Last updated on 24th January 2025, revision f73186978 
+    TEI Edition Location: https://www.tei-c.org/Vault/P5/4.9.0/ 
     
   -->
   <!--
@@ -53,28 +53,6 @@
       <xs:any namespace="##local" processContents="skip"/>
     </xs:choice>
   </xs:group>
-  <xs:attributeGroup name="tei_att.canonical.attributes">
-    <xs:attributeGroup ref="tei:tei_att.canonical.attribute.key"/>
-  </xs:attributeGroup>
-  <xs:attributeGroup name="tei_att.canonical.attribute.key">
-    <xs:attribute name="key" type="xs:string">
-      <xs:annotation>
-        <xs:documentation>provides an externally-defined means of identifying the entity (or entities) being named, using a coded value of some kind.</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
-  </xs:attributeGroup>
-  <xs:attributeGroup name="tei_att.written.attributes">
-    <xs:attributeGroup ref="tei:tei_att.written.attribute.hand"/>
-  </xs:attributeGroup>
-  <xs:attributeGroup name="tei_att.written.attribute.hand">
-    <xs:attribute name="hand">
-      <xs:simpleType>
-        <xs:restriction base="xs:anyURI">
-          <xs:pattern value="\S+"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-  </xs:attributeGroup>
   <xs:attributeGroup name="tei_att.breaking.attributes">
     <xs:attributeGroup ref="tei:tei_att.breaking.attribute.break"/>
   </xs:attributeGroup>
@@ -97,6 +75,16 @@
           </xs:enumeration>
         </xs:restriction>
       </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="tei_att.canonical.attributes">
+    <xs:attributeGroup ref="tei:tei_att.canonical.attribute.key"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="tei_att.canonical.attribute.key">
+    <xs:attribute name="key" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>provides an externally-defined means of identifying the entity (or entities) being named, using a coded value of some kind.</xs:documentation>
+      </xs:annotation>
     </xs:attribute>
   </xs:attributeGroup>
   <xs:attributeGroup name="tei_att.datable.w3c.attributes">
@@ -170,6 +158,18 @@
       </xs:simpleType>
     </xs:attribute>
   </xs:attributeGroup>
+  <xs:attributeGroup name="tei_att.global.rendition.attribute.rend">
+    <xs:attribute name="rend">
+      <xs:annotation>
+        <xs:documentation>(rendition) indicates how the element in question was rendered or presented in the source text.</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:length value="0"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
   <xs:attributeGroup name="tei_att.global.responsibility.attribute.cert">
     <xs:attribute name="cert">
       <xs:annotation>
@@ -207,18 +207,6 @@
       </xs:simpleType>
     </xs:attribute>
   </xs:attributeGroup>
-  <xs:attributeGroup name="tei_att.global.rendition.attribute.rend">
-    <xs:attribute name="rend">
-      <xs:annotation>
-        <xs:documentation>(rendition) indicates how the element in question was rendered or presented in the source text.</xs:documentation>
-      </xs:annotation>
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:length value="0"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-  </xs:attributeGroup>
   <xs:attributeGroup name="tei_att.global.source.attribute.source">
     <xs:attribute name="source">
       <xs:annotation>
@@ -236,6 +224,81 @@
             </xs:list>
           </xs:simpleType>
           <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="tei_att.internetMedia.attributes">
+    <xs:attributeGroup ref="tei:tei_att.internetMedia.attribute.mimeType"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="tei_att.internetMedia.attribute.mimeType">
+    <xs:attribute name="mimeType">
+      <xs:annotation>
+        <xs:documentation>(MIME media type) specifies the applicable multimedia internet mail extension (MIME) media type.</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction>
+          <xs:simpleType>
+            <xs:list>
+              <xs:simpleType>
+                <xs:restriction base="xs:token">
+                  <xs:pattern value="[^\p{C}\p{Z}]+"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:list>
+          </xs:simpleType>
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="tei_att.pointing.attributes">
+    <xs:attributeGroup ref="tei:tei_att.pointing.attribute.target"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="tei_att.pointing.attribute.target">
+    <xs:attribute name="target">
+      <xs:annotation>
+        <xs:documentation>specifies the destination of the reference by supplying one or more URI References.</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction>
+          <xs:simpleType>
+            <xs:list>
+              <xs:simpleType>
+                <xs:restriction base="xs:anyURI">
+                  <xs:pattern value="\S+"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:list>
+          </xs:simpleType>
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="tei_att.resourced.attributes">
+    <xs:attributeGroup ref="tei:tei_att.resourced.attribute.url"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="tei_att.resourced.attribute.url">
+    <xs:attribute name="url" use="required">
+      <xs:annotation>
+        <xs:documentation>(uniform resource locator) specifies the URL from which the media concerned may be obtained.</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:anyURI">
+          <xs:pattern value="\S+"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="tei_att.written.attributes">
+    <xs:attributeGroup ref="tei:tei_att.written.attribute.hand"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="tei_att.written.attribute.hand">
+    <xs:attribute name="hand">
+      <xs:simpleType>
+        <xs:restriction base="xs:anyURI">
+          <xs:pattern value="\S+"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -259,7 +322,7 @@
   <xs:attributeGroup name="tei_att.handFeatures.attribute.medium">
     <xs:attribute name="medium">
       <xs:annotation>
-        <xs:documentation>describes the tint or type of ink, e.g. brown, or other writing medium, e.g. pencil</xs:documentation>
+        <xs:documentation>describes the tint or type of ink, e.g. brown, or other writing medium, e.g. pencil.</xs:documentation>
       </xs:annotation>
       <xs:simpleType>
         <xs:restriction>
@@ -356,30 +419,6 @@
       </xs:simpleType>
     </xs:attribute>
   </xs:attributeGroup>
-  <xs:attributeGroup name="tei_att.internetMedia.attributes">
-    <xs:attributeGroup ref="tei:tei_att.internetMedia.attribute.mimeType"/>
-  </xs:attributeGroup>
-  <xs:attributeGroup name="tei_att.internetMedia.attribute.mimeType">
-    <xs:attribute name="mimeType">
-      <xs:annotation>
-        <xs:documentation>(MIME media type) specifies the applicable multimedia internet mail extension (MIME) media type</xs:documentation>
-      </xs:annotation>
-      <xs:simpleType>
-        <xs:restriction>
-          <xs:simpleType>
-            <xs:list>
-              <xs:simpleType>
-                <xs:restriction base="xs:token">
-                  <xs:pattern value="[^\p{C}\p{Z}]+"/>
-                </xs:restriction>
-              </xs:simpleType>
-            </xs:list>
-          </xs:simpleType>
-          <xs:minLength value="1"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-  </xs:attributeGroup>
   <xs:attributeGroup name="tei_att.media.attributes">
     <xs:attributeGroup ref="tei:tei_att.internetMedia.attributes"/>
     <xs:attributeGroup ref="tei:tei_att.media.attribute.width"/>
@@ -388,7 +427,7 @@
   <xs:attributeGroup name="tei_att.media.attribute.width">
     <xs:attribute name="width">
       <xs:annotation>
-        <xs:documentation>Where the media are displayed, indicates the display width</xs:documentation>
+        <xs:documentation>Where the media are displayed, indicates the display width.</xs:documentation>
       </xs:annotation>
       <xs:simpleType>
         <xs:restriction base="xs:token">
@@ -400,26 +439,11 @@
   <xs:attributeGroup name="tei_att.media.attribute.height">
     <xs:attribute name="height">
       <xs:annotation>
-        <xs:documentation>Where the media are displayed, indicates the display height</xs:documentation>
+        <xs:documentation>Where the media are displayed, indicates the display height.</xs:documentation>
       </xs:annotation>
       <xs:simpleType>
         <xs:restriction base="xs:token">
           <xs:pattern value="[\-+]?\d+(\.\d+)?(%|cm|mm|in|pt|pc|px|em|ex|ch|rem|vw|vh|vmin|vmax)"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-  </xs:attributeGroup>
-  <xs:attributeGroup name="tei_att.resourced.attributes">
-    <xs:attributeGroup ref="tei:tei_att.resourced.attribute.url"/>
-  </xs:attributeGroup>
-  <xs:attributeGroup name="tei_att.resourced.attribute.url">
-    <xs:attribute name="url" use="required">
-      <xs:annotation>
-        <xs:documentation>(uniform resource locator) specifies the URL from which the media concerned may be obtained.</xs:documentation>
-      </xs:annotation>
-      <xs:simpleType>
-        <xs:restriction base="xs:anyURI">
-          <xs:pattern value="\S+"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -444,30 +468,6 @@
                       <xs:documentation/>
                     </xs:annotation>
                   </xs:enumeration>
-                </xs:restriction>
-              </xs:simpleType>
-            </xs:list>
-          </xs:simpleType>
-          <xs:minLength value="1"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-  </xs:attributeGroup>
-  <xs:attributeGroup name="tei_att.pointing.attributes">
-    <xs:attributeGroup ref="tei:tei_att.pointing.attribute.target"/>
-  </xs:attributeGroup>
-  <xs:attributeGroup name="tei_att.pointing.attribute.target">
-    <xs:attribute name="target">
-      <xs:annotation>
-        <xs:documentation>specifies the destination of the reference by supplying one or more URI References</xs:documentation>
-      </xs:annotation>
-      <xs:simpleType>
-        <xs:restriction>
-          <xs:simpleType>
-            <xs:list>
-              <xs:simpleType>
-                <xs:restriction base="xs:anyURI">
-                  <xs:pattern value="\S+"/>
                 </xs:restriction>
               </xs:simpleType>
             </xs:list>
@@ -2244,7 +2244,7 @@ Normalization 13. Critical Apparatus]</xs:documentation>
       </xs:attribute>
       <xs:attribute name="reason">
         <xs:annotation>
-          <xs:documentation>(reason) gives the reason for omission</xs:documentation>
+          <xs:documentation>(reason) gives the reason for omission.</xs:documentation>
         </xs:annotation>
         <xs:simpleType>
           <xs:restriction>
@@ -2848,7 +2848,7 @@ Normalization 13. Critical Apparatus]</xs:documentation>
         <xs:extension base="tei:tei_macro.paraContent">
           <xs:attribute name="target" use="required">
             <xs:annotation>
-              <xs:documentation>specifies the destination of the reference by supplying one or more URI References</xs:documentation>
+              <xs:documentation>specifies the destination of the reference by supplying one or more URI References.</xs:documentation>
             </xs:annotation>
             <xs:simpleType>
               <xs:restriction>
@@ -3360,7 +3360,7 @@ Elements]</xs:documentation>
       </xs:attribute>
       <xs:attribute name="subtype">
         <xs:annotation>
-          <xs:documentation>(subtype) provides a sub-categorization of the element, if needed</xs:documentation>
+          <xs:documentation>(subtype) provides a sub-categorization of the element, if needed.</xs:documentation>
         </xs:annotation>
         <xs:simpleType>
           <xs:restriction base="xs:token">
@@ -3376,7 +3376,7 @@ Elements]</xs:documentation>
   </xs:element>
   <xs:element name="lb">
     <xs:annotation>
-      <xs:documentation>(line beginning) marks the beginning of a new (typographic) line in some edition or version of a text. [3.11.3. Milestone
+      <xs:documentation>(line beginning) marks the beginning of a topographic line in some edition or version of a text. [3.11.3. Milestone
 Elements 7.2.5. Speech Contents]</xs:documentation>
     </xs:annotation>
     <xs:complexType>
@@ -4027,7 +4027,7 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationComId; 3] dbPublic
       <xs:documentation>(non-TEI metadata) provides a container element into which metadata in non-TEI formats may be placed. [2.5. Non-TEI Metadata]</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
-      <xs:group minOccurs="0" ref="tei:anyElement_xenoData_1"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="tei:anyElement_xenoData_1"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="revisionDesc">
@@ -4824,6 +4824,16 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationComId; 3] dbPublic
           </xs:restriction>
         </xs:simpleType>
       </xs:attribute>
+      <xs:attribute name="spanTo" use="required">
+        <xs:annotation>
+          <xs:documentation>indicates the end of a span initiated by the element bearing this attribute.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:anyURI">
+            <xs:pattern value="\S+"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
       <xs:attribute name="type">
         <xs:annotation>
           <xs:documentation>characterizes the element in some sense, using any convenient classification scheme or typology.</xs:documentation>
@@ -4843,6 +4853,14 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationComId; 3] dbPublic
           </xs:restriction>
         </xs:simpleType>
       </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="delSpan">
+    <xs:annotation>
+      <xs:documentation>(deleted span of text) marks the beginning of a longer sequence of text deleted, marked as deleted, or otherwise signaled as superfluous or spurious by an author, scribe, annotator, or corrector. [12.3.1.4. Additions and Deletions]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attributeGroup ref="tei:tei_att.written.attributes"/>
       <xs:attribute name="spanTo" use="required">
         <xs:annotation>
           <xs:documentation>indicates the end of a span initiated by the element bearing this attribute.</xs:documentation>
@@ -4853,14 +4871,6 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationComId; 3] dbPublic
           </xs:restriction>
         </xs:simpleType>
       </xs:attribute>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="delSpan">
-    <xs:annotation>
-      <xs:documentation>(deleted span of text) marks the beginning of a longer sequence of text deleted, marked as deleted, or otherwise signaled as superfluous or spurious by an author, scribe, annotator, or corrector. [12.3.1.4. Additions and Deletions]</xs:documentation>
-    </xs:annotation>
-    <xs:complexType>
-      <xs:attributeGroup ref="tei:tei_att.written.attributes"/>
       <xs:attribute name="type">
         <xs:annotation>
           <xs:documentation>characterizes the element in some sense, using any convenient classification scheme or typology.</xs:documentation>
@@ -4872,16 +4882,6 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationComId; 3] dbPublic
                 <xs:documentation/>
               </xs:annotation>
             </xs:enumeration>
-          </xs:restriction>
-        </xs:simpleType>
-      </xs:attribute>
-      <xs:attribute name="spanTo" use="required">
-        <xs:annotation>
-          <xs:documentation>indicates the end of a span initiated by the element bearing this attribute.</xs:documentation>
-        </xs:annotation>
-        <xs:simpleType>
-          <xs:restriction base="xs:anyURI">
-            <xs:pattern value="\S+"/>
           </xs:restriction>
         </xs:simpleType>
       </xs:attribute>
