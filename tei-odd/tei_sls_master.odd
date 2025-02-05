@@ -41,7 +41,8 @@
 						licences. The CC+BY licence is generally appropriate for usages which treat
 						TEI content as data or documentation. The BSD-2 licence is generally
 						appropriate for usage of TEI content in a software environment. For further
-						information or clarification, please contact the <ref target="mailto:info@tei-c.org">TEI Consortium</ref>. </p>
+						information or clarification, please contact the <ref
+							target="mailto:info@tei-c.org">TEI Consortium</ref>.</p>
 				</availability>
 			</publicationStmt>
 			<sourceDesc>
@@ -50,41 +51,63 @@
 		</fileDesc>
 		<encodingDesc>
 			<appInfo>
-				<application ident="RomaJS" version="1.1.2" when="2025-02-04T05:47:47.824Z"><desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc></application>
+				<application ident="RomaJS" version="1.1.2" when="2025-02-05T10:04:53.990Z">
+					<desc>File edited with <ref target="https://github.com/TEIC/romajs"
+						>RomaJS</ref></desc>
+				</application>
 			</appInfo>
 		</encodingDesc>
 		<revisionDesc>
-			<change when="2025-02-04">Support TEI <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/readme-4.9.0.html">P5 version 4.9.0</ref>.</change>
+			<change when="2025-02-05">Add support for msDesc and child elements.</change>
+			<change when="2025-02-04">Support TEI <ref
+					target="https://www.tei-c.org/release/doc/tei-p5-doc/readme-4.9.0.html">P5
+					version 4.9.0</ref>.</change>
 		</revisionDesc>
 	</teiHeader>
 	<text>
 		<body>
-			<head>Master TEI Customization of the Society of Swedish Literature in Finland (SLS)</head>
-			
-			<p>This TEI ODD defines a TEI customization that is used as the master TEI customization for TEI-encoded text by the Society of Swedish Literature in Finland (<ref target="https://www.sls.fi/">SLS</ref>). This customization can be further customized for different text types or editions. The ODD was originally created in October–December 2024, first with RomaJS 1.1.1, then by manual editing to fix problems that RomaJS caused.</p>
+			<head>Master TEI Customization of the Society of Swedish Literature in Finland
+				(SLS)</head>
 
-			<schemaSpec ident="tei_sls_master" start="TEI" prefix="tei_" targetLang="en" docLang="en">
+			<p>This TEI ODD defines a TEI customization that is used as the master TEI customization
+				for TEI-encoded text by the Society of Swedish Literature in Finland (<ref
+					target="https://www.sls.fi/">SLS</ref>). This customization can be further
+				customized for different text types or editions. The ODD was originally created in
+				October–December 2024, first with RomaJS 1.1.1, then by manual editing to fix
+				problems that RomaJS caused.</p>
+
+			<schemaSpec ident="tei_sls_master" start="TEI" prefix="tei_" targetLang="en"
+				docLang="en">
 
 				<!-- required minimal header elements -->
-				<moduleRef key="header" include="teiHeader fileDesc titleStmt publicationStmt sourceDesc availability change correspAction correspDesc encodingDesc handNote idno licence notesStmt profileDesc revisionDesc seriesStmt xenoData textClass keywords"/>
+				<moduleRef key="header" include="availability change correspAction correspDesc
+					encodingDesc fileDesc handNote idno keywords licence notesStmt publicationStmt
+					profileDesc revisionDesc seriesStmt sourceDesc teiHeader textClass titleStmt
+					xenoData"/>
 
 				<!-- required core elements (p and title for use in titleStmt) -->
-				<moduleRef key="core" include="p title abbr add address addrLine author choice corr date del expan foreign gap graphic head hi item l label lb lg list milestone name note orig pb ptr publisher pubPlace quote ref reg resp respStmt rs unclear bibl cit q term"/>
+				<moduleRef key="core" include="abbr add address addrLine author bibl choice cit corr
+					date del expan foreign gap graphic head hi item l label lb lg list milestone
+					name note orig p pb ptr publisher pubPlace q quote ref reg resp respStmt rs term
+					title unclear"/>
 
 				<!-- required textstructure elements (TEI, text, and body) -->
-				<moduleRef key="textstructure" include="TEI text body closer dateline div opener postscript salute signed argument byline epigraph floatingText"/>
+				<moduleRef key="textstructure" include="argument body byline closer dateline div
+					epigraph floatingText opener postscript salute signed TEI text"/>
 
 				<!-- required module tei instantiates lots of classes used for further expansion of this odd -->
 				<moduleRef key="tei"/>
 
 
 				<moduleRef key="linking" include="ab anchor seg"/>
-				<moduleRef key="transcr" include="addSpan delSpan handNotes handShift metamark restore space subst supplied"/>
+				<moduleRef key="transcr" include="addSpan delSpan handNotes handShift metamark
+					restore space subst supplied"/>
 				<moduleRef key="textcrit" include="app lem rdg"/>
 				<moduleRef key="analysis" include="c pc"/>
 				<moduleRef key="figures" include="cell figDesc figure row table"/>
-				<moduleRef key="msdescription" include="origDate"/>
-				<moduleRef key="namesdates" include="persName placeName"/>
+				<moduleRef key="msdescription" include="collection institution msDesc
+					msIdentifier msName origDate repository"/>
+				<moduleRef key="namesdates" include="country persName placeName region settlement"/>
 
 				<elementSpec ident="ab" mode="change">
 					<classes mode="change">
@@ -523,6 +546,23 @@
 						<attDef ident="source" mode="delete"/>
 					</attList>
 				</elementSpec>
+				<elementSpec ident="collection" mode="change">
+					<attList>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+						<attDef ident="role" mode="delete"/>
+						<attDef ident="key" mode="delete"/>
+						<attDef ident="type" mode="delete"/>
+						<attDef ident="subtype" mode="delete"/>
+					</attList>
+				</elementSpec>
 				<elementSpec ident="corr" mode="change">
 					<attList>
 						<attDef ident="xml:id" mode="delete"/>
@@ -583,6 +623,24 @@
 						<attDef ident="cert" mode="delete"/>
 						<attDef ident="resp" mode="delete"/>
 						<attDef ident="source" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="country" mode="change">
+					<attList>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+						<attDef ident="role" mode="delete"/>
+						<attDef ident="key" mode="delete"/>
+						<attDef ident="type" mode="delete"/>
+						<attDef ident="subtype" mode="delete"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="date" mode="change">
@@ -736,8 +794,8 @@
 						<attDef ident="part" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="change" ident="I">
-									<desc versionDate="2024-09-30" xml:lang="en">this is the
-										initial part of a fragmented element</desc>
+									<desc versionDate="2024-09-30" xml:lang="en">this is the initial
+										part of a fragmented element</desc>
 								</valItem>
 								<valItem mode="change" ident="F">
 									<desc versionDate="2024-09-30" xml:lang="en">this is the final
@@ -747,9 +805,9 @@
 								</valItem>
 								<valItem mode="change" ident="N">
 									<desc versionDate="2024-09-30" xml:lang="en">the element is not
-										fragmented, or no claim is made as to its completeness;
-										this value is equivalent to not having the part-attribute
-										on the element</desc>
+										fragmented, or no claim is made as to its completeness; this
+										value is equivalent to not having the part-attribute on the
+										element</desc>
 								</valItem>
 								<valItem mode="delete" ident="M"/>
 								<valItem mode="delete" ident="F2"/>
@@ -1155,22 +1213,23 @@
 						<attDef ident="type" mode="change">
 							<valList type="semi" mode="change">
 								<valItem mode="add" ident="dbPublicationId">
-									<desc versionDate="2024-10-09" xml:lang="en">ID of the main text in
-										the publication table in the digitaledition database.</desc>
+									<desc versionDate="2024-10-09" xml:lang="en">ID of the main text
+										in the publication table in the digitaledition
+										database.</desc>
 								</valItem>
 								<valItem mode="add" ident="dbPublicationComId">
-									<desc versionDate="2024-10-09" xml:lang="en">ID of the comment text in
-										the publication_comment table in the digitaledition
+									<desc versionDate="2024-10-09" xml:lang="en">ID of the comment
+										text in the publication_comment table in the digitaledition
 										database.</desc>
 								</valItem>
 								<valItem mode="add" ident="dbPublicationMsId">
-									<desc versionDate="2024-10-09" xml:lang="en">ID of the manuscript text in
-										the publication_manuscript table in the digitaledition
-										database.</desc>
+									<desc versionDate="2024-10-09" xml:lang="en">ID of the
+										manuscript text in the publication_manuscript table in the
+										digitaledition database.</desc>
 								</valItem>
 								<valItem mode="add" ident="dbPublicationVarId">
-									<desc versionDate="2024-10-09" xml:lang="en">ID of the variant text in
-										the publication_version table in the digitaledition
+									<desc versionDate="2024-10-09" xml:lang="en">ID of the variant
+										text in the publication_version table in the digitaledition
 										database.</desc>
 								</valItem>
 								<valItem mode="add" ident="DOI"/>
@@ -1198,6 +1257,21 @@
 						<attDef ident="source" mode="delete"/>
 						<attDef ident="subtype" mode="delete"/>
 						<attDef ident="calendar" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="institution" mode="change">
+					<attList>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+						<attDef ident="role" mode="delete"/>
+						<attDef ident="key" mode="delete"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="item" mode="change">
@@ -1258,8 +1332,8 @@
 						<attDef ident="part" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="change" ident="I">
-									<desc versionDate="2024-09-30" xml:lang="en">this is the
-										initial part of a fragmented element</desc>
+									<desc versionDate="2024-09-30" xml:lang="en">this is the initial
+										part of a fragmented element</desc>
 								</valItem>
 								<valItem mode="change" ident="M">
 									<desc versionDate="2024-09-30" xml:lang="en">this is a medial
@@ -1279,9 +1353,9 @@
 								</valItem>
 								<valItem mode="change" ident="N">
 									<desc versionDate="2024-09-30" xml:lang="en">the element is not
-										fragmented, or no claim is made as to its completeness;
-										this value is equivalent to not having the part-attribute
-										on the element</desc>
+										fragmented, or no claim is made as to its completeness; this
+										value is equivalent to not having the part-attribute on the
+										element</desc>
 								</valItem>
 								<valItem mode="delete" ident="Y"/>
 							</valList>
@@ -1554,6 +1628,51 @@
 								<valItem mode="add" ident="dashedLine"/>
 							</valList>
 						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="msDesc" mode="change">
+					<attList>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+						<attDef ident="type" mode="delete"/>
+						<attDef ident="subtype" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="msIdentifier" mode="change">
+					<attList>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="msName" mode="change">
+					<attList>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+						<attDef ident="type" mode="delete"/>
+						<attDef ident="subtype" mode="delete"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="name" mode="change">
@@ -2278,6 +2397,39 @@
 						</attDef>
 					</attList>
 				</elementSpec>
+				<elementSpec ident="region" mode="change">
+					<attList>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+						<attDef ident="role" mode="delete"/>
+						<attDef ident="key" mode="delete"/>
+						<attDef ident="type" mode="delete"/>
+						<attDef ident="subtype" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="repository" mode="change">
+					<attList>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+						<attDef ident="role" mode="delete"/>
+						<attDef ident="key" mode="delete"/>
+					</attList>
+				</elementSpec>
 				<elementSpec ident="resp" mode="change">
 					<attList>
 						<attDef ident="period" mode="delete"/>
@@ -2548,6 +2700,24 @@
 								</valItem>
 							</valList>
 						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="settlement" mode="change">
+					<attList>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+						<attDef ident="role" mode="delete"/>
+						<attDef ident="key" mode="delete"/>
+						<attDef ident="type" mode="delete"/>
+						<attDef ident="subtype" mode="delete"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="seriesStmt" mode="change">
@@ -3108,6 +3278,12 @@
 						<attDef ident="ref" mode="delete"/>
 					</attList>
 				</classSpec>
+				<classSpec ident="att.datable.w3c" type="atts" mode="change">
+					<attList>
+						<attDef ident="notBefore" mode="delete"/>
+						<attDef ident="notAfter" mode="delete"/>
+					</attList>
+				</classSpec>
 				<classSpec ident="att.dimensions" type="atts" mode="change">
 					<attList>
 						<attDef ident="unit" mode="change">
@@ -3141,8 +3317,8 @@
 						<attDef ident="part" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="change" ident="I">
-									<desc versionDate="2024-09-30" xml:lang="en">this is the
-										initial part of a fragmented element</desc>
+									<desc versionDate="2024-09-30" xml:lang="en">this is the initial
+										part of a fragmented element</desc>
 								</valItem>
 								<valItem mode="change" ident="M">
 									<desc versionDate="2024-09-30" xml:lang="en">this is a medial
@@ -3151,8 +3327,9 @@
 								</valItem>
 								<valItem mode="change" ident="F">
 									<desc versionDate="2024-09-30" xml:lang="en">this is the final
-										part of a fragmented element if there are two or three fragments,
-										or the second to last part if there are four fragments</desc>
+										part of a fragmented element if there are two or three
+										fragments, or the second to last part if there are four
+										fragments</desc>
 								</valItem>
 								<valItem mode="add" ident="F2">
 									<desc versionDate="2024-09-30" xml:lang="en">only used if there
@@ -3161,9 +3338,9 @@
 								</valItem>
 								<valItem mode="change" ident="N">
 									<desc versionDate="2024-09-30" xml:lang="en">the element is not
-										fragmented, or no claim is made as to its completeness;
-										this option is equivalent to not having the part-attribute
-										on the element</desc>
+										fragmented, or no claim is made as to its completeness; this
+										option is equivalent to not having the part-attribute on the
+										element</desc>
 								</valItem>
 								<valItem mode="delete" ident="Y"/>
 							</valList>
@@ -3358,12 +3535,6 @@
 							<desc versionDate="2024-09-30" xml:lang="en">contains the names of the
 								witnesses which attest to a given reading.</desc>
 						</attDef>
-					</attList>
-				</classSpec>
-				<classSpec ident="att.datable.w3c" type="atts" mode="change">
-					<attList>
-						<attDef ident="notBefore" mode="delete"/>
-						<attDef ident="notAfter" mode="delete"/>
 					</attList>
 				</classSpec>
 			</schemaSpec>
