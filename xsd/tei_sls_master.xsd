@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2025-02-04T08:35:17Z. . 
+    Schema generated from ODD source 2025-02-05T10:54:54Z. . 
     TEI Edition: P5 Version 4.9.0. Last updated on 24th January 2025, revision f73186978 
     TEI Edition Location: https://www.tei-c.org/Vault/P5/4.9.0/ 
     
@@ -1006,33 +1006,39 @@
     </xs:sequence>
   </xs:group>
   <xs:group name="tei_model.biblLike">
-    <xs:sequence>
+    <xs:choice>
       <xs:element ref="tei:bibl"/>
-    </xs:sequence>
+      <xs:element ref="tei:msDesc"/>
+    </xs:choice>
   </xs:group>
   <xs:group name="tei_model.biblLike_alternation">
-    <xs:sequence>
+    <xs:choice>
       <xs:element ref="tei:bibl"/>
-    </xs:sequence>
+      <xs:element ref="tei:msDesc"/>
+    </xs:choice>
   </xs:group>
   <xs:group name="tei_model.biblLike_sequence">
     <xs:sequence>
       <xs:element ref="tei:bibl"/>
+      <xs:element ref="tei:msDesc"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="tei_model.biblLike_sequenceOptional">
     <xs:sequence>
       <xs:element minOccurs="0" ref="tei:bibl"/>
+      <xs:element minOccurs="0" ref="tei:msDesc"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="tei_model.biblLike_sequenceOptionalRepeatable">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:bibl"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:msDesc"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="tei_model.biblLike_sequenceRepeatable">
     <xs:sequence>
       <xs:element maxOccurs="unbounded" ref="tei:bibl"/>
+      <xs:element maxOccurs="unbounded" ref="tei:msDesc"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="tei_model.headLike">
@@ -1289,33 +1295,51 @@
     </xs:choice>
   </xs:group>
   <xs:group name="tei_model.placeNamePart">
-    <xs:sequence>
+    <xs:choice>
       <xs:element ref="tei:placeName"/>
-    </xs:sequence>
+      <xs:element ref="tei:country"/>
+      <xs:element ref="tei:region"/>
+      <xs:element ref="tei:settlement"/>
+    </xs:choice>
   </xs:group>
   <xs:group name="tei_model.placeNamePart_alternation">
-    <xs:sequence>
+    <xs:choice>
       <xs:element ref="tei:placeName"/>
-    </xs:sequence>
+      <xs:element ref="tei:country"/>
+      <xs:element ref="tei:region"/>
+      <xs:element ref="tei:settlement"/>
+    </xs:choice>
   </xs:group>
   <xs:group name="tei_model.placeNamePart_sequence">
     <xs:sequence>
       <xs:element ref="tei:placeName"/>
+      <xs:element ref="tei:country"/>
+      <xs:element ref="tei:region"/>
+      <xs:element ref="tei:settlement"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="tei_model.placeNamePart_sequenceOptional">
     <xs:sequence>
       <xs:element minOccurs="0" ref="tei:placeName"/>
+      <xs:element minOccurs="0" ref="tei:country"/>
+      <xs:element minOccurs="0" ref="tei:region"/>
+      <xs:element minOccurs="0" ref="tei:settlement"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="tei_model.placeNamePart_sequenceOptionalRepeatable">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:placeName"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:country"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:region"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:settlement"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="tei_model.placeNamePart_sequenceRepeatable">
     <xs:sequence>
       <xs:element maxOccurs="unbounded" ref="tei:placeName"/>
+      <xs:element maxOccurs="unbounded" ref="tei:country"/>
+      <xs:element maxOccurs="unbounded" ref="tei:region"/>
+      <xs:element maxOccurs="unbounded" ref="tei:settlement"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="tei_model.placeStateLike">
@@ -1585,6 +1609,7 @@
       <xs:element ref="tei:quote"/>
       <xs:element ref="tei:bibl"/>
       <xs:element ref="tei:availability"/>
+      <xs:element ref="tei:msIdentifier"/>
     </xs:choice>
   </xs:group>
   <xs:group name="tei_model.addrPart">
@@ -5516,6 +5541,18 @@ Suggested values include: 1] label; 2] data</xs:documentation>
       <xs:documentation>(description of figure) contains a brief prose description of the appearance or content of a graphic figure, for use when documenting an image without displaying it. [15.4. Specific Elements for Graphic Images]</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="msDesc">
+    <xs:annotation>
+      <xs:documentation>(manuscript description) contains a description of a single identifiable manuscript or other text-bearing object such as an early printed book. [11.1. Overview]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="tei:msIdentifier"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="tei:tei_model.headLike"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="tei:tei_model.pLike"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="origDate">
     <xs:annotation>
       <xs:documentation>(origin date) contains any form of date, used to identify the date of origin for a manuscript, manuscript part, or other object. [11.3.1. Origination]</xs:documentation>
@@ -5533,6 +5570,74 @@ Suggested values include: 1] label; 2] data</xs:documentation>
           <xs:union memberTypes="xs:date xs:gYear xs:gMonth xs:gDay xs:gYearMonth xs:gMonthDay xs:time xs:dateTime"/>
         </xs:simpleType>
       </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="msIdentifier">
+    <xs:annotation>
+      <xs:documentation>(manuscript identifier) contains the information required to identify the manuscript or similar object being described. [11.4. The Manuscript Identifier]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:sequence>
+          <xs:element minOccurs="0" ref="tei:placeName"/>
+          <xs:element minOccurs="0" ref="tei:country"/>
+          <xs:element minOccurs="0" ref="tei:region"/>
+          <xs:element minOccurs="0" ref="tei:settlement"/>
+          <xs:element minOccurs="0" ref="tei:institution"/>
+          <xs:element minOccurs="0" ref="tei:repository"/>
+          <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:collection"/>
+          <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:idno"/>
+        </xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:msName"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="institution">
+    <xs:annotation>
+      <xs:documentation>(institution) contains the name of an organization such as a university or library, with which a manuscript or other object is identified, generally its holding institution. [11.4. The Manuscript Identifier]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="tei:tei_macro.phraseSeq.limited">
+          <xs:attributeGroup ref="tei:tei_att.global.attribute.xmllang"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="repository">
+    <xs:annotation>
+      <xs:documentation>(repository) contains the name of a repository within which manuscripts or other objects are stored, possibly forming part of an institution. [11.4. The Manuscript Identifier]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="tei:tei_macro.phraseSeq.limited">
+          <xs:attributeGroup ref="tei:tei_att.global.attribute.xmllang"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="collection">
+    <xs:annotation>
+      <xs:documentation>(collection) contains the name of a collection of manuscripts or other objects, not necessarily located within a single repository. [11.4. The Manuscript Identifier]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="tei:tei_macro.phraseSeq.limited">
+          <xs:attributeGroup ref="tei:tei_att.global.attribute.xmllang"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="msName">
+    <xs:annotation>
+      <xs:documentation>(manuscript name) contains a proper noun or noun phrase used for a manuscript, or other object, as opposed to a formal identification number or classmark. [11.4. The Manuscript Identifier]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="tei:rs"/>
+        <xs:element ref="tei:name"/>
+      </xs:choice>
+      <xs:attributeGroup ref="tei:tei_att.global.attribute.xmllang"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="persName">
@@ -5748,5 +5853,20 @@ Suggested values include: 1] label; 2] data</xs:documentation>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
+  </xs:element>
+  <xs:element name="country" type="tei:tei_macro.phraseSeq">
+    <xs:annotation>
+      <xs:documentation>(country) contains the name of a geo-political unit, such as a nation, country, colony, or commonwealth, larger than or administratively superior to a region and smaller than a bloc. [14.2.3. Place Names]</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="region" type="tei:tei_macro.phraseSeq">
+    <xs:annotation>
+      <xs:documentation>(region) contains the name of an administrative unit such as a state, province, or county, larger than a settlement, but smaller than a country. [14.2.3. Place Names]</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="settlement" type="tei:tei_macro.phraseSeq">
+    <xs:annotation>
+      <xs:documentation>(settlement) contains the name of a settlement such as a city, town, or village identified as a single geo-political or administrative unit. [14.2.3. Place Names]</xs:documentation>
+    </xs:annotation>
   </xs:element>
 </xs:schema>
