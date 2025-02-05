@@ -80,29 +80,33 @@
 				docLang="en">
 
 				<!-- required minimal header elements -->
-				<moduleRef key="header"
-					include="teiHeader fileDesc titleStmt publicationStmt sourceDesc availability change correspAction correspDesc encodingDesc handNote idno licence notesStmt profileDesc revisionDesc seriesStmt xenoData textClass keywords"/>
+				<moduleRef key="header" include="teiHeader fileDesc titleStmt publicationStmt
+					sourceDesc availability change correspAction correspDesc encodingDesc handNote
+					idno licence notesStmt profileDesc revisionDesc seriesStmt xenoData textClass
+					keywords"/>
 
 				<!-- required core elements (p and title for use in titleStmt) -->
-				<moduleRef key="core"
-					include="p title abbr add address addrLine author choice corr date del expan foreign gap graphic head hi item l label lb lg list milestone name note orig pb ptr publisher pubPlace quote ref reg resp respStmt rs unclear bibl cit q term"/>
+				<moduleRef key="core" include="p title abbr add address addrLine author choice corr
+					date del expan foreign gap graphic head hi item l label lb lg list milestone
+					name note orig pb ptr publisher pubPlace quote ref reg resp respStmt rs unclear
+					bibl cit q term"/>
 
 				<!-- required textstructure elements (TEI, text, and body) -->
-				<moduleRef key="textstructure"
-					include="TEI text body closer dateline div opener postscript salute signed argument byline epigraph floatingText"/>
+				<moduleRef key="textstructure" include="TEI text body closer dateline div opener
+					postscript salute signed argument byline epigraph floatingText"/>
 
 				<!-- required module tei instantiates lots of classes used for further expansion of this odd -->
 				<moduleRef key="tei"/>
 
 
 				<moduleRef key="linking" include="ab anchor seg"/>
-				<moduleRef key="transcr"
-					include="addSpan delSpan handNotes handShift metamark restore space subst supplied"/>
+				<moduleRef key="transcr" include="addSpan delSpan handNotes handShift metamark
+					restore space subst supplied"/>
 				<moduleRef key="textcrit" include="app lem rdg"/>
 				<moduleRef key="analysis" include="c pc"/>
 				<moduleRef key="figures" include="cell figDesc figure row table"/>
-				<moduleRef key="msdescription"
-					include="origDate collection institution msDesc msIdentifier msName repository"/>
+				<moduleRef key="msdescription" include="origDate collection institution msDesc
+					msIdentifier msName repository"/>
 				<moduleRef key="namesdates" include="persName placeName country region settlement"/>
 
 				<elementSpec ident="ab" mode="change">
