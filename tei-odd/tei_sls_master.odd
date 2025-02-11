@@ -1737,7 +1737,7 @@
 						<attDef ident="source" mode="delete"/>
 						<attDef ident="target" mode="delete"/>
 						<attDef ident="subtype" mode="delete"/>
-						<attDef ident="place" mode="change" usage="req">
+						<attDef ident="place" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="end"/>
 								<valItem mode="add" ident="foot"/>
@@ -1747,8 +1747,8 @@
 								<valItem mode="add" ident="topMargin"/>
 							</valList>
 						</attDef>
-						<attDef ident="xml:id" mode="change" usage="req"/>
-						<attDef ident="n" mode="change" usage="req"/>
+						<attDef ident="xml:id" mode="change"/>
+						<attDef ident="n" mode="change"/>
 						<attDef ident="type" mode="delete"/>
 					</attList>
 				</elementSpec>
