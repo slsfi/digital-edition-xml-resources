@@ -4,10 +4,14 @@ The `xslt/` folder contains XSLT stylesheets for transforming XML documents to o
 
 Brief descriptions of the stylesheets in the subfolders can be found below. More detailed descriptions can be found in the actual stylesheets.
 
+>> The stylesheets are written in XSLT 3.0.
+
 ## XSLT resources
 
 - [W3C spec: XSL Transformations (XSLT) Version 3.0](https://www.w3.org/TR/xslt-30/)
 - [W3C spec: XPath and XQuery Functions and Operators 3.1](https://www.w3.org/TR/xpath-functions-31/)
+- [Saxon 12 docs: XSLT elements reference](https://www.saxonica.com/html/documentation12/xsl-elements/index.html)
+- 
 
 ## Stylesheet descriptions
 
