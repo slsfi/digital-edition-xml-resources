@@ -7,6 +7,7 @@ This repository contains XML resources like schemas and transformation styleshee
 - `/schematron`: Schematron files derived from TEI ODD files using [TEI Garage](https://teigarage.tei-c.org/) (converted from ODD Document to ISO Schematron constraints). Schematron is used to make assertions about the presence or absence of patterns in XML trees.
 - `/tei-odd`: [TEI](https://tei-c.org/) ODD (One Document Does-it-all) files specifying TEI customizations. Contains the "TEI SLS Master" customization, which includes all elements and attributes in use in SLS projects.
 - `/xsd`: XML Schema Definition files derived from TEI ODD files using [TEI Garage](https://teigarage.tei-c.org/) (converted from ODD Document to XSD schema). An XML Schema describes the structure of an XML document.
+- `/xslt`: XSLT stylesheets used by SLS projects for transforming TEI XML documents to HTML and other formats. These should be copied to the project files repositories. See [`xslt/README.md`](xslt/README.md) for further details about the stylesheets.
 
 ## Notes
 
