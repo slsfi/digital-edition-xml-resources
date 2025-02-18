@@ -15,7 +15,7 @@ Brief descriptions of the stylesheets in the subfolders can be found below. More
 
 ## Stylesheet descriptions
 
-### `modules/`
+### `xslt/modules/`
 
 These “module” stylesheets operate in specific modes and must be imported and invoked by a “master” stylesheet by applying templates in the module’s mode, for example:
 
@@ -36,6 +36,6 @@ These “module” stylesheets operate in specific modes and must be imported an
 </xsl:template>
 ```
 
-### `publisher/`
+### `xslt/publisher/`
 
-
+These stylesheets are used by the publisher script in the digital edition API to, for instance, create “web versions” of the TEI XML documents in a project. The web XML documents can be regarded as preprocessed versions of the source documents. They are used for transformations to HTML for the websites. The “publisher” stylesheets utilise the XSLT modules in `xslt/modules/`.
