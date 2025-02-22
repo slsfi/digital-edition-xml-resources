@@ -384,11 +384,6 @@
 						<attDef ident="cert" mode="delete"/>
 						<attDef ident="resp" mode="delete"/>
 						<attDef ident="source" mode="delete"/>
-						<attDef ident="xml:space" mode="change" usage="req">
-							<valList type="closed" mode="change">
-								<valItem ident="default" mode="delete"/>
-							</valList>
-						</attDef>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="byline" mode="change">
