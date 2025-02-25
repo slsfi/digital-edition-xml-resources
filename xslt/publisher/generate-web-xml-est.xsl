@@ -28,6 +28,8 @@
 	   removed.
 	5. Sequential numbering is added to paragraphs and lines.
 	6. Metadata is added based on input parameters.
+	7. @xml:space is stripped from the <body> element, so subsequent
+	   transformations can control whitespace output formatting.
 
 	See the documentation for the individual modules for further details.
 
@@ -42,7 +44,8 @@
 	A modified TEI-encoded XML document.
 	-->
 
-	<xsl:output method="xml" version="1.0" indent="no" encoding="UTF-8" omit-xml-declaration="no"/>
+	<xsl:output method="xml" version="1.0" indent="no" encoding="UTF-8"
+	            omit-xml-declaration="no"/>
 
 	<!-- Import modules -->
 	<xsl:import href="../modules/remove-delspans.xsl"/>
@@ -51,6 +54,7 @@
 	<xsl:import href="../modules/process-lb-breaks.xsl"/>
 	<xsl:import href="../modules/add-numbering.xsl"/>
 	<xsl:import href="../modules/add-metadata.xsl"/>
+	<xsl:import href="../modules/strip-xml-space.xsl"/>
 
 	<!-- Entry point -->
 	<xsl:template match="/">
@@ -83,9 +87,14 @@
 		<xsl:variable name="pass6-result">
 			<xsl:apply-templates select="$pass5-result" mode="add-metadata"/>
 		</xsl:variable>
+		
+		<!-- Pass 7: Strip @xml:space from <body> -->
+		<xsl:variable name="pass7-result">
+			<xsl:apply-templates select="$pass6-result" mode="strip-xml-space"/>
+		</xsl:variable>
 
 		<!-- Output the final result -->
-		<xsl:sequence select="$pass6-result"/>
+		<xsl:sequence select="$pass7-result"/>
 	</xsl:template>
 
 </xsl:stylesheet>

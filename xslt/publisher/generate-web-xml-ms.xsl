@@ -25,6 +25,8 @@
 	2. Line beginning elements indicating word or line breaks are
 	   converted to hard line break elements.
 	3. Metadata is added based on input parameters.
+	4. @xml:space is stripped from the <body> element, so subsequent
+	   transformations can control whitespace output formatting.
 
 	See the documentation for the individual modules for further details.
 
@@ -45,6 +47,7 @@
 	<xsl:import href="../modules/remove-comment-anchors.xsl"/>
 	<xsl:import href="../modules/process-lb-breaks.xsl"/>
 	<xsl:import href="../modules/add-metadata.xsl"/>
+	<xsl:import href="../modules/strip-xml-space.xsl"/>
 
 	<!-- Entry point -->
 	<xsl:template match="/">
@@ -63,8 +66,13 @@
 			<xsl:apply-templates select="$pass2-result" mode="add-metadata"/>
 		</xsl:variable>
 
+		<!-- Pass 4: Strip @xml:space from <body> -->
+		<xsl:variable name="pass4-result">
+			<xsl:apply-templates select="$pass3-result" mode="strip-xml-space"/>
+		</xsl:variable>
+
 		<!-- Output the final result -->
-		<xsl:sequence select="$pass3-result"/>
+		<xsl:sequence select="$pass4-result"/>
 	</xsl:template>
 
 </xsl:stylesheet>

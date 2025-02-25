@@ -25,6 +25,8 @@
 	   element in the source document (if this element is not present, the
 	   notes will not be inserted).
 	2. Metadata is added based on input parameters.
+	3. @xml:space is stripped from the <body> element, so subsequent
+	   transformations can control whitespace output formatting.
 
 	See the documentation for the individual modules for further details.
 
@@ -48,6 +50,7 @@
 	<!-- Import modules -->
 	<xsl:import href="../modules/process-comment-notes.xsl"/>
 	<xsl:import href="../modules/add-metadata.xsl"/>
+	<xsl:import href="../modules/strip-xml-space.xsl"/>
 
 	<!-- Entry point -->
 	<xsl:template match="/">
@@ -76,9 +79,14 @@
 		<xsl:variable name="pass2-result">
 			<xsl:apply-templates select="$pass1-result" mode="add-metadata"/>
 		</xsl:variable>
+
+		<!-- Pass 3: Strip @xml:space from <body> -->
+		<xsl:variable name="pass3-result">
+			<xsl:apply-templates select="$pass2-result" mode="strip-xml-space"/>
+		</xsl:variable>
 		
 		<!-- Output the final result -->
-		<xsl:sequence select="$pass2-result"/>
+		<xsl:sequence select="$pass3-result"/>
 	</xsl:template>
 		
 	<!-- Mode and template for inserting the comment notes into
