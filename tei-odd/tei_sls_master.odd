@@ -397,6 +397,7 @@
 						<attDef ident="rend" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="center"/>
+								<valItem mode="add" ident="left"/>
 								<valItem mode="add" ident="right"/>
 							</valList>
 						</attDef>
@@ -678,6 +679,7 @@
 						<attDef ident="rend" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="center"/>
+								<valItem mode="add" ident="left"/>
 								<valItem mode="add" ident="right"/>
 							</valList>
 						</attDef>

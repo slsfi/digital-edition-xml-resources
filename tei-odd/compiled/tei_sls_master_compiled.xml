@@ -8943,6 +8943,7 @@ supplied to printer.</change>
 on its title page or at the head or end of the work.</desc><desc versionDate="2007-12-20" xml:lang="ko">제목 페이지 또는 작품의 시작부 또는 종료부에서 작품 책임성에 대한 주요 진술을 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含作品的主要責任陳述，出現在題名頁或作品開頭或結尾處。</desc><desc versionDate="2023-09-27" xml:lang="ja">タイトルページや作品の冒頭や最後にある、作品の主要な責任表示。</desc><desc versionDate="2007-06-12" xml:lang="fr">indique la responsabilité principale pour une œuvre donnée sur la page de titre ou au début ou à la fin de l’œuvre.</desc><desc versionDate="2017-06-13" xml:lang="de">enthält Angaben zur Hauptverantwortlichkeit eines Werks, entweder auf der Titelseite oder am Anfang oder Ende des Werks.</desc><desc versionDate="2021-02-18" xml:lang="es">contiene la declaración principal de responsabilidad de una obra tal y como aparece en su título correspondiente, o al inicio o fin de la obra.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene la principale dichiarazione di responsabilità per un'opera così come appare sul corrispondente frontespizio oppure all'inizio o alla fine dell'opera stessa</desc><classes><memberOf key="att.global"/><memberOf key="model.divWrapper"/></classes><content><alternate minOccurs="0" maxOccurs="unbounded"><textNode/><classRef key="model.gLike"/><classRef key="model.phrase"/><elementRef key="docAuthor"/><classRef key="model.global"/></alternate></content><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="rend" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="center"/>
+								<valItem mode="add" ident="left"/>
 								<valItem mode="add" ident="right"/>
 							</valList>
 						</attDef></attList><exemplum xml:lang="en">
@@ -9046,6 +9047,7 @@ it may optionally be tagged using the <gi>docAuthor</gi> element.</p>
     posposto a mo' di elemento di apertura o chiusura</desc><classes><memberOf key="att.global"/><memberOf key="model.divWrapper"/></classes><content><alternate minOccurs="0" maxOccurs="unbounded"><textNode/><classRef key="model.gLike"/><classRef key="model.phrase"/><classRef key="model.global"/><elementRef key="docDate"/></alternate></content><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="rend" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="center"/>
+								<valItem mode="add" ident="left"/>
 								<valItem mode="add" ident="right"/>
 							</valList>
 						</attDef></attList><exemplum xml:lang="en">
