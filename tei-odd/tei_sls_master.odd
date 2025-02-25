@@ -41,8 +41,7 @@
 						licences. The CC+BY licence is generally appropriate for usages which treat
 						TEI content as data or documentation. The BSD-2 licence is generally
 						appropriate for usage of TEI content in a software environment. For further
-						information or clarification, please contact the <ref
-							target="mailto:info@tei-c.org">TEI Consortium</ref>.</p>
+						information or clarification, please contact the <ref target="mailto:info@tei-c.org">TEI Consortium</ref>.</p>
 				</availability>
 			</publicationStmt>
 			<sourceDesc>
@@ -51,17 +50,17 @@
 		</fileDesc>
 		<encodingDesc>
 			<appInfo>
-				<application ident="RomaJS" version="1.1.2" when="2025-02-05T10:04:53.990Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs"
-						>RomaJS</ref></desc>
+				<application ident="RomaJS" version="1.1.2" when="2025-02-25T12:47:55.750Z">
+					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
 				</application>
 			</appInfo>
 		</encodingDesc>
 		<revisionDesc>
-			<change when="2025-02-05">Add support for msDesc and child elements.</change>
-			<change when="2025-02-04">Support TEI <ref
-					target="https://www.tei-c.org/release/doc/tei-p5-doc/readme-4.9.0.html">P5
-					version 4.9.0</ref>.</change>
+			<change when="2025-02-25">Added: @xml:lang on note; @xml:id on cell, item, l, lg,
+				p, row and seg; @n on metamark; @function=transp on metamark, listTranspose
+				and transpose. Modified @rend values on byline and dateline.</change>
+			<change when="2025-02-05">Added support for msDesc and child elements.</change>
+			<change when="2025-02-04">Support TEI <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/readme-4.9.0.html">P5 version 4.9.0</ref>.</change>
 		</revisionDesc>
 	</teiHeader>
 	<text>
@@ -70,14 +69,12 @@
 				(SLS)</head>
 
 			<p>This TEI ODD defines a TEI customization that is used as the master TEI customization
-				for TEI-encoded text by the Society of Swedish Literature in Finland (<ref
-					target="https://www.sls.fi/">SLS</ref>). This customization can be further
+				for TEI-encoded text by the Society of Swedish Literature in Finland (<ref target="https://www.sls.fi/">SLS</ref>). This customization can be further
 				customized for different text types or editions. The ODD was originally created in
 				October–December 2024, first with RomaJS 1.1.1, then by manual editing to fix
 				problems that RomaJS caused.</p>
 
-			<schemaSpec ident="tei_sls_master" start="TEI" prefix="tei_" targetLang="en"
-				docLang="en">
+			<schemaSpec ident="tei_sls_master" start="TEI" prefix="tei_" targetLang="en" docLang="en">
 
 				<!-- required minimal header elements -->
 				<moduleRef key="header" include="availability change correspAction correspDesc
@@ -100,8 +97,8 @@
 
 
 				<moduleRef key="linking" include="ab anchor seg"/>
-				<moduleRef key="transcr" include="addSpan delSpan handNotes handShift metamark
-					restore space subst supplied"/>
+				<moduleRef key="transcr" include="addSpan delSpan handNotes handShift listTranspose
+					metamark restore space subst supplied transpose"/>
 				<moduleRef key="textcrit" include="app lem rdg"/>
 				<moduleRef key="analysis" include="c pc"/>
 				<moduleRef key="figures" include="cell figDesc figure row table"/>
@@ -438,7 +435,6 @@
 				</elementSpec>
 				<elementSpec ident="cell" mode="change">
 					<attList>
-						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="n" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
 						<attDef ident="xml:space" mode="delete"/>
@@ -1255,7 +1251,6 @@
 						<attDef ident="prev" mode="delete"/>
 						<attDef ident="exclude" mode="delete"/>
 						<attDef ident="select" mode="delete"/>
-						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="n" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
 						<attDef ident="xml:space" mode="delete"/>
@@ -1291,7 +1286,6 @@
 						<attDef ident="prev" mode="delete"/>
 						<attDef ident="exclude" mode="delete"/>
 						<attDef ident="select" mode="delete"/>
-						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
 						<attDef ident="xml:space" mode="delete"/>
 						<attDef ident="facs" mode="delete"/>
@@ -1435,7 +1429,6 @@
 						<attDef ident="prev" mode="delete"/>
 						<attDef ident="exclude" mode="delete"/>
 						<attDef ident="select" mode="delete"/>
-						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
 						<attDef ident="xml:space" mode="delete"/>
 						<attDef ident="facs" mode="delete"/>
@@ -1529,6 +1522,20 @@
 						</attDef>
 					</attList>
 				</elementSpec>
+				<elementSpec ident="listTranspose" mode="change">
+					<attList>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+					</attList>
+				</elementSpec>
 				<elementSpec ident="metamark" mode="change">
 					<attList>
 						<attDef ident="ana" mode="delete"/>
@@ -1544,10 +1551,14 @@
 						<attDef ident="function" mode="change" usage="req">
 							<valList type="closed" mode="change">
 								<valItem ident="instruction" mode="add"/>
+								<valItem mode="add" ident="transp">
+									<desc versionDate="2025-02-25" xml:lang="en">the metamark
+										marks a transposition and the index of the transposed
+										text segment. The element should be self-closed.</desc>
+								</valItem>
 							</valList>
 						</attDef>
 						<attDef ident="xml:id" mode="delete"/>
-						<attDef ident="n" mode="delete"/>
 						<attDef ident="xml:lang" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
 						<attDef ident="xml:space" mode="delete"/>
@@ -1858,7 +1869,6 @@
 						<attDef ident="exclude" mode="delete"/>
 						<attDef ident="select" mode="delete"/>
 						<attDef ident="part" mode="delete"/>
-						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
 						<attDef ident="xml:space" mode="delete"/>
 						<attDef ident="facs" mode="delete"/>
@@ -2536,7 +2546,6 @@
 						<attDef ident="prev" mode="delete"/>
 						<attDef ident="exclude" mode="delete"/>
 						<attDef ident="select" mode="delete"/>
-						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="n" mode="delete"/>
 						<attDef ident="xml:lang" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
@@ -2642,7 +2651,6 @@
 						<attDef ident="exclude" mode="delete"/>
 						<attDef ident="select" mode="delete"/>
 						<attDef ident="part" mode="delete"/>
-						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="n" mode="delete"/>
 						<attDef ident="xml:lang" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
@@ -3103,6 +3111,20 @@
 						<attDef ident="prev" mode="delete"/>
 						<attDef ident="exclude" mode="delete"/>
 						<attDef ident="select" mode="delete"/>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="transpose" mode="change">
+					<attList>
 						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="n" mode="delete"/>
 						<attDef ident="xml:lang" mode="delete"/>
