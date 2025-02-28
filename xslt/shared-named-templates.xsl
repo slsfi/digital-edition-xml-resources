@@ -123,7 +123,8 @@
 		                                    then 'hgroup' else 'other'">
 			<xsl:choose>
 				<!-- Only wrap in <hgroup> if there are at least two adjacent head/opener nodes -->
-				<xsl:when test="current-grouping-key() eq 'hgroup' and count(current-group()) gt 1">
+				<xsl:when test="current-grouping-key() eq 'hgroup'
+				                and count(current-group()) gt 1">
 					<hgroup>
 						<xsl:for-each select="current-group()">
 							<xsl:apply-templates select="."/>

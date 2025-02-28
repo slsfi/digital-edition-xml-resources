@@ -29,7 +29,7 @@
 
 	<xsl:strip-space elements="tei:TEI tei:teiHeader tei:text tei:body
 	                           tei:div tei:opener tei:list tei:table
-	                           tei:row tei:argument"/>
+	                           tei:row tei:argument tei:epigraph tei:cit"/>
 
 
 	<!-- IMPORTS -->
@@ -228,10 +228,29 @@
 				<xsl:with-param name="class-names"
 				                select="(if (parent::tei:argument)
 				                         then 'argument'
-				                         else local-name(), @rend)"/>
+				                         else if (local-name() ne 'p')
+				                         then local-name()
+				                         else (), @rend)"/>
 			</xsl:call-template>
 			<xsl:apply-templates/>
 		</p>
+	</xsl:template>
+
+
+	<xsl:template match="tei:quote">
+		<xsl:variable name="element-name" as="xs:string"
+		              select="if (@type eq 'block') then 'blockquote' else 'p'"/>
+		<xsl:element name="{$element-name}">
+			<xsl:call-template name="add-lang-attribute"/>
+			<xsl:call-template name="add-class-attribute">
+				<xsl:with-param name="class-names"
+				                select="(if ($element-name eq 'p')
+				                         then 'quote' else (),
+				                         if (ancestor::tei:epigraph)
+				                         then 'epigraph' else ())"/>
+			</xsl:call-template>
+			<xsl:apply-templates/>
+		</xsl:element>
 	</xsl:template>
 
 
@@ -281,12 +300,13 @@
 					                select="(@rend)"/>
 				</xsl:call-template>
 				
-				<!-- Group the rows so the first child with @role="label"
-				     is wrapped in <thead> and the other rows are wrapped
-				     in <tbody>. -->
+				<!-- Group the rows so the first child rows with
+					 @role="label" are wrapped in <thead> and the
+					 subsequent rows are wrapped in <tbody>. -->
 				<xsl:for-each-group select="node()"
 					group-adjacent="if (self::tei:row[@role eq 'label']
-					                    and not(preceding-sibling::*))
+					                    and (not(preceding-sibling::*)
+					                         or preceding-sibling::tei:row[1][@role eq 'label']))
 				                    then 'thead' else 'tbody'">
 					<xsl:element name="{current-grouping-key()}">
 						<xsl:for-each select="current-group()">
@@ -305,25 +325,99 @@
 
 
 	<xsl:template match="tei:cell">
-		<xsl:element name="{if (parent::tei:row[@role eq 'label']
-		                        or @role eq 'label')
-		                    then 'th' else 'td'}">
+		<xsl:variable name="is-header" as="xs:boolean"
+		              select="if (parent::tei:row[@role eq 'label']
+		                          or @role eq 'label')
+		                      then true() else false()"/>
+		<xsl:variable name="colspan" as="xs:integer?"
+		              select="let $parent-cols := parent::tei:row/@cols,
+		                          $cols-str := if ($parent-cols)
+		                                       then $parent-cols else @cols,
+		                          $cols-int := if ($cols-str castable as xs:integer)
+		                                       then xs:integer($cols-str)
+		                                       else ()
+		                      return if ($cols-int gt 1)
+		                             then $cols-int else ()"/>
+		<xsl:variable name="rowspan" as="xs:integer?"
+		              select="let $rows-int := if (@rows castable as xs:integer)
+		                                       then xs:integer(@rows)
+		                                       else ()
+		                      return if ($rows-int gt 1)
+		                             then $rows-int else ()"/>
+
+		<xsl:element name="{if ($is-header) then 'th' else 'td'}">
 			<xsl:call-template name="add-lang-attribute"/>
 			<xsl:call-template name="add-class-attribute">
 				<xsl:with-param name="class-names"
-				                select="distinct-values((@rend, parent::tei:row/@rend))"/>
+				                select="distinct-values((@rend,
+				                                         parent::tei:row/@rend))"/>
 			</xsl:call-template>
 			<xsl:where-populated>
-				<xsl:attribute name="colspan"
-				               select="let $parent-cols := parent::tei:row/@cols
-				                       return if ($parent-cols)
-				                              then $parent-cols else @cols"/>
+				<xsl:attribute name="colspan" select="$colspan"/>
 			</xsl:where-populated>
 			<xsl:where-populated>
-				<xsl:attribute name="rowspan" select="@rows"/>
+				<xsl:attribute name="rowspan" select="$rowspan"/>
+			</xsl:where-populated>
+			<xsl:where-populated>
+				<xsl:attribute name="scope"
+				               select="if ($is-header and $colspan)
+				                       then 'colgroup'
+				                       else if ($is-header and $rowspan)
+				                       then 'rowgroup'
+				                       else if (@role eq 'label'
+				                                and not(preceding-sibling::*)
+				                                and not(following-sibling::tei:cell[@role eq 'label']))
+				                       then 'row'
+				                       else if ($is-header)
+				                       then 'col'
+				                       else ()"/>
 			</xsl:where-populated>
 			<xsl:apply-templates/>
 		</xsl:element>
+	</xsl:template>
+
+
+	<xsl:template match="tei:pb">
+		<xsl:element name="{if (preceding-sibling::*[1][self::tei:p or self::tei:quote]
+		                        or following-sibling::*[1][self::tei:p or self::tei:quote])
+		                    then 'div' else 'span'}">
+			<xsl:call-template name="add-id-attribute"/>
+			<xsl:call-template name="add-class-attribute">
+				<xsl:with-param name="class-names"
+				                select="(if (contains-token(@type, 'edition'))
+				                         then 'pb_edition' else 'pb_orig')"/>
+			</xsl:call-template>
+			<xsl:attribute name="role">doc-pagebreak</xsl:attribute>
+			<xsl:variable name="delimiter"
+			              select="if (empty(@subtype)) then '|' else '['"/>
+			<xsl:text>{$delimiter}{@n}{if ($delimiter eq '|') then '|' else ']'}</xsl:text>
+		</xsl:element>
+	</xsl:template>
+
+
+	<xsl:template match="tei:lb">
+		<br/>
+	</xsl:template>
+	
+	
+	<xsl:template match="tei:milestone">
+		<xsl:choose>
+			<xsl:when test="@type">
+				<hr class="milestone {@type}"/>
+			</xsl:when>
+			<xsl:when test="@unit eq 'part' and (@when or @source)">
+				<div class="milestone milestonePart">
+					<xsl:variable name="milestone-date" as="xs:string?"
+					              select="slsFn:format-date-or-year(@when)"/>
+					<xsl:variable name="milestone-source" as="xs:string?"
+					              select="slsFn:decode-uri-encoded-colons(@source)"/>
+					<xsl:text>Publicerad{if ($milestone-source) then ' i ' || $milestone-source else ''}{if ($milestone-date) then ' ' || $milestone-date else ''}</xsl:text>
+				</div>
+			</xsl:when>
+			<xsl:otherwise>
+				<hr class="milestone blank"/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 </xsl:stylesheet>

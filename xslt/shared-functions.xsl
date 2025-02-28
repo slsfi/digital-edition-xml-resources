@@ -29,4 +29,20 @@
 		                            ) + (if ($offset gt 0) then $offset else 0)"/>
 	</xsl:function>
 
+
+	<xsl:function name="slsFn:format-date-or-year" as="xs:string?" cache="yes">
+		<xsl:param name="date-or-year" as="xs:string?"/>
+		<xsl:sequence select="if ($date-or-year castable as xs:date)
+		                      then format-date(xs:date($date-or-year), '[D]/[M] [Y]')
+		                      else if ($date-or-year castable as xs:gYear)
+		                      then string(xs:gYear($date-or-year))
+		                      else ()"/>
+	</xsl:function>
+
+
+	<xsl:function name="slsFn:decode-uri-encoded-colons" as="xs:string?" cache="yes">
+		<xsl:param name="text" as="xs:string?"/>
+		<xsl:sequence select="translate($text, '%3A', ':')"/>
+	</xsl:function>
+
 </xsl:stylesheet>
