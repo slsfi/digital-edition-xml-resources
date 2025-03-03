@@ -114,6 +114,32 @@
 	</xsl:template>
 
 
+	<!-- Adds @class from @rend. -->
+	<xsl:template name="add-class-attribute-from-rend">
+		<xsl:call-template name="add-class-attribute">
+			<xsl:with-param name="class-names" select="(@rend)"/>
+		</xsl:call-template>
+	</xsl:template>
+
+
+	<xsl:template name="add-paragraph-number">
+		<xsl:if test="@n">
+			<span aria-hidden="true" class="pNumber">
+				<xsl:text>{@n} </xsl:text>
+			</span>
+		</xsl:if>
+	</xsl:template>
+
+
+	<xsl:template name="add-line-number">
+		<xsl:if test="@n and (@n mod 5 eq 0)">
+			<span aria-hidden="true" class="lNumber">
+				<xsl:text>{@n} </xsl:text>
+			</span>
+		</xsl:if>
+	</xsl:template>
+
+
 	<xsl:template name="wrap-head-opener-in-hgroup">
 	<!-- Group adjacent head/opener nodes -->
 		<xsl:param name="nodes" as="node()*"/>

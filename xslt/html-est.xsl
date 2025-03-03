@@ -29,7 +29,8 @@
 
 	<xsl:strip-space elements="tei:TEI tei:teiHeader tei:text tei:body
 	                           tei:div tei:opener tei:list tei:table
-	                           tei:row tei:argument tei:epigraph tei:cit"/>
+	                           tei:row tei:argument tei:epigraph tei:cit
+	                           tei:lg"/>
 
 
 	<!-- IMPORTS -->
@@ -188,7 +189,9 @@
 	</xsl:template>
 
 
-	<xsl:template match="tei:head[not(parent::tei:figure) and not(parent::tei:table) and not(@type eq 'subtitle')]">
+	<xsl:template match="tei:head[not(parent::tei:figure)
+	                     and not(parent::tei:table)
+	                     and not(@type eq 'subtitle')]">
 		<xsl:variable name="heading-level"
 		              select="slsFn:get-heading-level(., $heading-level-offset)"/>
 		<xsl:variable name="element-name"
@@ -222,24 +225,56 @@
 	</xsl:template>
 
 
-	<xsl:template match="tei:p | tei:byline | tei:dateline">
+	<xsl:template match="tei:p[parent::tei:argument] | tei:byline | tei:dateline |
+	                     tei:bibl[ancestor::tei:opener] | tei:ab[parent::tei:epigraph]">
 		<p>
+			<xsl:call-template name="add-lang-attribute"/>
 			<xsl:call-template name="add-class-attribute">
 				<xsl:with-param name="class-names"
 				                select="(if (parent::tei:argument)
 				                         then 'argument'
 				                         else if (local-name() ne 'p')
-				                         then local-name()
-				                         else (), @rend)"/>
+				                         then local-name() else (),
+				                         if (ancestor::tei:epigraph)
+				                         then 'epigraph' else (),
+				                         @rend)"/>
 			</xsl:call-template>
 			<xsl:apply-templates/>
 		</p>
 	</xsl:template>
 
 
+	<xsl:template match="tei:p">
+		<p>
+			<xsl:call-template name="add-id-attribute"/>
+			<xsl:call-template name="add-lang-attribute"/>
+			<xsl:call-template name="add-class-attribute-from-rend"/>
+			<xsl:call-template name="add-paragraph-number"/>
+			<xsl:apply-templates/>
+		</p>
+	</xsl:template>
+
+
+	<xsl:template match="tei:date">
+		<xsl:choose>
+			<xsl:when test="@rend">
+				<span>
+					<xsl:call-template name="add-class-attribute-from-rend"/>
+					<xsl:apply-templates/>
+				</span>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
+
 	<xsl:template match="tei:quote">
 		<xsl:variable name="element-name" as="xs:string"
-		              select="if (@type eq 'block') then 'blockquote' else 'p'"/>
+		              select="if (@type eq 'block' and not(ancestor::tei:opener))
+		                      then 'blockquote' else 'p'"/>
+
 		<xsl:element name="{$element-name}">
 			<xsl:call-template name="add-lang-attribute"/>
 			<xsl:call-template name="add-class-attribute">
@@ -254,13 +289,89 @@
 	</xsl:template>
 
 
+	<xsl:template match="tei:q[@rend eq 'parIndent']">
+		<div class="q parIndent">
+			<xsl:apply-templates/>
+		</div>
+	</xsl:template>
+
+
 	<xsl:template match="tei:lg">
-		
+		<p>
+			<xsl:call-template name="add-id-attribute"/>
+			<xsl:call-template name="add-lang-attribute"/>
+			<xsl:call-template name="add-class-attribute">
+				<xsl:with-param name="class-names"
+				                select="('lg', @type)"/>
+			</xsl:call-template>
+			<xsl:call-template name="add-paragraph-number"/>
+			<xsl:text>&#10;</xsl:text>
+			<xsl:apply-templates/>
+		</p>
 	</xsl:template>
 
 
 	<xsl:template match="tei:l">
-		
+		<xsl:variable name="lg-type" as="xs:string?" select="parent::tei:lg/@type"/>
+		<xsl:variable name="line-label" as="xs:string?"
+		              select="if ($lg-type eq 'labelledLinesBefore'
+				                  or $lg-type eq 'labelledLinesAfter')
+				              then $lg-type else ()"/>
+		<span>
+			<xsl:call-template name="add-id-attribute"/>
+			<xsl:call-template name="add-lang-attribute"/>
+			<xsl:call-template name="add-class-attribute">
+				<xsl:with-param name="class-names"
+				                select="('l', @rend,
+				                         if (@part) then 'part' || @part
+				                         else ())"/>
+			</xsl:call-template>
+			<xsl:call-template name="add-line-number"/>
+			<xsl:choose>
+				<xsl:when test="$line-label and tei:label">
+					<xsl:choose>
+						<xsl:when test="tei:label is node()[1]">
+							<span class="lLabel">
+								<xsl:apply-templates select="tei:label"/>
+							</span>
+							<span>
+								<xsl:apply-templates select="node() except tei:label"/>
+							</span>
+						</xsl:when>
+						<xsl:otherwise>
+							<span>
+								<xsl:apply-templates select="node() except tei:label"/>
+							</span>
+							<span class="lLabel">
+								<xsl:apply-templates select="tei:label"/>
+							</span>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</span>
+		<xsl:if test="not(. is (ancestor::tei:lg//tei:l[last()]))">
+			<br/><xsl:text>&#10;</xsl:text>
+		</xsl:if>
+	</xsl:template>
+
+
+	<xsl:template match="tei:label">
+		<xsl:choose>
+			<xsl:when test="parent::tei:lg[@type eq 'labelledAbove'
+			                               or @type eq 'labelledMargin']
+			                and @place">
+				<span class="label{substring(@place, 1, 1) => upper-case()}{substring(@place, 2)}">
+					<xsl:apply-templates/>
+				</span><xsl:text>&#10;</xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 
@@ -295,11 +406,8 @@
 			<table>
 				<xsl:call-template name="add-id-attribute"/>
 				<xsl:call-template name="add-lang-attribute"/>
-				<xsl:call-template name="add-class-attribute">
-					<xsl:with-param name="class-names"
-					                select="(@rend)"/>
-				</xsl:call-template>
-				
+				<xsl:call-template name="add-class-attribute-from-rend"/>
+
 				<!-- Group the rows so the first child rows with
 					 @role="label" are wrapped in <thead> and the
 					 subsequent rows are wrapped in <tbody>. -->
@@ -384,8 +492,7 @@
 			<xsl:call-template name="add-id-attribute"/>
 			<xsl:call-template name="add-class-attribute">
 				<xsl:with-param name="class-names"
-				                select="(if (contains-token(@type, 'edition'))
-				                         then 'pb_edition' else 'pb_orig')"/>
+				                select="('pb', @type)"/>
 			</xsl:call-template>
 			<xsl:attribute name="role">doc-pagebreak</xsl:attribute>
 			<xsl:variable name="delimiter"
@@ -418,6 +525,27 @@
 				<hr class="milestone blank"/>
 			</xsl:otherwise>
 		</xsl:choose>
+	</xsl:template>
+
+
+	<xsl:template match="tei:note">
+		<xsl:if test="@place and @xml:id">
+			<span tabindex="0" role="doc-noteref">
+				<xsl:call-template name="add-id-attribute"/>
+				<xsl:call-template name="add-lang-attribute"/>
+				<xsl:call-template name="add-class-attribute">
+					<xsl:with-param name="class-names"
+					                select="('footnoteindicator tooltiptrigger ttFoot', @xml:id)"/>
+				</xsl:call-template>
+				<xsl:text>{@n}</xsl:text>
+			</span>
+			<span class="tooltip ttFoot">
+				<span class="tei ttFixed">
+					<xsl:call-template name="add-id-attribute"/>
+					<xsl:apply-templates/>
+				</span>
+			</span>
+		</xsl:if>
 	</xsl:template>
 
 </xsl:stylesheet>
