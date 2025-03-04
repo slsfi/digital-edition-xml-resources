@@ -88,7 +88,7 @@
 	     nodes is outputted. -->
 
 
-	<!-- * Template for nodes that are excluded from the output. -->
+	<!-- * Template for <teiHeader>, which is stripped from the output. -->
 	<xsl:template match="tei:teiHeader"/>
 
 
@@ -212,11 +212,6 @@
 
 	<xsl:template match="tei:head[@type eq 'subtitle']">
 		<p role="doc-subtitle"><xsl:apply-templates/></p>
-	</xsl:template>
-
-
-	<xsl:template match="tei:head[parent::tei:figure]">
-		<figcaption><xsl:apply-templates/></figcaption>
 	</xsl:template>
 
 
@@ -547,5 +542,80 @@
 			</span>
 		</xsl:if>
 	</xsl:template>
+
+
+	<xsl:template match="tei:figure">
+		<xsl:choose>
+			<xsl:when test="@type eq 'placeholder'">
+				<!-- TODO: implement placeholder figure -->
+			</xsl:when>
+		</xsl:choose>
+		<figure>
+			<xsl:call-template name="add-id-attribute"/>
+			<xsl:apply-templates/>
+		</figure>
+	</xsl:template>
+
+
+	<xsl:template match="tei:head[parent::tei:figure]">
+		<figcaption><xsl:apply-templates/></figcaption>
+	</xsl:template>
+
+
+	<xsl:template match="tei:graphic">
+		<xsl:if test="not(parent::tei:figure[@type eq 'placeholder'])">
+			<xsl:variable name="fig-desc"
+		                  select="parent::tei:figure/tei:figDesc"/>
+			<img src="{@url}" alt="{if ($fig-desc) then string($fig-desc) else 'illustration'}" loading="lazy">
+				<xsl:where-populated>
+					<xsl:attribute name="height" select="translate(@height, 'px', '')"/>
+				</xsl:where-populated>
+				<xsl:where-populated>
+					<xsl:attribute name="width" select="translate(@width, 'px', '')"/>
+				</xsl:where-populated>
+			</img>
+		</xsl:if>
+	</xsl:template>
+	
+	
+	<!-- <figDesc> is handled by the template for <graphic> -->
+	<xsl:template match="tei:figDesc"/>
+	
+
+	<xsl:template match="tei:hi">
+		<span>
+			<xsl:call-template name="add-lang-attribute"/>
+			<xsl:call-template name="add-class-attribute-from-rend"/>
+		</span>
+	</xsl:template>
+
+
+	<xsl:template match="tei:unclear">
+		<xsl:if test="@reason ne 'overstrike' and @reason ne 'overwritten'">
+			<span class="unclear tooltiptrigger ttMs">
+				<xsl:apply-templates/>
+			</span>
+			<span class="tooltip">
+				<xsl:text>{slsFn:get-unclear-reason(@reason)}</xsl:text>
+			</span>
+		</xsl:if>
+	</xsl:template>
+	
+	
+	<xsl:template match="tei:gap">
+		<xsl:if test="@reason ne 'overstrike' and @reason ne 'overwritten'">
+			<span class="gap tooltiptrigger ttMs">
+				<xsl:text>[</xsl:text>
+				<xsl:copy-of select="slsFn:get-gap-space-text(local-name(), @unit, @quantity)"/>
+				<xsl:text>]</xsl:text>
+			</span>
+			<span class="tooltip">
+				<xsl:text>{slsFn:get-unclear-reason(@reason)}</xsl:text>
+			</span>
+		</xsl:if>
+	</xsl:template>
+
+
+	<xsl:template match="tei:del"/>
 
 </xsl:stylesheet>
