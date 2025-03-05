@@ -77,8 +77,22 @@
 	embedded in a webpage with pre-existing headings, the heading
 	levels need to be offset.
 	-->
-	<xsl:variable name="heading-level-offset" as="xs:integer"
+	<xsl:variable name="heading-level-offset" as="xs:integer" static="yes"
 	              select="0"/>
+
+	<!--
+	Directory base path where icon images are located on the frontend.
+	-->
+	<xsl:variable name="icons-base-path" as="xs:string" static="yes"
+	              select="'assets/images'"/>
+
+	<!--
+	Image element with icon representing empty content.
+	-->
+	<xsl:variable name="empty-icon-image" as="element(img)">
+		<img src="{$icons-base-path}/squared_times_gray.svg"
+		     alt="tomt" loading="lazy" aria-hidden="true"/>
+	</xsl:variable>
 
 
 	<!-- TEMPLATES **************************************************** -->
@@ -586,6 +600,7 @@
 		<span>
 			<xsl:call-template name="add-lang-attribute"/>
 			<xsl:call-template name="add-class-attribute-from-rend"/>
+			<xsl:apply-templates/>
 		</span>
 	</xsl:template>
 
@@ -619,5 +634,143 @@
 
 
 	<xsl:template match="tei:del"/>
+
+
+	<xsl:template match="tei:supplied">
+		<span class="corr_red choice tooltiptrigger ttChanges">
+			<xsl:apply-templates/>
+		</span>
+		<span class="tooltip ttChanges">
+			<xsl:text>{
+				if (@reason)
+				    then 'oläsligt, orsak: ' || slsFn:get-reason-text(@reason)
+				else if (@source)
+				    then 'tillagt av utgivaren (källa för ändring: ' || @source || ')'
+				else 'tillagt av utgivaren'
+			}</xsl:text>
+		</span>
+	</xsl:template>
+
+
+	<xsl:template match="tei:choice">
+		<span>
+			<xsl:call-template name="add-class-attribute">
+				<xsl:with-param name="class-names"
+				                select="('tooltiptrigger',
+				                         if (tei:abbr) then 'abbr ttAbbreviations'
+				                         else if (tei:orig) then 'choice ttChanges'
+				                         else 'choice')"/>
+			</xsl:call-template>
+			<xsl:apply-templates/>
+		</span>
+		<xsl:choose>
+			<xsl:when test="tei:expan">
+				<span class="tooltip ttAbbreviations">
+					<xsl:apply-templates select="tei:expan/node()"/>
+				</span>
+			</xsl:when>
+			<xsl:when test="tei:orig">
+				<span class="tooltip ttChanges">
+					<xsl:text>original: </xsl:text>
+					<xsl:apply-templates select="tei:orig/node()"/>
+					<xsl:if test="tei:reg[@source]">
+						<xsl:text> (källa för ändring: {tei:reg/@source})</xsl:text>
+					</xsl:if>
+				</span>
+			</xsl:when>
+		</xsl:choose>
+	</xsl:template>
+
+
+	<xsl:template match="tei:expan | tei:orig | tei:rdg"/>
+
+
+	<xsl:template match="tei:abbr">
+		<span class="abbr">
+			<xsl:apply-templates/>
+		</span>
+	</xsl:template>
+
+
+	<xsl:template match="tei:reg">
+		<xsl:choose>
+			<xsl:when test="parent::tei:choice">
+				<span class="corr{if (@type eq 'empty') then ' corr_hide' else ''}">
+					<xsl:choose>
+						<xsl:when test="@type eq 'empty'">
+							<xsl:sequence select="$empty-icon-image"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:apply-templates/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</span>
+			</xsl:when>
+			<xsl:otherwise>
+				<span class="reg{if (@type eq 'empty') then '_hide' else ''} tooltiptrigger ttNormalisations">
+					<xsl:choose>
+						<xsl:when test="@type eq 'empty'">
+							<xsl:sequence select="$empty-icon-image"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:apply-templates/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</span>
+				<span class="tooltip ttNormalisations">
+					<xsl:text>konsekvensändrat/normaliserat</xsl:text>
+				</span>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
+
+	<xsl:template match="tei:app">
+		<span class="choice tooltiptrigger ttChanges">
+			<xsl:apply-templates/>
+		</span>
+		<span class="tooltip ttChanges">
+			<xsl:text>tryckvarians{if (tei:lem/@wit) then ', källa: ' || tei:lem/@wit else ''}</xsl:text>
+			<xsl:text>; lydelse i övriga textvittnen:</xsl:text>
+			<xsl:for-each select="tei:rdg">
+				<br/>
+				<xsl:apply-templates select="node()"/>
+				<xsl:if test="@wit">
+					<xsl:text> ({@wit})</xsl:text>
+				</xsl:if>
+			</xsl:for-each>		
+		</span>
+	</xsl:template>
+
+
+	<xsl:template match="tei:lem">
+		<span class="corr{if (@type eq 'empty') then ' corr_hide' else ''}">
+			<xsl:choose>
+				<xsl:when test="@type eq 'empty'">
+					<xsl:sequence select="$empty-icon-image"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</span>
+	</xsl:template>
+
+
+	<xsl:template match="tei:corr">
+		<span class="corr{if (@type eq 'empty') then '_hide' else '_red'} tooltiptrigger ttChanges">
+			<xsl:choose>
+				<xsl:when test="@type eq 'empty'">
+					<xsl:sequence select="$empty-icon-image"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</span>
+		<span class="tooltip ttChanges">
+			<xsl:text>{if (@source) then @source else 'rättelse i originalet'}</xsl:text>
+		</span>
+	</xsl:template>
 
 </xsl:stylesheet>
