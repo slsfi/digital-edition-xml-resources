@@ -4,6 +4,7 @@
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:xml="http://www.w3.org/XML/1998/namespace"
 	xmlns:tei="http://www.tei-c.org/ns/1.0"
+	xmlns:slsFn="https://www.sls.fi/ns/digitaledition/functions/"
 	exclude-result-prefixes="#all"
 	expand-text="yes"
 >
@@ -164,7 +165,55 @@
 			</xsl:choose>
 		</xsl:for-each-group>
 	</xsl:template>
-	
 
+
+	<xsl:template name="add-gap-space-content">
+		<xsl:param name="text-type" as="xs:string" select="'est'"/>
+		
+		<xsl:variable name="reason" as="xs:string"
+		              select="if (not(@reason) and parent::tei:del[parent::tei:subst])
+		                          then 'overwritten'
+		                      else if (not(@reason))
+		                          then 'writing'
+		                      else @reason"/>
+		<xsl:variable name="unit" as="xs:string"
+		              select="if (@unit) then @unit else 'words'"/>
+		<xsl:variable name="quantity" as="xs:integer"
+		              select="if (@quantity and @quantity castable as xs:integer)
+		                      then xs:integer(@quantity) else 1"/>
+		<xsl:variable name="extent-text" as="xs:string"
+		              select="slsFn:get-gap-space-extent-text($unit, $quantity)"/>
+
+		<span>
+			<xsl:call-template name="add-class-attribute">
+				<xsl:with-param name="class-names"
+				                select="('gap tooltiptrigger ttMs',
+				                         if ($reason eq 'overstrike' or $reason eq 'erased')
+				                         then 'deletion' else ())"/>
+			</xsl:call-template>
+			<xsl:text>[</xsl:text>
+			<xsl:choose>
+				<xsl:when test="$text-type eq 'est'">
+					<xsl:sequence select="slsFn:get-gap-space-est-content(local-name(),
+			                                                              $unit, $quantity)"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:text>{if (local-name() eq 'gap') then 'oläsligt' else 'tomrum'}</xsl:text>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:text>]</xsl:text>
+		</span>
+		<span class="tooltip">
+			<xsl:choose>
+				<xsl:when test="local-name() eq 'gap'">
+					<xsl:text>oläsligt ({$extent-text}), orsak: </xsl:text>
+					<xsl:text>{slsFn:get-reason-text($reason)}</xsl:text>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:text>tomrum ({$extent-text})</xsl:text>
+				</xsl:otherwise>
+			</xsl:choose>
+		</span>
+	</xsl:template>
 
 </xsl:stylesheet>

@@ -46,42 +46,43 @@
 	</xsl:function>
 
 
-	<xsl:function name="slsFn:get-unclear-reason" as="xs:string?" cache="yes">
+	<xsl:function name="slsFn:get-reason-text" as="xs:string?" cache="yes">
 		<xsl:param name="reason" as="xs:string?"/>
-		<xsl:sequence select="if ($reason eq 'writing' or not($reason))
-		                        then 'svårtytt'
-		                      else if ($reason eq 'binding')
-		                        then 'svårläst p.g.a. inbindning/konservering'
-		                      else if ($reason eq 'damage')
-		                        then 'svårläst p.g.a. skada'
-		                      else if ($reason eq 'endline')
-		                        then 'svårläst p.g.a. radslut'
-		                      else if ($reason eq 'erased')
-		                        then 'svårläst p.g.a. utsuddning'
-		                      else if ($reason eq 'faded')
-		                        then 'svårläst p.g.a. att bläcket är svagt och avmattat, på väg att ta slut'
-		                      else if ($reason eq 'glue')
-		                        then 'svårläst p.g.a. överlimning eller tejp'
-		                      else if ($reason eq 'inksmudge')
-		                        then 'svårläst p.g.a. bläckplump eller motsvarande'
-		                      else if ($reason eq 'overstrike')
-		                        then 'svårläst p.g.a. strykning'
-		                      else if ($reason eq 'overtyped')
-		                        then 'svårläst p.g.a. strykning på skrivmaskin'
-		                      else if ($reason eq 'overwritten')
-		                        then 'svårläst p.g.a. överskrivning'
-		                      else if ($reason eq 'ribbon')
-		                        then 'svårläst p.g.a. dåligt färgband i skrivmaskin'
-		                      else if ($reason eq 'seal')
-		                        then 'svårläst p.g.a. sigill'
-		                      else if ($reason eq 'stamp')
-		                        then 'svårläst p.g.a. frimärke'
-		                      else ()"/>
+		<xsl:sequence
+			select="if ($reason eq 'writing' or not($reason))
+			            then 'handstil eller innehåll'
+			        else if ($reason eq 'binding')
+			            then 'inbindning/konservering'
+			        else if ($reason eq 'damage')
+			            then 'skada'
+			        else if ($reason eq 'endline')
+		                then 'radslut'
+			        else if ($reason eq 'erased')
+			            then 'utsuddning'
+			        else if ($reason eq 'faded')
+			            then 'svagt bläck'
+			        else if ($reason eq 'glue')
+			            then 'överlimning eller tejp'
+			        else if ($reason eq 'inksmudge')
+			            then 'bläckplump eller motsvarande'
+			        else if ($reason eq 'overstrike')
+			            then 'strykning'
+			        else if ($reason eq 'overtyped')
+			            then 'strykning på skrivmaskin'
+			        else if ($reason eq 'overwritten')
+			            then 'överskrivning'
+			        else if ($reason eq 'ribbon')
+			            then 'dåligt färgband i skrivmaskin'
+			        else if ($reason eq 'seal')
+			            then 'sigill'
+			        else if ($reason eq 'stamp')
+			            then 'frimärke'
+			        else ()"/>
 	</xsl:function>
 
 
-	<xsl:function name="slsFn:get-gap-space-text" as="item()*" cache="yes">
-		<!-- type is either 'gap' or 'space' -->
+	<xsl:function name="slsFn:get-gap-space-est-content" as="item()*" cache="yes">
+		<!-- type is either 'gap' or 'space', returns a sequence -->
 		<xsl:param name="type" as="xs:string"/>
 		<xsl:param name="unit" as="xs:string"/>
 		<xsl:param name="quantity" as="xs:integer"/>
@@ -117,19 +118,23 @@
 	</xsl:function>
 
 
-	<xsl:function name="slsFn:repeat-string" as="item()*">
+	<xsl:function name="slsFn:repeat-string" as="item()*" cache="yes">
 		<xsl:param name="str" as="xs:string"/>
 		<xsl:param name="count" as="xs:integer"/>
+
 		<xsl:sequence select="slsFn:repeat-string($str, $count, '')"/>
 	</xsl:function>
 
-	<xsl:function name="slsFn:repeat-string" as="item()*">
+	<xsl:function name="slsFn:repeat-string" as="item()*" cache="yes">
+	<!-- Returns a sequence, separator can be a string or an element -->
 		<xsl:param name="str" as="xs:string"/>
 		<xsl:param name="count" as="xs:integer"/>
 		<xsl:param name="separator" as="item()?"/>
+
 		<xsl:choose>
 			<xsl:when test="$separator instance of xs:string">
-				<xsl:sequence select="string-join((for $i in 1 to $count return $str), $separator)"/>
+				<xsl:sequence select="string-join((for $i in 1 to $count return $str),
+				                                  $separator)"/>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:sequence select="for $i in 1 to $count
@@ -138,5 +143,19 @@
 		</xsl:choose>
 	</xsl:function>
 
+
+	<xsl:function name="slsFn:get-gap-space-extent-text" as="xs:string" cache="yes">
+		<xsl:param name="unit" as="xs:string"/>
+		<xsl:param name="quantity" as="xs:integer"/>
+
+		<xsl:variable name="unit-text" select="if ($unit eq 'chars')
+		                                           then 'tecken'
+		                                       else if ($unit eq 'words')
+		                                           then 'ord'
+		                                       else if ($quantity gt 1)
+		                                           then 'rader'
+		                                       else 'rad'"/>
+		<xsl:sequence select="$quantity || ' ' || $unit-text"/>
+	</xsl:function>
 
 </xsl:stylesheet>

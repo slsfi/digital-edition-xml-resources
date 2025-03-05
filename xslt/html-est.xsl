@@ -35,8 +35,8 @@
 
 	<!-- IMPORTS -->
 
-	<xsl:import href="shared-named-templates.xsl"/>
 	<xsl:import href="shared-functions.xsl"/>
+	<xsl:import href="shared-named-templates.xsl"/>
 
 
 	<!-- PARAMETERS *************************************************** -->
@@ -591,27 +591,29 @@
 
 
 	<xsl:template match="tei:unclear">
-		<xsl:if test="@reason ne 'overstrike' and @reason ne 'overwritten'">
+	<!-- If @reason is 'overstrike' or 'overwritten' the content is stripped. -->
+		<xsl:if test="not(@reason) or (@reason ne 'overstrike' and @reason ne 'overwritten')">
+			<xsl:variable name="reason" as="xs:string"
+			              select="if (not(@reason) and parent::tei:del[parent::tei:subst])
+			                          then 'overwritten'
+			                      else if (not(@reason))
+			                          then 'writing'
+			                      else @reason"/>
 			<span class="unclear tooltiptrigger ttMs">
 				<xsl:apply-templates/>
 			</span>
 			<span class="tooltip">
-				<xsl:text>{slsFn:get-unclear-reason(@reason)}</xsl:text>
+				<xsl:text>svårtytt, orsak: {slsFn:get-reason-text($reason)}</xsl:text>
 			</span>
 		</xsl:if>
 	</xsl:template>
-	
-	
-	<xsl:template match="tei:gap">
-		<xsl:if test="@reason ne 'overstrike' and @reason ne 'overwritten'">
-			<span class="gap tooltiptrigger ttMs">
-				<xsl:text>[</xsl:text>
-				<xsl:copy-of select="slsFn:get-gap-space-text(local-name(), @unit, @quantity)"/>
-				<xsl:text>]</xsl:text>
-			</span>
-			<span class="tooltip">
-				<xsl:text>{slsFn:get-unclear-reason(@reason)}</xsl:text>
-			</span>
+
+
+	<xsl:template match="tei:gap | tei:space">
+		<xsl:if test="not(@reason) or (@reason ne 'overstrike'
+		                               and @reason ne 'overwritten'
+		                               and @reason ne 'erased')">
+			<xsl:call-template name="add-gap-space-content"/>
 		</xsl:if>
 	</xsl:template>
 
