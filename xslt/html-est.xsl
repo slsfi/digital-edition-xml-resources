@@ -203,6 +203,21 @@
 	</xsl:template>
 
 
+	<xsl:template match="tei:floatingText">
+		<xsl:variable name="element-name" as="xs:string"
+		              select="if (tei:body/tei:head[not(preceding-sibling::*)])
+		                      then 'section' else 'div'"/>
+		<xsl:element name="{$element-name}">
+			<xsl:call-template name="add-class-attribute">
+				<xsl:with-param name="class-names"
+				                select="(if (@type) then @type
+				                         else 'prose', 'incorp')"/>
+			</xsl:call-template>
+			<xsl:apply-templates/>
+		</xsl:element>
+	</xsl:template>
+
+
 	<xsl:template match="tei:head[not(parent::tei:figure)
 	                     and not(parent::tei:table)
 	                     and not(@type eq 'subtitle')]">
@@ -682,9 +697,6 @@
 	</xsl:template>
 
 
-	<xsl:template match="tei:expan | tei:orig | tei:rdg"/>
-
-
 	<xsl:template match="tei:abbr">
 		<span class="abbr">
 			<xsl:apply-templates/>
@@ -755,6 +767,9 @@
 			</xsl:choose>
 		</span>
 	</xsl:template>
+
+
+	<xsl:template match="tei:expan | tei:orig | tei:rdg"/>
 
 
 	<xsl:template match="tei:corr">
