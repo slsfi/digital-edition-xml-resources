@@ -607,8 +607,8 @@
 			</img>
 		</xsl:if>
 	</xsl:template>
-	
-	
+
+
 	<!-- <figDesc> is handled by the template for <graphic> -->
 	<xsl:template match="tei:figDesc"/>
 
@@ -655,6 +655,8 @@
 
 
 	<xsl:template match="tei:ref | tei:ptr[not(@type)]">
+		<!-- Hyperlinks should only used for navigation to real URLs.
+		Should be using a <button> when not navigating to a URL. -->
 		<a>
 			<xsl:call-template name="add-class-attribute">
 				<xsl:with-param name="class-names"
@@ -676,6 +678,35 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</a>
+	</xsl:template>
+
+
+	<xsl:template match="tei:anchor">
+		<xsl:choose>
+			<xsl:when test="starts-with(@xml:id, 'start')">
+				<span class="anchor_lemma symbol_red" data-id="{@xml:id}">
+					<img src="{$icons-base-path}/ms_arrow_right.svg"
+					     alt="lemma start" loading="lazy"/>
+				</span>
+			</xsl:when>
+			<xsl:when test="starts-with(@xml:id, 'end')">
+				<!-- Is the id really needed as a class name? Check the frontend. -->
+				<img src="{$icons-base-path}/asterisk.svg" alt="kommentar"
+				     class="comment commentScrollTarget tooltiptrigger ttComment en{substring(@xml:id, 4)}"
+				     loading="lazy" tabindex="0">
+					<xsl:call-template name="add-id-attribute"/>
+				</img>
+			</xsl:when>
+			<xsl:when test="@type eq 'xref'">
+				<!-- Another test option here is to see if there is not an 
+				<addSpan> or <delSpan> with matching @spanTo -->
+				<!-- Anchors were previously <a>, check if frontend
+				supports this: -->
+				<span class="anchor" aria-hidden="true">
+					<xsl:call-template name="add-id-attribute"/>
+				</span>
+			</xsl:when>
+		</xsl:choose>
 	</xsl:template>
 
 
@@ -707,7 +738,23 @@
 	</xsl:template>
 
 
-	<xsl:template match="tei:del"/>
+	<xsl:template match="tei:del | tei:metamark"/>
+
+	<xsl:template match="tei:seg">
+		<xsl:choose>
+			<xsl:when test="@type eq 'alt'">
+				<xsl:apply-templates select="tei:add[@type eq 'choice']"/>
+			</xsl:when>
+			<xsl:when test="@rend">
+				<span class="{@rend}">
+					<xsl:apply-templates/>
+				</span>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
 
 
 	<xsl:template match="tei:supplied">
