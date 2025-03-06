@@ -611,7 +611,16 @@
 	
 	<!-- <figDesc> is handled by the template for <graphic> -->
 	<xsl:template match="tei:figDesc"/>
-	
+
+
+	<xsl:template match="tei:ptr[@type eq 'mediaCollection']">
+		<a class="xreference ref_illustration" rel="nofollow"
+		   href="{if (starts-with(@target, '#')) then @target else '#' || @target}">
+			<img class="symbol" src="{$icons-base-path}/image_symbol.svg"
+			     alt="illustration" loading="lazy"/>
+		</a>
+	</xsl:template>
+
 
 	<xsl:template match="tei:hi | tei:foreign">
 		<span>
@@ -642,6 +651,31 @@
 			<xsl:call-template name="add-lang-attribute"/>
 			<xsl:apply-templates/>
 		</span>
+	</xsl:template>
+
+
+	<xsl:template match="tei:ref | tei:ptr[not(@type)]">
+		<a>
+			<xsl:call-template name="add-class-attribute">
+				<xsl:with-param name="class-names"
+				                select="('xreference',
+				                         if (not(@type) or @type eq 'url')
+				                             then 'ref_external'
+				                         else 'ref_' || @type)"/>
+			</xsl:call-template>
+			<xsl:attribute name="href" select="@target"/>
+			<xsl:if test="@type and @type ne 'url'">
+				<xsl:attribute name="rel" select="'nofollow'"/>
+			</xsl:if>
+			<xsl:choose>
+				<xsl:when test="local-name() eq 'ref'">
+					<xsl:apply-templates/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:text>{@target}</xsl:text>
+				</xsl:otherwise>
+			</xsl:choose>
+		</a>
 	</xsl:template>
 
 
