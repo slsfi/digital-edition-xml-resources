@@ -80,6 +80,13 @@
 	</xsl:template>
 
 
+	<xsl:template name="add-id-attribute-from-key">
+		<xsl:where-populated>
+			<xsl:attribute name="data-id" select="@key"/>
+		</xsl:where-populated>
+	</xsl:template>
+
+
 	<!--
 	Add @lang based on @xml:lang.
 	-->

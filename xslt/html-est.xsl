@@ -595,7 +595,9 @@
 		<xsl:if test="not(parent::tei:figure[@type eq 'placeholder'])">
 			<xsl:variable name="fig-desc"
 		                  select="parent::tei:figure/tei:figDesc"/>
-			<img src="{@url}" alt="{if ($fig-desc) then string($fig-desc) else 'illustration'}" loading="lazy">
+			<img src="{@url}" loading="lazy" alt="{if ($fig-desc)
+			                                       then string($fig-desc)
+			                                       else 'illustration'}">
 				<xsl:where-populated>
 					<xsl:attribute name="height" select="translate(@height, 'px', '')"/>
 				</xsl:where-populated>
@@ -611,10 +613,33 @@
 	<xsl:template match="tei:figDesc"/>
 	
 
-	<xsl:template match="tei:hi">
+	<xsl:template match="tei:hi | tei:foreign">
 		<span>
 			<xsl:call-template name="add-lang-attribute"/>
 			<xsl:call-template name="add-class-attribute-from-rend"/>
+			<xsl:apply-templates/>
+		</span>
+	</xsl:template>
+
+
+	<xsl:template match="tei:persName | tei:placeName | tei:rs | tei:title">
+		<span>
+			<xsl:call-template name="add-class-attribute">
+				<xsl:with-param name="class-names"
+				                select="('tooltiptrigger',
+				                         if (local-name() eq 'placeName')
+				                             then 'placeName ttPlace'
+				                         else if (local-name() eq 'title')
+				                             then 'title ttTitle'
+				                         else 'person ttPerson',
+				                         @rend,
+				                         if (@cert eq 'low')
+				                             then 'uncertain' else (),
+				                         if (@role eq 'fictional')
+				                             then 'fictional' else ())"/>
+			</xsl:call-template>
+			<xsl:call-template name="add-id-attribute-from-key"/>
+			<xsl:call-template name="add-lang-attribute"/>
 			<xsl:apply-templates/>
 		</span>
 	</xsl:template>
