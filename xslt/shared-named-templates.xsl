@@ -31,7 +31,7 @@
 						                          and string-length($section-id) gt 0)
 						                      then .//tei:div[@xml:id eq $section-id]//tei:note
 						                      else .//tei:note">
-							<xsl:call-template name="add-footnote"/>
+							<xsl:call-template name="add-footnote-list-item"/>
 						</xsl:for-each>
 					</ol>
 				</xsl:where-populated>
@@ -41,12 +41,10 @@
 
 
 	<!-- Insert a footnote list item in a list of footnotes. -->
-	<xsl:template name="add-footnote">
+	<xsl:template name="add-footnote-list-item">
 		<xsl:if test="@place and @xml:id">
 			<li data-id="{@xml:id}" class="footnoteItem">
-				<xsl:if test="@xml:lang">
-					<xsl:attribute name="lang" select="@xml:lang"/>
-				</xsl:if>
+				<xsl:call-template name="set-attr-from-xml-lang"/>
 				<a href="#{@xml:id}" class="xreference footnoteReference"
 				   rel="nofollow" role="doc-backlink">
 					<xsl:text>{ if (@n) then @n else '*)' } </xsl:text>
@@ -59,52 +57,48 @@
 	</xsl:template>
 
 
-	<!--
-	Add @data-id based on @xml:id.
-	-->
-	<xsl:template name="add-id-attribute">
-		<xsl:param name="from-parent" as="xs:boolean?" select="false()"/>
+	<xsl:template name="set-attr-from-xml-id">
+		<xsl:param name="target-attr" as="xs:string" select="'data-id'"/>
 
-		<xsl:choose>
-			<xsl:when test="$from-parent">
-				<xsl:if test="parent::*[@xml:id]">
-					<xsl:attribute name="data-id" select="parent::*/@xml:id"/>
-				</xsl:if>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:if test="@xml:id">
-					<xsl:attribute name="data-id" select="@xml:id"/>
-				</xsl:if>
-			</xsl:otherwise>
-		</xsl:choose>
+		<xsl:if test="@xml:id">
+			<xsl:attribute name="{$target-attr}" select="@xml:id"/>
+		</xsl:if>
 	</xsl:template>
 
 
-	<xsl:template name="add-id-attribute-from-key">
-		<xsl:where-populated>
-			<xsl:attribute name="data-id" select="@key"/>
-		</xsl:where-populated>
+	<xsl:template name="set-attr-from-parent-xml-id">
+		<xsl:param name="target-attr" as="xs:string" select="'data-id'"/>
+
+		<xsl:if test="parent::*[@xml:id]">
+			<xsl:attribute name="{$target-attr}" select="parent::*/@xml:id"/>
+		</xsl:if>
 	</xsl:template>
 
 
-	<!--
-	Add @lang based on @xml:lang.
-	-->
-	<xsl:template name="add-lang-attribute">
-		<xsl:param name="from-parent" as="xs:boolean?" select="false()"/>
-		
-		<xsl:choose>
-			<xsl:when test="$from-parent">
-				<xsl:if test="parent::*[@xml:lang]">
-					<xsl:attribute name="lang" select="parent::*/@xml:lang"/>
-				</xsl:if>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:if test="@xml:lang">
-					<xsl:attribute name="lang" select="@xml:lang"/>
-				</xsl:if>
-			</xsl:otherwise>
-		</xsl:choose>
+	<xsl:template name="set-attr-from-key">
+		<xsl:param name="target-attr" as="xs:string" select="'data-id'"/>
+
+		<xsl:if test="@key">
+			<xsl:attribute name="{$target-attr}" select="@key"/>
+		</xsl:if>
+	</xsl:template>
+
+
+	<xsl:template name="set-attr-from-xml-lang">
+		<xsl:param name="target-attr" as="xs:string" select="'lang'"/>
+
+		<xsl:if test="@xml:lang">
+			<xsl:attribute name="{$target-attr}" select="@xml:lang"/>
+		</xsl:if>
+	</xsl:template>
+
+
+	<xsl:template name="set-attr-from-parent-xml-lang">
+		<xsl:param name="target-attr" as="xs:string" select="'lang'"/>
+
+		<xsl:if test="parent::*[@xml:lang]">
+			<xsl:attribute name="{$target-attr}" select="parent::*/@xml:lang"/>
+		</xsl:if>
 	</xsl:template>
 
 
@@ -113,7 +107,7 @@
 	names, outputs @class with the class names separated by space as
 	value.
 	-->
-	<xsl:template name="add-class-attribute">
+	<xsl:template name="set-class-attr">
 		<xsl:param name="class-names" as="xs:string*" select="()"/>
 
 		<xsl:if test="exists($class-names)">
@@ -123,8 +117,8 @@
 
 
 	<!-- Adds @class from @rend. -->
-	<xsl:template name="add-class-attribute-from-rend">
-		<xsl:call-template name="add-class-attribute">
+	<xsl:template name="set-class-attr-from-rend">
+		<xsl:call-template name="set-class-attr">
 			<xsl:with-param name="class-names" select="(@rend)"/>
 		</xsl:call-template>
 	</xsl:template>
@@ -192,7 +186,7 @@
 		              select="slsFn:get-gap-space-extent-text($unit, $quantity)"/>
 
 		<span>
-			<xsl:call-template name="add-class-attribute">
+			<xsl:call-template name="set-class-attr">
 				<xsl:with-param name="class-names"
 				                select="('gap tooltiptrigger ttMs',
 				                         if ($reason eq 'overstrike' or $reason eq 'erased')

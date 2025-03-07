@@ -9,11 +9,23 @@
 	expand-text="yes"
 >
 
+	<!-- * GLOBAL VARIABLES ******************************************* -->
+
+	<!--
+	No-Break Space (hexadecimal A0, decimal 160):
+	-->
+	<xsl:variable name="NBSP" as="xs:string" static="yes"
+	              select="'&#xA0;'"/>
+
+
+	<!-- * FUNCTIONS ************************************************** -->
+
 	<xsl:function name="slsFn:get-heading-level" as="xs:integer">
 	<!-- * Get the current heading level from the passed context item
 	       by calculating the number of ancestor <div> or <body>
 	       elements with <head> children. -->
 		<xsl:param name="context-item" as="node()"/>
+
 		<xsl:sequence select="slsFn:get-heading-level($context-item, 0)"/>
 	</xsl:function>
 
@@ -24,6 +36,7 @@
 	       passed offset amount. -->
 		<xsl:param name="context-item" as="node()"/>
 		<xsl:param name="offset" as="xs:integer"/>
+
 		<xsl:sequence select="count($context-item/ancestor::tei:div[tei:head] |
 		                            $context-item/ancestor::tei:body[tei:head]
 		                            ) + (if ($offset gt 0) then $offset else 0)"/>
@@ -32,22 +45,28 @@
 
 	<xsl:function name="slsFn:format-date-or-year" as="xs:string?" cache="yes">
 		<xsl:param name="date-or-year" as="xs:string?"/>
-		<xsl:sequence select="if ($date-or-year castable as xs:date)
-		                      then format-date(xs:date($date-or-year), '[D]/[M] [Y]')
-		                      else if ($date-or-year castable as xs:gYear)
-		                      then string(xs:gYear($date-or-year))
-		                      else ()"/>
+
+		<xsl:sequence select="
+			if ($date-or-year castable as xs:date)
+			    then format-date(xs:date($date-or-year), '[D]/[M] [Y]')
+			else if ($date-or-year castable as xs:gYear)
+			    then string(xs:gYear($date-or-year))
+			else ()
+		"/>
 	</xsl:function>
 
 
-	<xsl:function name="slsFn:decode-uri-encoded-colons" as="xs:string?" cache="yes">
+	<xsl:function name="slsFn:decode-uri-encoded-colons" as="xs:string?"
+	              cache="yes">
 		<xsl:param name="text" as="xs:string?"/>
+
 		<xsl:sequence select="translate($text, '%3A', ':')"/>
 	</xsl:function>
 
 
 	<xsl:function name="slsFn:get-reason-text" as="xs:string?" cache="yes">
 		<xsl:param name="reason" as="xs:string?"/>
+
 		<xsl:sequence
 			select="if ($reason eq 'writing' or not($reason))
 			            then 'handstil eller innehåll'
@@ -91,30 +110,36 @@
 			<xsl:choose>
 				<xsl:when test="$type eq 'gap'">
 					<xsl:text>{
-						if ($unit eq 'chars') then '-'
-						else if ($unit eq 'words') then '----'
+						if ($unit eq 'chars')
+						    then '-'
+						else if ($unit eq 'words')
+						    then '----'
 						else '---- ---- ---- ---- ----'
 					}</xsl:text>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:text>{
-						if ($unit eq 'chars') then '&#160;'
-						else if ($unit eq 'words') then '&#160;&#160;&#160;&#160;'
-						else '&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;'
+						if ($unit eq 'chars')
+						    then $NBSP
+						else if ($unit eq 'words')
+						    then slsFn:repeat-string($NBSP, 4)
+						else slsFn:repeat-string($NBSP, 24)
 					}</xsl:text>
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
 
-		<xsl:variable name="br-element">
+		<xsl:variable name="br-element" as="element(br)">
 			<xsl:element name="br"/>
 		</xsl:variable>
 
-		<xsl:sequence select="if ($unit eq 'chars')
-		                      then slsFn:repeat-string($repeat-text, $quantity)
-		                      else if ($unit eq 'words')
-		                      then slsFn:repeat-string($repeat-text, $quantity, ' ')
-		                      else slsFn:repeat-string($repeat-text, $quantity, $br-element)"/>
+		<xsl:sequence select="
+			if ($unit eq 'chars')
+			    then slsFn:repeat-string($repeat-text, $quantity)
+			else if ($unit eq 'words')
+			    then slsFn:repeat-string($repeat-text, $quantity, ' ')
+			else slsFn:repeat-string($repeat-text, $quantity, $br-element)
+		"/>
 	</xsl:function>
 
 
@@ -133,18 +158,22 @@
 
 		<xsl:choose>
 			<xsl:when test="$separator instance of xs:string">
-				<xsl:sequence select="string-join((for $i in 1 to $count return $str),
-				                                  $separator)"/>
+				<xsl:sequence select="
+					string-join((for $i in 1 to $count return $str), $separator)
+				"/>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:sequence select="for $i in 1 to $count
-				    return ($str, if ($i lt $count) then $separator else ())"/>
+				<xsl:sequence select="
+					for $i in 1 to $count
+				    return ($str, if ($i lt $count) then $separator else ())
+				"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:function>
 
 
-	<xsl:function name="slsFn:get-gap-space-extent-text" as="xs:string" cache="yes">
+	<xsl:function name="slsFn:get-gap-space-extent-text" as="xs:string"
+	              cache="yes">
 		<xsl:param name="unit" as="xs:string"/>
 		<xsl:param name="quantity" as="xs:integer"/>
 
