@@ -17,20 +17,25 @@
 		<xsl:param name="section-id" as="xs:string?"/>
 
 		<xsl:where-populated>
-			<xsl:if test=".//tei:div[@xml:id eq $section-id]//tei:note or .//tei:note">
-				<xsl:text>&#10;</xsl:text> <!-- Line break -->
+			<xsl:if test=".//tei:div[@xml:id eq $section-id]//tei:note
+			              or .//tei:note">
+				<xsl:text>&#10;</xsl:text> <!-- Newline -->
 			</xsl:if>
 			<section role="doc-endnotes">
 				<xsl:if test="parent::tei:text[@xml:lang]">
-					<xsl:attribute name="lang" select="parent::tei:text/@xml:lang"/>
+					<xsl:attribute name="lang"
+					               select="parent::tei:text/@xml:lang"/>
 				</xsl:if>
-				<!-- The footnotes section should have a heading for accessibility -->
+				<!-- The footnotes section should have a heading for
+				     accessibility -->
 				<xsl:where-populated>
 					<ol class="footnotesList">
-						<xsl:for-each select="if (exists($section-id)
-						                          and string-length($section-id) gt 0)
-						                      then .//tei:div[@xml:id eq $section-id]//tei:note
-						                      else .//tei:note">
+						<xsl:for-each select="
+							if (exists($section-id)
+						        and string-length($section-id) gt 0)
+						        then .//tei:div[@xml:id eq $section-id]//tei:note
+						    else .//tei:note
+						">
 							<xsl:call-template name="add-footnote-list-item"/>
 						</xsl:for-each>
 					</ol>
@@ -148,9 +153,11 @@
 
 		<xsl:for-each-group select="$nodes"
 		                    group-adjacent="if (self::tei:head or self::tei:opener)
-		                                    then 'hgroup' else 'other'">
+		                                        then 'hgroup'
+		                                    else 'other'">
 			<xsl:choose>
-				<!-- Only wrap in <hgroup> if there are at least two adjacent head/opener nodes -->
+				<!-- Only wrap in <hgroup> if there are at least two
+				     adjacent head/opener nodes -->
 				<xsl:when test="current-grouping-key() eq 'hgroup'
 				                and count(current-group()) gt 1">
 					<hgroup>
@@ -172,7 +179,8 @@
 		<xsl:param name="text-type" as="xs:string" select="'est'"/>
 		
 		<xsl:variable name="reason" as="xs:string"
-		              select="if (not(@reason) and parent::tei:del[parent::tei:subst])
+		              select="if (not(@reason)
+		                          and parent::tei:del[parent::tei:subst])
 		                          then 'overwritten'
 		                      else if (not(@reason))
 		                          then 'writing'
@@ -181,7 +189,8 @@
 		              select="if (@unit) then @unit else 'words'"/>
 		<xsl:variable name="quantity" as="xs:integer"
 		              select="if (@quantity and @quantity castable as xs:integer)
-		                      then xs:integer(@quantity) else 1"/>
+		                          then xs:integer(@quantity)
+		                      else 1"/>
 		<xsl:variable name="extent-text" as="xs:string"
 		              select="slsFn:get-gap-space-extent-text($unit, $quantity)"/>
 
@@ -189,17 +198,24 @@
 			<xsl:call-template name="set-class-attr">
 				<xsl:with-param name="class-names"
 				                select="('gap tooltiptrigger ttMs',
-				                         if ($reason eq 'overstrike' or $reason eq 'erased')
-				                         then 'deletion' else ())"/>
+				                         if ($reason eq 'overstrike'
+				                             or $reason eq 'erased')
+				                             then 'deletion' else ())"/>
 			</xsl:call-template>
 			<xsl:text>[</xsl:text>
 			<xsl:choose>
 				<xsl:when test="$text-type eq 'est'">
-					<xsl:sequence select="slsFn:get-gap-space-est-content(local-name(),
-			                                                              $unit, $quantity)"/>
+					<xsl:sequence
+						select="slsFn:get-gap-space-est-content(
+							local-name(), $unit, $quantity
+						)"/>
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:text>{if (local-name() eq 'gap') then 'oläsligt' else 'tomrum'}</xsl:text>
+					<xsl:text>{
+						if (local-name() eq 'gap')
+						    then 'oläsligt'
+						else 'tomrum'
+					}</xsl:text>
 				</xsl:otherwise>
 			</xsl:choose>
 			<xsl:text>]</xsl:text>

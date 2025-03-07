@@ -49,7 +49,7 @@
 	<!-- * SERIALIZATION OPTIONS ************************************** -->
 
 	<xsl:output method="html" html-version="5.0" encoding="utf-8"
-	            include-content-type="no" indent="no"/>
+	            include-content-type="no" indent="yes"/>
 
 	<xsl:strip-space elements="tei:TEI tei:address tei:argument tei:body
 	                           tei:cit tei:closer tei:div tei:epigraph
@@ -187,11 +187,11 @@
 	     * value will be added as a class name to @class, and if the type
 	     * changes, the class name 'incorp' will also be added. * -->
 		<xsl:variable name="class-names" as="xs:string*"
-		              select="(@type,
-		                       if (ancestor::tei:div[@type][1]/@type ne current()/@type or
-		                          (parent::tei:body
-		                           and ancestor::tei:text/@type ne current()/@type))
-		                       then 'incorp' else ())"/>
+			select="(@type,
+		             if (ancestor::tei:div[@type][1]/@type ne current()/@type
+		                 or (parent::tei:body
+			                 and ancestor::tei:text/@type ne current()/@type))
+			         then 'incorp' else ())"/>
 		<xsl:variable name="element-name" as="xs:string"
 		              select="if (*[self::tei:head] or (@type eq 'letterpart'))
 		                          then 'section'
@@ -242,7 +242,7 @@
 	<!--* Wrap in a <div> if not part of a grouping which will be wrapped
 		* in <hgroup>, otherwise, just apply templates. * -->
 		<xsl:choose>
-			<xsl:when test="current-grouping-key() ne 'hgroup'">
+			<xsl:when test="not(current-grouping-key() eq 'hgroup')">
 				<div class="opener">
 					<xsl:apply-templates/>
 				</div>
@@ -311,7 +311,7 @@
 				<xsl:with-param name="class-names"
 				                select="(if (parent::tei:argument)
 				                             then 'argument'
-				                         else if (local-name() ne 'p')
+				                         else if (not(local-name() eq 'p'))
 				                             then local-name() else (),
 				                         if (ancestor::tei:epigraph)
 				                             then 'epigraph' else (),
@@ -594,7 +594,8 @@
 			<xsl:attribute name="role">doc-pagebreak</xsl:attribute>
 			<xsl:variable name="delimiter"
 			              select="if (empty(@subtype)) then '|' else '['"/>
-			<xsl:text>{$delimiter}{@n}{if ($delimiter eq '|') then '|' else ']'}</xsl:text>
+			<xsl:text>{$delimiter}{@n}{if ($delimiter eq '|')
+			                               then '|' else ']'}</xsl:text>
 		</xsl:element>
 	</xsl:template>
 
@@ -693,7 +694,9 @@
 
 	<xsl:template match="tei:ptr[@type eq 'mediaCollection']">
 		<a class="xreference ref_illustration" rel="nofollow"
-		   href="{if (starts-with(@target, '#')) then @target else '#' || @target}">
+		   href="{if (starts-with(@target, '#'))
+		              then @target
+		          else '#' || @target}">
 			<img class="symbol" src="{$icons-base-path}/image_symbol.svg"
 			     alt="illustration" loading="lazy"/>
 		</a>
@@ -789,9 +792,10 @@
 
 
 	<xsl:template match="tei:unclear">
-	<!-- If @reason is 'overstrike' or 'overwritten' the content is stripped. -->
-		<xsl:if test="not(@reason) or (@reason ne 'overstrike'
-		                               and @reason ne 'overwritten')">
+	<!-- * If @reason is 'overstrike' or 'overwritten' the content is
+	     * stripped. * -->
+		<xsl:if test="not(@reason eq 'overstrike')
+		              and not(@reason eq 'overwritten')">
 			<xsl:variable name="reason" as="xs:string"
 				select="if (not(@reason) and parent::tei:del[parent::tei:subst])
 			                then 'overwritten'
@@ -809,9 +813,11 @@
 
 
 	<xsl:template match="tei:gap | tei:space">
-		<xsl:if test="not(@reason) or (@reason ne 'overstrike'
-		                               and @reason ne 'overwritten'
-		                               and @reason ne 'erased')">
+	<!-- * If @reason is 'overstrike', 'overwritten' or 'erased' the
+	     * content is stripped. * -->
+		<xsl:if test="not(@reason eq 'overstrike')
+		              and not(@reason eq 'overwritten')
+		              and not(@reason eq 'erased')">
 			<xsl:call-template name="add-gap-space-content"/>
 		</xsl:if>
 	</xsl:template>
