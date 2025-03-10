@@ -565,12 +565,13 @@
 
 
 	<xsl:template match="tei:pb">
-		<xsl:element name="{if (preceding-sibling::*[1][self::tei:p
-		                        or self::tei:quote]
-		                        or following-sibling::*[1][self::tei:p
-		                        or self::tei:quote])
-		                        then 'div'
-		                    else 'span'}">
+		<xsl:element name="{
+			if ((preceding-sibling::* | following-sibling::*)[
+			    self::tei:p or self::tei:head or self::tei:lg or self::tei:div
+			    or self::tei:table or self::tei:list or self::tei:milestone
+			    or self::tei:quote[@type eq 'block']])
+			then 'div' else 'span'
+		}">
 			<xsl:call-template name="set-attr-from-xml-id"/>
 			<xsl:call-template name="set-class-attr">
 				<xsl:with-param name="class-names"
