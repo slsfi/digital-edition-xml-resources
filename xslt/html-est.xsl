@@ -17,7 +17,8 @@
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-07
-	*    Licence: CC-BY-NC 4.0,
+	*    Licence: CC-BY-NC 4.0 (Attribution-NonCommercial 4.0
+	*             International),
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
@@ -60,6 +61,7 @@
 
 	<!-- * IMPORTS **************************************************** -->
 
+	<xsl:import href="shared-constant-variables.xsl"/>
 	<xsl:import href="shared-functions.xsl"/>
 	<xsl:import href="shared-named-templates.xsl"/>
 
@@ -98,21 +100,6 @@
 	     * heading levels need to be offset. * -->
 	<xsl:variable name="heading-level-offset" as="xs:integer" static="yes"
 	              select="0"/>
-
-	<!-- * Directory base path where icon images are located on the
-	     * frontend. * -->
-	<xsl:variable name="icons-base-path" as="xs:string" static="yes"
-	              select="'assets/images'"/>
-
-	<!-- * Image element with icon representing empty content. * -->
-	<xsl:variable name="empty-icon-image" as="element(img)">
-		<img src="{$icons-base-path}/squared_times_gray.svg"
-		     alt="tomt" loading="lazy" aria-hidden="true"/>
-	</xsl:variable>
-
-	<!-- * Newline (hexadecimal 0A, decimal 10). * -->
-	<xsl:variable name="NL" as="xs:string" static="yes"
-	              select="'&#xA;'"/>
 
 
 
@@ -173,7 +160,7 @@
 			</xsl:otherwise>
 		</xsl:choose>
 
-		<!-- Process any footnotes so they appear after the main text. -->
+		<!-- * Process any footnotes so they appear after the main text. * -->
 		<xsl:call-template name="list-footnotes">
 			<xsl:with-param name="section-id" select="$section-id"/>
 		</xsl:call-template>
@@ -487,9 +474,9 @@
 				<xsl:call-template name="set-attr-from-xml-lang"/>
 				<xsl:call-template name="set-class-attr-from-rend"/>
 
-				<!-- Group the rows so the first child rows with
-					 @role="label" are wrapped in <thead> and the
-					 subsequent rows are wrapped in <tbody>. -->
+				<!-- * Group the rows so the first child rows with
+					 * @role="label" are wrapped in <thead> and the
+					 * subsequent rows are wrapped in <tbody>. * -->
 				<xsl:for-each-group select="node()"
 					group-adjacent="if (self::tei:row[@role eq 'label']
 					                    and (not(preceding-sibling::*)

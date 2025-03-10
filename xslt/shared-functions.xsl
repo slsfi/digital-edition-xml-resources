@@ -9,15 +9,6 @@
 	expand-text="yes"
 >
 
-	<!-- * GLOBAL VARIABLES ******************************************* -->
-
-	<!--
-	No-Break Space (hexadecimal A0, decimal 160):
-	-->
-	<xsl:variable name="NBSP" as="xs:string" static="yes"
-	              select="'&#xA0;'"/>
-
-
 	<!-- * FUNCTIONS ************************************************** -->
 
 	<xsl:function name="slsFn:get-heading-level" as="xs:integer">

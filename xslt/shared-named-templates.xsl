@@ -19,7 +19,7 @@
 		<xsl:where-populated>
 			<xsl:if test=".//tei:div[@xml:id eq $section-id]//tei:note
 			              or .//tei:note">
-				<xsl:text>&#10;</xsl:text> <!-- Newline -->
+				<xsl:text>{$NL}</xsl:text>
 			</xsl:if>
 			<section role="doc-endnotes">
 				<xsl:if test="parent::tei:text[@xml:lang]">
