@@ -220,7 +220,7 @@
 			</xsl:choose>
 			<xsl:text>]</xsl:text>
 		</span>
-		<span class="tooltip">
+		<span class="tooltip" hidden="">
 			<xsl:choose>
 				<xsl:when test="local-name() eq 'gap'">
 					<xsl:text>oläsligt ({$extent-text}), orsak: </xsl:text>

@@ -623,7 +623,7 @@
 				</xsl:call-template>
 				<xsl:text>{@n}</xsl:text>
 			</span>
-			<span class="tooltip ttFoot">
+			<span class="tooltip ttFoot" hidden="">
 				<span class="tei ttFixed">
 					<xsl:call-template name="set-attr-from-xml-id"/>
 					<xsl:apply-templates/>
@@ -856,7 +856,7 @@
 			<span class="unclear tooltiptrigger ttMs">
 				<xsl:apply-templates/>
 			</span>
-			<span class="tooltip">
+			<span class="tooltip" hidden="">
 				<xsl:text>svårtytt, orsak: {slsFn:get-reason-text($reason)}</xsl:text>
 			</span>
 		</xsl:if>
@@ -898,7 +898,7 @@
 		<span class="corr_red choice tooltiptrigger ttChanges">
 			<xsl:apply-templates/>
 		</span>
-		<span class="tooltip ttChanges">
+		<span class="tooltip ttChanges" hidden="">
 			<xsl:text>{
 				if (@reason)
 				    then 'oläsligt, orsak: ' || slsFn:get-reason-text(@reason)
@@ -925,12 +925,12 @@
 		</span>
 		<xsl:choose>
 			<xsl:when test="tei:expan">
-				<span class="tooltip ttAbbreviations">
+				<span class="tooltip ttAbbreviations" hidden="">
 					<xsl:apply-templates select="tei:expan/node()"/>
 				</span>
 			</xsl:when>
 			<xsl:when test="tei:orig">
-				<span class="tooltip ttChanges">
+				<span class="tooltip ttChanges" hidden="">
 					<xsl:text>original: </xsl:text>
 					<xsl:apply-templates select="tei:orig/node()"/>
 					<xsl:if test="tei:reg[@source]">
@@ -975,7 +975,7 @@
 						</xsl:otherwise>
 					</xsl:choose>
 				</span>
-				<span class="tooltip ttNormalisations">
+				<span class="tooltip ttNormalisations" hidden="">
 					<xsl:text>konsekvensändrat/normaliserat</xsl:text>
 				</span>
 			</xsl:otherwise>
@@ -987,7 +987,7 @@
 		<span class="choice tooltiptrigger ttChanges">
 			<xsl:apply-templates/>
 		</span>
-		<span class="tooltip ttChanges">
+		<span class="tooltip ttChanges" hidden="">
 			<xsl:text>tryckvarians{if (tei:lem/@wit) then ', källa: ' || tei:lem/@wit else ''}</xsl:text>
 			<xsl:text>; lydelse i övriga textvittnen:</xsl:text>
 			<xsl:for-each select="tei:rdg">
@@ -1029,7 +1029,7 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</span>
-		<span class="tooltip ttChanges">
+		<span class="tooltip ttChanges" hidden="">
 			<xsl:text>{
 				if (@source) then @source else 'rättelse i originalet'
 			}</xsl:text>
