@@ -341,21 +341,6 @@
 	</xsl:template>
 
 
-	<xsl:template match="tei:date">
-		<xsl:choose>
-			<xsl:when test="@rend">
-				<span>
-					<xsl:call-template name="set-class-attr-from-rend"/>
-					<xsl:apply-templates/>
-				</span>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:apply-templates/>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
-
-
 	<xsl:template match="tei:quote">
 		<xsl:variable name="element-name" as="xs:string"
 		              select="if (@type eq 'block' and not(ancestor::tei:opener))
@@ -703,12 +688,78 @@
 	</xsl:template>
 
 
-	<xsl:template match="tei:hi | tei:foreign">
-		<span>
-			<xsl:call-template name="set-attr-from-xml-lang"/>
-			<xsl:call-template name="set-class-attr-from-rend"/>
-			<xsl:apply-templates/>
-		</span>
+	<xsl:template match="tei:date">
+		<xsl:choose>
+			<xsl:when test="@rend">
+				<span>
+					<xsl:call-template name="set-class-attr-from-rend"/>
+					<xsl:apply-templates/>
+				</span>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
+
+	<xsl:template match="tei:foreign | tei:hi">
+	<!-- * Bold, italics, subscript and superscript rend-values are transformed
+	     * into their equivalent HTML elements. Other rend-values become class
+	     * names on a <span>. The @lang attribute is applied to the innermost
+	     * element. <hi> without @rend is equivalent to a rend value of
+	     * italics. * -->
+		<xsl:variable name="has-element" as="xs:string*"
+		              select="('bold', 'italics', 'subscript', 'superscript')"/>
+		<xsl:variable name="rend-values" as="xs:string*"
+		              select="normalize-space(@rend) => tokenize()"/>
+		<xsl:variable name="to-elements" as="xs:string*"
+		              select="$rend-values[. = $has-element]"/>
+		<xsl:variable name="other-rend-values" as="xs:string*"
+			select="$rend-values[not(. = $has-element)]"/>
+		<xsl:variable name="xml-lang" select="@xml:lang" as="xs:string?"/>
+
+		<!-- * Dynamically generate the correct wrapping sequence, which can
+		     * contain the element names 'sub', 'sup', 'span', 'i' and 'b'.
+		     * These are applied in this order, so 'sub' is the innermost
+		     * element and 'b' the outermost. * -->
+		<xsl:variable name="wrappers" select="(
+			if ('subscript' = $to-elements) then 'sub' else (),
+			if ('superscript' = $to-elements) then 'sup' else (),
+			if (exists($other-rend-values)
+			    or ($xml-lang and empty($to-elements)))
+			    then 'span' else (),
+			if ('italics' = $to-elements
+			    or local-name() eq 'hi' and empty($rend-values)) then 'i' else (),
+			if ('bold' = $to-elements) then 'b' else ()
+		)"/>
+
+		<xsl:iterate select="$wrappers">
+			<xsl:param name="content">
+				<xsl:apply-templates/>
+			</xsl:param>
+			<xsl:on-completion>
+				<xsl:sequence select="$content"/>
+			</xsl:on-completion>
+
+			<xsl:variable name="wrapped-content">
+				<xsl:element name="{.}">
+					<!-- * Apply @lang only to the first (innermost) element * -->
+					<xsl:if test="$xml-lang and position() lt 2">
+						<xsl:attribute name="lang" select="$xml-lang"/>
+					</xsl:if>
+					<!-- * Add @class only if it's a <span> * -->
+					<xsl:if test=". eq 'span' and exists($other-rend-values)">
+						<xsl:attribute name="class" select="$other-rend-values"/>
+					</xsl:if>
+					<xsl:sequence select="$content"/>
+				</xsl:element>
+			</xsl:variable>
+
+			<xsl:next-iteration>
+				<xsl:with-param name="content" select="$wrapped-content"/>
+			</xsl:next-iteration>
+		</xsl:iterate>
 	</xsl:template>
 
 
