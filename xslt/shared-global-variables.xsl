@@ -9,6 +9,30 @@
 	expand-text="yes"
 >
 
+	<!-- ******************************************************************
+	*
+	*    XSLT stylesheet: shared-global-variables.xsl
+	*
+	*    Version: 1.0.0
+	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
+	*             https://www.sls.fi/
+	*    Created: 2025-03-10
+	*    Licence: CC-BY-NC 4.0 (Attribution-NonCommercial 4.0
+	*             International),
+	*             https://creativecommons.org/licenses/by-nc/4.0/
+	*
+	*    Changes:
+	*        v1.0.0 (2025-03-10)
+	*
+	*    Description:
+	*        This XSLT document defines common global variables that are
+	*        used by multiple XSLT documents.
+	*
+	******************************************************************* -->
+
+
+	<!-- * GLOBAL VARIABLES ******************************************* -->
+
 	<!-- * Newline (hexadecimal 0A, decimal 10). * -->
 	<xsl:variable name="NL" as="xs:string" static="yes"
 	              select="'&#xA;'"/>

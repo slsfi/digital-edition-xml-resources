@@ -61,7 +61,7 @@
 
 	<!-- * IMPORTS **************************************************** -->
 
-	<xsl:import href="shared-constant-variables.xsl"/>
+	<xsl:import href="shared-global-variables.xsl"/>
 	<xsl:import href="shared-functions.xsl"/>
 	<xsl:import href="shared-named-templates.xsl"/>
 

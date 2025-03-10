@@ -9,22 +9,46 @@
 	expand-text="yes"
 >
 
+	<!-- ******************************************************************
+	*
+	*    XSLT stylesheet: shared-functions.xsl
+	*
+	*    Version: 1.0.0
+	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
+	*             https://www.sls.fi/
+	*    Created: 2025-03-07
+	*    Licence: CC-BY-NC 4.0 (Attribution-NonCommercial 4.0
+	*             International),
+	*             https://creativecommons.org/licenses/by-nc/4.0/
+	*
+	*    Changes:
+	*        v1.0.0 (2025-03-07)
+	*
+	*    Description:
+	*        This XSLT document defines common functions in the slsFn
+	*        namespace https://www.sls.fi/ns/digitaledition/functions/.
+	*
+	******************************************************************* -->
+
+
 	<!-- * FUNCTIONS ************************************************** -->
 
 	<xsl:function name="slsFn:get-heading-level" as="xs:integer">
-	<!-- * Get the current heading level from the passed context item
-	       by calculating the number of ancestor <div> or <body>
-	       elements with <head> children. -->
+	<!-- * Determines the heading level of the given context item.
+	     * Counts the number of ancestor <div> or <body> elements that
+	     * contain a <head> child element.
+	     * Calls the overloaded function with an offset of 0. * -->
 		<xsl:param name="context-item" as="node()"/>
 
 		<xsl:sequence select="slsFn:get-heading-level($context-item, 0)"/>
 	</xsl:function>
 
 	<xsl:function name="slsFn:get-heading-level" as="xs:integer">
-	<!-- * Get the current heading level from the passed context item
-	       by calculating the number of ancestor <div> or <body>
-	       elements with <head> children. The result is offset by the
-	       passed offset amount. -->
+	<!-- * Determines the heading level of the given context item, 
+         * with an optional offset adjustment.
+         * Counts the number of ancestor <div> or <body> elements that 
+         * contain a <head> child element, then applies the offset. Ensures
+         * the offset is only added if it is greater than zero. * -->
 		<xsl:param name="context-item" as="node()"/>
 		<xsl:param name="offset" as="xs:integer"/>
 
@@ -35,6 +59,10 @@
 
 
 	<xsl:function name="slsFn:format-date-or-year" as="xs:string?" cache="yes">
+	<!-- * Formats a date or year value into a human-readable string.
+	     * If the input is a valid date, it is formatted as "D/M Y".
+	     * If the input is a valid year, it is returned as a string.
+	     * Otherwise, it returns an empty sequence. * -->
 		<xsl:param name="date-or-year" as="xs:string?"/>
 
 		<xsl:sequence select="
@@ -49,6 +77,10 @@
 
 	<xsl:function name="slsFn:decode-uri-encoded-colons" as="xs:string?"
 	              cache="yes">
+	<!-- * Decodes URI-encoded colons ("%3A") in a string by replacing them
+	     * with ":".
+	     * Returns the modified string or an empty sequence if input is
+	     * empty. * -->
 		<xsl:param name="text" as="xs:string?"/>
 
 		<xsl:sequence select="translate($text, '%3A', ':')"/>
@@ -56,6 +88,10 @@
 
 
 	<xsl:function name="slsFn:get-reason-text" as="xs:string?" cache="yes">
+	<!-- * Converts a given reason code into a human-readable explanation
+	     * in Swedish. The function maps predefined reason codes (e.g.,
+	     * "writing", "binding", "damage") to corresponding descriptions.
+	     * If the reason is not recognized, it returns an empty sequence. * -->
 		<xsl:param name="reason" as="xs:string?"/>
 
 		<xsl:sequence
@@ -92,7 +128,10 @@
 
 
 	<xsl:function name="slsFn:get-gap-space-est-content" as="item()*" cache="yes">
-		<!-- type is either 'gap' or 'space', returns a sequence -->
+	<!-- * Generates placeholder content for unreadable or missing text.
+	     * The placeholder is based on the type ("gap" or "space"), unit
+	     * ("chars", "words", "lines"), and quantity specified.
+	     * Uses dashes for gaps and non-breaking spaces (NBSP) for spaces. * -->
 		<xsl:param name="type" as="xs:string"/>
 		<xsl:param name="unit" as="xs:string"/>
 		<xsl:param name="quantity" as="xs:integer"/>
@@ -135,6 +174,8 @@
 
 
 	<xsl:function name="slsFn:repeat-string" as="item()*" cache="yes">
+	<!-- * Repeats a given string a specified number of times without
+	     * a separator. * -->
 		<xsl:param name="str" as="xs:string"/>
 		<xsl:param name="count" as="xs:integer"/>
 
@@ -142,7 +183,11 @@
 	</xsl:function>
 
 	<xsl:function name="slsFn:repeat-string" as="item()*" cache="yes">
-	<!-- Returns a sequence, separator can be a string or an element -->
+	<!-- * Repeats a given string a specified number of times with a separator.
+	     * The separator can be a string or an XML element.
+	     * If the separator is a string, the repeated strings are joined by it.
+	     * If the separator is an element, it is inserted between each
+	     * repetition. * -->
 		<xsl:param name="str" as="xs:string"/>
 		<xsl:param name="count" as="xs:integer"/>
 		<xsl:param name="separator" as="item()?"/>
@@ -165,6 +210,8 @@
 
 	<xsl:function name="slsFn:get-gap-space-extent-text" as="xs:string"
 	              cache="yes">
+	<!-- * Generates a textual description in Swedish of the extent of a gap
+	     * or space. Unit refers to characters (chars), words, or lines. * -->
 		<xsl:param name="unit" as="xs:string"/>
 		<xsl:param name="quantity" as="xs:integer"/>
 

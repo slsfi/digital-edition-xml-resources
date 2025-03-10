@@ -9,11 +9,33 @@
 	expand-text="yes"
 >
 
-	<!--
-	Insert a section with a list of footnotes in the text or in a specific
-	section.
-	-->
+	<!-- ******************************************************************
+	*
+	*    XSLT stylesheet: shared-named-templates.xsl
+	*
+	*    Version: 1.0.0
+	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
+	*             https://www.sls.fi/
+	*    Created: 2025-03-07
+	*    Licence: CC-BY-NC 4.0 (Attribution-NonCommercial 4.0
+	*             International),
+	*             https://creativecommons.org/licenses/by-nc/4.0/
+	*
+	*    Changes:
+	*        v1.0.0 (2025-03-07)
+	*
+	*    Description:
+	*        This XSLT document defines common named templates.
+	*
+	******************************************************************* -->
+
+
+	<!-- * NAMED TEMPLATES ******************************************** -->
+
 	<xsl:template name="list-footnotes">
+	<!-- * Generates a section containing a list of footnotes.
+	     * If a section ID is provided, it retrieves footnotes from that section.
+	     * Otherwise, it collects all footnotes in the document. * -->
 		<xsl:param name="section-id" as="xs:string?"/>
 
 		<xsl:where-populated>
@@ -26,8 +48,8 @@
 					<xsl:attribute name="lang"
 					               select="parent::tei:text/@xml:lang"/>
 				</xsl:if>
-				<!-- The footnotes section should have a heading for
-				     accessibility -->
+				<!-- * The footnotes section should have a heading for
+				     * accessibility. * -->
 				<xsl:where-populated>
 					<ol class="footnotesList">
 						<xsl:for-each select="
@@ -45,8 +67,9 @@
 	</xsl:template>
 
 
-	<!-- Insert a footnote list item in a list of footnotes. -->
 	<xsl:template name="add-footnote-list-item">
+	<!-- * Creates a list item for a footnote.
+	     * Includes a reference link and the footnote text. * -->
 		<xsl:if test="@place and @xml:id">
 			<li data-id="{@xml:id}" class="footnoteItem">
 				<xsl:call-template name="set-attr-from-xml-lang"/>
@@ -63,6 +86,8 @@
 
 
 	<xsl:template name="set-attr-from-xml-id">
+	<!-- * Sets an attribute (default "data-id") with the value of @xml:id 
+	     * if it exists on the current element. * -->
 		<xsl:param name="target-attr" as="xs:string" select="'data-id'"/>
 
 		<xsl:if test="@xml:id">
@@ -72,6 +97,8 @@
 
 
 	<xsl:template name="set-attr-from-parent-xml-id">
+	<!-- * Sets an attribute (default "data-id") with the @xml:id of the
+	     * parent element if it exists. * -->
 		<xsl:param name="target-attr" as="xs:string" select="'data-id'"/>
 
 		<xsl:if test="parent::*[@xml:id]">
@@ -81,6 +108,8 @@
 
 
 	<xsl:template name="set-attr-from-key">
+	<!-- * Sets an attribute (default "data-id") with the value of @key 
+	     * if it exists on the current element. * -->
 		<xsl:param name="target-attr" as="xs:string" select="'data-id'"/>
 
 		<xsl:if test="@key">
@@ -90,6 +119,8 @@
 
 
 	<xsl:template name="set-attr-from-xml-lang">
+	<!-- * Sets a language attribute (default "lang") using the @xml:lang 
+	     * value from the current element if it exists. * -->
 		<xsl:param name="target-attr" as="xs:string" select="'lang'"/>
 
 		<xsl:if test="@xml:lang">
@@ -99,6 +130,8 @@
 
 
 	<xsl:template name="set-attr-from-parent-xml-lang">
+	<!-- * Sets a language attribute (default "lang") using the @xml:lang 
+	     * value from the parent element if it exists. * -->
 		<xsl:param name="target-attr" as="xs:string" select="'lang'"/>
 
 		<xsl:if test="parent::*[@xml:lang]">
@@ -107,12 +140,9 @@
 	</xsl:template>
 
 
-	<!--
-	If the input parameter is a sequence of strings with class
-	names, outputs @class with the class names separated by space as
-	value.
-	-->
 	<xsl:template name="set-class-attr">
+	<!-- * Sets a @class attribute from a sequence of class names as strings.
+         * If multiple class names are provided, they are space-separated. * -->
 		<xsl:param name="class-names" as="xs:string*" select="()"/>
 
 		<xsl:if test="exists($class-names)">
@@ -121,8 +151,8 @@
 	</xsl:template>
 
 
-	<!-- Adds @class from @rend. -->
 	<xsl:template name="set-class-attr-from-rend">
+	<!-- * Copies the value of @rend to @class. * -->
 		<xsl:call-template name="set-class-attr">
 			<xsl:with-param name="class-names" select="(@rend)"/>
 		</xsl:call-template>
@@ -130,6 +160,8 @@
 
 
 	<xsl:template name="add-paragraph-number">
+	<!-- * Adds a paragraph number inside a span element.
+	     * The number is taken from the @n attribute if it exists. * -->
 		<xsl:if test="@n">
 			<span aria-hidden="true" class="pNumber">
 				<xsl:text>{@n} </xsl:text>
@@ -139,7 +171,10 @@
 
 
 	<xsl:template name="add-line-number">
-		<xsl:if test="@n and (@n mod 5 eq 0)">
+	<!-- * Adds a line number inside a span element.
+	     * Only adds numbers that are multiples of 5 (e.g., 5, 10, 15). * -->
+		<xsl:if test="@n and (@n mod 5 eq 0) and (not(@part) or @part eq 'I'
+		                                          or @part eq 'N')">
 			<span aria-hidden="true" class="lNumber">
 				<xsl:text>{@n} </xsl:text>
 			</span>
@@ -148,7 +183,9 @@
 
 
 	<xsl:template name="wrap-head-opener-in-hgroup">
-	<!-- Group adjacent head/opener nodes -->
+	<!-- * Groups adjacent <head> and <opener> elements into an <hgroup>.
+	     * Ensures proper semantic structure when multiple headings are
+	     * present. * -->
 		<xsl:param name="nodes" as="node()*"/>
 
 		<xsl:for-each-group select="$nodes"
@@ -156,8 +193,8 @@
 		                                        then 'hgroup'
 		                                    else 'other'">
 			<xsl:choose>
-				<!-- Only wrap in <hgroup> if there are at least two
-				     adjacent head/opener nodes -->
+				<!-- * Only wrap in <hgroup> if there are at least two
+				     * adjacent head/opener nodes. * -->
 				<xsl:when test="current-grouping-key() eq 'hgroup'
 				                and count(current-group()) gt 1">
 					<hgroup>
@@ -166,7 +203,7 @@
 						</xsl:for-each>
 					</hgroup>
 				</xsl:when>
-				<!-- Otherwise, process the nodes normally -->
+				<!-- * Otherwise, process the nodes normally. * -->
 				<xsl:otherwise>
 					<xsl:apply-templates select="current-group()"/>
 				</xsl:otherwise>
@@ -176,8 +213,12 @@
 
 
 	<xsl:template name="add-gap-space-content">
+	<!-- * Generates placeholder content for unreadable or missing text
+	     * (gaps and spaces). The content varies based on the text type
+	     * ("est" for reading-text/established text). Also provides
+	     * tooltip information with details about the gap/space. * -->
 		<xsl:param name="text-type" as="xs:string" select="'est'"/>
-		
+
 		<xsl:variable name="reason" as="xs:string"
 		              select="if (not(@reason)
 		                          and parent::tei:del[parent::tei:subst])
