@@ -947,27 +947,7 @@
 						<attDef ident="precision" mode="delete"/>
 						<attDef ident="scope" mode="delete"/>
 						<attDef ident="agent" mode="delete"/>
-						<attDef ident="unit" mode="change">
-							<valList type="closed" mode="change">
-								<valItem mode="add" ident="chars">
-									<desc versionDate="2024-09-30" xml:lang="en">characters of
-										text</desc>
-								</valItem>
-								<valItem mode="add" ident="lines">
-									<desc versionDate="2024-09-30" xml:lang="en">lines of
-										text</desc>
-								</valItem>
-								<valItem mode="add" ident="words">
-									<desc versionDate="2024-09-30" xml:lang="en">words of
-										text</desc>
-								</valItem>
-								<valItem mode="delete" ident="cm"/>
-								<valItem mode="delete" ident="mm"/>
-								<valItem mode="delete" ident="in"/>
-								<valItem mode="delete" ident="line"/>
-								<valItem mode="delete" ident="char"/>
-							</valList>
-						</attDef>
+						<attDef ident="unit" mode="change"/>
 						<attDef ident="quantity" mode="change"/>
 						<attDef ident="reason" mode="change">
 							<valList type="closed" mode="change">
@@ -2800,8 +2780,8 @@
 						<attDef ident="source" mode="delete"/>
 						<attDef ident="type" mode="delete"/>
 						<attDef ident="subtype" mode="delete"/>
-						<attDef ident="unit" mode="change" usage="req"/>
-						<attDef ident="quantity" mode="change" usage="req"/>
+						<attDef ident="unit" mode="change"/>
+						<attDef ident="quantity" mode="change"/>
 						<attDef ident="dim" mode="delete"/>
 					</attList>
 				</elementSpec>
