@@ -32,7 +32,7 @@
 	*        Digital Edition API publisher script.
 	*
 	*        The generated HTML5 output is not a complete HTML document,
-	*        but an hTML fragment, which can be incorporated in an HTML
+	*        but an HTML fragment, which can be incorporated in an HTML
 	*        page.
 	*
 	*    Input parameters:
@@ -61,7 +61,7 @@
 
 	<!-- * IMPORTS **************************************************** -->
 
-	<xsl:import href="shared-global-variables.xsl"/>
+	<xsl:import href="required-global-variables.xsl"/>
 	<xsl:import href="shared-functions.xsl"/>
 	<xsl:import href="shared-named-templates.xsl"/>
 

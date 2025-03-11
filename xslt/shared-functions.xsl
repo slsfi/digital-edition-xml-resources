@@ -25,8 +25,12 @@
 	*        v1.0.0 (2025-03-07)
 	*
 	*    Description:
-	*        This XSLT document defines common functions in the slsFn
+	*        This XSLT document defines common functions in the `slsFn`
 	*        namespace https://www.sls.fi/ns/digitaledition/functions/.
+	*
+	*    Dependencies:
+	*        The `required-global-variables.xsl` must be imported before
+	*        this stylesheet.
 	*
 	******************************************************************* -->
 

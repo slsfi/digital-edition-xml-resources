@@ -27,6 +27,10 @@
 	*    Description:
 	*        This XSLT document defines common named templates.
 	*
+	*    Dependencies:
+	*        The `required-global-variables.xsl` and `shared-functions.xsl`
+	*        must be imported before this stylesheet.
+	*
 	******************************************************************* -->
 
 

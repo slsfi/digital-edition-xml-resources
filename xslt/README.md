@@ -5,7 +5,7 @@ The `xslt/` folder contains XSLT stylesheets for transforming XML documents to o
 Brief descriptions of the stylesheets in the subfolders can be found below. More detailed descriptions can be found in the actual stylesheets.
 
 > [!NOTE]
-> The stylesheets are written in XSLT 3.0 and need an XSLT 3.0 processor to run.
+> The stylesheets are written in XSLT 3.0 and need an XSLT 3.0 processor, like [Saxon](https://www.saxonica.com/), to run.
 
 ## XSLT resources
 
@@ -39,3 +39,25 @@ These “module” stylesheets operate in specific modes and must be imported an
 ### `xslt/publisher/`
 
 These stylesheets are used by the publisher script in the digital edition API to, for instance, create “web versions” of the TEI XML documents in a project. The web XML documents can be regarded as preprocessed versions of the source documents. They are used for transformations to HTML for the websites. The “publisher” stylesheets utilise the XSLT modules in `xslt/modules/`.
+
+### `xslt/`
+
+The stylesheets in this folder are related to transforming the “web” TEI XML documents into HTML and other formats for the project website. The main stylesheets in the folder are directly used by the [Digital Edition API](https://github.com/slsfi/digital_edition_api) for live transformations.
+
+Stylesheets in the folder:
+
+#### `est.xsl`
+
+Main stylesheet for transforming a preprocessed TEI XML document (a “web version”) to an HTML5 fragment that can be included in a web page (does not generate a complete HTML document). Relies on several “shared” XSLT stylesheets.
+
+#### `required-global-variables.xsl`
+
+Stylesheet with required common global variables. This stylesheet must be imported by the main stylesheet if any of the `shared-*.xsl` stylesheets are also imported.
+
+#### `shared-functions.xsl`
+
+Stylesheet with common XSLT functions in the `slsFn` namespace (`https://www.sls.fi/ns/digitaledition/functions/`). The `required-global-variables.xsl` must be imported before this stylesheet.
+
+#### `shared-named-templates.xsl`
+
+Stylesheet with common named templates. The `required-global-variables.xsl` and `shared-functions.xsl` must be imported before this stylesheet.
