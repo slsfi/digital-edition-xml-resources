@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2025-03-11T13:52:09Z. . 
+    Schema generated from ODD source 2025-03-11T17:48:18Z. . 
     TEI Edition: P5 Version 4.9.0. Last updated on 24th January 2025, revision f73186978 
     TEI Edition Location: https://www.tei-c.org/Vault/P5/4.9.0/ 
     
@@ -2623,8 +2623,9 @@ Normalization 13. Critical Apparatus]</xs:documentation>
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="tei:tei_macro.phraseSeq">
+          <xs:attributeGroup ref="tei:tei_att.naming.attributes"/>
           <xs:attributeGroup ref="tei:tei_att.global.attribute.xmllang"/>
-          <xs:attributeGroup ref="tei:tei_att.canonical.attribute.key"/>
+          <xs:attributeGroup ref="tei:tei_att.global.responsibility.attribute.cert"/>
           <xs:attribute name="rend">
             <xs:annotation>
               <xs:documentation>(rendition) indicates how the element in question was rendered or presented in the source text.</xs:documentation>

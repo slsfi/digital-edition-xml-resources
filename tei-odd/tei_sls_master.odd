@@ -2549,6 +2549,9 @@
 					</attList>
 				</elementSpec>
 				<elementSpec ident="rs" mode="change">
+					<classes mode="change">
+						<memberOf key="att.naming"/>
+					</classes>
 					<attList>
 						<attDef ident="ana" mode="delete"/>
 						<attDef ident="change" mode="delete"/>
@@ -2565,10 +2568,8 @@
 						<attDef ident="xml:base" mode="delete"/>
 						<attDef ident="xml:space" mode="delete"/>
 						<attDef ident="facs" mode="delete"/>
-						<attDef ident="cert" mode="delete"/>
 						<attDef ident="resp" mode="delete"/>
 						<attDef ident="source" mode="delete"/>
-						<attDef ident="role" mode="delete"/>
 						<attDef ident="type" mode="delete"/>
 						<attDef ident="subtype" mode="delete"/>
 						<attDef ident="rend" mode="change">
