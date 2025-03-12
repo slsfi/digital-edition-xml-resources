@@ -99,7 +99,7 @@
 	     * HTML is embedded in a webpage with pre-existing headings, the
 	     * heading levels need to be offset. * -->
 	<xsl:variable name="heading-level-offset" as="xs:integer" static="yes"
-	              select="0"/>
+	              select="2"/>
 
 
 
