@@ -6610,7 +6610,97 @@ Elements</ref>
 								<valItem mode="add" ident="underlineDouble"/>
 								<valItem mode="add" ident="uppercase"/>
 							</valList>
-						</attDef><attDef ident="calendar" mode="delete"/><attDef ident="level" mode="delete"/><attDef ident="type" mode="delete"/></attList><exemplum xml:lang="en">
+						</attDef><attDef ident="calendar" mode="delete"/><attDef ident="level" mode="delete"/><attDef ident="type" mode="change" rend="change"><desc versionDate="2005-01-14" xml:lang="en">classifies the title according to some convenient typology.</desc><desc versionDate="2007-12-20" xml:lang="ko">어떤 편의적 유형에 따른 제목 분류</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">用合適的分類方法將題名分類。</desc><desc versionDate="2008-04-05" xml:lang="ja">当該タイトルを分類する。</desc><desc versionDate="2007-06-12" xml:lang="fr">caractérise le titre selon une typologie adaptée.</desc><desc versionDate="2007-05-04" xml:lang="es">clasifica el título de acuerdo con alguna tipología funcional.</desc><desc versionDate="2007-01-21" xml:lang="it">classifica il titolo seguendo una tipologia conveniente.</desc><desc versionDate="2017-06-04" xml:lang="de">klassifiziert den Titel entsprechend einer geeigneten Typologie.</desc><datatype><dataRef key="teidata.enumerated"/></datatype><valList type="closed" mode="change"><valItem ident="main">
+          <desc versionDate="2007-06-27" xml:lang="en">main title</desc>
+          <desc versionDate="2007-12-20" xml:lang="ko">(주)제목</desc>
+          <desc versionDate="2007-05-02" xml:lang="zh-TW">主要題名</desc>
+          <desc versionDate="2008-04-06" xml:lang="es">título principal</desc>
+          <desc versionDate="2008-04-05" xml:lang="ja">主タイトル。</desc>
+          <desc versionDate="2008-03-30" xml:lang="fr">titre principal</desc>
+          <desc versionDate="2007-01-21" xml:lang="it">titolo</desc>
+          <desc versionDate="2017-06-04" xml:lang="de">Haupttitel</desc>
+        </valItem><valItem ident="sub">
+          <gloss versionDate="2007-07-04" xml:lang="en">subordinate</gloss>
+          <gloss versionDate="2007-12-20" xml:lang="ko">부</gloss>
+          <gloss versionDate="2007-06-12" xml:lang="fr">titre de niveau inférieur, titre de partie</gloss>
+          <gloss versionDate="2007-11-06" xml:lang="it">subordinato</gloss>
+          <gloss versionDate="2007-05-04" xml:lang="es">subtítulo, título de una parte</gloss>
+          <gloss versionDate="2017-06-04" xml:lang="de">untergeordnet</gloss>
+          <desc versionDate="2007-06-27" xml:lang="en">subtitle, title of part</desc>
+          <desc versionDate="2007-12-20" xml:lang="ko">부분의 제목인 부제목</desc>
+          <desc versionDate="2007-05-02" xml:lang="zh-TW">副題名、部分題名</desc>
+          <desc versionDate="2008-04-06" xml:lang="es">subtítulo, título de una parte</desc>
+          <desc versionDate="2008-04-05" xml:lang="ja">副タイトル、部分タイトル。</desc>
+          <desc versionDate="2008-03-30" xml:lang="fr">sous-titre, titre de partie.</desc>
+          <desc versionDate="2007-01-21" xml:lang="it">sottotitolo, titolo di una parte</desc>
+          <desc versionDate="2017-06-04" xml:lang="de">Untertitel oder Titel eines Teilbereichs</desc>
+        </valItem><valItem ident="alt">
+          <gloss versionDate="2007-07-04" xml:lang="en">alternate</gloss>
+          <gloss versionDate="2007-12-20" xml:lang="ko">이명</gloss>
+          <gloss versionDate="2007-06-12" xml:lang="fr">titre alternatif, souvent dans une autre langue, par lequel l'oeuvre est également connu</gloss>
+          <gloss versionDate="2007-11-06" xml:lang="it">alternativo</gloss>
+          <gloss versionDate="2007-05-04" xml:lang="es">título alternativo, a menudo en otra lengua por la cual la obra es también conocida.</gloss>
+          <gloss versionDate="2017-06-04" xml:lang="de">alternativ</gloss>
+          <desc versionDate="2007-06-27" xml:lang="en">alternate title, often in another language, by which the work is also known</desc>
+          <desc versionDate="2007-12-20" xml:lang="ko">다른 언어에서 알려진 작품의 다른 이름</desc>
+          <desc versionDate="2007-05-02" xml:lang="zh-TW">替代題名，通常以該作品著名的另一種語言呈現</desc>
+          <desc versionDate="2008-04-06" xml:lang="es">título alternativo, a menudo en otro idioma, por el cual el trabajo también es conocido</desc>
+          <desc versionDate="2008-04-05" xml:lang="ja">別タイトル。多くは他言語によるタイトル。当該作品は、このタイ トルで知られている。</desc>
+          <desc versionDate="2008-03-30" xml:lang="fr">autre titre, souvent exprimé dans une autre langue, par lequel l'ouvrage est aussi connu</desc>
+          <desc versionDate="2007-01-21" xml:lang="it">titolo alternativo, spesso in altra lingua, con il quale è anche conosciuta l'opera</desc>
+          <desc versionDate="2017-06-04" xml:lang="de">alternativer Titel, oft in einer anderen Sprache, unter dem das Werk auch bekannt ist.</desc>
+        </valItem><valItem ident="short">
+          <desc versionDate="2007-06-27" xml:lang="en">abbreviated form of title</desc>
+          <desc versionDate="2007-12-20" xml:lang="ko">제목의 축약형</desc>
+          <desc versionDate="2007-05-02" xml:lang="zh-TW">題名的縮寫形式</desc>
+          <desc versionDate="2008-04-06" xml:lang="es">forma abreviada del título</desc>
+          <desc versionDate="2008-04-05" xml:lang="ja">タイトルの省略形。</desc>
+          <desc versionDate="2008-03-30" xml:lang="fr">forme abrégée du titre</desc>
+          <desc versionDate="2007-01-21" xml:lang="it">abbreviazione del titolo</desc>
+          <desc versionDate="2017-06-04" xml:lang="de">Kurztitel</desc>
+        </valItem><valItem ident="desc">
+          <gloss versionDate="2007-07-04" xml:lang="en">descriptive</gloss>
+          <gloss versionDate="2007-12-20" xml:lang="ko">기술적</gloss>
+          <gloss versionDate="2007-06-12" xml:lang="fr">paraphrase descriptive de l'oeuvre ayant les fonctions d'un titre</gloss>
+          <gloss versionDate="2007-11-06" xml:lang="it">descrittivo</gloss>
+          <gloss versionDate="2007-05-04" xml:lang="es">paráfrasis descriptiva que funciona como el título de una obra.</gloss>
+          <gloss versionDate="2017-06-04" xml:lang="de">beschreibend</gloss>
+          <desc versionDate="2007-06-27" xml:lang="en">descriptive paraphrase of the work functioning as a title</desc>
+          <desc versionDate="2007-12-20" xml:lang="ko">제목으로 기능하는 작품의 기술적 바꿔쓰기</desc>
+          <desc versionDate="2007-05-02" xml:lang="zh-TW">該作品的描述性改述，可作為題名</desc>
+          <desc versionDate="2008-04-06" xml:lang="es">paráfrasis descriptiva del trabajo que funciona como título</desc>
+          <desc versionDate="2008-04-05" xml:lang="ja">タイトルのように当該作品を解説する言い換え。</desc>
+          <desc versionDate="2008-03-30" xml:lang="fr">paraphrase descriptive de l'oeuvre fonctionnant comme un titre</desc>
+          <desc versionDate="2007-01-21" xml:lang="it">parafrasi descrittiva dell'opera che funge da titolo</desc>
+          <desc versionDate="2017-06-04" xml:lang="de">Umschreibung des Werks, die als Titel fungiert.</desc>
+        </valItem><valItem mode="add" ident="host">
+									<desc versionDate="2025-03-13" xml:lang="en">the title applies to a publication (journal, magazine, newspaper, anthology etc.), which acts as a container or host item for analytic items (e.g. articles, poems, or other works published as part of a larger item).</desc>
+								</valItem></valList><remarks versionDate="2005-01-14" xml:lang="en">
+        <p>This attribute is provided for convenience in analysing
+        titles and processing them according to their type; where such
+        specialized processing is not necessary, there is no need for
+        such analysis, and the entire title, including subtitles and
+        any parallel titles, may be enclosed within a single
+        <gi>title</gi> element.</p>
+      </remarks><remarks versionDate="2007-06-12" xml:lang="fr">
+        <p>Cet attribut est utile pour analyser les titres et les
+        traiter en fonction de leur type ; lorsqu'un tel traitement
+        spécifique n'est pas nécessaire, il n'est pas utile de donner
+        une telle analyse, et le titre entier, sous-titres et titres
+        parallèles inclus, peuvent être encodés dans un élément
+        <gi>title</gi>.</p>
+      </remarks><remarks versionDate="2008-04-05" xml:lang="ja">
+        <p> 当該属性は、タイトルを分析し、処理する際に使用されるもので
+        ある。このような処理を必要としない場合、タイトルを分析する必要
+        はなく、副タイトルなどは全て要素<gi>title</gi>の中に入れてしま
+        うことができる。 </p>
+      </remarks><remarks versionDate="2017-06-04" xml:lang="de">
+        <p>Dieses Attribut wird bereitgestellt, um die Analyse und die Verarbeitung von Titeln auf
+          Basis ihres Typs zu vereinfachen; in Fällen, bei denen ein derart spezielles Vorgehen nicht
+          notwendig ist, ist auch eine entsprechende Analyse nicht notwendig, und der gesamte Titel, inkl.
+          Untertitel und allfälligen parallelen Titeln, kann mit einem einzigen <gi>title</gi>-Element
+          ausgezeichnet werden.</p>
+      </remarks></attDef></attList><exemplum xml:lang="en">
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-title-egXML-sd">
       <title>Information Technology and the Research Process: Proceedings of
                                         a conference held at Cranfield Institute of Technology, UK,
