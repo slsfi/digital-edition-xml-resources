@@ -3050,7 +3050,6 @@
 						<attDef ident="prev" mode="delete"/>
 						<attDef ident="exclude" mode="delete"/>
 						<attDef ident="select" mode="delete"/>
-						<attDef ident="type" mode="delete"/>
 						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="n" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
@@ -3076,6 +3075,13 @@
 								<valItem mode="add" ident="underlineDashed"/>
 								<valItem mode="add" ident="underlineDouble"/>
 								<valItem mode="add" ident="uppercase"/>
+							</valList>
+						</attDef>
+						<attDef ident="type" mode="change">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="host">
+									<desc versionDate="2025-03-13" xml:lang="en">the title applies to a publication (journal, magazine, newspaper, anthology etc.), which acts as a container or host item for analytic items (e.g. articles, poems, or other works published as part of a larger item).</desc>
+								</valItem>
 							</valList>
 						</attDef>
 						<attDef ident="calendar" mode="delete"/>
