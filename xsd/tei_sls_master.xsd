@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2025-03-11T17:48:18Z. . 
+    Schema generated from ODD source 2025-03-13T11:22:50Z. . 
     TEI Edition: P5 Version 4.9.0. Last updated on 24th January 2025, revision f73186978 
     TEI Edition Location: https://www.tei-c.org/Vault/P5/4.9.0/ 
     
@@ -3562,6 +3562,20 @@ Elements 7.2.5. Speech Contents]</xs:documentation>
                   </xs:list>
                 </xs:simpleType>
                 <xs:minLength value="1"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name="type">
+            <xs:annotation>
+              <xs:documentation>classifies the title according to some convenient typology.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="host">
+                  <xs:annotation>
+                    <xs:documentation>the title applies to a publication (journal, magazine, newspaper, anthology etc.), which acts as a container or host item for analytic items (e.g. articles, poems, or other works published as part of a larger item).</xs:documentation>
+                  </xs:annotation>
+                </xs:enumeration>
               </xs:restriction>
             </xs:simpleType>
           </xs:attribute>
