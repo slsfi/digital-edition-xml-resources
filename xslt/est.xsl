@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: est.xsl
 	*
-	*    Version: 1.0.0
+	*    Version: 1.0.1
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-07
@@ -22,6 +22,10 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.0.1 (2025-03-18)
+	*             - Use named template for processing document headings.
+	*             - Modify template for tei:del to handle cases where
+	*               ancestor is tei:restore.
 	*        v1.0.0 (2025-03-07)
 	*
 	*    Description:
@@ -251,22 +255,7 @@
 	<xsl:template match="tei:head[not(parent::tei:figure)
 	                              and not(parent::tei:table)
 	                              and not(@type eq 'subtitle')]">
-		<xsl:variable name="heading-level"
-		              select="slsFn:get-heading-level(., $heading-level-offset)"/>
-		<xsl:variable name="element-name"
-		              select="if ($heading-level lt 7)
-		                          then 'h' || $heading-level
-		                      else 'div'"/>
-
-		<xsl:element name="{$element-name}">
-			<xsl:if test="$element-name eq 'div'">
-				<xsl:attribute name="role" select="'heading'"/>
-				<xsl:attribute name="aria-level" select="$heading-level"/>
-			</xsl:if>
-			<xsl:attribute name="class"
-			               select="if (@type) then @type else 'chapter'"/>
-			<xsl:apply-templates/>
-		</xsl:element>
+		<xsl:call-template name="document-heading"/>
 	</xsl:template>
 
 
@@ -274,13 +263,6 @@
 		<p role="doc-subtitle">
 			<xsl:apply-templates/>
 		</p>
-	</xsl:template>
-
-
-	<xsl:template match="tei:head[parent::tei:table]">
-		<caption>
-			<xsl:apply-templates/>
-		</caption>
 	</xsl:template>
 
 
@@ -491,6 +473,13 @@
 				</xsl:for-each-group>
 			</table>
 		</div>
+	</xsl:template>
+
+
+	<xsl:template match="tei:head[parent::tei:table]">
+		<caption>
+			<xsl:apply-templates/>
+		</caption>
 	</xsl:template>
 
 
@@ -862,7 +851,15 @@
 	</xsl:template>
 
 
-	<xsl:template match="tei:del | tei:metamark"/>
+	<xsl:template match="tei:del">
+		<xsl:if test="(ancestor::tei:restore and parent::tei:subst)
+			          or parent::tei:restore">
+			<xsl:apply-templates/>
+		</xsl:if>
+	</xsl:template>
+
+
+	<xsl:template match="tei:metamark"/>
 
 
 	<xsl:template match="tei:seg">

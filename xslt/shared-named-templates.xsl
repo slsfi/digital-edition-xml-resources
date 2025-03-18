@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: shared-named-templates.xsl
 	*
-	*    Version: 1.0.0
+	*    Version: 1.1.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-07
@@ -22,6 +22,8 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.1.0 (2025-03-17)
+	*             - Added template `document-heading`.
 	*        v1.0.0 (2025-03-07)
 	*
 	*    Description:
@@ -276,6 +278,30 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</span>
+	</xsl:template>
+
+
+	<xsl:template name="document-heading">
+		<xsl:param name="include-rend-attr" as="xs:boolean" select="false()"/>
+		
+		<xsl:variable name="heading-level"
+		              select="slsFn:get-heading-level(., $heading-level-offset)"/>
+		<xsl:variable name="element-name"
+		              select="if ($heading-level lt 7)
+		                          then 'h' || $heading-level
+		                      else 'div'"/>
+
+		<xsl:element name="{$element-name}">
+			<xsl:if test="$element-name eq 'div'">
+				<xsl:attribute name="role" select="'heading'"/>
+				<xsl:attribute name="aria-level" select="$heading-level"/>
+			</xsl:if>
+			<xsl:call-template name="set-class-attr">
+				<xsl:with-param name="class-names"
+					select="(if (@type) then @type else 'chapter',
+					         if ($include-rend-attr) then @rend else ())"/>
+			</xsl:call-template>
+		</xsl:element>
 	</xsl:template>
 
 </xsl:stylesheet>

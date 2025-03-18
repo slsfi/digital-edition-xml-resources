@@ -16,13 +16,13 @@
 	*    Version: 1.0.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
-	*    Created: 2025-03-12
+	*    Created: 2025-03-18
 	*    Licence: CC-BY-NC 4.0 (Attribution-NonCommercial 4.0
 	*             International),
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
-	*        v1.0.0 (2025-03-12)
+	*        v1.0.0 (2025-03-18)
 	*
 	*    Description:
 	*        This XSLT document processes a TEI-encoded manuscript XML
@@ -30,8 +30,7 @@
 	*        project website. The input document should be a preprocessed
 	*        manuscript ("ms") XML document, generated with the SLS
 	*        Digital Edition API publisher script. The stylesheet produces
-	*        a version of the manuscript where all encoded changes are
-	*        retained.
+	*        a version of the manuscript where all changes are retained.
 	*
 	*        The generated HTML5 output is not a complete HTML document,
 	*        but an HTML fragment, which can be incorporated in an HTML
@@ -52,7 +51,7 @@
 	<!-- * SERIALIZATION OPTIONS ************************************** -->
 
 	<xsl:output method="html" html-version="5.0" encoding="utf-8"
-	            include-content-type="no" indent="no"/>
+	            include-content-type="no" indent="yes"/>
 
 	<xsl:strip-space elements="tei:TEI tei:address tei:argument tei:body
 	                           tei:cit tei:closer tei:div tei:epigraph
@@ -66,6 +65,8 @@
 	<xsl:import href="required-global-variables.xsl"/>
 	<xsl:import href="shared-functions.xsl"/>
 	<xsl:import href="shared-named-templates.xsl"/>
+	<xsl:import href="modules/remove-delspans.xsl"/>
+	<xsl:import href="modules/transpose.xsl"/>
 
 
 
@@ -110,6 +111,46 @@
 	     * element nodes are unwrapped and children processed (same as
 	     * apply-templates applied to them); the content (text) of text
 	     * nodes is outputted. * -->
+
+
+	<xsl:template match="/">
+	<!-- * Entry point: matches the document node.
+	     * Process the input document in the following passes:
+	     * 1. Remove all parts marked with <delSpan> in a separate mode.
+	     * 2. Transpose elements in a separate mode.
+	     * 3. Normal processing of nodes in the default mode. * -->
+
+		<!-- * Pass 1: Remove delSpans. * -->
+		<xsl:variable name="remove-delspans-result">
+			<xsl:apply-templates select="." mode="remove-delspans"/>
+		</xsl:variable>
+
+		<!-- * Pass 2: Transpose elements if applicable, otherwise pass on
+		     * the result from the previous pass. * -->
+		<xsl:variable name="transpose-result">
+			<xsl:choose>
+				<xsl:when test="$remove-delspans-result//tei:listTranspose/tei:transpose/tei:ptr[@target]">
+					<xsl:apply-templates select="$remove-delspans-result" mode="transpose"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:sequence select="$remove-delspans-result"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+
+		<!-- * Pass 3: Normal processing using templates in the default
+		     * (or unnamed) mode. Applies templates to the child nodes of
+		     * the remove-delspans-result to avoid matching the document
+		     * node ("/") template again (which would case an infinite
+		     * loop). * -->
+		<xsl:variable name="normal-processing-result">
+			<xsl:apply-templates select="$transpose-result/node()"/>
+		</xsl:variable>
+
+		<!-- * Output the final result. * -->
+		<xsl:sequence select="$normal-processing-result"/>
+	</xsl:template>
+
 
 	<xsl:template match="tei:teiHeader"/>
 
@@ -253,36 +294,17 @@
 	<xsl:template match="tei:head[not(parent::tei:figure)
 	                              and not(parent::tei:table)
 	                              and not(@type eq 'subtitle')]">
-		<xsl:variable name="heading-level"
-		              select="slsFn:get-heading-level(., $heading-level-offset)"/>
-		<xsl:variable name="element-name"
-		              select="if ($heading-level lt 7)
-		                          then 'h' || $heading-level
-		                      else 'div'"/>
-
-		<xsl:element name="{$element-name}">
-			<xsl:if test="$element-name eq 'div'">
-				<xsl:attribute name="role" select="'heading'"/>
-				<xsl:attribute name="aria-level" select="$heading-level"/>
-			</xsl:if>
-			<xsl:attribute name="class"
-			               select="if (@type) then @type else 'chapter'"/>
-			<xsl:apply-templates/>
-		</xsl:element>
+		<xsl:call-template name="document-heading">
+			<xsl:with-param name="include-rend-attr" select="true()"/>
+		</xsl:call-template>
 	</xsl:template>
 
 
 	<xsl:template match="tei:head[@type eq 'subtitle']">
 		<p role="doc-subtitle">
+			<xsl:call-template name="set-class-attr-from-rend"/>
 			<xsl:apply-templates/>
 		</p>
-	</xsl:template>
-
-
-	<xsl:template match="tei:head[parent::tei:table]">
-		<caption>
-			<xsl:apply-templates/>
-		</caption>
 	</xsl:template>
 
 
@@ -324,7 +346,6 @@
 			<xsl:call-template name="set-attr-from-xml-id"/>
 			<xsl:call-template name="set-attr-from-xml-lang"/>
 			<xsl:call-template name="set-class-attr-from-rend"/>
-			<xsl:call-template name="add-paragraph-number"/>
 			<xsl:apply-templates/>
 		</p>
 	</xsl:template>
@@ -365,8 +386,6 @@
 				<xsl:with-param name="class-names"
 				                select="('lg', @type)"/>
 			</xsl:call-template>
-			<xsl:call-template name="add-paragraph-number"/>
-			<xsl:text>{$NL}</xsl:text>
 			<xsl:apply-templates/>
 		</p>
 	</xsl:template>
@@ -389,7 +408,6 @@
 				                         if (@part)
 				                             then 'part' || @part else ())"/>
 			</xsl:call-template>
-			<xsl:call-template name="add-line-number"/>
 			<xsl:choose>
 				<xsl:when test="$line-label and tei:label">
 					<xsl:choose>
@@ -493,6 +511,14 @@
 				</xsl:for-each-group>
 			</table>
 		</div>
+	</xsl:template>
+
+
+	<xsl:template match="tei:head[parent::tei:table]">
+		<caption>
+			<xsl:call-template name="set-class-attr-from-rend"/>
+			<xsl:apply-templates/>
+		</caption>
 	</xsl:template>
 
 
@@ -638,6 +664,7 @@
 
 	<xsl:template match="tei:head[parent::tei:figure]">
 		<figcaption>
+			<xsl:call-template name="set-class-attr-from-rend"/>
 			<xsl:apply-templates/>
 		</figcaption>
 	</xsl:template>
@@ -803,33 +830,7 @@
 	</xsl:template>
 
 
-	<xsl:template match="tei:anchor">
-		<xsl:choose>
-			<xsl:when test="starts-with(@xml:id, 'start')">
-				<span class="anchor_lemma symbol_red" data-id="{@xml:id}">
-					<img src="{$icons-base-path}/ms_arrow_right.svg"
-					     alt="lemma start" loading="lazy"/>
-				</span>
-			</xsl:when>
-			<xsl:when test="starts-with(@xml:id, 'end')">
-				<!-- Is the id really needed as a class name? Check frontend. -->
-				<img src="{$icons-base-path}/asterisk.svg" alt="kommentar"
-				     class="comment commentScrollTarget tooltiptrigger ttComment en{substring(@xml:id, 4)}"
-				     loading="lazy" tabindex="0">
-					<xsl:call-template name="set-attr-from-xml-id"/>
-				</img>
-			</xsl:when>
-			<xsl:when test="@type eq 'xref'">
-				<!-- Another test option here would be to see if there is 
-				not an <addSpan> or <delSpan> with matching @spanTo -->
-				<!-- Anchors were previously <a>, check if frontend
-				supports this: -->
-				<span class="anchor" aria-hidden="true">
-					<xsl:call-template name="set-attr-from-xml-id"/>
-				</span>
-			</xsl:when>
-		</xsl:choose>
-	</xsl:template>
+	<xsl:template match="tei:anchor"/>
 
 
 	<xsl:template match="tei:unclear">
@@ -854,17 +855,32 @@
 
 
 	<xsl:template match="tei:gap | tei:space">
-	<!-- * If @reason is 'overstrike', 'overwritten' or 'erased' the
-	     * content is stripped. * -->
-		<xsl:if test="not(@reason eq 'overstrike')
-		              and not(@reason eq 'overwritten')
-		              and not(@reason eq 'erased')">
-			<xsl:call-template name="add-gap-space-content"/>
+	<!-- * If @reason is 'overstrike' the content is stripped. <space>
+	     * does not have @reason so the test is always true for the
+	     * element. * -->
+		<xsl:if test="not(@reason eq 'overstrike')">
+			<xsl:call-template name="add-gap-space-content">
+				<xsl:with-param name="text-type" select="'ms'"/>
+			</xsl:call-template>
 		</xsl:if>
 	</xsl:template>
 
 
-	<xsl:template match="tei:del | tei:metamark"/>
+	<xsl:template match="tei:del">
+		<xsl:if test="(ancestor::tei:restore and parent::tei:subst)
+			          or parent::tei:restore">
+			<xsl:apply-templates/>
+		</xsl:if>
+	</xsl:template>
+
+
+	<xsl:template match="tei:metamark">
+		<xsl:if test="@function eq 'instruction'">
+			<span class="reading-instruction">
+				<xsl:apply-templates/>
+			</span>
+		</xsl:if>
+	</xsl:template>
 
 
 	<xsl:template match="tei:seg">
@@ -885,145 +901,24 @@
 
 
 	<xsl:template match="tei:supplied">
-		<span class="corr_red choice tooltiptrigger ttChanges">
+	<!-- * Supplied as editorial changes (have @reason) are stripped,
+	     * supplied because unreadable but the context makes the content
+	     * clear is shown in brackets. * -->
+		<xsl:if test="@reason">
+			<xsl:text>[</xsl:text>
 			<xsl:apply-templates/>
-		</span>
-		<span class="tooltip ttChanges" hidden="">
-			<xsl:text>{
-				if (@reason)
-				    then 'oläsligt, orsak: ' || slsFn:get-reason-text(@reason)
-				else if (@source)
-				    then 'tillagt av utgivaren (källa för ändring: ' || @source || ')'
-				else 'tillagt av utgivaren'
-			}</xsl:text>
-		</span>
-	</xsl:template>
-
-
-	<xsl:template match="tei:choice">
-		<span>
-			<xsl:call-template name="set-class-attr">
-				<xsl:with-param name="class-names"
-				                select="('tooltiptrigger',
-				                         if (tei:abbr)
-				                             then 'abbr ttAbbreviations'
-				                         else if (tei:orig)
-				                             then 'choice ttChanges'
-				                         else 'choice')"/>
-			</xsl:call-template>
-			<xsl:apply-templates/>
-		</span>
-		<xsl:choose>
-			<xsl:when test="tei:expan">
-				<span class="tooltip ttAbbreviations" hidden="">
-					<xsl:apply-templates select="tei:expan/node()"/>
-				</span>
-			</xsl:when>
-			<xsl:when test="tei:orig">
-				<span class="tooltip ttChanges" hidden="">
-					<xsl:text>original: </xsl:text>
-					<xsl:apply-templates select="tei:orig/node()"/>
-					<xsl:if test="tei:reg[@source]">
-						<xsl:text> (källa för ändring: {tei:reg/@source})</xsl:text>
-					</xsl:if>
-				</span>
-			</xsl:when>
-		</xsl:choose>
-	</xsl:template>
-
-
-	<xsl:template match="tei:abbr">
-		<span class="abbr">
-			<xsl:apply-templates/>
-		</span>
+			<xsl:text>]</xsl:text>
+		</xsl:if>
 	</xsl:template>
 
 
 	<xsl:template match="tei:reg">
-		<xsl:choose>
-			<xsl:when test="parent::tei:choice">
-				<span class="corr{if (@type eq 'empty')
-				                      then ' corr_hide' else ''}">
-					<xsl:choose>
-						<xsl:when test="@type eq 'empty'">
-							<xsl:sequence select="$empty-icon-image"/>
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:apply-templates/>
-						</xsl:otherwise>
-					</xsl:choose>
-				</span>
-			</xsl:when>
-			<xsl:otherwise>
-				<span class="reg{if (@type eq 'empty') then '_hide' else ''} tooltiptrigger ttNormalisations">
-					<xsl:choose>
-						<xsl:when test="@type eq 'empty'">
-							<xsl:sequence select="$empty-icon-image"/>
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:apply-templates/>
-						</xsl:otherwise>
-					</xsl:choose>
-				</span>
-				<span class="tooltip ttNormalisations" hidden="">
-					<xsl:text>konsekvensändrat/normaliserat</xsl:text>
-				</span>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
-
-
-	<xsl:template match="tei:app">
-		<span class="choice tooltiptrigger ttChanges">
+		<xsl:if test="not(parent::tei:choice)">
 			<xsl:apply-templates/>
-		</span>
-		<span class="tooltip ttChanges" hidden="">
-			<xsl:text>tryckvarians{if (tei:lem/@wit) then ', källa: ' || tei:lem/@wit else ''}</xsl:text>
-			<xsl:text>; lydelse i övriga textvittnen:</xsl:text>
-			<xsl:for-each select="tei:rdg">
-				<br/>
-				<xsl:apply-templates select="node()"/>
-				<xsl:if test="@wit">
-					<xsl:text> ({@wit})</xsl:text>
-				</xsl:if>
-			</xsl:for-each>		
-		</span>
+		</xsl:if>
 	</xsl:template>
 
 
-	<xsl:template match="tei:lem">
-		<span class="corr{if (@type eq 'empty') then ' corr_hide' else ''}">
-			<xsl:choose>
-				<xsl:when test="@type eq 'empty'">
-					<xsl:sequence select="$empty-icon-image"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:apply-templates/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</span>
-	</xsl:template>
-
-
-	<xsl:template match="tei:expan | tei:orig | tei:rdg"/>
-
-
-	<xsl:template match="tei:corr">
-		<span class="corr{if (@type eq 'empty') then '_hide' else '_red'} tooltiptrigger ttChanges">
-			<xsl:choose>
-				<xsl:when test="@type eq 'empty'">
-					<xsl:sequence select="$empty-icon-image"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:apply-templates/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</span>
-		<span class="tooltip ttChanges" hidden="">
-			<xsl:text>{
-				if (@source) then @source else 'rättelse i originalet'
-			}</xsl:text>
-		</span>
-	</xsl:template>
+	<xsl:template match="tei:expan | tei:rdg"/>
 
 </xsl:stylesheet>
