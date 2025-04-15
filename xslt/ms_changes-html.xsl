@@ -65,8 +65,6 @@
 	<xsl:import href="required-global-variables.xsl"/>
 	<xsl:import href="shared-functions.xsl"/>
 	<xsl:import href="shared-named-templates.xsl"/>
-	<xsl:import href="modules/remove-delspans.xsl"/>
-	<xsl:import href="modules/transpose.xsl"/>
 
 
 
@@ -111,45 +109,6 @@
 	     * element nodes are unwrapped and children processed (same as
 	     * apply-templates applied to them); the content (text) of text
 	     * nodes is outputted. * -->
-
-
-	<xsl:template match="/">
-	<!-- * Entry point: matches the document node.
-	     * Process the input document in the following passes:
-	     * 1. Remove all parts marked with <delSpan> in a separate mode.
-	     * 2. Transpose elements in a separate mode.
-	     * 3. Normal processing of nodes in the default mode. * -->
-
-		<!-- * Pass 1: Remove delSpans. * -->
-		<xsl:variable name="remove-delspans-result">
-			<xsl:apply-templates select="." mode="remove-delspans"/>
-		</xsl:variable>
-
-		<!-- * Pass 2: Transpose elements if applicable, otherwise pass on
-		     * the result from the previous pass. * -->
-		<xsl:variable name="transpose-result">
-			<xsl:choose>
-				<xsl:when test="$remove-delspans-result//tei:listTranspose/tei:transpose/tei:ptr[@target]">
-					<xsl:apply-templates select="$remove-delspans-result" mode="transpose"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:sequence select="$remove-delspans-result"/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
-
-		<!-- * Pass 3: Normal processing using templates in the default
-		     * (or unnamed) mode. Applies templates to the child nodes of
-		     * the remove-delspans-result to avoid matching the document
-		     * node ("/") template again (which would case an infinite
-		     * loop). * -->
-		<xsl:variable name="normal-processing-result">
-			<xsl:apply-templates select="$transpose-result/node()"/>
-		</xsl:variable>
-
-		<!-- * Output the final result. * -->
-		<xsl:sequence select="$normal-processing-result"/>
-	</xsl:template>
 
 
 	<xsl:template match="tei:teiHeader"/>
@@ -272,7 +231,9 @@
 	<!--* Wrap in a <div> if not part of a grouping which will be wrapped
 		* in <hgroup>, otherwise, just apply templates. * -->
 		<xsl:choose>
-			<xsl:when test="not(current-grouping-key() eq 'hgroup')">
+			<xsl:when test="not(current-grouping-key() eq 'hgroup')
+			                or (current-grouping-key() eq 'hgroup'
+				                and count(current-group()) lt 2)">
 				<div class="opener">
 					<xsl:apply-templates/>
 				</div>
@@ -590,7 +551,13 @@
 			<xsl:call-template name="set-attr-from-xml-id"/>
 			<xsl:call-template name="set-class-attr">
 				<xsl:with-param name="class-names"
-				                select="('pb', @type)"/>
+				                select="('pb',
+				                         @type,
+				                         if (@type eq 'author'
+				                             or @type eq 'facs'
+				                             or @type eq 'other'
+				                             or not(@type))
+				                             then 'orig' else ())"/>
 			</xsl:call-template>
 			<xsl:attribute name="role">doc-pagebreak</xsl:attribute>
 			<xsl:variable name="delimiter"
@@ -920,5 +887,10 @@
 
 
 	<xsl:template match="tei:expan | tei:rdg"/>
+
+
+	<!-- * NAMED TEMPLATES ******************************************** -->
+
+	
 
 </xsl:stylesheet>
