@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: est.xsl
 	*
-	*    Version: 1.0.1
+	*    Version: 1.0.2
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-07
@@ -22,6 +22,8 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.0.2 (2025-04-04)
+	*             - Fix template for tei:opener.
 	*        v1.0.1 (2025-03-18)
 	*             - Use named template for processing document headings.
 	*             - Modify template for tei:del to handle cases where
@@ -233,7 +235,9 @@
 	<!--* Wrap in a <div> if not part of a grouping which will be wrapped
 		* in <hgroup>, otherwise, just apply templates. * -->
 		<xsl:choose>
-			<xsl:when test="not(current-grouping-key() eq 'hgroup')">
+			<xsl:when test="not(current-grouping-key() eq 'hgroup')
+			                or (current-grouping-key() eq 'hgroup'
+				                and count(current-group()) lt 2)">
 				<div class="opener">
 					<xsl:apply-templates/>
 				</div>
@@ -551,7 +555,13 @@
 			<xsl:call-template name="set-attr-from-xml-id"/>
 			<xsl:call-template name="set-class-attr">
 				<xsl:with-param name="class-names"
-				                select="('pb', @type)"/>
+				                select="('pb',
+				                         @type,
+				                         if (@type eq 'author'
+				                             or @type eq 'facs'
+				                             or @type eq 'other'
+				                             or not(@type))
+				                             then 'orig' else ())"/>
 			</xsl:call-template>
 			<xsl:attribute name="role">doc-pagebreak</xsl:attribute>
 			<xsl:variable name="delimiter"
