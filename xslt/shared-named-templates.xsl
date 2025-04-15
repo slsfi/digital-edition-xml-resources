@@ -301,6 +301,7 @@
 					select="(if (@type) then @type else 'chapter',
 					         if ($include-rend-attr) then @rend else ())"/>
 			</xsl:call-template>
+			<xsl:apply-templates/>
 		</xsl:element>
 	</xsl:template>
 
