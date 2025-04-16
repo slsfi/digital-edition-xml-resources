@@ -22,12 +22,14 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
-	*        v1.0.2 (2025-04-04)
-	*             - Fix template for tei:opener.
-	*        v1.0.1 (2025-03-18)
+	*        v1.0.2 (2025-04-16)
 	*             - Use named template for processing document headings.
 	*             - Modify template for tei:del to handle cases where
 	*               ancestor is tei:restore.
+	*             - Fix template for tei:opener.
+	*             - Fix last line XPath in tei:l template.
+	*        v1.0.1 (2025-03-12)
+	*             - Fix heading level offset.
 	*        v1.0.0 (2025-03-07)
 	*
 	*    Description:
@@ -400,7 +402,11 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</span>
-		<xsl:if test="not(. is (ancestor::tei:lg//tei:l[last()]))">
+		
+		<xsl:variable name="last-line" as="element(tei:l)?"
+		              select="((ancestor::tei:lg[1]//tei:l)
+		                      except (ancestor::tei:lg[1]//tei:lg//tei:l))[last()]"/>
+		<xsl:if test="not(. is $last-line)">
 			<br/><xsl:text>{$NL}</xsl:text>
 		</xsl:if>
 	</xsl:template>

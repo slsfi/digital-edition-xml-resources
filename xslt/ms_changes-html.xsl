@@ -3,6 +3,7 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:xml="http://www.w3.org/XML/1998/namespace"
+	xmlns:map="http://www.w3.org/2005/xpath-functions/map"
 	xmlns:tei="http://www.tei-c.org/ns/1.0"
 	xmlns:slsFn="https://www.sls.fi/ns/digitaledition/functions/"
 	exclude-result-prefixes="#all"
@@ -102,6 +103,29 @@
 	<xsl:variable name="heading-level-offset" as="xs:integer" static="yes"
 	              select="2"/>
 
+	<!-- * Mapping of medium values. * -->
+	<xsl:variable name="medium-map" as="map(xs:string, xs:string)">
+		<xsl:map>
+			<xsl:map-entry key="'black-ink'"        select="'svart bläck'"/>
+			<xsl:map-entry key="'black-inkOther'"   select="'annat svart bläck'"/>
+			<xsl:map-entry key="'blue-ink'"         select="'blått bläck'"/>
+			<xsl:map-entry key="'blue-pen'"         select="'blå kulspetspenna'"/>
+			<xsl:map-entry key="'blue-pencil'"      select="'blå färgpenna'"/>
+			<xsl:map-entry key="'brown-ink'"        select="'brunt bläck'"/>
+			<xsl:map-entry key="'brown-inkOther'"   select="'annat brunt bläck'"/>
+			<xsl:map-entry key="'green-ink'"        select="'grönt bläck'"/>
+			<xsl:map-entry key="'green-pen'"        select="'grön kulspetspenna'"/>
+			<xsl:map-entry key="'green-pencil'"     select="'grön färgpenna'"/>
+			<xsl:map-entry key="'red-ink'"          select="'rött bläck'"/>
+			<xsl:map-entry key="'red-pen'"          select="'röd kulspetspenna'"/>
+			<xsl:map-entry key="'red-pencil'"       select="'röd färgpenna'"/>
+			<xsl:map-entry key="'violet-ink'"       select="'violett bläck'"/>
+			<xsl:map-entry key="'indeliblePencil'"  select="'anilinpenna'"/>
+			<xsl:map-entry key="'pencil'"           select="'blyertspenna'"/>
+			<xsl:map-entry key="'typewrite'"        select="'maskinskrivet'"/>
+		</xsl:map>
+	</xsl:variable>
+
 
 
 	<!-- * TEMPLATES ******************************************************
@@ -109,7 +133,6 @@
 	     * element nodes are unwrapped and children processed (same as
 	     * apply-templates applied to them); the content (text) of text
 	     * nodes is outputted. * -->
-
 
 	<xsl:template match="tei:teiHeader"/>
 
@@ -255,20 +278,47 @@
 	<xsl:template match="tei:head[not(parent::tei:figure)
 	                              and not(parent::tei:table)
 	                              and not(@type eq 'subtitle')]">
-		<xsl:call-template name="document-heading">
-			<xsl:with-param name="include-rend-attr" select="true()"/>
+		<xsl:variable name="heading-level"
+		              select="slsFn:get-heading-level(., $heading-level-offset)"/>
+		<xsl:variable name="element-name"
+		              select="if ($heading-level lt 7)
+		                          then 'h' || $heading-level
+		                      else 'div'"/>
+
+		<xsl:element name="{$element-name}">
+			<xsl:if test="$element-name eq 'div'">
+				<xsl:attribute name="role" select="'heading'"/>
+				<xsl:attribute name="aria-level" select="$heading-level"/>
+			</xsl:if>
+			<xsl:call-template name="set-class-attr">
+				<xsl:with-param name="class-names"
+					select="(if (@type) then @type else 'chapter',
+					         @rend,
+					         if (@hand) then 'hand tooltiptrigger ttMs' else ())"/>
+			</xsl:call-template>
+			<xsl:call-template name="handle-addspan-delspan"/>
+		</xsl:element>
+		<xsl:call-template name="render-hand-tooltip">
+			<xsl:with-param name="hand-attr" select="@hand"/>
 		</xsl:call-template>
 	</xsl:template>
 
 
 	<xsl:template match="tei:head[@type eq 'subtitle']">
 		<p role="doc-subtitle">
-			<xsl:call-template name="set-class-attr-from-rend"/>
-			<xsl:apply-templates/>
+			<xsl:call-template name="set-class-attr">
+				<xsl:with-param name="class-names"
+					select="(@rend,
+				            if (@hand) then 'hand tooltiptrigger ttMs' else ())"/>
+			</xsl:call-template>
+			<xsl:call-template name="handle-addspan-delspan"/>
 		</p>
+		<xsl:call-template name="render-hand-tooltip">
+			<xsl:with-param name="hand-attr" select="@hand"/>
+		</xsl:call-template>
 	</xsl:template>
 
-
+<!-- CURRENT WIP -->
 	<xsl:template match="tei:ab[parent::tei:epigraph] |
 	                     tei:address |
 	                     tei:bibl[ancestor::tei:opener] |
@@ -395,7 +445,11 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</span>
-		<xsl:if test="not(. is (ancestor::tei:lg//tei:l[last()]))">
+
+		<xsl:variable name="last-line" as="element(tei:l)?"
+		              select="((ancestor::tei:lg[1]//tei:l)
+		                      except (ancestor::tei:lg[1]//tei:lg//tei:l))[last()]"/>
+		<xsl:if test="not(. is $last-line)">
 			<br/><xsl:text>{$NL}</xsl:text>
 		</xsl:if>
 	</xsl:template>
@@ -889,8 +943,183 @@
 	<xsl:template match="tei:expan | tei:rdg"/>
 
 
+
 	<!-- * NAMED TEMPLATES ******************************************** -->
 
-	
+	<xsl:template name="handle-addspan-delspan">
+		<xsl:variable name="in-addspan" select="slsFn:is-in-addspan(.)"/>
+    	<xsl:variable name="in-delspan" select="slsFn:is-in-delspan(.)"/>
+
+		<!-- Case: Both addSpan and delSpan -->
+		<xsl:if test="$in-addspan and $in-delspan">
+			<!-- ATT! The order here is assumed to be <delSpan> inside 
+			<addSpan>, but the reverse is not handled! -->
+			<xsl:variable name="addspan-hand-attr" select="preceding::tei:addSpan[1]/@hand"/>
+			<xsl:variable name="delspan-hand-attr" select="preceding::tei:delSpan[1]/@hand"/>
+
+			<span>
+				<xsl:call-template name="set-class-attr">
+					<xsl:with-param name="class-names"
+					                select="('addSpan',
+					                        if ($addspan-hand-attr)
+					                            then 'hand tooltiptrigger ttMs' else ())"/>
+				</xsl:call-template>
+				<span>
+					<xsl:call-template name="set-class-attr">
+						<xsl:with-param name="class-names"
+						                select="('delSpan',
+						                        if ($delspan-hand-attr)
+						                            then 'hand tooltiptrigger ttMs' else (),
+						                        if (preceding::tei:delSpan[1]/@rend eq 'strikethrough')
+						                            then 'deletion' else ())"/>
+					</xsl:call-template>
+					<xsl:apply-templates/>
+				</span>
+				<!-- addSpan tooltip -->
+				<xsl:call-template name="render-hand-tooltip">
+					<xsl:with-param name="hand-attr" select="$addspan-hand-attr"/>
+					<xsl:with-param name="level" select="'inline'"/>
+				</xsl:call-template>
+			</span>
+			<!-- delSpan tooltip -->
+			<xsl:call-template name="render-hand-tooltip">
+				<xsl:with-param name="hand-attr" select="$delspan-hand-attr"/>
+				<xsl:with-param name="level" select="'inline'"/>
+			</xsl:call-template>
+		</xsl:if>
+
+		<!-- Case: Only addSpan -->
+		<xsl:if test="$in-addspan and not($in-delspan)">
+			<xsl:variable name="hand-attr" select="preceding::tei:addSpan[1]/@hand"/>
+			
+			<span>
+				<xsl:call-template name="set-class-attr">
+					<xsl:with-param name="class-names"
+					                select="('addSpan',
+					                        if ($hand-attr)
+					                            then 'hand tooltiptrigger ttMs' else ())"/>
+				</xsl:call-template>
+				<xsl:apply-templates/>
+			</span>
+			<xsl:call-template name="render-hand-tooltip">
+				<xsl:with-param name="hand-attr" select="$hand-attr"/>
+				<xsl:with-param name="level" select="'inline'"/>
+			</xsl:call-template>
+		</xsl:if>
+
+		<!-- Case: Only delSpan -->
+		<xsl:if test="$in-delspan and not($in-addspan)">
+			<xsl:variable name="hand-attr" select="preceding::tei:delSpan[1]/@hand"/>
+
+			<span>
+				<xsl:call-template name="set-class-attr">
+					<xsl:with-param name="class-names"
+					                select="('delSpan',
+					                        if ($hand-attr)
+					                            then 'hand tooltiptrigger ttMs' else (),
+					                        if (preceding::tei:delSpan[1]/@rend eq 'strikethrough')
+					                            then 'deletion' else ())"/>
+				</xsl:call-template>
+				<xsl:apply-templates/>
+			</span>
+			<xsl:call-template name="render-hand-tooltip">
+				<xsl:with-param name="hand-attr" select="$hand-attr"/>
+				<xsl:with-param name="level" select="'inline'"/>
+			</xsl:call-template>
+		</xsl:if>
+
+		<!-- Case: Neither addSpan nor delSpan -->
+		<xsl:if test="not($in-addspan) and not($in-delspan)">
+			<xsl:apply-templates/>
+		</xsl:if>
+	</xsl:template>
+
+
+	<xsl:template name="render-hand-tooltip">
+		<xsl:param name="hand-attr" as="xs:string?"/>
+		<xsl:param name="level" as="xs:string" select="'block'"/>
+
+		<xsl:variable name="handnote" as="element()?" select="/tei:TEI/tei:teiHeader/tei:profileDesc/tei:handNotes/tei:handNote[('#' || @xml:id) eq $hand-attr]"/>
+		<xsl:variable name="hand-text" as="xs:string?"
+		              select="slsFn:get-hand-text($handnote)"/>
+		<xsl:if test="$hand-text">
+			<xsl:variable name="element-name" as="xs:string"
+			              select="if ($level eq 'block')
+			                          then 'div'
+			                      else 'span'"/>
+			<xsl:element name="{$element-name}">
+				<xsl:attribute name="class" select="'tooltip'"/>
+				<xsl:attribute name="hidden" select="''"/>
+				<xsl:text>{$hand-text}</xsl:text>
+			</xsl:element>
+		</xsl:if>
+	</xsl:template>
+
+
+
+	<!-- * FUNCTIONS ************************************************** -->
+
+	<xsl:function name="slsFn:get-hand-text" as="xs:string?" cache="yes">
+	<!-- * Extracts information about the author and medium from a given
+	     * <handNote> element and returns it as a string in Swedish. The
+	     * function maps predefined medium codes (e.g., "black-ink",
+	     * "green-pen", "pencil") to corresponding descriptions. If the
+	     * passed element is empty or does not have @medium, an empty
+	     * sequence is returned. * -->
+		<xsl:param name="handnote" as="element()?"/>
+
+		<xsl:if test="empty($handnote)">
+			<xsl:sequence select="()"/>
+		</xsl:if>
+
+		<xsl:variable name="author-text" as="xs:string"
+		              select="normalize-space(string($handnote))"/>
+
+		<xsl:variable name="medium-attr" as="xs:string?"
+		              select="$handnote/@medium"/>
+
+		<xsl:variable name="medium-text" as="xs:string?"
+                      select="if ($medium-attr and map:contains($medium-map, $medium-attr))
+                                  then map:get($medium-map, $medium-attr)
+                              else ()"/>
+		
+		<xsl:sequence select="if (not($author-text eq '') and $medium-text)
+		                          then $author-text || ': ' || $medium-text
+		                      else if (not($author-text eq '') and empty($medium-text))
+		                          then $author-text
+		                      else if ($medium-text)
+		                          then $medium-text
+		                      else ()"/>
+	</xsl:function>
+
+
+	<xsl:function name="slsFn:is-in-addspan" as="xs:boolean">
+	<!-- * Returns true if the passed element is within an addSpan,
+	     * otherwise false. * -->
+		<xsl:param name="current" as="node()"/>
+
+		<xsl:variable name="preceding-add-spans"
+		              select="$current/preceding::tei:addSpan"/>
+		<xsl:variable name="add-span-ids"
+		              select="for $span in $preceding-add-spans
+		                      return $span/@spanTo"/>
+		<xsl:sequence select="some $id in $add-span-ids
+		                      satisfies $current/following::tei:anchor[('#' || @xml:id) eq $id]"/>
+	</xsl:function>
+
+
+	<xsl:function name="slsFn:is-in-delspan" as="xs:boolean">
+	<!-- * Returns true if the passed element is within a delSpan,
+	     * otherwise false. * -->
+		<xsl:param name="current" as="node()"/>
+
+		<xsl:variable name="preceding-del-spans"
+		              select="$current/preceding::tei:delSpan"/>
+		<xsl:variable name="del-span-ids"
+		              select="for $span in $preceding-del-spans
+		                      return $span/@spanTo"/>
+		<xsl:sequence select="some $id in $del-span-ids
+		                      satisfies $current/following::tei:anchor[('#' || @xml:id) eq $id]"/>
+	</xsl:function>
 
 </xsl:stylesheet>

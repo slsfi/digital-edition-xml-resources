@@ -437,7 +437,11 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</span>
-		<xsl:if test="not(. is (ancestor::tei:lg//tei:l[last()]))">
+
+		<xsl:variable name="last-line" as="element(tei:l)?"
+		              select="((ancestor::tei:lg[1]//tei:l)
+		                      except (ancestor::tei:lg[1]//tei:lg//tei:l))[last()]"/>
+		<xsl:if test="not(. is $last-line)">
 			<br/><xsl:text>{$NL}</xsl:text>
 		</xsl:if>
 	</xsl:template>
