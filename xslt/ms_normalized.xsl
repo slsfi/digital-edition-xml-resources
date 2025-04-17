@@ -868,12 +868,13 @@
 
 
 	<xsl:template match="tei:gap | tei:space">
-	<!-- * If @reason is 'overstrike' the content is stripped. <space>
-	     * does not have @reason so the test is always true for the
-	     * element. * -->
-		<xsl:if test="not(@reason eq 'overstrike')">
+	<!-- * If @reason is 'overstrike' or 'overwritten' the content is
+	     * stripped. <space> does not have @reason so the test is
+	     * always true for it. * -->
+		<xsl:if test="not(@reason eq 'overstrike')
+		              and not(@reason eq 'overwritten')">
 			<xsl:call-template name="add-gap-space-content">
-				<xsl:with-param name="text-type" select="'ms'"/>
+				<xsl:with-param name="text-type" select="'ms_normalized'"/>
 			</xsl:call-template>
 		</xsl:if>
 	</xsl:template>
