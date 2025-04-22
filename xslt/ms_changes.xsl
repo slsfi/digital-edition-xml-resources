@@ -54,7 +54,7 @@
 	<!-- * SERIALIZATION OPTIONS ************************************** -->
 
 	<xsl:output method="html" html-version="5.0" encoding="utf-8"
-	            include-content-type="no" indent="yes"/>
+	            include-content-type="no" indent="no"/>
 
 	<xsl:strip-space elements="tei:TEI tei:address tei:argument tei:body
 	                           tei:cit tei:closer tei:div tei:epigraph
