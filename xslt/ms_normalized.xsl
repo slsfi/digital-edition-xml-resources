@@ -16,13 +16,13 @@
 	*    Version: 1.0.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
-	*    Created: 2025-03-18
+	*    Created: 2025-04-22
 	*    Licence: CC-BY-NC 4.0 (Attribution-NonCommercial 4.0
 	*             International),
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
-	*        v1.0.0 (2025-03-18)
+	*        v1.0.0 (2025-04-22)
 	*
 	*    Description:
 	*        This XSLT document processes a TEI-encoded manuscript XML
@@ -45,6 +45,8 @@
 	*        - sectionId (xs:string?, default: empty): The ID of the
 	*          section of the input document which is to be processed. If
 	*          no sectionId is provided, the whole document is processed.
+	*        - debug (xs:boolean?, default: false): Run transformation in
+	*          debug ”mode” with additional output for easier debugging.
 	*
 	******************************************************************* -->
 
@@ -72,12 +74,16 @@
 
 
 	<!-- * PARAMETERS *****************************************************
-	     * Declare input parameters, if undefined, set to empty sequence.
-	     * These should not be used in the stylesheet, but rather the
-	     * global variables derived from these below. * -->
+	     * Declare input parameters. * -->
 
+	<!-- * The bookId and sectionId parameters should not be used in the
+	     * stylesheet, but rather the global variables derived from these,
+	     * see below. * -->
 	<xsl:param name="bookId" as="xs:string?" select="()"/>
 	<xsl:param name="sectionId" as="xs:string?" select="()"/>
+
+	<!-- * Parameter for enabling debug ”mode”. * -->
+	<xsl:param name="debug" as="xs:boolean?" select="false()"/>
 
 
 
@@ -339,7 +345,7 @@
 	<xsl:template match="tei:addrLine">
 		<xsl:apply-templates/>
 		<xsl:if test="not(. is (ancestor::tei:address//tei:addrLine[last()]))">
-			<br/><xsl:text>{$NL}</xsl:text>
+			<br/><xsl:text>{if ($debug) then $NL else ''}</xsl:text>
 		</xsl:if>
 	</xsl:template>
 
@@ -442,7 +448,7 @@
 		              select="((ancestor::tei:lg[1]//tei:l)
 		                      except (ancestor::tei:lg[1]//tei:lg//tei:l))[last()]"/>
 		<xsl:if test="not(. is $last-line)">
-			<br/><xsl:text>{$NL}</xsl:text>
+			<br/><xsl:text>{if ($debug) then $NL else ''}</xsl:text>
 		</xsl:if>
 	</xsl:template>
 
@@ -454,7 +460,7 @@
 			                and @place">
 				<span class="label{substring(@place, 1, 1) => upper-case()}{substring(@place, 2)}">
 					<xsl:apply-templates/>
-				</span><xsl:text>{$NL}</xsl:text>
+				</span><xsl:text>{if ($debug) then $NL else ''}</xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:apply-templates/>

@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: est.xsl
 	*
-	*    Version: 1.0.2
+	*    Version: 1.1.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-07
@@ -22,12 +22,16 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
-	*        v1.0.2 (2025-04-16)
+	*        v1.1.0 (2025-04-22)
 	*             - Use named template for processing document headings.
 	*             - Modify template for tei:del to handle cases where
 	*               ancestor is tei:restore.
 	*             - Fix template for tei:opener.
 	*             - Fix last line XPath in tei:l template.
+	*             - Remove superfluous CSS class name in tei:anchor
+	*               template.
+	*             - Add debug input parameter for running transformation
+	*               in debug ”mode”.
 	*        v1.0.1 (2025-03-12)
 	*             - Fix heading level offset.
 	*        v1.0.0 (2025-03-07)
@@ -51,6 +55,8 @@
 	*        - sectionId (xs:string?, default: empty): The ID of the
 	*          section of the input document which is to be processed. If
 	*          no sectionId is provided, the whole document is processed.
+	*        - debug (xs:boolean?, default: false): Run transformation in
+	*          debug ”mode” with additional output for easier debugging.
 	*
 	******************************************************************* -->
 
@@ -76,12 +82,16 @@
 
 
 	<!-- * PARAMETERS *****************************************************
-	     * Declare input parameters, if undefined, set to empty sequence.
-	     * These should not be used in the stylesheet, but rather the
-	     * global variables derived from these below. * -->
+	     * Declare input parameters. * -->
 
+	<!-- * The bookId and sectionId parameters should not be used in the
+	     * stylesheet, but rather the global variables derived from these,
+	     * see below. * -->
 	<xsl:param name="bookId" as="xs:string?" select="()"/>
 	<xsl:param name="sectionId" as="xs:string?" select="()"/>
+
+	<!-- * Parameter for enabling debug ”mode”. * -->
+	<xsl:param name="debug" as="xs:boolean?" select="false()"/>
 
 
 
@@ -300,7 +310,7 @@
 	<xsl:template match="tei:addrLine">
 		<xsl:apply-templates/>
 		<xsl:if test="not(. is (ancestor::tei:address//tei:addrLine[last()]))">
-			<br/><xsl:text>{$NL}</xsl:text>
+			<br/><xsl:text>{if ($debug) then $NL else ''}</xsl:text>
 		</xsl:if>
 	</xsl:template>
 
@@ -352,7 +362,7 @@
 				                select="('lg', @type)"/>
 			</xsl:call-template>
 			<xsl:call-template name="add-paragraph-number"/>
-			<xsl:text>{$NL}</xsl:text>
+			<xsl:text>{if ($debug) then $NL else ''}</xsl:text>
 			<xsl:apply-templates/>
 		</p>
 	</xsl:template>
@@ -407,7 +417,7 @@
 		              select="((ancestor::tei:lg[1]//tei:l)
 		                      except (ancestor::tei:lg[1]//tei:lg//tei:l))[last()]"/>
 		<xsl:if test="not(. is $last-line)">
-			<br/><xsl:text>{$NL}</xsl:text>
+			<br/><xsl:text>{if ($debug) then $NL else ''}</xsl:text>
 		</xsl:if>
 	</xsl:template>
 
@@ -419,7 +429,7 @@
 			                and @place">
 				<span class="label{substring(@place, 1, 1) => upper-case()}{substring(@place, 2)}">
 					<xsl:apply-templates/>
-				</span><xsl:text>{$NL}</xsl:text>
+				</span><xsl:text>{if ($debug) then $NL else ''}</xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:apply-templates/>
@@ -809,7 +819,7 @@
 	<xsl:template match="tei:anchor">
 		<xsl:choose>
 			<xsl:when test="starts-with(@xml:id, 'start')">
-				<span class="anchor_lemma symbol_red" data-id="{@xml:id}">
+				<span class="anchor_lemma" data-id="{@xml:id}">
 					<img src="{$icons-base-path}/ms_arrow_right.svg"
 					     alt="lemma start" loading="lazy"/>
 				</span>

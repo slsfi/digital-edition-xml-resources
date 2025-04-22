@@ -22,10 +22,12 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
-	*        v1.1.0 (2025-04-17)
+	*        v1.1.0 (2025-04-22)
 	*             - Added template `document-heading`.
 	*             - Modified template `add-gap-space-content` to support
 	*               manuscript texts.
+	*             - Output newline characters only when debug input
+	*               parameter true.
 	*        v1.0.0 (2025-03-07)
 	*
 	*    Description:
@@ -49,7 +51,7 @@
 		<xsl:where-populated>
 			<xsl:if test=".//tei:div[@xml:id eq $section-id]//tei:note
 			              or .//tei:note">
-				<xsl:text>{$NL}</xsl:text>
+				<xsl:text>{if ($debug) then $NL else ''}</xsl:text>
 			</xsl:if>
 			<section role="doc-endnotes">
 				<xsl:if test="parent::tei:text[@xml:lang]">
