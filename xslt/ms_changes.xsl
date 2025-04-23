@@ -310,12 +310,12 @@
 					         if (@hand) then 'hand tooltiptrigger ttMs' else (),
 					         if ($in-addspan)
 		                         then (if ($addspan-hand-attr)
-		                                   then 'addSpanHand'
+		                                   then 'addSpan hand'
 		                               else 'addSpan')
 		                     else (),
 		                     if ($in-delspan)
 		                         then (if ($delspan-hand-attr)
-		                                   then 'delSpanHand'
+		                                   then 'delSpan delSpanHand'
 		                               else 'delSpan')
 		                     else ())"/>
 			</xsl:call-template>
@@ -342,12 +342,12 @@
 				            if (@hand) then 'hand tooltiptrigger ttMs' else (),
 					        if ($in-addspan)
 		                        then (if ($addspan-hand-attr)
-		                                  then 'addSpanHand'
+		                                  then 'addSpan hand'
 		                              else 'addSpan')
 		                    else (),
 		                    if ($in-delspan)
 		                        then (if ($delspan-hand-attr)
-		                                  then 'delSpanHand'
+		                                  then 'delSpan delSpanHand'
 		                              else 'delSpan')
 		                    else ())"/>
 			</xsl:call-template>
@@ -387,12 +387,12 @@
 				                         @rend,
 					                     if ($in-addspan)
 					                         then (if ($addspan-hand-attr)
-					                                   then 'addSpanHand'
+					                                   then 'addSpan hand'
 					                               else 'addSpan')
 					                     else (),
 					                     if ($in-delspan)
 					                         then (if ($delspan-hand-attr)
-					                                   then 'delSpanHand'
+					                                   then 'delSpan delSpanHand'
 					                               else 'delSpan')
 					                     else ())"/>
 			</xsl:call-template>
@@ -425,12 +425,12 @@
 				                select="(@rend,
 					                     if ($in-addspan)
 					                         then (if ($addspan-hand-attr)
-					                                   then 'addSpanHand'
+					                                   then 'addSpan hand'
 					                               else 'addSpan')
 					                     else (),
 					                     if ($in-delspan)
 					                         then (if ($delspan-hand-attr)
-					                                   then 'delSpanHand'
+					                                   then 'delSpan delSpanHand'
 					                               else 'delSpan')
 					                     else ())"/>
 			</xsl:call-template>
@@ -462,12 +462,12 @@
 				                             then 'epigraph' else (),
 				                         if ($in-addspan)
 					                         then (if ($addspan-hand-attr)
-					                                   then 'addSpanHand'
+					                                   then 'addSpan hand'
 					                               else 'addSpan')
 					                     else (),
 					                     if ($in-delspan)
 					                         then (if ($delspan-hand-attr)
-					                                   then 'delSpanHand'
+					                                   then 'delSpan delSpanHand'
 					                               else 'delSpan')
 					                     else ())"/>
 			</xsl:call-template>
@@ -500,12 +500,12 @@
 				                         @type,
 				                         if ($in-addspan)
 					                         then (if ($addspan-hand-attr)
-					                                   then 'addSpanHand'
+					                                   then 'addSpan hand'
 					                               else 'addSpan')
 					                     else (),
 					                     if ($in-delspan)
 					                         then (if ($delspan-hand-attr)
-					                                   then 'delSpanHand'
+					                                   then 'delSpan delSpanHand'
 					                               else 'delSpan')
 					                     else ())"/>
 			</xsl:call-template>
@@ -539,12 +539,12 @@
 				                             then 'part' || @part else (),
 				                         if ($in-addspan)
 					                         then (if ($addspan-hand-attr)
-					                                   then 'addSpanHand'
+					                                   then 'addSpan hand'
 					                               else 'addSpan')
 					                     else (),
 					                     if ($in-delspan)
 					                         then (if ($delspan-hand-attr)
-					                                   then 'delSpanHand'
+					                                   then 'delSpan delSpanHand'
 					                               else 'delSpan')
 					                     else ())"/>
 			</xsl:call-template>
@@ -625,12 +625,12 @@
 				                             then 'argument' else (),
 				                         if ($in-addspan)
 					                         then (if ($addspan-hand-attr)
-					                                   then 'addSpanHand'
+					                                   then 'addSpan hand'
 					                               else 'addSpan')
 					                     else (),
 					                     if ($in-delspan)
 					                         then (if ($delspan-hand-attr)
-					                                   then 'delSpanHand'
+					                                   then 'delSpan delSpanHand'
 					                               else 'delSpan')
 					                     else ())"/>
 			</xsl:call-template>
@@ -666,12 +666,12 @@
 					                select="(@rend,
 					                         if ($in-addspan)
 						                         then (if ($addspan-hand-attr)
-						                                   then 'addSpanHand'
+						                                   then 'addSpan hand'
 						                               else 'addSpan')
 						                     else (),
 						                     if ($in-delspan)
 						                         then (if ($delspan-hand-attr)
-						                                   then 'delSpanHand'
+						                                   then 'delSpan delSpanHand'
 						                               else 'delSpan')
 						                     else ())"/>
 				</xsl:call-template>
@@ -744,12 +744,12 @@
 				                                         parent::tei:row/@rend)),
 				                         if ($in-addspan)
 					                         then (if ($addspan-hand-attr)
-					                                   then 'addSpanHand'
+					                                   then 'addSpan hand'
 					                               else 'addSpan')
 					                     else (),
 					                     if ($in-delspan)
 					                         then (if ($delspan-hand-attr)
-					                                   then 'delSpanHand'
+					                                   then 'delSpan delSpanHand'
 					                               else 'delSpan')
 					                     else ())"/>
 			</xsl:call-template>
@@ -850,12 +850,12 @@
 						         @xml:id,
 		                         if ($in-addspan)
 			                         then (if ($addspan-hand-attr)
-			                                   then 'addSpanHand'
+			                                   then 'addSpan hand'
 			                               else 'addSpan')
 			                     else (),
 			                     if ($in-delspan)
 			                         then (if ($delspan-hand-attr)
-			                                   then 'delSpanHand'
+			                                   then 'delSpan delSpanHand'
 			                               else 'delSpan')
 			                     else ())"/>
 				</xsl:call-template>
@@ -1153,9 +1153,7 @@
 					<span class="altInline">
 						<xsl:apply-templates select="node() except tei:add[@type eq 'choice']"/>
 					</span>
-					<span class="altChoice">
-						<xsl:apply-templates select="tei:add[@type eq 'choice']"/>
-					</span>
+					<xsl:apply-templates select="tei:add[@type eq 'choice']"/>
 					<xsl:call-template name="render-transpose-end-mark"/>
 				</span>
 			</xsl:when>
@@ -1202,11 +1200,12 @@
 		<span>
 			<xsl:call-template name="set-class-attr">
 				<xsl:with-param name="class-names"
-				                select="(if (parent::tei:subst)
+				                select="('add',
+				                         if (parent::tei:subst)
 				                             then 'substAdd' else (),
 				                         if (@hand) then 'hand tooltiptrigger ttMs' else (),
 				                         if (@type eq 'choice')
-				                             then 'choiceAdd'
+				                             then 'addChoice'
 				                         else if (@place eq 'botMargin'
 				                             or @place eq 'leftMargin'
 				                             or @place eq 'rightMargin'
@@ -1216,10 +1215,10 @@
 				                             then 'addSublinear'
 				                         else if (@place eq 'inline')
 				                             then 'addInline'
-				                         else if (parent::tei:add
-				                                  and not(parent::tei:add[@place eq 'inline']))
+				                         else if ($nested-add
+				                                  and not($nested-add[@place eq 'inline']))
 				                             then 'addInAdd'
-				                         else 'addOver')"/>
+				                         else 'addAbove')"/>
 			</xsl:call-template>
 			<xsl:call-template name="render-hand-symbol"/>
 			<xsl:call-template name="render-no-anchor-symbol"/>
@@ -1251,11 +1250,19 @@
 
 	<xsl:template match="tei:subst">
 		<xsl:call-template name="render-hand-symbol"/>
-		<span class="editorial-hi">|</span>
-		<span class="subst">
+		<span>
+			<xsl:call-template name="set-class-attr">
+				<xsl:with-param name="class-names"
+				                select="('subst',
+				                         if (tei:add[@place eq 'other'
+				                             or not(@place)])
+				                             then 'stack'
+				                         else if (tei:add[@place eq 'sublinear'])
+				                             then 'stack sublinearStack'
+				                         else ())"/>
+			</xsl:call-template>
 			<xsl:apply-templates/>
 		</span>
-		<span class="editorial-hi">|</span>
 	</xsl:template>
 
 
@@ -1273,8 +1280,11 @@
 
 
 	<xsl:template match="tei:metamark[@function eq 'transp']">
-		<span class="transpMark">
+		<span class="transpMark tooltiptrigger ttMs">
 			<xsl:text>{@n}</xsl:text>
+		</span>
+		<span class="tooltip" hidden="">
+			<xsl:text>ändrad ordningsföljd</xsl:text>
 		</span>
 		<span class="editorial-hi">|</span>
 	</xsl:template>
@@ -1284,53 +1294,54 @@
 	<!-- * NAMED TEMPLATES ******************************************** -->
 
 	<xsl:template name="apply-templates-with-spanning-markup">
-	<!-- * This template is a drop-in replacement for xsl:apply-templates,
-	     * used when rendering TEI content that may be part of a change
-	     * span (i.e., <addSpan> or <delSpan> with a corresponding
-	     * <anchor>).
+	<!-- * This template acts as a transparent substitute for xsl:apply-templates
+	     * but adds logic to conditionally wrap the output in <span> elements
+	     * when the context node is inside a TEI <addSpan> or <delSpan> range.
 	     *
-	     * It detects whether the context node falls within an active
-	     * addSpan or delSpan range (based on preceding:: and following::
-	     * checks) and, if so, wraps the output in one or more <span>
-	     * elements with appropriate class names to indicate additions or
-	     * deletions in the manuscript. It also renders tooltips when @hand
-	     * attributes are present on the span elements.
+	     * Functionality:
+	     * - Detects whether the current node falls within the bounds of
+	     *   an active <addSpan> or <delSpan>.
+	     * - If in an active span, wraps the result of xsl:apply-templates in
+	     *   a <span> with CSS class names reflecting the span type and @hand
+	         metadata:
+	     *     - 'addSpan' or 'delSpan' depending on the type.
+	     *     - 'hand' if the corresponding span has a @hand attribute.
+	     *     - 'strikethrough' if @rend='strikethrough' is set on a <delSpan>.
+	     * - Always invokes render-transpose-end-mark after applying templates.
 	     *
-	     * Usage:
-	     * Use this template instead of plain xsl:apply-templates whenever
-	     * the output should reflect manuscript changes marked using
-	     * <addSpan> or <delSpan> in the TEI source.
-	     *
-	     * Notes:
-	     * - This logic assumes that <addSpan> may contain <delSpan>, but
-	     *   not the reverse.
-	     * - Span wrappers are inserted only if the context node is within
-	     *   a detected span range.
-	     * - The tooltip rendering relies on a separate render-hand-tooltip
-	     *   template and the presence of matching <handNote> entries in
-	     * the TEI header. * -->
+	     * Usage Notes:
+	     * - Replace plain xsl:apply-templates with this template when rendering
+	     *   TEI content potentially governed by editorial change markup.
+	     * - Assumes nesting rules where <addSpan> may contain <delSpan> but not
+	     *   vice versa.
+	     * - Relies on supporting templates like set-class-attr and
+	     *   render-transpose-end-mark, and on consistent TEI header <handNote>
+	     *   usage. *-->
 		<xsl:variable name="in-addspan" select="slsFn:is-in-addspan(.)"/>
     	<xsl:variable name="in-delspan" select="slsFn:is-in-delspan(.)"/>
 
 		<!-- Case: Either addSpan or delSpan -->
 		<xsl:if test="$in-addspan or $in-delspan">
-			<xsl:variable name="addspan-hand-attr"
-			              select="preceding::tei:addSpan[1]/@hand"/>
-			<xsl:variable name="delspan-hand-attr"
-			              select="preceding::tei:delSpan[1]/@hand"/>
+			<xsl:variable name="addspan-elem"
+			              select="preceding::tei:addSpan[1]"/>
+			<xsl:variable name="delspan-elem"
+			              select="preceding::tei:delSpan[1]"/>
 
 			<span>
 				<xsl:call-template name="set-class-attr">
 					<xsl:with-param name="class-names"
 					                select="(if ($in-addspan)
-					                             then (if ($addspan-hand-attr)
-					                                       then 'addSpanHand'
+					                             then (if ($addspan-elem/@hand)
+					                                       then 'addSpan hand'
 					                                   else 'addSpan')
 					                         else (),
 					                         if ($in-delspan)
-					                             then (if ($delspan-hand-attr)
-					                                       then 'delSpanHand'
+					                             then (if ($delspan-elem/@hand)
+					                                       then 'delSpan delSpanHand'
 					                                   else 'delSpan')
+					                         else (),
+					                         if ($delspan-elem/@rend eq 'strikethrough')
+					                             then 'strikethrough'
 					                         else ())"/>
 				</xsl:call-template>
 				<xsl:apply-templates/>
