@@ -9756,7 +9756,11 @@ lettre.</desc><desc versionDate="2007-11-06" xml:lang="it">contiene un post scri
         <sch:assert test="@spanTo">L'attribut spanTo est requis.</sch:assert>
       </sch:rule>
     </constraint>
-  </constraintSpec><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="type" mode="change">
+  </constraintSpec><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="rend" mode="change">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="strikethrough"/>
+							</valList>
+						</attDef><attDef ident="type" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="move"/>
 							</valList>
