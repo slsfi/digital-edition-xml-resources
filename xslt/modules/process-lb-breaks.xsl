@@ -191,26 +191,23 @@
 		              select="slsFn:force-remove-lb(.)"/>
 
 		<xsl:if test="$force-remove">
-			<xsl:value-of select="slsFn:strip-trailing-whitespace-and-hyphen(.)"/>
+			<xsl:sequence select="slsFn:strip-trailing-whitespace-and-hyphen(.)
+			                      => slsFn:strip-whitespace-node()"/>
 		</xsl:if>
 		<xsl:if test="not($force-remove)">
-			<xsl:copy-of select="."/>
+			<xsl:sequence select="slsFn:strip-whitespace-node(.)"/>
 		</xsl:if>
 	</xsl:template>
 
 
 	<!-- * Remove text nodes immediately after opening <p> tags that
-	     * consist only of whitespace. * -->
+	     * aren’t followed by <lb @break/> elements and that consist
+	     * only of whitespace. * -->
 	<xsl:template match="text()[
 		position() eq 1
 	    and parent::tei:p
 	    and not(following-sibling::node()[1][self::tei:lb[@break]])
-    ]" mode="remove-lb-core">
-		<xsl:sequence select="slsFn:strip-whitespace-node(.)"/>
-	</xsl:template>
-
-	<xsl:template match="text()[position() eq 1 and parent::tei:p]"
-	              mode="preserve-lb-core">
+    ]" mode="preserve-lb-core remove-lb-core">
 		<xsl:sequence select="slsFn:strip-whitespace-node(.)"/>
 	</xsl:template>
 
