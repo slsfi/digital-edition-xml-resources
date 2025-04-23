@@ -807,7 +807,31 @@
 
 
 	<xsl:template match="tei:lb">
-		<br/>
+	<!-- * <lb> is converted to line breaks (<br>) in all cases except if
+	     * <lb> occurs:
+	     * - in an <add> which is displayed above or below the text
+	     *   baseline,
+	     * - in a <del> in a <subst> where the <add> is displayed above
+	     *   or below the text baseline.
+	     * In these cases <lb> is converted to a space character. * -->
+		<xsl:choose>
+			<xsl:when test="
+				ancestor::tei:add[not(@place)
+				                  or @place = ('sublinear', 'other')
+				                  or @type eq 'choice']
+				or
+				ancestor::tei:del[
+					parent::tei:subst[
+						tei:add[not(@place) or @place = ('sublinear', 'other')]
+					]
+				]
+			">
+				<xsl:text> </xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<br/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 
