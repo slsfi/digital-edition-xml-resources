@@ -10,7 +10,7 @@
 	*
 	*    XSLT stylesheet: process-lb-breaks.xsl
 	*
-	*    Version: 1.2.0
+	*    Version: 1.1.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-02-13
@@ -19,12 +19,11 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
-	*        v1.2.0 (2025-04-24)
-	*             - Force remove <lb/> elements in `preserve-lb-breaks`
-	*               mode from specific contexts that don’t support <lb/>.
-	*        v1.1.0 (2025-04-07)
+	*        v1.1.0 (2025-04-24)
 	*             - Added an internal post-processing mode for cleanup of
 	*               whitespace and superfluous <lb/> elements.
+	*             - Force remove <lb/> elements in `preserve-lb-breaks`
+	*               mode from specific contexts that don’t support <lb/>.
 	*        v1.0.0 (2025-02-13)
 	*
 	*    Description:
