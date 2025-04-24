@@ -19,7 +19,7 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
-	*        v1.2.0 (2025-04-23)
+	*        v1.2.0 (2025-04-24)
 	*             - Force remove <lb/> elements in `preserve-lb-breaks`
 	*               mode from specific contexts that don’t support <lb/>.
 	*        v1.1.0 (2025-04-07)
@@ -182,21 +182,25 @@
 	</xsl:template>
 	
 	<!-- * In the preserve-lb-core mode, remove any trailing whitespace
-	     * and hyphen from the text node if force-remove condition applies,
-	     * otherwise just copy the node to the output as it is. * -->
+	     * and hyphen from the text node if force-remove condition applies.
+	     * If it doesn’t and the text node is the first child node of a
+	     * <p>, remove the node if it contains only whitespace. Otherwise,
+	     * just output the node as it is. * -->
 	<xsl:template match="text()[
 		following-sibling::node()[1][self::tei:lb[@break]]
 	]" mode="preserve-lb-core">
 		<xsl:variable name="force-remove" as="xs:boolean"
 		              select="slsFn:force-remove-lb(.)"/>
 
-		<xsl:if test="$force-remove">
-			<xsl:sequence select="slsFn:strip-trailing-whitespace-and-hyphen(.)
-			                      => slsFn:strip-whitespace-node()"/>
-		</xsl:if>
-		<xsl:if test="not($force-remove)">
-			<xsl:sequence select="slsFn:strip-whitespace-node(.)"/>
-		</xsl:if>
+		<xsl:sequence
+			select="if ($force-remove)
+		                then slsFn:strip-trailing-whitespace-and-hyphen(.)
+		            else if (not($force-remove)
+		                     and position() eq 1
+	                         and parent::tei:p)
+		                then slsFn:strip-whitespace-node(.)
+		            else
+		                copy-of(.)"/>
 	</xsl:template>
 
 
@@ -222,7 +226,7 @@
 	<xsl:template match="tei:p/element(*)[
 		not(preceding-sibling::text())
 	]/tei:lb[not(preceding-sibling::text())][1]"
-              mode="lb-postprocessing"/>
+	              mode="lb-postprocessing"/>
 
 
 
