@@ -17,7 +17,7 @@ Brief descriptions of the stylesheets in the subfolders can be found below. More
 
 ### `xslt/modules/`
 
-These “module” stylesheets operate in specific modes and must be imported and invoked by a “master” stylesheet by applying templates in the module’s mode, for example:
+These “module” stylesheets operate in specific modes and must be imported and invoked by a “main” stylesheet by applying templates in the module’s mode, for example:
 
 ```xml
 <!-- Import module -->
@@ -38,17 +38,29 @@ These “module” stylesheets operate in specific modes and must be imported an
 
 ### `xslt/publisher/`
 
-These stylesheets are used by the publisher script in the digital edition API to, for instance, create “web versions” of the TEI XML documents in a project. The web XML documents can be regarded as preprocessed versions of the source documents. They are used for transformations to HTML for the websites. The “publisher” stylesheets utilise the XSLT modules in `xslt/modules/`.
+These stylesheets are used by the publisher script in the digital edition API to, for instance, create “web versions” of the TEI XML documents in a project. The web XML documents can be regarded as preprocessed versions of the source documents. They are used for transformations to HTML for the websites. The “publisher” stylesheets utilise the XSLT modules in `xslt/modules/`. The filenames of the main stylesheets are fixed and must not be changed:
+
+- `generate-web-xml-com.xsl`
+- `generate-web-xml-est.xsl`
+- `generate-web-xml-ms.xsl`
 
 ### `xslt/`
 
-The stylesheets in this folder are related to transforming the “web” TEI XML documents into HTML and other formats for the project website. The main stylesheets in the folder are directly used by the [Digital Edition API](https://github.com/slsfi/digital_edition_api) for live transformations.
+The stylesheets in this folder are related to transforming the “web” TEI XML documents into HTML and other formats for the project website. The main stylesheets in the folder are directly used by the [Digital Edition API](https://github.com/slsfi/digital_edition_api) for live transformations. The filenames of the main stylesheets are fixed and must not be changed.
 
 Stylesheets in the folder:
 
 #### `est.xsl`
 
-Main stylesheet for transforming a preprocessed TEI XML document (a “web version”) to an HTML5 fragment that can be included in a web page (does not generate a complete HTML document). Relies on several “shared” XSLT stylesheets.
+Main stylesheet for transforming a preprocessed reading-text TEI XML document (a “web version”) to an HTML5 fragment, that can be included in a web page (does not generate a complete HTML document). Relies on several “shared” XSLT stylesheets.
+
+#### `ms_changes.xsl`
+
+Main stylesheet for transforming a preprocessed manuscript TEI XML document (a “web version”) to an HTML5 fragment, that can be included in a web page (does not generate a complete HTML document). Relies on several “shared” XSLT stylesheets. The manuscript changes will be visible in the result document.
+
+#### `ms_normalized.xsl`
+
+Main stylesheet for transforming a preprocessed manuscript TEI XML document (a “web version”) to an HTML5 fragment, that can be included in a web page (does not generate a complete HTML document). Relies on several “shared” XSLT stylesheets. Unlike when transforming with `ms_changes.xsl`, the manuscript changes will *not* be visible in the result document.
 
 #### `required-global-variables.xsl`
 
