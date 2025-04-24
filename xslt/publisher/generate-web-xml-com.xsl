@@ -54,7 +54,7 @@
 
 	<!-- * SERIALIZATION OPTIONS ************************************** -->
 
-	<xsl:output method="xml" version="1.0" indent="no" encoding="utf-8"
+	<xsl:output method="xml" version="1.0" indent="no" encoding="UTF-8"
 	            omit-xml-declaration="no"/>
 
 

@@ -63,7 +63,7 @@
 
 	<!-- * SERIALIZATION OPTIONS ************************************** -->
 
-	<xsl:output method="html" html-version="5.0" encoding="utf-8"
+	<xsl:output method="html" html-version="5.0" encoding="UTF-8"
 	            include-content-type="no" indent="no"/>
 
 	<xsl:strip-space elements="tei:TEI tei:address tei:argument tei:body
