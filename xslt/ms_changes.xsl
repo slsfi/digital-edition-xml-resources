@@ -14,7 +14,7 @@
 	*
 	*    XSLT stylesheet: ms_changes.xsl
 	*
-	*    Version: 1.0.1
+	*    Version: 1.0.2
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
@@ -23,6 +23,10 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.0.2 (2025-04-24)
+	*             - Move match templates common to est.xsl, ms_changes.xsl
+	*               and ms_normalized.xsl to shared-match-templates.xsl,
+	*               which is imported.
 	*        v1.0.1 (2025-04-24)
 	*             - Merge templates for tei:metamark to avoid match
 	*               ambiguities.
@@ -71,6 +75,7 @@
 	<xsl:import href="required-global-variables.xsl"/>
 	<xsl:import href="shared-functions.xsl"/>
 	<xsl:import href="shared-named-templates.xsl"/>
+	<xsl:import href="shared-match-templates.xsl"/>
 
 
 
@@ -143,146 +148,8 @@
 	     * apply-templates applied to them); the content (text) of text
 	     * nodes is outputted. * -->
 
-	<xsl:template match="tei:teiHeader"/>
-
-
-	<xsl:template match="tei:body[not(parent::tei:floatingText)]">
-	<!-- * Template for <body> elements that are not children of
-	     * <floatingText>. If the global parameter $section-id is set,
-	     * process only the <div> with matching @xml:id. The content
-	     * of <body> is wrapped in <section> if it contains a child
-	     * <head>, otherwise in a <div>. @class is set with the @type
-	     * of the parent, <text>. Also @xml:id and @xml:lang are
-	     * inherited from <text>. Any footnotes either in the whole
-	     * <body> or just the processed section-id are appended as a
-	     * <section>. * -->
-		<xsl:choose>
-			<xsl:when test="exists($section-id)">
-				<xsl:apply-templates select="//tei:div[@xml:id eq $section-id]"/>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:variable name="class-names" as="xs:string*"
-				              select="(if (parent::tei:text[@type])
-				                           then parent::tei:text/@type
-				                       else 'prose')"/>
-				<xsl:variable name="element-name" as="xs:string"
-				              select="if (tei:head)
-				                          then 'section'
-				                      else 'div'"/>
-
-				<xsl:choose>
-					<xsl:when test="$element-name eq 'div' and empty($class-names)
-					                and not(parent::tei:text[@xml:id])
-					                and not(parent::tei:text[@xml:lang])">
-						<xsl:apply-templates/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:element name="{$element-name}">
-							<xsl:call-template name="set-attr-from-parent-xml-id"/>
-							<xsl:call-template name="set-attr-from-parent-xml-lang"/>
-							<xsl:call-template name="set-class-attr">
-								<xsl:with-param name="class-names"
-								                select="$class-names"/>
-							</xsl:call-template>
-
-							<xsl:call-template name="wrap-head-opener-in-hgroup">
-								<xsl:with-param name="nodes" select="node()"/>
-							</xsl:call-template>
-						</xsl:element>
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:otherwise>
-		</xsl:choose>
-
-		<!-- * Process any footnotes so they appear after the main text. * -->
-		<xsl:call-template name="list-footnotes">
-			<xsl:with-param name="section-id" select="$section-id"/>
-		</xsl:call-template>
-	</xsl:template>
-
-
-	<xsl:template match="tei:div">
-	<!-- * If the <div> has a <head> child or @type of the <div> is
-	     * 'letterpart', wrap in <section>, otherwise in a <div>. However,
-	     * a <div> without attributes will not be outputted. The @type
-	     * value will be added as a class name to @class, and if the type
-	     * changes, the class name 'incorp' will also be added. * -->
-		<xsl:variable name="class-names" as="xs:string*"
-			select="(@type,
-		             if (ancestor::tei:div[@type][1]/@type ne current()/@type
-		                 or (parent::tei:body
-			                 and ancestor::tei:text/@type ne current()/@type))
-			         then 'incorp' else ())"/>
-		<xsl:variable name="element-name" as="xs:string"
-		              select="if (*[self::tei:head] or (@type eq 'letterpart'))
-		                          then 'section'
-		                      else 'div'"/>
-
-		<xsl:choose>
-			<xsl:when test="$element-name eq 'div' and empty($class-names)
-			                and not(@xml:id) and not(@xml:lang)">
-				<xsl:apply-templates/>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:element name="{$element-name}">
-					<xsl:call-template name="set-attr-from-xml-id"/>
-					<xsl:call-template name="set-attr-from-xml-lang"/>
-					<xsl:call-template name="set-class-attr">
-						<xsl:with-param name="class-names" select="$class-names"/>
-					</xsl:call-template>
-
-					<xsl:call-template name="wrap-head-opener-in-hgroup">
-						<xsl:with-param name="nodes" select="node()"/>
-					</xsl:call-template>
-				</xsl:element>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
-
-
-	<xsl:template match="tei:floatingText">
-	<!-- * Wrap content in <section> if <floatingText> has a <body> child
-	     * with a <head> as its first child, otherwise wrap in <div>. * -->
-		<xsl:variable name="element-name" as="xs:string"
-		              select="if (tei:body/tei:head[not(preceding-sibling::*)])
-		                          then 'section'
-		                      else 'div'"/>
-
-		<xsl:element name="{$element-name}">
-			<xsl:call-template name="set-class-attr">
-				<xsl:with-param name="class-names"
-				                select="(if (@type) then @type else 'prose',
-				                         'incorp')"/>
-			</xsl:call-template>
-			<xsl:apply-templates/>
-		</xsl:element>
-	</xsl:template>
-
-
-	<xsl:template match="tei:opener">
-	<!--* Wrap in a <div> if not part of a grouping which will be wrapped
-		* in <hgroup>, otherwise, just apply templates. * -->
-		<xsl:choose>
-			<xsl:when test="not(current-grouping-key() eq 'hgroup')
-			                or (current-grouping-key() eq 'hgroup'
-				                and count(current-group()) lt 2)">
-				<div class="opener">
-					<xsl:apply-templates/>
-				</div>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:apply-templates/>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
-
-
-	<xsl:template match="tei:closer | tei:postscript">
-		<div class="{local-name()}">
-			<xsl:apply-templates/>
-		</div>
-	</xsl:template>
-
+	<!-- * Note: many match templates are imported from
+	     * `shared-match-templates.xsl`. * -->
 
 	<xsl:template match="tei:head[not(parent::tei:figure)
 	                              and not(parent::tei:table)
@@ -359,6 +226,22 @@
 		<xsl:call-template name="render-hand-tooltip">
 			<xsl:with-param name="hand-attr" select="@hand"/>
 		</xsl:call-template>
+	</xsl:template>
+
+
+	<xsl:template match="tei:head[parent::tei:table]">
+		<caption>
+			<xsl:call-template name="set-class-attr-from-rend"/>
+			<xsl:call-template name="apply-templates-with-spanning-markup"/>
+		</caption>
+	</xsl:template>
+
+
+	<xsl:template match="tei:head[parent::tei:figure]">
+		<figcaption>
+			<xsl:call-template name="set-class-attr-from-rend"/>
+			<xsl:call-template name="apply-templates-with-spanning-markup"/>
+		</figcaption>
 	</xsl:template>
 
 
@@ -476,13 +359,6 @@
 			</xsl:call-template>
 			<xsl:apply-templates/>
 		</xsl:element>
-	</xsl:template>
-
-
-	<xsl:template match="tei:q[@rend eq 'parIndent']">
-		<div class="q parIndent">
-			<xsl:apply-templates/>
-		</div>
 	</xsl:template>
 
 
@@ -701,19 +577,6 @@
 	</xsl:template>
 
 
-	<xsl:template match="tei:head[parent::tei:table]">
-		<caption>
-			<xsl:call-template name="set-class-attr-from-rend"/>
-			<xsl:call-template name="apply-templates-with-spanning-markup"/>
-		</caption>
-	</xsl:template>
-
-
-	<xsl:template match="tei:row">
-		<tr><xsl:apply-templates/></tr>
-	</xsl:template>
-
-
 	<xsl:template match="tei:cell">
 		<xsl:variable name="is-header" as="xs:boolean"
 		              select="if (parent::tei:row[@role eq 'label']
@@ -783,34 +646,6 @@
 	</xsl:template>
 
 
-	<xsl:template match="tei:pb">
-		<xsl:element name="{
-			if ((preceding-sibling::* | following-sibling::*)[
-			    self::tei:p or self::tei:head or self::tei:lg or self::tei:div
-			    or self::tei:table or self::tei:list or self::tei:milestone
-			    or self::tei:quote[@type eq 'block']])
-			then 'div' else 'span'
-		}">
-			<xsl:call-template name="set-attr-from-xml-id"/>
-			<xsl:call-template name="set-class-attr">
-				<xsl:with-param name="class-names"
-				                select="('pb',
-				                         @type,
-				                         if (@type eq 'author'
-				                             or @type eq 'facs'
-				                             or @type eq 'other'
-				                             or not(@type))
-				                             then 'orig' else ())"/>
-			</xsl:call-template>
-			<xsl:attribute name="role">doc-pagebreak</xsl:attribute>
-			<xsl:variable name="delimiter"
-			              select="if (empty(@subtype)) then '|' else '['"/>
-			<xsl:text>{$delimiter}{@n}{if ($delimiter eq '|')
-			                               then '|' else ']'}</xsl:text>
-		</xsl:element>
-	</xsl:template>
-
-
 	<xsl:template match="tei:lb">
 	<!-- * <lb> is converted to line breaks (<br>) in all cases except if
 	     * <lb> occurs:
@@ -835,27 +670,6 @@
 			</xsl:when>
 			<xsl:otherwise>
 				<br/>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
-
-
-	<xsl:template match="tei:milestone">
-		<xsl:choose>
-			<xsl:when test="@type">
-				<hr class="milestone {@type}"/>
-			</xsl:when>
-			<xsl:when test="@unit eq 'part' and (@when or @source)">
-				<div class="milestone milestonePart">
-					<xsl:variable name="milestone-date" as="xs:string?"
-					              select="slsFn:format-date-or-year(@when)"/>
-					<xsl:variable name="milestone-source" as="xs:string?"
-						select="slsFn:decode-uri-encoded-colons(@source)"/>
-					<xsl:text>Publicerad{if ($milestone-source) then ' i ' || $milestone-source else ''}{if ($milestone-date) then ' ' || $milestone-date else ''}</xsl:text>
-				</div>
-			</xsl:when>
-			<xsl:otherwise>
-				<hr class="milestone blank"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -897,188 +711,6 @@
 				</span>
 			</span>
 		</xsl:if>
-	</xsl:template>
-
-
-	<xsl:template match="tei:figure">
-		<xsl:choose>
-			<xsl:when test="@type eq 'placeholder'">
-				<!-- TODO: implement placeholder figure -->
-			</xsl:when>
-		</xsl:choose>
-		<figure>
-			<xsl:call-template name="set-attr-from-xml-id"/>
-			<xsl:apply-templates/>
-		</figure>
-	</xsl:template>
-
-
-	<xsl:template match="tei:head[parent::tei:figure]">
-		<figcaption>
-			<xsl:call-template name="set-class-attr-from-rend"/>
-			<xsl:call-template name="apply-templates-with-spanning-markup"/>
-		</figcaption>
-	</xsl:template>
-
-
-	<xsl:template match="tei:graphic">
-		<xsl:if test="not(parent::tei:figure[@type eq 'placeholder'])">
-			<xsl:variable name="fig-desc"
-		                  select="parent::tei:figure/tei:figDesc"/>
-			<img src="{@url}" loading="lazy" alt="{if ($fig-desc)
-			                                           then string($fig-desc)
-			                                       else 'illustration'}">
-				<xsl:where-populated>
-					<xsl:attribute name="height"
-						select="translate(@height, 'px', '')"/>
-				</xsl:where-populated>
-				<xsl:where-populated>
-					<xsl:attribute name="width"
-						select="translate(@width, 'px', '')"/>
-				</xsl:where-populated>
-			</img>
-		</xsl:if>
-	</xsl:template>
-
-
-	<!-- * <figDesc> is handled by the template for <graphic>. * -->
-	<xsl:template match="tei:figDesc"/>
-
-
-	<xsl:template match="tei:ptr[@type eq 'mediaCollection']">
-		<a class="xreference ref_illustration" rel="nofollow"
-		   href="{if (starts-with(@target, '#'))
-		              then @target
-		          else '#' || @target}">
-			<img class="symbol" src="{$icons-base-path}/image_symbol.svg"
-			     alt="illustration" loading="lazy"/>
-		</a>
-	</xsl:template>
-
-
-	<xsl:template match="tei:date">
-		<xsl:choose>
-			<xsl:when test="@rend">
-				<span>
-					<xsl:call-template name="set-class-attr-from-rend"/>
-					<xsl:apply-templates/>
-				</span>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:apply-templates/>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
-
-
-	<xsl:template match="tei:foreign | tei:hi">
-	<!-- * Bold, italics, subscript and superscript rend-values are transformed
-	     * into their equivalent HTML elements. Other rend-values become class
-	     * names on a <span>. The @lang attribute is applied to the innermost
-	     * element. <hi> without @rend is equivalent to a rend value of
-	     * italics. * -->
-		<xsl:variable name="has-element" as="xs:string*"
-		              select="('bold', 'italics', 'subscript', 'superscript')"/>
-		<xsl:variable name="rend-values" as="xs:string*"
-		              select="normalize-space(@rend) => tokenize()"/>
-		<xsl:variable name="to-elements" as="xs:string*"
-		              select="$rend-values[. = $has-element]"/>
-		<xsl:variable name="other-rend-values" as="xs:string*"
-			select="$rend-values[not(. = $has-element)]"/>
-		<xsl:variable name="xml-lang" select="@xml:lang" as="xs:string?"/>
-
-		<!-- * Dynamically generate the correct wrapping sequence, which can
-		     * contain the element names 'sub', 'sup', 'span', 'i' and 'b'.
-		     * These are applied in this order, so 'sub' is the innermost
-		     * element and 'b' the outermost. * -->
-		<xsl:variable name="wrappers" select="(
-			if ('subscript' = $to-elements) then 'sub' else (),
-			if ('superscript' = $to-elements) then 'sup' else (),
-			if (exists($other-rend-values)
-			    or ($xml-lang and empty($to-elements)))
-			    then 'span' else (),
-			if ('italics' = $to-elements
-			    or local-name() eq 'hi' and empty($rend-values))
-			    then 'i' else (),
-			if ('bold' = $to-elements) then 'b' else ()
-		)"/>
-
-		<xsl:iterate select="$wrappers">
-			<xsl:param name="content">
-				<xsl:apply-templates/>
-			</xsl:param>
-			<xsl:on-completion>
-				<xsl:sequence select="$content"/>
-			</xsl:on-completion>
-
-			<xsl:variable name="wrapped-content">
-				<xsl:element name="{.}">
-					<!-- * Apply @lang only to the first (innermost) element * -->
-					<xsl:if test="$xml-lang and position() lt 2">
-						<xsl:attribute name="lang" select="$xml-lang"/>
-					</xsl:if>
-					<!-- * Add @class only if it's a <span> * -->
-					<xsl:if test=". eq 'span' and exists($other-rend-values)">
-						<xsl:attribute name="class" select="$other-rend-values"/>
-					</xsl:if>
-					<xsl:sequence select="$content"/>
-				</xsl:element>
-			</xsl:variable>
-
-			<xsl:next-iteration>
-				<xsl:with-param name="content" select="$wrapped-content"/>
-			</xsl:next-iteration>
-		</xsl:iterate>
-	</xsl:template>
-
-
-	<xsl:template match="tei:persName | tei:placeName | tei:rs | tei:title">
-		<span>
-			<xsl:call-template name="set-class-attr">
-				<xsl:with-param name="class-names"
-				                select="('tooltiptrigger',
-				                         if (local-name() eq 'placeName')
-				                             then 'placeName ttPlace'
-				                         else if (local-name() eq 'title')
-				                             then 'title ttTitle'
-				                         else 'person ttPerson',
-				                         @rend,
-				                         if (@cert eq 'low')
-				                             then 'uncertain' else (),
-				                         if (@role eq 'fictional')
-				                             then 'fictional' else ())"/>
-			</xsl:call-template>
-			<xsl:call-template name="set-attr-from-key"/>
-			<xsl:call-template name="set-attr-from-xml-lang"/>
-			<xsl:apply-templates/>
-		</span>
-	</xsl:template>
-
-
-	<xsl:template match="tei:ref | tei:ptr[not(@type)]">
-	<!-- TODO: Hyperlinks should only used for navigation to real URLs.
-	     Should be using a <button> when not navigating to a URL. -->
-		<a>
-			<xsl:call-template name="set-class-attr">
-				<xsl:with-param name="class-names"
-				                select="('xreference',
-				                         if (not(@type) or @type eq 'url')
-				                             then 'ref_external'
-				                         else 'ref_' || @type)"/>
-			</xsl:call-template>
-			<xsl:attribute name="href" select="@target"/>
-			<xsl:if test="@type and @type ne 'url'">
-				<xsl:attribute name="rel" select="'nofollow'"/>
-			</xsl:if>
-			<xsl:choose>
-				<xsl:when test="local-name() eq 'ref'">
-					<xsl:apply-templates/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:text>{@target}</xsl:text>
-				</xsl:otherwise>
-			</xsl:choose>
-		</a>
 	</xsl:template>
 
 
