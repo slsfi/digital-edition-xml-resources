@@ -6,48 +6,65 @@
 	exclude-result-prefixes="xs"
 >
 
-	<!--
-	XSLT stylesheet: generate-web-xml-est.xsl
-	Version 1.0.0
-	Author: Sebastian Köhler, Svenska litteratursällskapet i Finland,
-		https://www.sls.fi/
-	Created: 2025-01-16
-	Changes:
-		- 2025-01-16: v1.0.0
+	<!-- ******************************************************************
+	*
+	*    XSLT stylesheet: generate-web-xml-est.xsl
+	*    Version: 1.0.0
+	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
+	*             https://www.sls.fi/
+	*    Created: 2025-01-16
+	*    Licence: CC-BY-NC 4.0 (Attribution-NonCommercial 4.0
+	*             International),
+	*             https://creativecommons.org/licenses/by-nc/4.0/
+	*
+	*    Changes:
+	*        v1.0.0 (2025-01-16)
+	*
+	*    Description:
+	*        This XSLT document processes TEI-encoded reading-text
+	*        documents ("established" texts) and prepares them for web
+	*        publication. The following transformations are performed on
+	*        the source document:
+	*
+	*        1. <delSpan> elements and their corresponding <anchor>
+	*           elements are removed.
+	*        2. The positions of <anchor> end tags of comments are
+	*           corrected.
+	*        3. Transpositions are performed.
+	*        4. Line beginning elements indicating word or line breaks are
+	*           removed.
+	*        5. Sequential numbering is added to paragraphs and lines.
+	*        6. Metadata is added based on input parameters.
+	*        7. @xml:space is stripped from the <body> element, so
+	*           subsequent transformations can control whitespace output
+	*           formatting.
+	*
+	*        See the documentation for the individual modules for further
+	*        details.
+	*
+	*        Nodes not affected by the transformations in the
+	*        aforementioned modules will be preserved in the output.
+	*
+	*    Usage:
+	*        Set input parameters on the XSLT processor (see
+	*        `add-metadata.xsl`) and execute the transformation on a
+	*        TEI-encoded XML source document.
+	*
+	*    Output:
+	*        A modified TEI-encoded XML document.
+	*
+	******************************************************************* -->
 
-	Description:
-	This XSLT document processes TEI-encoded reading-text documents
-	("established" texts) and prepares them for web publication.
-	The following transformations are performed on the source document:
 
-	1. <delSpan> elements and their corresponding <anchor> elements are
-	   removed.
-	2. The positions of <anchor> end tags of comments are corrected.
-	3. Transpositions are performed.
-	4. Line beginning elements indicating word or line breaks are
-	   removed.
-	5. Sequential numbering is added to paragraphs and lines.
-	6. Metadata is added based on input parameters.
-	7. @xml:space is stripped from the <body> element, so subsequent
-	   transformations can control whitespace output formatting.
+	<!-- * SERIALIZATION OPTIONS ************************************** -->
 
-	See the documentation for the individual modules for further details.
-
-	Nodes not affected by the transformations in the aforementioned
-	modules will be preserved in the output.
-
-	Usage:
-	Set input parameters on the XSLT processor (see `add-metadata.xsl`)
-	and execute the transformation on a TEI-encoded XML source document.
-
-	Output:
-	A modified TEI-encoded XML document.
-	-->
-
-	<xsl:output method="xml" version="1.0" indent="no" encoding="UTF-8"
+	<xsl:output method="xml" version="1.0" indent="no" encoding="utf-8"
 	            omit-xml-declaration="no"/>
 
-	<!-- Import modules -->
+
+
+	<!-- * IMPORTS **************************************************** -->
+
 	<xsl:import href="../modules/remove-delspans.xsl"/>
 	<xsl:import href="../modules/move-comment-anchors.xsl"/>
 	<xsl:import href="../modules/transpose.xsl"/>
@@ -56,44 +73,48 @@
 	<xsl:import href="../modules/add-metadata.xsl"/>
 	<xsl:import href="../modules/strip-xml-space.xsl"/>
 
-	<!-- Entry point -->
+
+
+	<!-- * TEMPLATES ************************************************** -->
+
+	<!-- * Entry point. * -->
 	<xsl:template match="/">
-		<!-- Pass 1: Remove delSpan-elements -->
+		<!-- * Pass 1: Remove delSpan-elements. * -->
 		<xsl:variable name="pass1-result">
 			<xsl:apply-templates select="/" mode="remove-delspans"/>
 		</xsl:variable>
 
-		<!-- Pass 2: Move anchor-elements related to comments -->
+		<!-- * Pass 2: Move anchor-elements related to comments. * -->
 		<xsl:variable name="pass2-result">
 			<xsl:apply-templates select="$pass1-result" mode="move-comment-anchors"/>
 		</xsl:variable>
 
-		<!-- Pass 3: Transpose elements -->
+		<!-- * Pass 3: Transpose elements. * -->
 		<xsl:variable name="pass3-result">
 			<xsl:apply-templates select="$pass2-result" mode="transpose"/>
 		</xsl:variable>
 
-		<!-- Pass 4: Process lb breaks -->
+		<!-- * Pass 4: Process lb breaks. * -->
 		<xsl:variable name="pass4-result">
 			<xsl:apply-templates select="$pass3-result" mode="remove-lb-breaks"/>
 		</xsl:variable>
 
-		<!-- Pass 5: Add paragraph/line numbering -->
+		<!-- * Pass 5: Add paragraph/line numbering. * -->
 		<xsl:variable name="pass5-result">
 			<xsl:apply-templates select="$pass4-result" mode="add-numbering"/>
 		</xsl:variable>
 
-		<!-- Pass 6: Add metadata -->
+		<!-- * Pass 6: Add metadata. * -->
 		<xsl:variable name="pass6-result">
 			<xsl:apply-templates select="$pass5-result" mode="add-metadata"/>
 		</xsl:variable>
 		
-		<!-- Pass 7: Strip @xml:space from <body> -->
+		<!-- * Pass 7: Strip @xml:space from <body>. * -->
 		<xsl:variable name="pass7-result">
 			<xsl:apply-templates select="$pass6-result" mode="strip-xml-space"/>
 		</xsl:variable>
 
-		<!-- Output the final result -->
+		<!-- * Output the final result. * -->
 		<xsl:sequence select="$pass7-result"/>
 	</xsl:template>
 
