@@ -148,6 +148,9 @@
 	     * apply-templates applied to them); the content (text) of text
 	     * nodes is outputted. * -->
 
+	<!-- * Note: many match templates are imported from
+	     * `shared-match-templates.xsl`. * -->
+
 	<xsl:template match="tei:head[not(parent::tei:figure)
 	                              and not(parent::tei:table)
 	                              and not(@type eq 'subtitle')]">

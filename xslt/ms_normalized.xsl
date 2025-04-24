@@ -124,6 +124,9 @@
 	     * apply-templates applied to them); the content (text) of text
 	     * nodes is outputted. * -->
 
+	<!-- * Note: many match templates are imported from
+	     * `shared-match-templates.xsl`. * -->
+
 	<xsl:template match="/">
 	<!-- * Entry point: matches the document node.
 	     * Process the input document in the following passes:
