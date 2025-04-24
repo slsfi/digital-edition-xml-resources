@@ -22,12 +22,12 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
-	*        v1.1.0 (2025-04-22)
+	*        v1.1.0 (2025-04-24)
 	*             - Added template `document-heading`.
 	*             - Modified template `add-gap-space-content` to support
 	*               manuscript texts.
-	*             - Output newline characters only when debug input
-	*               parameter true.
+	*             - Output newline characters only when `$debug` input
+	*               parameter is true.
 	*        v1.0.0 (2025-03-07)
 	*
 	*    Description:

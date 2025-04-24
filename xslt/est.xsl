@@ -22,7 +22,7 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
-	*        v1.1.0 (2025-04-22)
+	*        v1.1.0 (2025-04-24)
 	*             - Use named template for processing document headings.
 	*             - Modify template for tei:del to handle cases where
 	*               ancestor is tei:restore.
@@ -544,16 +544,16 @@
 			</xsl:where-populated>
 			<xsl:where-populated>
 				<xsl:attribute name="scope"
-				               select="if ($is-header and $colspan)
-				                           then 'colgroup'
-				                       else if ($is-header and $rowspan)
-				                           then 'rowgroup'
-				                       else if (@role eq 'label'
-				                                and not(preceding-sibling::*)
-				                                and not(following-sibling::tei:cell[@role eq 'label']))
-				                           then 'row'
-				                       else if ($is-header)
-				                           then 'col' else ()"/>
+					select="if ($is-header and $colspan)
+					           then 'colgroup'
+					       else if ($is-header and $rowspan)
+					           then 'rowgroup'
+					       else if (@role eq 'label'
+					                and not(preceding-sibling::*)
+					                and not(following-sibling::tei:cell[@role eq 'label']))
+					           then 'row'
+					       else if ($is-header)
+					           then 'col' else ()"/>
 			</xsl:where-populated>
 			<xsl:apply-templates/>
 		</xsl:element>

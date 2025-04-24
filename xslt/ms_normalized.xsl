@@ -16,13 +16,13 @@
 	*    Version: 1.0.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
-	*    Created: 2025-04-22
+	*    Created: 2025-04-24
 	*    Licence: CC-BY-NC 4.0 (Attribution-NonCommercial 4.0
 	*             International),
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
-	*        v1.0.0 (2025-04-22)
+	*        v1.0.0 (2025-04-24)
 	*
 	*    Description:
 	*        This XSLT document processes a TEI-encoded manuscript XML
@@ -119,7 +119,6 @@
 	     * apply-templates applied to them); the content (text) of text
 	     * nodes is outputted. * -->
 
-
 	<xsl:template match="/">
 	<!-- * Entry point: matches the document node.
 	     * Process the input document in the following passes:
@@ -136,8 +135,12 @@
 		     * the result from the previous pass. * -->
 		<xsl:variable name="transpose-result">
 			<xsl:choose>
-				<xsl:when test="$remove-delspans-result//tei:listTranspose/tei:transpose/tei:ptr[@target]">
-					<xsl:apply-templates select="$remove-delspans-result" mode="transpose"/>
+				<xsl:when test="$remove-delspans-result
+				                //tei:listTranspose
+				                /tei:transpose
+				                /tei:ptr[@target]">
+					<xsl:apply-templates select="$remove-delspans-result"
+					                     mode="transpose"/>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:sequence select="$remove-delspans-result"/>
@@ -576,16 +579,16 @@
 			</xsl:where-populated>
 			<xsl:where-populated>
 				<xsl:attribute name="scope"
-				               select="if ($is-header and $colspan)
-				                           then 'colgroup'
-				                       else if ($is-header and $rowspan)
-				                           then 'rowgroup'
-				                       else if (@role eq 'label'
-				                                and not(preceding-sibling::*)
-				                                and not(following-sibling::tei:cell[@role eq 'label']))
-				                           then 'row'
-				                       else if ($is-header)
-				                           then 'col' else ()"/>
+					select="if ($is-header and $colspan)
+					           then 'colgroup'
+					       else if ($is-header and $rowspan)
+					           then 'rowgroup'
+					       else if (@role eq 'label'
+					                and not(preceding-sibling::*)
+					                and not(following-sibling::tei:cell[@role eq 'label']))
+					           then 'row'
+					       else if ($is-header)
+					           then 'col' else ()"/>
 			</xsl:where-populated>
 			<xsl:apply-templates/>
 		</xsl:element>

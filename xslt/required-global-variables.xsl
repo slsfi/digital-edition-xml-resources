@@ -22,7 +22,7 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
-	*        v1.0.1 (2025-04-22)
+	*        v1.0.1 (2025-04-24)
 	*             - Change the `icons-base-path` variable to non-static.
 	*        v1.0.0 (2025-03-10)
 	*

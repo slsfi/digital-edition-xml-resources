@@ -17,13 +17,13 @@
 	*    Version: 1.0.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
-	*    Created: 2025-04-22
+	*    Created: 2025-04-24
 	*    Licence: CC-BY-NC 4.0 (Attribution-NonCommercial 4.0
 	*             International),
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
-	*        v1.0.0 (2025-04-22)
+	*        v1.0.0 (2025-04-24)
 	*
 	*    Description:
 	*        This XSLT document processes a TEI-encoded manuscript XML
@@ -130,7 +130,7 @@
 	                           'indeliblePencil':  'anilinpenna',
 	                           'pencil':           'blyertspenna',
 	                           'typewrite':        'maskinskrivet'
-	                           }"/>
+	                          }"/>
 
 
 
@@ -608,8 +608,10 @@
 	     * results in an unordered list, otherwise an ordered list. * -->
 		<xsl:variable name="in-addspan" select="slsFn:is-in-addspan(.)"/>
     	<xsl:variable name="in-delspan" select="slsFn:is-in-delspan(.)"/>
-		<xsl:variable name="addspan-hand-attr" select="preceding::tei:addSpan[1]/@hand"/>
-		<xsl:variable name="delspan-hand-attr" select="preceding::tei:delSpan[1]/@hand"/>
+		<xsl:variable name="addspan-hand-attr"
+		              select="preceding::tei:addSpan[1]/@hand"/>
+		<xsl:variable name="delspan-hand-attr"
+		              select="preceding::tei:delSpan[1]/@hand"/>
 
 		<xsl:element name="{if (not(@rend) or @rend eq 'indent'
 		                        or @rend eq 'disc' or @rend eq 'dash')
@@ -663,17 +665,17 @@
 				<xsl:call-template name="set-attr-from-xml-lang"/>
 				<xsl:call-template name="set-class-attr">
 					<xsl:with-param name="class-names"
-					                select="(@rend,
-					                         if ($in-addspan)
-						                         then (if ($addspan-hand-attr)
-						                                   then 'addSpan hand'
-						                               else 'addSpan')
-						                     else (),
-						                     if ($in-delspan)
-						                         then (if ($delspan-hand-attr)
-						                                   then 'delSpan delSpanHand'
-						                               else 'delSpan')
-						                     else ())"/>
+		                select="(@rend,
+		                         if ($in-addspan)
+			                         then (if ($addspan-hand-attr)
+			                                   then 'addSpan hand'
+			                               else 'addSpan')
+			                     else (),
+			                     if ($in-delspan)
+			                         then (if ($delspan-hand-attr)
+			                                   then 'delSpan delSpanHand'
+			                               else 'delSpan')
+			                     else ())"/>
 				</xsl:call-template>
 
 				<!-- * Group the rows so the first child rows with
@@ -761,16 +763,16 @@
 			</xsl:where-populated>
 			<xsl:where-populated>
 				<xsl:attribute name="scope"
-				               select="if ($is-header and $colspan)
-				                           then 'colgroup'
-				                       else if ($is-header and $rowspan)
-				                           then 'rowgroup'
-				                       else if (@role eq 'label'
-				                                and not(preceding-sibling::*)
-				                                and not(following-sibling::tei:cell[@role eq 'label']))
-				                           then 'row'
-				                       else if ($is-header)
-				                           then 'col' else ()"/>
+					select="if ($is-header and $colspan)
+					            then 'colgroup'
+					        else if ($is-header and $rowspan)
+					            then 'rowgroup'
+					        else if (@role eq 'label'
+					                 and not(preceding-sibling::*)
+					                 and not(following-sibling::tei:cell[@role eq 'label']))
+					            then 'row'
+					        else if ($is-header)
+					            then 'col' else ()"/>
 			</xsl:where-populated>
 			<xsl:apply-templates/>
 			<xsl:call-template name="render-transpose-end-mark"/>
@@ -1224,25 +1226,25 @@
 		<span>
 			<xsl:call-template name="set-class-attr">
 				<xsl:with-param name="class-names"
-				                select="('add',
-				                         if (parent::tei:subst)
-				                             then 'substAdd' else (),
-				                         if (@hand) then 'hand tooltiptrigger ttMs' else (),
-				                         if (@type eq 'choice')
-				                             then 'addChoice'
-				                         else if (@place eq 'botMargin'
-				                             or @place eq 'leftMargin'
-				                             or @place eq 'rightMargin'
-				                             or @place eq 'topMargin')
-				                             then 'addMargin'
-				                         else if (@place eq 'sublinear')
-				                             then 'addSublinear'
-				                         else if (@place eq 'inline')
-				                             then 'addInline'
-				                         else if ($nested-add
-				                                  and not($nested-add[@place eq 'inline']))
-				                             then 'addInAdd'
-				                         else 'addAbove')"/>
+	                select="('add',
+	                         if (parent::tei:subst)
+	                             then 'substAdd' else (),
+	                         if (@hand) then 'hand tooltiptrigger ttMs' else (),
+	                         if (@type eq 'choice')
+	                             then 'addChoice'
+	                         else if (@place eq 'botMargin'
+	                             or @place eq 'leftMargin'
+	                             or @place eq 'rightMargin'
+	                             or @place eq 'topMargin')
+	                             then 'addMargin'
+	                         else if (@place eq 'sublinear')
+	                             then 'addSublinear'
+	                         else if (@place eq 'inline')
+	                             then 'addInline'
+	                         else if ($nested-add
+	                                  and not($nested-add[@place eq 'inline']))
+	                             then 'addInAdd'
+	                         else 'addAbove')"/>
 			</xsl:call-template>
 			<xsl:call-template name="render-hand-symbol"/>
 			<xsl:call-template name="render-no-anchor-symbol"/>
@@ -1344,7 +1346,7 @@
 		<xsl:variable name="in-addspan" select="slsFn:is-in-addspan(.)"/>
     	<xsl:variable name="in-delspan" select="slsFn:is-in-delspan(.)"/>
 
-		<!-- Case: Either addSpan or delSpan -->
+		<!-- * Case: Either addSpan or delSpan. * -->
 		<xsl:if test="$in-addspan or $in-delspan">
 			<xsl:variable name="addspan-elem"
 			              select="preceding::tei:addSpan[1]"/>
@@ -1373,7 +1375,7 @@
 			</span>
 		</xsl:if>
 
-		<!-- Case: Neither addSpan nor delSpan -->
+		<!-- * Case: Neither addSpan nor delSpan. * -->
 		<xsl:if test="not($in-addspan) and not($in-delspan)">
 			<xsl:apply-templates/>
 			<xsl:call-template name="render-transpose-end-mark"/>
@@ -1497,6 +1499,7 @@
 	</xsl:template>
 
 
+
 	<!-- * FUNCTIONS ************************************************** -->
 
 	<xsl:function name="slsFn:get-hand-text" as="xs:string?" cache="yes">
@@ -1504,7 +1507,10 @@
 	     * <handNote> element matched by the given hand-id, and returns
 	     * the information as a string in Swedish. The function maps
 	     * predefined medium codes (e.g., "black-ink", "green-pen",
-	     * "pencil") to corresponding descriptions. * -->
+	     * "pencil") to corresponding descriptions.
+	     *
+	     * Requires that mappings of medium values have been declared
+	     * in a `$medium-map` global variable. * -->
 		<xsl:param name="doc" as="document-node()"/>
 		<xsl:param name="hand-id" as="xs:string?"/>
 
@@ -1512,7 +1518,12 @@
 			<xsl:sequence select="()"/>
 		</xsl:if>
 		
-		<xsl:variable name="handnote" as="element(tei:handNote)?" select="$doc/tei:TEI/tei:teiHeader/tei:profileDesc/tei:handNotes/tei:handNote[('#' || @xml:id) eq $hand-id]"/>
+		<xsl:variable name="handnote" as="element(tei:handNote)?"
+		              select="$doc/tei:TEI
+		                          /tei:teiHeader
+		                          /tei:profileDesc
+		                          /tei:handNotes
+		                          /tei:handNote[('#' || @xml:id) eq $hand-id]"/>
 
 		<xsl:variable name="author-text" as="xs:string"
 		              select="normalize-space(string($handnote))"/>
@@ -1546,7 +1557,9 @@
 		              select="for $span in $preceding-add-spans
 		                      return $span/@spanTo"/>
 		<xsl:sequence select="some $id in $add-span-ids
-		                      satisfies $current/following::tei:anchor[('#' || @xml:id) eq $id]"/>
+		                      satisfies $current/following::tei:anchor[
+		                          ('#' || @xml:id) eq $id
+		                      ]"/>
 	</xsl:function>
 
 
@@ -1561,7 +1574,9 @@
 		              select="for $span in $preceding-del-spans
 		                      return $span/@spanTo"/>
 		<xsl:sequence select="some $id in $del-span-ids
-		                      satisfies $current/following::tei:anchor[('#' || @xml:id) eq $id]"/>
+		                      satisfies $current/following::tei:anchor[
+		                          ('#' || @xml:id) eq $id
+		                      ]"/>
 	</xsl:function>
 
 </xsl:stylesheet>
