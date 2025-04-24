@@ -7,44 +7,57 @@
 	exclude-result-prefixes="tei xs slsEdData slsFn"
 >
 
-	<!--
-	XSLT Module: add-metadata.xsl
-	Version: 1.0.0
-	Author: Sebastian Köhler, Svenska litteratursällskapet i Finland,
-		https://www.sls.fi/
-	Created: 2025-01-15
-	Changes:
-		- 2025-01-15: v1.0.0
+	<!-- ******************************************************************
+	*
+	*    XSLT stylesheet: add-metadata.xsl
+	*
+	*    Version: 1.0.0
+	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
+	*             https://www.sls.fi/
+	*    Created: 2025-01-15
+	*    Licence: CC-BY-NC 4.0 (Attribution-NonCommercial 4.0
+	*             International),
+	*             https://creativecommons.org/licenses/by-nc/4.0/
+	*
+	*    Changes:
+	*        v1.0.0 (2025-01-15)
+	*
+	*    Description:
+	*        This XSLT module processes TEI-encoded documents and adds
+	*        metadata that has been provided as input parameters to the
+	*        XSLT processor. The metadata is written to a <xenoData>
+	*        element in the <teiHeader>.
+	*
+	*    Key Features:
+	*        - Operates in the `add-metadata` mode with
+	*          `on-no-match="shallow-copy"`, ensuring that unmatched nodes
+	*          are copied to the output without modification.
+	*        - Supports the following input parameters, which are added as
+	*          metadata to the <xenoData> element:
+	*              1. collectionId (int)
+	*              2. publicationId (int)
+	*              3. commentId (int)
+	*              4. manuscriptId (int)
+	*              5. variantId (int)
+	*              6. publishedStatus (int)
+	*              7. title (str)
+	*              8. textType (str)
+	*              9. sourceFile (str)
+	*              10. dateOrigin (str)
+	*              11. genre (str)
+	*              12. language (str)
+	*
+	*    Usage:
+	*        Import or include this module in a main XSLT stylesheet and
+	*        apply templates using the `add-metadata` mode to execute
+	*        the transformation.
+	*
+	******************************************************************* -->
 
-	Description:
-	This XSLT module processes TEI-encoded documents and adds metadata that
-	has been provided as input parameters to the XSLT processor. The metadata
-	is written to a <xenoData> element in the <teiHeader>.
 
-	Key Features:
-	- Operates in the `add-metadata` mode with `on-no-match="shallow-copy"`,
-	  ensuring that unmatched nodes are copied to the output without modification.
-	- Supports the following input parameters, which are added as metadata to
-	  the <xenoData> element:
-		1. collectionId (int)
-		2. publicationId (int)
-		3. commentId (int)
-		4. manuscriptId (int)
-		5. variantId (int)
-		6. publishedStatus (int)
-		7. title (str)
-		8. textType (str)
-		9. sourceFile (str)
-		10. dateOrigin (str)
-		11. genre (str)
-		12. language (str)
+	<!-- * PARAMETERS *****************************************************
+	     * Declare input parameters, default to empty sequences. * -->
 
-	Usage:
-	Import or include this module in a main XSLT stylesheet and apply templates 
-	using the `add-metadata` mode to execute the transformation.
-	-->
-
-	<!-- Declare input parameters, if undefined, set to empty sequence -->
 	<xsl:param name="collectionId" as="xs:integer?" select="()"/>
 	<xsl:param name="publicationId" as="xs:integer?" select="()"/>
 	<xsl:param name="commentId" as="xs:integer?" select="()"/>
@@ -58,13 +71,19 @@
 	<xsl:param name="genre" as="xs:string?" select="()"/>
 	<xsl:param name="language" as="xs:string?" select="()"/>
 
-	<!-- Declare processing mode for this module -->
+
+
+	<!-- * MODE DECLARATIONS ****************************************** -->
+
 	<xsl:mode name="add-metadata" on-no-match="shallow-copy"/>
 
-	<!--
-	Match the <teiHeader> element and add <xenoData> element with publication
-	metadata as last child of <teiHeader>, but before any <revisionDesc>
-	-->
+
+
+	<!-- * TEMPLATES ************************************************** -->
+
+	<!-- * Match the <teiHeader> element and add <xenoData> element with
+	     * publication metadata as last child of <teiHeader>, but before
+	     * any <revisionDesc>. * -->
 	<xsl:template match="tei:teiHeader" mode="add-metadata">
 		<xsl:copy>
 			<xsl:apply-templates select="@* | node()[not(self::tei:revisionDesc)]" mode="add-metadata"/>
@@ -72,23 +91,25 @@
 				<xsl:call-template name="generate-xenoData"/>
 			</xsl:if>
 			<xsl:if test="tei:revisionDesc">
-				<xsl:text>	</xsl:text> <!-- Indentation -->
+				<xsl:text>	</xsl:text> <!-- * Indentation * -->
 			</xsl:if>
 			<xsl:apply-templates select="tei:revisionDesc" mode="add-metadata"/>
 			<xsl:if test="tei:revisionDesc">
-				<xsl:text>&#10;	</xsl:text> <!-- Line break and indentation -->
+				<xsl:text>&#10;	</xsl:text> <!-- * Line break and indentation * -->
 			</xsl:if>
 		</xsl:copy>
 	</xsl:template>
 
-	<!--
-	Template to generate the new <xenoData> element with proper indentation
-	and line breaks
-	-->
+
+
+	<!-- * NAMED TEMPLATES ******************************************** -->
+
+	<!-- * Generate the new <xenoData> element with proper indentation
+	     * and line breaks. *	-->
 	<xsl:template name="generate-xenoData">
-		<xsl:text>	</xsl:text> <!-- Indentation -->
+		<xsl:text>	</xsl:text> <!-- * Indentation * -->
 		<xsl:element name="xenoData" namespace="http://www.tei-c.org/ns/1.0">
-			<xsl:text>&#10;			</xsl:text> <!-- Line break and indentation -->
+			<xsl:text>&#10;			</xsl:text> <!-- * Line break and indentation * -->
 			<slsEdData:editionMetadata xmlns:slsEdData="https://www.sls.fi/ns/digitaledition/metadata/">
 				<xsl:if test="normalize-space($title)">
 					<xsl:text>&#10;				</xsl:text>
@@ -169,12 +190,14 @@
 		<xsl:text>&#10;	</xsl:text>
 	</xsl:template>
 
-	<!--
-	Function for checking if input parameters have been set.
-	Returns true if any of the input parameters have been set,
-	otherwise false.
-	-->
+
+
+	<!-- * FUNCTIONS ************************************************** -->
+
 	<xsl:function name="slsFn:any-parameter-exists" as="xs:boolean">
+	<!-- * Function for checking if input parameters have been set.
+	     * Returns true if any of the input parameters have been set,
+	     * otherwise false. * -->
 		<xsl:param name="collectionId" as="xs:integer?"/>
 		<xsl:param name="publicationId" as="xs:integer?"/>
 		<xsl:param name="commentId" as="xs:integer?"/>
