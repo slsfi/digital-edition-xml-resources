@@ -14,7 +14,7 @@
 	*
 	*    XSLT stylesheet: ms_changes.xsl
 	*
-	*    Version: 1.0.0
+	*    Version: 1.0.1
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
@@ -23,6 +23,9 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.0.1 (2025-04-24)
+	*             - Merge templates for tei:metamark to avoid match
+	*               ambiguities.
 	*        v1.0.0 (2025-04-24)
 	*
 	*    Description:
@@ -1165,9 +1168,19 @@
 
 	<xsl:template match="tei:metamark">
 		<xsl:if test="@function eq 'instruction'">
-			<span class="reading-instruction">
+			<span class="readInstruction">
 				<xsl:call-template name="apply-templates-with-spanning-markup"/>
 			</span>
+		</xsl:if>
+
+		<xsl:if test="@function eq 'transp'">
+			<span class="transpMark tooltiptrigger ttMs">
+				<xsl:text>{@n}</xsl:text>
+			</span>
+			<span class="tooltip" hidden="">
+				<xsl:text>ändrad ordningsföljd</xsl:text>
+			</span>
+			<span class="editorial-hi">|</span>
 		</xsl:if>
 	</xsl:template>
 
@@ -1302,17 +1315,6 @@
 
 	<xsl:template match="tei:handShift">
 		<xsl:call-template name="render-hand-symbol"/>
-	</xsl:template>
-
-
-	<xsl:template match="tei:metamark[@function eq 'transp']">
-		<span class="transpMark tooltiptrigger ttMs">
-			<xsl:text>{@n}</xsl:text>
-		</span>
-		<span class="tooltip" hidden="">
-			<xsl:text>ändrad ordningsföljd</xsl:text>
-		</span>
-		<span class="editorial-hi">|</span>
 	</xsl:template>
 
 
