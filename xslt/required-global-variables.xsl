@@ -11,9 +11,9 @@
 
 	<!-- ******************************************************************
 	*
-	*    XSLT stylesheet: shared-global-variables.xsl
+	*    XSLT stylesheet: required-global-variables.xsl
 	*
-	*    Version: 1.0.0
+	*    Version: 1.0.1
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-10
@@ -22,6 +22,8 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.0.1 (2025-04-24)
+	*             - Change the `icons-base-path` variable to non-static.
 	*        v1.0.0 (2025-03-10)
 	*
 	*    Description:
@@ -43,7 +45,7 @@
 
 	<!-- * Directory base path where icon images are located on the
 	     * frontend. * -->
-	<xsl:variable name="icons-base-path" as="xs:string" static="yes"
+	<xsl:variable name="icons-base-path" as="xs:string"
 	              select="'assets/images'"/>
 
 	<!-- * Image element with icon representing empty content. * -->

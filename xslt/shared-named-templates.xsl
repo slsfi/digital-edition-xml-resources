@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: shared-named-templates.xsl
 	*
-	*    Version: 1.0.0
+	*    Version: 1.1.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-07
@@ -22,6 +22,12 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.1.0 (2025-04-24)
+	*             - Added template `document-heading`.
+	*             - Modified template `add-gap-space-content` to support
+	*               manuscript texts.
+	*             - Output newline characters only when `$debug` input
+	*               parameter is true.
 	*        v1.0.0 (2025-03-07)
 	*
 	*    Description:
@@ -45,7 +51,7 @@
 		<xsl:where-populated>
 			<xsl:if test=".//tei:div[@xml:id eq $section-id]//tei:note
 			              or .//tei:note">
-				<xsl:text>{$NL}</xsl:text>
+				<xsl:text>{if ($debug) then $NL else ''}</xsl:text>
 			</xsl:if>
 			<section role="doc-endnotes">
 				<xsl:if test="parent::tei:text[@xml:lang]">
@@ -219,17 +225,22 @@
 	<xsl:template name="add-gap-space-content">
 	<!-- * Generates placeholder content for unreadable or missing text
 	     * (gaps and spaces). The content varies based on the text type
-	     * ("est" for reading-text/established text). Also provides
-	     * tooltip information with details about the gap/space. * -->
+	     * ("est" for reading-text/established text, "ms_changes" for
+	     * manuscripts showing changes, and "ms_normalized" for
+	     * manuscripts with changes applied). Also provides tooltip
+	     * information with details about the gap/space. * -->
 		<xsl:param name="text-type" as="xs:string" select="'est'"/>
+		<xsl:param name="hand-tooltip-text" as="xs:string?" select="()"/>
 
-		<xsl:variable name="reason" as="xs:string"
-		              select="if (not(@reason)
-		                          and parent::tei:del[parent::tei:subst])
-		                          then 'overwritten'
-		                      else if (not(@reason))
-		                          then 'writing'
-		                      else @reason"/>
+		<xsl:variable name="reason" as="xs:string?"
+		              select="if (local-name() eq 'space')
+		                          then ()
+		                      else (if (not(@reason)
+			                            and parent::tei:del[parent::tei:subst])
+			                            then 'overwritten'
+			                        else if (not(@reason))
+			                            then 'writing'
+			                        else @reason)"/>
 		<xsl:variable name="unit" as="xs:string"
 		              select="if (@unit) then @unit else 'words'"/>
 		<xsl:variable name="quantity" as="xs:integer"
@@ -242,9 +253,11 @@
 		<span>
 			<xsl:call-template name="set-class-attr">
 				<xsl:with-param name="class-names"
-				                select="('gap tooltiptrigger ttMs',
+				                select="(local-name(),
+				                         'tooltiptrigger ttMs',
 				                         if ($reason eq 'overstrike'
-				                             or $reason eq 'erased')
+				                             or $reason eq 'erased'
+				                             or $reason eq 'overwritten')
 				                             then 'deletion' else ())"/>
 			</xsl:call-template>
 			<xsl:text>[</xsl:text>
@@ -275,7 +288,36 @@
 					<xsl:text>tomrum ({$extent-text})</xsl:text>
 				</xsl:otherwise>
 			</xsl:choose>
+			<xsl:if test="$text-type eq 'ms_changes' and $hand-tooltip-text">
+				<br/>
+				<xsl:text>{$hand-tooltip-text}</xsl:text>
+			</xsl:if>
 		</span>
+	</xsl:template>
+
+
+	<xsl:template name="document-heading">
+		<xsl:param name="include-rend-attr" as="xs:boolean" select="false()"/>
+		
+		<xsl:variable name="heading-level"
+		              select="slsFn:get-heading-level(., $heading-level-offset)"/>
+		<xsl:variable name="element-name"
+		              select="if ($heading-level lt 7)
+		                          then 'h' || $heading-level
+		                      else 'div'"/>
+
+		<xsl:element name="{$element-name}">
+			<xsl:if test="$element-name eq 'div'">
+				<xsl:attribute name="role" select="'heading'"/>
+				<xsl:attribute name="aria-level" select="$heading-level"/>
+			</xsl:if>
+			<xsl:call-template name="set-class-attr">
+				<xsl:with-param name="class-names"
+					select="(if (@type) then @type else 'chapter',
+					         if ($include-rend-attr) then @rend else ())"/>
+			</xsl:call-template>
+			<xsl:apply-templates/>
+		</xsl:element>
 	</xsl:template>
 
 </xsl:stylesheet>
