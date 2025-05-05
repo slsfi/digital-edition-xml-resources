@@ -1040,6 +1040,9 @@
 					</attList>
 				</elementSpec>
 				<elementSpec ident="head" mode="change">
+					<classes mode="change">
+						<memberOf key="att.written" mode="delete"/>
+					</classes>
 					<attList>
 						<attDef ident="ana" mode="delete"/>
 						<attDef ident="change" mode="delete"/>
