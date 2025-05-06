@@ -161,4 +161,20 @@
 			</assert>
 		</rule>
 	</pattern>
+	<pattern id="unique-transpose-pointer-targets">
+		<rule context="tei:transpose">
+			<assert test="count(tei:ptr/@target) = count(distinct-values(tei:ptr/@target))">
+				The @target values in ptr-elements in each transpose-element must be unique.
+			</assert>
+		</rule>
+	</pattern>
+	<pattern id="no-cross-group-duplicate-ptr-targets">
+		<rule context="tei:transpose">
+			<let name="myTargets" value="tei:ptr/@target"/>
+			<let name="otherTargets" value="../tei:transpose[. != current()]/tei:ptr/@target"/>
+			<assert test="empty($myTargets[. = $otherTargets])">
+				The @target values of ptr-elements in this transpose-element must not be used in other transpose-elements.
+			</assert>
+		</rule>
+	</pattern>
 </schema>
