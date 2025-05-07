@@ -177,11 +177,11 @@
 			</assert>
 		</rule>
 	</pattern>
-	<pattern id="transpose-ptr-targets-must-have-matching-anchors"> 
+	<pattern id="transpose-ptr-targets-must-have-matching-xml-ids"> 
 		<rule context="tei:transpose/tei:ptr[@target]"> 
 			<let name="targetId" value="substring-after(@target, '#')"/>
-			<assert test="exists(//tei:anchor[@xml:id = $targetId])">
-				The ptr target "<value-of select='@target'/>" does not match any anchor xml:id in the document.
+			<assert test="exists(//tei:*[@xml:id = $targetId])">
+				The ptr @target "<value-of select='@target'/>" does not match any @xml:id in the document.
 			</assert>
 		</rule>
 	</pattern>
