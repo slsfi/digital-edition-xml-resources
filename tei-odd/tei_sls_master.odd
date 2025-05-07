@@ -3089,6 +3089,9 @@
 								<valItem mode="add" ident="host">
 									<desc versionDate="2025-03-13" xml:lang="en">the title applies to a publication (journal, magazine, newspaper, anthology etc.), which acts as a container or host item for analytic items (e.g. articles, poems, or other works published as part of a larger item).</desc>
 								</valItem>
+								<valItem mode="replace" ident="main">
+									<desc versionDate="2025-05-07" xml:lang="en">the main title of the work in the document; should only be used if the title element without type attribute is used for the display name of the work.</desc>
+								</valItem>
 							</valList>
 						</attDef>
 						<attDef ident="calendar" mode="delete"/>

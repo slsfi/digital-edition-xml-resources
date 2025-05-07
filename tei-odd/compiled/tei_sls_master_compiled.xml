@@ -6610,16 +6610,7 @@ Elements</ref>
 								<valItem mode="add" ident="underlineDouble"/>
 								<valItem mode="add" ident="uppercase"/>
 							</valList>
-						</attDef><attDef ident="calendar" mode="delete"/><attDef ident="level" mode="delete"/><attDef ident="type" mode="change" rend="change"><desc versionDate="2005-01-14" xml:lang="en">classifies the title according to some convenient typology.</desc><desc versionDate="2007-12-20" xml:lang="ko">어떤 편의적 유형에 따른 제목 분류</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">用合適的分類方法將題名分類。</desc><desc versionDate="2008-04-05" xml:lang="ja">当該タイトルを分類する。</desc><desc versionDate="2007-06-12" xml:lang="fr">caractérise le titre selon une typologie adaptée.</desc><desc versionDate="2007-05-04" xml:lang="es">clasifica el título de acuerdo con alguna tipología funcional.</desc><desc versionDate="2007-01-21" xml:lang="it">classifica il titolo seguendo una tipologia conveniente.</desc><desc versionDate="2017-06-04" xml:lang="de">klassifiziert den Titel entsprechend einer geeigneten Typologie.</desc><datatype><dataRef key="teidata.enumerated"/></datatype><valList type="closed" mode="change"><valItem ident="main">
-          <desc versionDate="2007-06-27" xml:lang="en">main title</desc>
-          <desc versionDate="2007-12-20" xml:lang="ko">(주)제목</desc>
-          <desc versionDate="2007-05-02" xml:lang="zh-TW">主要題名</desc>
-          <desc versionDate="2008-04-06" xml:lang="es">título principal</desc>
-          <desc versionDate="2008-04-05" xml:lang="ja">主タイトル。</desc>
-          <desc versionDate="2008-03-30" xml:lang="fr">titre principal</desc>
-          <desc versionDate="2007-01-21" xml:lang="it">titolo</desc>
-          <desc versionDate="2017-06-04" xml:lang="de">Haupttitel</desc>
-        </valItem><valItem ident="sub">
+						</attDef><attDef ident="calendar" mode="delete"/><attDef ident="level" mode="delete"/><attDef ident="type" mode="change" rend="change"><desc versionDate="2005-01-14" xml:lang="en">classifies the title according to some convenient typology.</desc><desc versionDate="2007-12-20" xml:lang="ko">어떤 편의적 유형에 따른 제목 분류</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">用合適的分類方法將題名分類。</desc><desc versionDate="2008-04-05" xml:lang="ja">当該タイトルを分類する。</desc><desc versionDate="2007-06-12" xml:lang="fr">caractérise le titre selon une typologie adaptée.</desc><desc versionDate="2007-05-04" xml:lang="es">clasifica el título de acuerdo con alguna tipología funcional.</desc><desc versionDate="2007-01-21" xml:lang="it">classifica il titolo seguendo una tipologia conveniente.</desc><desc versionDate="2017-06-04" xml:lang="de">klassifiziert den Titel entsprechend einer geeigneten Typologie.</desc><datatype><dataRef key="teidata.enumerated"/></datatype><valList type="closed" mode="change"><valItem ident="sub">
           <gloss versionDate="2007-07-04" xml:lang="en">subordinate</gloss>
           <gloss versionDate="2007-12-20" xml:lang="ko">부</gloss>
           <gloss versionDate="2007-06-12" xml:lang="fr">titre de niveau inférieur, titre de partie</gloss>
@@ -6675,6 +6666,8 @@ Elements</ref>
           <desc versionDate="2017-06-04" xml:lang="de">Umschreibung des Werks, die als Titel fungiert.</desc>
         </valItem><valItem mode="add" ident="host">
 									<desc versionDate="2025-03-13" xml:lang="en">the title applies to a publication (journal, magazine, newspaper, anthology etc.), which acts as a container or host item for analytic items (e.g. articles, poems, or other works published as part of a larger item).</desc>
+								</valItem><valItem mode="replace" ident="main">
+									<desc versionDate="2025-05-07" xml:lang="en">the main title of the work in the document; should only be used if the title element without type attribute is used for the display name of the work.</desc>
 								</valItem></valList><remarks versionDate="2005-01-14" xml:lang="en">
         <p>This attribute is provided for convenience in analysing
         titles and processing them according to their type; where such
