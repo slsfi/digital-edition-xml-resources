@@ -867,13 +867,17 @@
 	<xsl:template match="tei:add">
 		<xsl:variable name="nested-add" as="element(tei:add)?"
 		              select="parent::tei:add"/>
+		<xsl:variable name="subst-add" as="element(tei:subst)?"
+		              select="parent::tei:subst"/>
 		
 		<span>
 			<xsl:call-template name="set-class-attr">
 				<xsl:with-param name="class-names"
 	                select="('add',
-	                         if (parent::tei:subst)
+	                         if ($subst-add)
 	                             then 'substAdd' else (),
+	                         if ($subst-add/tei:del/tei:add[not(@place) or contains-token(@olace, 'other')])
+	                             then 'substDelHasAddAbove' else (),
 	                         if (@hand) then 'hand tooltiptrigger ttMs' else (),
 	                         if (@type eq 'choice')
 	                             then 'addChoice'
