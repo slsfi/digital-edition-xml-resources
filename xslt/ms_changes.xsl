@@ -14,7 +14,7 @@
 	*
 	*    XSLT stylesheet: ms_changes.xsl
 	*
-	*    Version: 1.0.3
+	*    Version: 1.1.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
@@ -23,7 +23,8 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
-	*        v1.0.3 (2025-05-09)
+	*        v1.1.0 (2025-05-09)
+	*             - Add support for abbreviations in the output.
 	*             - Fix comparisons of @place values.
 	*        v1.0.2 (2025-04-24)
 	*             - Move match templates common to est.xsl, ms_changes.xsl

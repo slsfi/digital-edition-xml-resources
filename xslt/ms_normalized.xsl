@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: ms_normalized.xsl
 	*
-	*    Version: 1.0.1
+	*    Version: 1.1.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
@@ -22,6 +22,8 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.1.0 (2025-05-09)
+	*             - Add support for abbreviations in the output.
 	*        v1.0.1 (2025-04-24)
 	*             - Move match templates common to est.xsl, ms_changes.xsl
 	*               and ms_normalized.xsl to shared-match-templates.xsl,
