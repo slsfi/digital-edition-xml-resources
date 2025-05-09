@@ -178,11 +178,18 @@
 		</rule>
 	</pattern>
 	<pattern id="transpose-ptr-targets-must-have-matching-xml-ids"> 
-		<rule context="tei:transpose/tei:ptr[@target]"> 
+		<rule context="tei:transpose/tei:ptr[@target]">
 			<let name="targetId" value="substring-after(@target, '#')"/>
 			<assert test="exists(//tei:*[@xml:id = $targetId])">
 				The ptr @target "<value-of select='@target'/>" does not match any @xml:id in the document.
 			</assert>
+		</rule>
+	</pattern>
+	<pattern id="only-one-reason-attr-value"> 
+		<rule context="tei:gap[@reason]|tei:supplied[@reason]|tei:unclear[@reason]">
+			<report test="count(tokenize(@reason)) gt 1">
+				@reason must only have one value: multiple, space-separated values are not allowed.
+			</report>
 		</rule>
 	</pattern>
 </schema>
