@@ -14,7 +14,7 @@
 	*
 	*    XSLT stylesheet: ms_changes.xsl
 	*
-	*    Version: 1.0.2
+	*    Version: 1.0.3
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
@@ -23,6 +23,8 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.0.3 (2025-05-09)
+	*             - Fix comparisons of @place values.
 	*        v1.0.2 (2025-04-24)
 	*             - Move match templates common to est.xsl, ms_changes.xsl
 	*               and ms_normalized.xsl to shared-match-templates.xsl,
@@ -54,6 +56,13 @@
 	*          no sectionId is provided, the whole document is processed.
 	*        - debug (xs:boolean?, default: false): Run transformation in
 	*          debug ”mode” with additional output for easier debugging.
+	*
+	*    Developer notes:
+	*        - For performance reasons, fn:contains is used in many places
+	*          where it strictly speaking would be more accurate to use
+	*          fn:contains-token. However, currently fn:contains returns
+	*          the same results, because the strings being matched are
+	*          "unique".
 	*
 	******************************************************************* -->
 
@@ -657,12 +666,12 @@
 		<xsl:choose>
 			<xsl:when test="
 				ancestor::tei:add[not(@place)
-				                  or @place = ('sublinear', 'other')
+				                  or tokenize(@place) = ('sublinear', 'other')
 				                  or @type eq 'choice']
 				or
 				ancestor::tei:del[
 					parent::tei:subst[
-						tei:add[not(@place) or @place = ('sublinear', 'other')]
+						tei:add[not(@place) or tokenize(@place) = ('sublinear', 'other')]
 					]
 				]
 			">
@@ -893,6 +902,8 @@
 		              select="parent::tei:add"/>
 		<xsl:variable name="subst-add" as="element(tei:subst)?"
 		              select="parent::tei:subst"/>
+		<xsl:variable name="place-attr-values" as="xs:string*"
+		              select="tokenize(@place)"/>
 		
 		<span>
 			<xsl:call-template name="set-class-attr">
@@ -900,22 +911,22 @@
 	                select="('add',
 	                         if ($subst-add)
 	                             then 'substAdd' else (),
-	                         if ($subst-add/tei:del/tei:add[not(@place) or contains-token(@olace, 'other')])
+	                         if ($subst-add/tei:del/tei:add[not(@place) or contains(@olace, 'other')])
 	                             then 'substDelHasAddAbove' else (),
 	                         if (@hand) then 'hand tooltiptrigger ttMs' else (),
 	                         if (@type eq 'choice')
 	                             then 'addChoice'
-	                         else if (@place eq 'botMargin'
-	                             or @place eq 'leftMargin'
-	                             or @place eq 'rightMargin'
-	                             or @place eq 'topMargin')
+	                         else if ($place-attr-values = 'botMargin'
+	                             or $place-attr-values = 'leftMargin'
+	                             or $place-attr-values = 'rightMargin'
+	                             or $place-attr-values = 'topMargin')
 	                             then 'addMargin'
-	                         else if (@place eq 'sublinear')
+	                         else if ($place-attr-values = 'sublinear')
 	                             then 'addSublinear'
-	                         else if (@place eq 'inline')
+	                         else if ($place-attr-values = 'inline')
 	                             then 'addInline'
 	                         else if ($nested-add
-	                                  and not($nested-add[@place eq 'inline']))
+	                                  and not($nested-add[contains(@olace, 'inline')]))
 	                             then 'addInAdd'
 	                         else 'addAbove')"/>
 			</xsl:call-template>
@@ -953,10 +964,10 @@
 			<xsl:call-template name="set-class-attr">
 				<xsl:with-param name="class-names"
 				                select="('subst',
-				                         if (tei:add[@place eq 'other'
+				                         if (tei:add[contains(@olace, 'other')
 				                             or not(@place)])
 				                             then 'stack'
-				                         else if (tei:add[@place eq 'sublinear'])
+				                         else if (tei:add[contains(@olace, 'sublinear')])
 				                             then 'stack sublinearStack'
 				                         else ())"/>
 			</xsl:call-template>
@@ -1123,28 +1134,28 @@
 
 
 	<xsl:template name="render-margin-add-symbol">
-		<xsl:param name="place" as="xs:string?" select="()"/>
+		<xsl:param name="place" as="xs:string?" select="''"/>
 
 		<xsl:choose>
-			<xsl:when test="@place eq 'leftMargin' or $place eq 'leftMargin'">
+			<xsl:when test="contains(@place, 'leftMargin') or contains($place, 'leftMargin')">
 				<img src="assets/images/ms_arrow_left.svg"
 				     alt="marginaltillägg vänster"
 				     class="addMarginSymbol"
 				     loading="lazy"/>
 			</xsl:when>
-			<xsl:when test="@place eq 'rightMargin' or $place eq 'rightMargin'">
+			<xsl:when test="contains(@place, 'rightMargin') or contains($place, 'rightMargin')">
 				<img src="assets/images/ms_arrow_right.svg"
 				     alt="marginaltillägg höger"
 				     class="addMarginSymbol"
 				     loading="lazy"/>
 			</xsl:when>
-			<xsl:when test="@place eq 'topMargin' or $place eq 'topMargin'">
+			<xsl:when test="contains(@place, 'topMargin') or contains($place, 'topMargin')">
 				<img src="assets/images/ms_arrow_up.svg"
 				     alt="marginaltillägg uppe"
 				     class="addMarginSymbol"
 				     loading="lazy"/>
 			</xsl:when>
-			<xsl:when test="@place eq 'botMargin' or $place eq 'botMargin'">
+			<xsl:when test="contains(@place, 'botMargin') or contains($place, 'botMargin')">
 				<img src="assets/images/ms_arrow_down.svg"
 				     alt="marginaltillägg nere"
 				     class="addMarginSymbol"
