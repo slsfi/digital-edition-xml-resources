@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: shared-match-templates.xsl
 	*
-	*    Version: 1.0.0
+	*    Version: 1.0.1
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
@@ -22,6 +22,8 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.0.1 (2025-05-09)
+	*             - Handle @hand in <hi>.
 	*        v1.0.0 (2025-04-24)
 	*
 	*    Description:
@@ -317,7 +319,8 @@
 		              select="$rend-values[. = $has-element]"/>
 		<xsl:variable name="other-rend-values" as="xs:string*"
 			select="$rend-values[not(. = $has-element)]"/>
-		<xsl:variable name="xml-lang" select="@xml:lang" as="xs:string?"/>
+		<xsl:variable name="xml-lang" as="xs:string?" select="@xml:lang"/>
+		<xsl:variable name="hand-value" as="xs:string?" select="@hand"/>
 
 		<!-- * Dynamically generate the correct wrapping sequence, which can
 		     * contain the element names 'sub', 'sup', 'span', 'i' and 'b'.
@@ -350,7 +353,13 @@
 					</xsl:if>
 					<!-- * Add @class only if it's a <span> * -->
 					<xsl:if test=". eq 'span' and exists($other-rend-values)">
-						<xsl:attribute name="class" select="$other-rend-values"/>
+						<xsl:call-template name="set-class-attr">
+							<xsl:with-param name="class-names"
+								select="($other-rend-values,
+								         if ($hand-value)
+								             then 'handRend'
+								         else ())"/>
+						</xsl:call-template>
 					</xsl:if>
 					<xsl:sequence select="$content"/>
 				</xsl:element>
