@@ -568,6 +568,30 @@
 	</xsl:template>
 
 
+	<xsl:template match="tei:choice">
+		<xsl:choose>
+			<xsl:when test="tei:abbr and tei:expan">
+				<span class="tooltiptrigger abbr ttAbbreviations">
+					<xsl:apply-templates/>
+				</span>
+				<span class="tooltip ttAbbreviations" hidden="">
+					<xsl:apply-templates select="tei:expan/node()"/>
+				</span>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
+
+	<xsl:template match="tei:abbr">
+		<span class="abbr">
+			<xsl:apply-templates/>
+		</span>
+	</xsl:template>
+
+
 	<xsl:template match="tei:reg">
 		<xsl:if test="not(parent::tei:choice)">
 			<xsl:apply-templates/>
