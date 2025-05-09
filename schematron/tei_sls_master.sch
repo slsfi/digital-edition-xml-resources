@@ -149,7 +149,7 @@
 		<rule context="/tei:TEI">
 			<!-- Assert that if there is a <tei:div> or <tei:text> with @type="letter", then <tei:correspDesc> must be in /tei:teiHeader/tei:profileDesc -->
 			<assert test="not((//tei:div[@type='letter'] or //tei:text[@type='letter']) and not(tei:teiHeader/tei:profileDesc/tei:correspDesc))">
-				If the document contains a div or text-element with @type="letter", it must also contain a correspDesc-element within /tei:teiHeader/tei:profileDesc with metadata about the letter.
+				If the document contains a div- or text-element with @type="letter", it must also contain a correspDesc-element within /tei:teiHeader/tei:profileDesc with metadata about the letter.
 			</assert>
 		</rule>
 	</pattern>
@@ -157,7 +157,7 @@
 		<rule context="tei:textClass/tei:keywords">
 			<!-- Assert that there is a maximum of one <tei:term> with @type="genre" in /tei:teiHeader/tei:profileDesc/tei:textClass/tei:keywords -->
 			<assert test="count(/descendant::tei:term[@type='genre']) le 1">
-				The keywords-element in textClass cannot contain more than one term-element with a type-attribute value of "genre".
+				The keywords-element in textClass cannot contain more than one term-element with a @type value of "genre".
 			</assert>
 		</rule>
 	</pattern>
@@ -177,19 +177,35 @@
 			</assert>
 		</rule>
 	</pattern>
-	<pattern id="transpose-ptr-targets-must-have-matching-xml-ids"> 
+	<pattern id="transpose-ptr-target-must-match-xml-id">
 		<rule context="tei:transpose/tei:ptr[@target]">
 			<let name="targetId" value="substring-after(@target, '#')"/>
-			<assert test="exists(//tei:*[@xml:id = $targetId])">
-				The ptr @target "<value-of select='@target'/>" does not match any @xml:id in the document.
+			<assert test="exists(//tei:*[@xml:id eq $targetId])">
+				The ptr @target "<value-of select='@target'/>" does not match any @xml:id in the document. Remember that the value of @target must start with a '#' in this context.
 			</assert>
 		</rule>
 	</pattern>
-	<pattern id="only-one-reason-attr-value"> 
+	<pattern id="only-one-reason-attr-value">
 		<rule context="tei:gap[@reason]|tei:supplied[@reason]|tei:unclear[@reason]">
 			<report test="count(tokenize(@reason)) gt 1">
 				@reason must only have one value: multiple, space-separated values are not allowed.
 			</report>
+		</rule>
+	</pattern>
+	<pattern id="handshift-new-must-match-handnote-xml-id">
+		<rule context="tei:handShift[@new]">
+			<let name="targetId" value="substring-after(@new, '#')"/>
+			<assert test="exists(/tei:TEI/tei:teiHeader/tei:profileDesc/tei:handNotes/tei:handNote[@xml:id eq $targetId])">
+				The handShift @new value "<value-of select='@new'/>" does not match any @xml:id of a handNote-element in the document. Remember that the value of @new must start with a '#'.
+			</assert>
+		</rule>
+	</pattern>
+	<pattern id="hand-must-match-handnote-xml-id">
+		<rule context="tei:*[@hand]">
+			<let name="targetId" value="substring-after(@hand, '#')"/>
+			<assert test="exists(/tei:TEI/tei:teiHeader/tei:profileDesc/tei:handNotes/tei:handNote[@xml:id eq $targetId])">
+				The @hand value "<value-of select='@hand'/>" does not match any @xml:id of a handNote-element in the document. Remember that the value of @hand must start with a '#'.
+			</assert>
 		</rule>
 	</pattern>
 </schema>
