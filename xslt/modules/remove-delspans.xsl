@@ -6,7 +6,7 @@
 	<!-- ******************************************************************
 	*
 	*    XSLT stylesheet: remove-delspans.xsl
-	*    Version: 1.0.1
+	*    Version: 1.0.2
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-01-10
@@ -15,6 +15,8 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.0.2 (2025-05-09)
+	*             - Fix matching logic of <delSpan> and <anchor>.
 	*        v1.0.1 (2025-05-06)
 	*             - Fix ambiguous template matching.
 	*        v1.0.0 (2025-01-10)
@@ -28,7 +30,9 @@
 	*        <anchor> elements themselves are also removed.
 	*
 	*        Supports nested <delSpan>…<anchor> pairs. The pairs must be
-	*        sibling elements.
+	*        sibling elements. The starting <delSpan> or ending <anchor>
+	*        of a pair must not be placed within another pair unless they
+	*        both are.
 	*
 	*    Key Features:
 	*        - Operates in the `add-numbering` mode with
@@ -59,29 +63,33 @@
 
 	<!-- * TEMPLATES ************************************************** -->
 
-	<!-- * Remove <delSpan> marker. * -->
-	<xsl:template match="tei:delSpan[@spanTo]" mode="remove-delspans"/>
-
-	<!-- * Remove matching <anchor> marker. * -->
-	<xsl:template match="tei:anchor['#' || @xml:id = preceding-sibling::tei:delSpan/@spanTo]"
-	              mode="remove-delspans"/>
-
-	<!-- * Remove nodes that fall between a matching <delSpan> and
-	     * <anchor>. * -->
-	<xsl:template
-		match="node()[
-			preceding-sibling::tei:delSpan[@spanTo]
-			and
-			following-sibling::tei:anchor[
-				'#' || @xml:id = preceding-sibling::tei:delSpan[1]/@spanTo
-			]
-			and
-			not(self::tei:anchor[
-				'#' || @xml:id = preceding-sibling::tei:delSpan/@spanTo
-			])
-			and
-			not(self::tei:delSpan[@spanTo])
-		]"
-		mode="remove-delspans"/>
+	<xsl:template match="node()" mode="remove-delspans">
+		<xsl:choose>
+			<!-- * Remove <delSpan>. * -->
+			<xsl:when test="self::tei:delSpan"/>
+	
+			<!-- * Remove <anchor> that matches a preceding sibling
+			     * <delSpan>. * -->
+			<xsl:when test="self::tei:anchor[
+				some $d in preceding-sibling::tei:delSpan[@spanTo]
+				satisfies $d/@spanTo eq concat('#', @xml:id)
+			]"/>
+	
+			<!-- * Remove any node between matched <delSpan> and
+			     * <anchor>. * -->
+			<xsl:when test="
+				some $d in preceding-sibling::tei:delSpan[@spanTo]
+				satisfies (
+					some $a in following-sibling::tei:anchor[@xml:id]
+					satisfies $d/@spanTo eq concat('#', $a/@xml:id)
+				)
+			"/>
+			
+			<!-- * Default: shallow copy the node. * -->
+			<xsl:otherwise>
+				<xsl:next-match/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
 
 </xsl:stylesheet>
