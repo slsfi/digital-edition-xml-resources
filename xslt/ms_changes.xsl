@@ -14,7 +14,7 @@
 	*
 	*    XSLT stylesheet: ms_changes.xsl
 	*
-	*    Version: 2.0.0
+	*    Version: 2.0.1
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
@@ -23,6 +23,11 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v2.0.1 (2025-05-14)
+	*             - Transform @place = 'other' like @place = 'inline'
+	*               instead of like not(@place).
+	*             - Fix order of margin and add-in-add symbols in tei:add
+	*               template.
 	*        v2.0.0 (2025-05-09)
 	*             - Rewrite handling of hand changes.
 	*             - Remove extra line breaks outputted after addSpan and
@@ -663,12 +668,12 @@
 		<xsl:choose>
 			<xsl:when test="
 				ancestor::tei:add[not(@place)
-				                  or tokenize(@place) = ('sublinear', 'other')
+				                  or contains(@place, 'sublinear')
 				                  or @type eq 'choice']
 				or
 				ancestor::tei:del[
 					parent::tei:subst[
-						tei:add[not(@place) or tokenize(@place) = ('sublinear', 'other')]
+						tei:add[not(@place) or contains(@place, 'sublinear')]
 					]
 				]
 			">
@@ -894,7 +899,6 @@
 		<xsl:variable name="inline-add-in-add" as="xs:boolean"
 		              select="$parent-add
                               and (contains($parent-add/@place, 'sublinear')
-                                   or contains($parent-add/@place, 'other')
                                    or not($parent-add/@place))"/>
 		
 		<span>
@@ -903,8 +907,7 @@
 	                select="('add',
 	                         if ($parent-subst)
 	                             then 'substAdd' else (),
-	                         if ($parent-subst/tei:del/tei:add[not(@place)
-	                                                           or contains(@place, 'other')])
+	                         if ($parent-subst/tei:del/tei:add[not(@place)])
 	                             then 'substDelHasAddAbove' else (),
 	                         if (@hand) then 'hand tooltiptrigger ttMs' else (),
 	                         if (@type eq 'choice')
@@ -914,7 +917,7 @@
 	                             or $place-attr-values = 'rightMargin'
 	                             or $place-attr-values = 'topMargin')
 	                             then 'addMargin'
-	                         else if ($place-attr-values = 'inline')
+	                         else if ($place-attr-values = ('inline', 'other'))
 	                             then 'addInline'
 	                         else if ($inline-add-in-add)
 	                             then 'inlineAddInAdd'
@@ -922,17 +925,17 @@
 	                             then 'addSublinear'
 	                         else 'addAbove')"/>
 			</xsl:call-template>
-			<xsl:call-template name="render-no-anchor-symbol"/>
-			<xsl:call-template name="render-margin-add-symbol"/>
 			<xsl:if test="$inline-add-in-add">
 				<!-- &#92; is rendered as a forward slash: \ -->
 				<span class="editorial-hi">&#92;</span>
 			</xsl:if>
+			<xsl:call-template name="render-no-anchor-symbol"/>
+			<xsl:call-template name="render-margin-add-symbol"/>
 			<xsl:apply-templates/>
+			<xsl:call-template name="render-margin-add-symbol"/>
 			<xsl:if test="$inline-add-in-add">
 				<span class="editorial-hi">/</span>
 			</xsl:if>
-			<xsl:call-template name="render-margin-add-symbol"/>
 		</span>
 		<xsl:call-template name="render-hand-tooltip"/>
 	</xsl:template>
@@ -949,8 +952,7 @@
 			<xsl:call-template name="set-class-attr">
 				<xsl:with-param name="class-names"
 				                select="('subst',
-				                         if (tei:add[contains(@place, 'other')
-				                             or not(@place)])
+				                         if (tei:add[not(@place)])
 				                             then 'stack'
 				                         else if (tei:add[contains(@place, 'sublinear')])
 				                             then 'stack sublinearStack'
