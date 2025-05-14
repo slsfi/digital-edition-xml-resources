@@ -14,7 +14,7 @@
 	*
 	*    XSLT stylesheet: ms_changes.xsl
 	*
-	*    Version: 1.1.0
+	*    Version: 2.0.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
@@ -23,6 +23,10 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v2.0.0 (2025-05-09)
+	*             - Rewrite handling of hand changes.
+	*             - Remove extra line breaks outputted after addSpan and
+	*               delSpan anchors.
 	*        v1.1.0 (2025-05-09)
 	*             - Add support for abbreviations in the output.
 	*             - Fix comparisons of @place values.
@@ -187,7 +191,6 @@
 				<xsl:with-param name="class-names"
 					select="(if (@type) then @type else 'chapter',
 					         @rend,
-					         if (@hand) then 'hand tooltiptrigger ttMs' else (),
 					         if ($in-addspan)
 		                         then (if ($addspan-hand-attr)
 		                                   then 'addSpan hand'
@@ -201,9 +204,6 @@
 			</xsl:call-template>
 			<xsl:apply-templates/>
 		</xsl:element>
-		<xsl:call-template name="render-hand-tooltip">
-			<xsl:with-param name="hand-attr" select="@hand"/>
-		</xsl:call-template>
 	</xsl:template>
 
 
@@ -219,7 +219,6 @@
 			<xsl:call-template name="set-class-attr">
 				<xsl:with-param name="class-names"
 					select="(@rend,
-				            if (@hand) then 'hand tooltiptrigger ttMs' else (),
 					        if ($in-addspan)
 		                        then (if ($addspan-hand-attr)
 		                                  then 'addSpan hand'
@@ -233,9 +232,6 @@
 			</xsl:call-template>
 			<xsl:apply-templates/>
 		</p>
-		<xsl:call-template name="render-hand-tooltip">
-			<xsl:with-param name="hand-attr" select="@hand"/>
-		</xsl:call-template>
 	</xsl:template>
 
 
@@ -728,20 +724,10 @@
 		<xsl:variable name="anchor-id" select="'#' || @xml:id"/>
 		<xsl:variable name="matching-addspan"
 		              select="//tei:addSpan[@spanTo eq $anchor-id][1]"/>
-		<xsl:variable name="matching-delspan"
-		              select="//tei:delSpan[@spanTo eq $anchor-id][1]"/>
 
 		<xsl:call-template name="render-margin-add-symbol">
 			<xsl:with-param name="place" select="$matching-addspan/@place"/>
 		</xsl:call-template>
-
-		<!-- * If the immediate following sibling is not another <anchor> element
-		     * and the current <anchor> is an anchor for <addSpan> or <delSpan>,
-		     * output a line break. * -->
-		<xsl:if test="not(following-sibling::*[1][self::tei:anchor])
-		              and ($matching-addspan or $matching-delspan)">
-			<br/>
-		</xsl:if>
 	</xsl:template>
 
 
@@ -796,7 +782,6 @@
 				                             then 'hand tooltiptrigger ttMs'
 				                         else ())"/>
 			</xsl:call-template>
-			<xsl:call-template name="render-hand-symbol"/>
 			<xsl:if test="$nested-del">
 				<span class="editorial-hi">[</span>
 			</xsl:if>
@@ -805,6 +790,7 @@
 				<span class="editorial-hi">]</span>
 			</xsl:if>
 		</span>
+		<xsl:call-template name="render-hand-tooltip"/>
 	</xsl:template>
 
 
@@ -899,20 +885,26 @@
 
 
 	<xsl:template match="tei:add">
-		<xsl:variable name="nested-add" as="element(tei:add)?"
+		<xsl:variable name="parent-add" as="element(tei:add)?"
 		              select="parent::tei:add"/>
-		<xsl:variable name="subst-add" as="element(tei:subst)?"
+		<xsl:variable name="parent-subst" as="element(tei:subst)?"
 		              select="parent::tei:subst"/>
 		<xsl:variable name="place-attr-values" as="xs:string*"
 		              select="tokenize(@place)"/>
+		<xsl:variable name="inline-add-in-add" as="xs:boolean"
+		              select="$parent-add
+                              and (contains($parent-add/@place, 'sublinear')
+                                   or contains($parent-add/@place, 'other')
+                                   or not($parent-add/@place))"/>
 		
 		<span>
 			<xsl:call-template name="set-class-attr">
 				<xsl:with-param name="class-names"
 	                select="('add',
-	                         if ($subst-add)
+	                         if ($parent-subst)
 	                             then 'substAdd' else (),
-	                         if ($subst-add/tei:del/tei:add[not(@place) or contains(@olace, 'other')])
+	                         if ($parent-subst/tei:del/tei:add[not(@place)
+	                                                           or contains(@place, 'other')])
 	                             then 'substDelHasAddAbove' else (),
 	                         if (@hand) then 'hand tooltiptrigger ttMs' else (),
 	                         if (@type eq 'choice')
@@ -922,71 +914,78 @@
 	                             or $place-attr-values = 'rightMargin'
 	                             or $place-attr-values = 'topMargin')
 	                             then 'addMargin'
-	                         else if ($place-attr-values = 'sublinear')
-	                             then 'addSublinear'
 	                         else if ($place-attr-values = 'inline')
 	                             then 'addInline'
-	                         else if ($nested-add
-	                                  and not($nested-add[contains(@olace, 'inline')]))
-	                             then 'addInAdd'
+	                         else if ($inline-add-in-add)
+	                             then 'inlineAddInAdd'
+	                         else if ($place-attr-values = 'sublinear')
+	                             then 'addSublinear'
 	                         else 'addAbove')"/>
 			</xsl:call-template>
-			<xsl:call-template name="render-hand-symbol"/>
 			<xsl:call-template name="render-no-anchor-symbol"/>
 			<xsl:call-template name="render-margin-add-symbol"/>
-			<xsl:if test="$nested-add">
+			<xsl:if test="$inline-add-in-add">
 				<!-- &#92; is rendered as a forward slash: \ -->
 				<span class="editorial-hi">&#92;</span>
 			</xsl:if>
 			<xsl:apply-templates/>
-			<xsl:if test="$nested-add">
+			<xsl:if test="$inline-add-in-add">
 				<span class="editorial-hi">/</span>
 			</xsl:if>
 			<xsl:call-template name="render-margin-add-symbol"/>
 		</span>
+		<xsl:call-template name="render-hand-tooltip"/>
 	</xsl:template>
 
 
 	<xsl:template match="tei:addSpan">
-		<xsl:call-template name="render-hand-symbol"/>
 		<xsl:call-template name="render-no-anchor-symbol"/>
 		<xsl:call-template name="render-margin-add-symbol"/>
 	</xsl:template>
 
 
-	<xsl:template match="tei:delSpan">
-		<xsl:call-template name="render-hand-symbol"/>
-	</xsl:template>
-
-
 	<xsl:template match="tei:subst">
-		<xsl:call-template name="render-hand-symbol"/>
 		<span>
 			<xsl:call-template name="set-class-attr">
 				<xsl:with-param name="class-names"
 				                select="('subst',
-				                         if (tei:add[contains(@olace, 'other')
+				                         if (tei:add[contains(@place, 'other')
 				                             or not(@place)])
 				                             then 'stack'
-				                         else if (tei:add[contains(@olace, 'sublinear')])
+				                         else if (tei:add[contains(@place, 'sublinear')])
 				                             then 'stack sublinearStack'
+				                         else (),
+				                         if (@hand)
+				                             then 'tooltiptrigger ttMs'
 				                         else ())"/>
 			</xsl:call-template>
 			<xsl:apply-templates/>
 		</span>
+		<xsl:call-template name="render-hand-tooltip"/>
 	</xsl:template>
 
 
 	<xsl:template match="tei:restore">
-		<span class="restore">
-			<xsl:call-template name="render-hand-symbol"/>
+		<span>
+			<xsl:call-template name="set-class-attr">
+				<xsl:with-param name="class-names"
+				                select="('restore',
+				                         if (@hand)
+				                             then 'tooltiptrigger ttMs'
+				                         else ())"/>
+			</xsl:call-template>
 			<xsl:apply-templates/>
 		</span>
+		<xsl:call-template name="render-hand-tooltip"/>
 	</xsl:template>
 
 
 	<xsl:template match="tei:handShift">
-		<xsl:call-template name="render-hand-symbol"/>
+		<img src="assets/images/hand.svg"
+		     class="tooltiptrigger ttMs handSymbol{if (local-name(.) eq 'delSpan') then ' delSpan' else ''}"
+		     alt="byte av hand eller penna"
+		     loading="lazy"/>
+		<xsl:call-template name="render-hand-tooltip"/>
 	</xsl:template>
 
 
@@ -1057,45 +1056,22 @@
 	</xsl:template>
 
 
-	<xsl:template name="render-hand-symbol">
-		<xsl:if test="@hand or @new or @medium">
-			<xsl:variable name="level" select="if (local-name(.) eq 'addSpan'
-				                                   or local-name(.) eq 'delSpan')
-				                                   then 'block'
-				                               else 'inline'"/>
-			<img src="assets/images/hand.svg"
-			     class="tooltiptrigger ttMs handSymbol {$level}Symbol{if (local-name(.) eq 'delSpan') then ' delSpan' else ''}"
-			     alt="byte av hand eller penna"
-			     loading="lazy"/>
-			<xsl:call-template name="render-hand-tooltip">
-				<xsl:with-param name="hand-attr" select="if (@hand)
-				                                             then @hand
-				                                         else if (@new)
-				                                             then @new
-				                                         else ()"/>
-				<xsl:with-param name="level" select="$level"/>
-				<xsl:with-param name="medium-attr"
-				                select="if (@medium)
-				                            then @medium else ()"/>
-			</xsl:call-template>
-		</xsl:if>
-	</xsl:template>
-
-
 	<xsl:template name="render-hand-tooltip">
-		<xsl:param name="hand-attr" as="xs:string?" select="()"/>
-		<xsl:param name="level" as="xs:string" select="'block'"/>
-		<xsl:param name="medium-attr" as="xs:string?" select="()"/>
-
+		<xsl:variable name="medium-attr" as="xs:string?"
+		              select="if (@medium) then @medium else ()"/>
+		<xsl:variable name="hand-attr" as="xs:string?"
+		              select="if (@hand) then @hand else if (@new) then @new else ()"/>
 		<xsl:variable name="hand-text" as="xs:string?"
 		              select="if ($hand-attr)
 		                          then slsFn:get-hand-text(root(), $hand-attr)
 		                      else if ($medium-attr)
 		                          then map:get($medium-map, $medium-attr)
 		                      else ()"/>
+
 		<xsl:if test="$hand-text">
 			<xsl:variable name="element-name" as="xs:string"
-			              select="if ($level eq 'block')
+			              select="if (local-name(.) eq 'addSpan'
+				                      or local-name(.) eq 'delSpan')
 			                          then 'div'
 			                      else 'span'"/>
 			<xsl:element name="{$element-name}">
