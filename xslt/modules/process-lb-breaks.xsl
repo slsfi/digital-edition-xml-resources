@@ -10,7 +10,7 @@
 	*
 	*    XSLT stylesheet: process-lb-breaks.xsl
 	*
-	*    Version: 1.1.0
+	*    Version: 1.1.1
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-02-13
@@ -19,6 +19,9 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.1.1 (2025-05-14)
+	*             - Remove @place = 'other' from condition to force remove
+	*               <lb/> elements.
 	*        v1.1.0 (2025-04-24)
 	*             - Added an internal post-processing mode for cleanup of
 	*               whitespace and superfluous <lb/> elements.
@@ -286,12 +289,12 @@
 		<xsl:sequence select="
 			if (
 				$context-node/ancestor::tei:add[not(@place)
-					or @place = ('sublinear', 'other')
+					or contains(@place, 'sublinear')
 					or @type eq 'choice']
 				or
 				$context-node/ancestor::tei:del[
 					parent::tei:subst[tei:add[not(@place)
-						or @place = ('sublinear', 'other')]
+						or contains(@place, 'sublinear')]
 					]
 				]
 			) then true() else false()
