@@ -10,7 +10,7 @@
 	*
 	*    XSLT stylesheet: process-lb-breaks.xsl
 	*
-	*    Version: 1.1.2
+	*    Version: 1.1.3
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-02-13
@@ -19,6 +19,10 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.1.3 (2025-05-15)
+	*             - Use xsl:value-of instead of xsl:sequence when stripping
+	*               whitespace for consistent results; fix test for first
+	*               text child node in tei:p.
 	*        v1.1.2 (2025-05-15)
 	*             - Fix stripping of first child node of tei:p if text
 	*               node consisting entirely of whitespace. 
@@ -190,7 +194,7 @@
 			     * only of whitespace. * -->
 			<xsl:when test="(parent::tei:p/node()[1] is .)
 			                and not(following-sibling::node()[1][self::tei:lb[@break]])">
-				<xsl:sequence select="slsFn:strip-whitespace-node(.)"/>
+				<xsl:value-of select="slsFn:strip-whitespace-node(.)"/>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:next-match/>
@@ -210,12 +214,11 @@
 		<xsl:variable name="force-remove" as="xs:boolean"
 		              select="slsFn:force-remove-lb(.)"/>
 
-		<xsl:sequence
+		<xsl:value-of
 			select="if ($force-remove)
 		                then slsFn:strip-trailing-whitespace-and-hyphen(.)
 		            else if (not($force-remove)
-		                     and position() eq 1
-	                         and parent::tei:p)
+		                     and (parent::tei:p/node()[1] is .))
 		                then slsFn:strip-whitespace-node(.)
 		            else
 		                copy-of(.)"/>
@@ -229,7 +232,7 @@
 		(parent::tei:p/node()[1] is .)
 		and not(following-sibling::node()[1][self::tei:lb[@break]])
     ]" mode="preserve-lb-core">
-		<xsl:sequence select="slsFn:strip-whitespace-node(.)"/>
+		<xsl:value-of select="slsFn:strip-whitespace-node(.)"/>
 	</xsl:template>
 
 
