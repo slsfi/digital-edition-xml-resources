@@ -10,7 +10,7 @@
 	*
 	*    XSLT stylesheet: process-lb-breaks.xsl
 	*
-	*    Version: 1.1.1
+	*    Version: 1.1.2
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-02-13
@@ -19,6 +19,9 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.1.2 (2025-05-15)
+	*             - Fix stripping of first child node of tei:p if text
+	*               node consisting entirely of whitespace. 
 	*        v1.1.1 (2025-05-14)
 	*             - Remove @place = 'other' from condition to force remove
 	*               <lb/> elements.
@@ -174,15 +177,28 @@
 	</xsl:template>
 
 
-	<!-- * Match text nodes whose immediate following sibling is
-	     * <lb @break>, and remove any trailing whitespace and hyphen
-	     * from the text node. * -->
-	<xsl:template match="text()[
-		following-sibling::node()[1][self::tei:lb[@break]]
-	]" mode="remove-lb-core">
-		<xsl:value-of select="slsFn:strip-trailing-whitespace-and-hyphen(.)"/>
+	<xsl:template match="text()" mode="remove-lb-core">
+		<xsl:choose>
+			<!-- * Match text nodes whose immediate following sibling is
+			     * <lb @break>, and remove any trailing whitespace and hyphen
+			     * from the text node. * -->
+			<xsl:when test="following-sibling::node()[1][self::tei:lb[@break]]">
+				<xsl:value-of select="slsFn:strip-trailing-whitespace-and-hyphen(.)"/>
+			</xsl:when>
+			<!-- * Remove text nodes immediately after opening <p> tags that
+			     * aren’t followed by <lb @break/> elements and that consist
+			     * only of whitespace. * -->
+			<xsl:when test="(parent::tei:p/node()[1] is .)
+			                and not(following-sibling::node()[1][self::tei:lb[@break]])">
+				<xsl:sequence select="slsFn:strip-whitespace-node(.)"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:next-match/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
-	
+
+
 	<!-- * In the preserve-lb-core mode, remove any trailing whitespace
 	     * and hyphen from the text node if force-remove condition applies.
 	     * If it doesn’t and the text node is the first child node of a
@@ -210,10 +226,9 @@
 	     * aren’t followed by <lb @break/> elements and that consist
 	     * only of whitespace. * -->
 	<xsl:template match="text()[
-		position() eq 1
-	    and parent::tei:p
-	    and not(following-sibling::node()[1][self::tei:lb[@break]])
-    ]" mode="preserve-lb-core remove-lb-core">
+		(parent::tei:p/node()[1] is .)
+		and not(following-sibling::node()[1][self::tei:lb[@break]])
+    ]" mode="preserve-lb-core">
 		<xsl:sequence select="slsFn:strip-whitespace-node(.)"/>
 	</xsl:template>
 
