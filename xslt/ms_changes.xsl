@@ -14,7 +14,7 @@
 	*
 	*    XSLT stylesheet: ms_changes.xsl
 	*
-	*    Version: 2.0.1
+	*    Version: 2.0.2
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
@@ -23,6 +23,8 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v2.0.2 (2025-05-16)
+	*             - Add description to handShift-tooltip text.
 	*        v2.0.1 (2025-05-14)
 	*             - Transform @place = 'other' like @place = 'inline'
 	*               instead of like not(@place).
@@ -1097,6 +1099,9 @@
 				</xsl:if>
 				<xsl:if test="local-name() eq 'restore'">
 					<xsl:text> (återtagen ändring)</xsl:text>
+				</xsl:if>
+				<xsl:if test="local-name() eq 'handShift'">
+					<xsl:text> (ny penna eller skribent)</xsl:text>
 				</xsl:if>
 			</xsl:element>
 		</xsl:if>
