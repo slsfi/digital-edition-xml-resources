@@ -10,7 +10,7 @@
 	*
 	*    XSLT stylesheet: process-lb-breaks.xsl
 	*
-	*    Version: 1.1.3
+	*    Version: 1.2.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-02-13
@@ -19,10 +19,15 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.2.0 (2025-05-16)
+	*             - Remove whitespace and hyphen from text nodes in edge
+	*               case where <pb/>, <anchor/> and <handShift/> may appear
+	*               before the <lb break="word"/>.
+	*             - Strip whitespace text nodes between <pb/> elements.
 	*        v1.1.3 (2025-05-15)
 	*             - Use xsl:value-of instead of xsl:sequence when stripping
 	*               whitespace for consistent results; fix test for first
-	*               text child node in tei:p.
+	*               text child node in <p>.
 	*        v1.1.2 (2025-05-15)
 	*             - Fix stripping of first child node of tei:p if text
 	*               node consisting entirely of whitespace. 
@@ -39,10 +44,11 @@
 	*    Description:
 	*        This XSLT module processes TEI-encoded documents and
 	*        transforms <lb> elements with @break attributes and certain
-	*        sibling nodes. It operates in either the `preserve-lb-breaks`
-	*        or `remove-lb-breaks` mode with `on-no-match="shallow-copy"`,
-	*        ensuring that unmatched nodes are copied to the output
-	*        without modification.
+	*        sibling nodes. It also strips unnecessary whitespace from
+	*        text nodes in certain cases. It operates in either the
+	*        `preserve-lb-breaks` or `remove-lb-breaks` mode with
+	*        `on-no-match="shallow-copy"`, ensuring that unmatched nodes
+	*        are copied to the output without modification.
 	*
 	*        In the `preserve-lb-breaks` mode it:
 	*        - converts <lb @break/> elements to <lb/>
@@ -181,7 +187,14 @@
 	</xsl:template>
 
 
+	<!-- * In the "remove" mode, strip whitespace nodes and trailing
+	     * whitespace and hyphen from text nodes in certain cases.
+	     * Text nodes that don't match these cases are copied without
+	     * modification. * -->
 	<xsl:template match="text()" mode="remove-lb-core">
+		<xsl:variable name="next-lb-break-word" as="element(tei:lb)?"
+		              select="following-sibling::tei:lb[1][@break='word']"/>
+
 		<xsl:choose>
 			<!-- * Match text nodes whose immediate following sibling is
 			     * <lb @break>, and remove any trailing whitespace and hyphen
@@ -196,7 +209,25 @@
 			                and not(following-sibling::node()[1][self::tei:lb[@break]])">
 				<xsl:value-of select="slsFn:strip-whitespace-node(.)"/>
 			</xsl:when>
+			<!-- * Remove trailing whitespace and possible hyphen from text
+			     * nodes that have a <lb break='word'/> as a following
+			     * sibling (no other <lb/> may occur before) and there are
+			     * only text nodes, comment nodes, <pb/>, <anchor/> or
+			     * <handShift/> nodes between the text node and the
+			     * <lb break='word'/>. * -->
+			<xsl:when test="$next-lb-break-word
+			                and
+			                (every $n in following-sibling::node()[. &lt;&lt; $next-lb-break-word]
+			                 satisfies $n[self::tei:pb
+			                              or self::tei:anchor
+			                              or self::text()
+			                              or self::tei:handShift
+			                              or self::comment()])
+			">
+				<xsl:value-of select="slsFn:strip-trailing-whitespace-and-hyphen(.)"/>
+			</xsl:when>
 			<xsl:otherwise>
+				<!-- * Shallow copy the text node. * -->
 				<xsl:next-match/>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -247,6 +278,34 @@
 		not(preceding-sibling::text())
 	]/tei:lb[not(preceding-sibling::text())][1]"
 	              mode="lb-postprocessing"/>
+
+
+	<!-- * Strip whitespace text nodes between <pb> elements.
+	     * Interspersed comment nodes are allowed. * -->
+	<xsl:template match="text()" mode="lb-postprocessing">
+		<xsl:variable name="prev-pb" as="element(tei:pb)?"
+		              select="preceding-sibling::tei:pb[1]"/>
+		<xsl:variable name="next-pb" as="element(tei:pb)?"
+		              select="following-sibling::tei:pb[1]"/>
+		<xsl:choose>
+			<xsl:when test="($prev-pb
+			                 and
+			                 (every $n in preceding-sibling::node()[. >> $prev-pb]
+			                  satisfies $n[self::text() or self::comment()]))
+			                and
+			                ($next-pb
+			                 and
+			                 (every $n in following-sibling::node()[. &lt;&lt; $next-pb]
+			                  satisfies $n[self::text() or self::comment()]))
+			">
+				<xsl:value-of select="slsFn:strip-whitespace-node(.)"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<!-- * Shallow copy the text node. * -->
+				<xsl:next-match/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
 
 
 
