@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: shared-named-templates.xsl
 	*
-	*    Version: 1.1.0
+	*    Version: 1.1.1
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-07
@@ -22,6 +22,8 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.1.1 (2025-05-21)
+	*             - Add fixed class name 'head' to headings.
 	*        v1.1.0 (2025-04-24)
 	*             - Added template `document-heading`.
 	*             - Modified template `add-gap-space-content` to support
@@ -313,7 +315,8 @@
 			</xsl:if>
 			<xsl:call-template name="set-class-attr">
 				<xsl:with-param name="class-names"
-					select="(if (@type) then @type else 'chapter',
+					select="('head',
+					         if (@type) then @type else 'chapter',
 					         if ($include-rend-attr) then @rend else ())"/>
 			</xsl:call-template>
 			<xsl:apply-templates/>
