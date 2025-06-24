@@ -3391,6 +3391,7 @@
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="black-ink"/>
 								<valItem mode="add" ident="black-inkOther"/>
+								<valItem mode="add" ident="black-pen"/>
 								<valItem mode="add" ident="blue-ink"/>
 								<valItem mode="add" ident="blue-pen"/>
 								<valItem mode="add" ident="blue-pencil"/>
