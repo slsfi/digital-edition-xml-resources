@@ -2242,6 +2242,7 @@
 						<attDef ident="rend" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="parIndent"/>
+								<valItem mode="add" ident="smaller"/>
 							</valList>
 						</attDef>
 					</attList>
