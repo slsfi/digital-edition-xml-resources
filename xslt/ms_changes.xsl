@@ -14,7 +14,7 @@
 	*
 	*    XSLT stylesheet: ms_changes.xsl
 	*
-	*    Version: 2.0.3
+	*    Version: 2.0.4
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
@@ -23,6 +23,9 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v2.0.4 (2025-08-26)
+	*             - Fix output CSS classnames for tei:add and tei:del with
+	*               tei:subst parent that has @hand.
 	*        v2.0.3 (2025-05-21)
 	*             - Add fixed class name 'head' to headings.
 	*        v2.0.2 (2025-05-16)
@@ -788,7 +791,7 @@
 				                select="('deletion',
 				                         if (parent::tei:subst)
 				                             then 'substDel' else (),
-				                         if (@hand)
+				                         if (@hand or parent::tei:subst[@hand])
 				                             then 'hand tooltiptrigger ttMs'
 				                         else ())"/>
 			</xsl:call-template>
@@ -914,7 +917,8 @@
 	                             then 'substAdd' else (),
 	                         if ($parent-subst/tei:del/tei:add[not(@place)])
 	                             then 'substDelHasAddAbove' else (),
-	                         if (@hand) then 'hand tooltiptrigger ttMs' else (),
+	                         if (@hand or $parent-subst[@hand])
+	                             then 'hand tooltiptrigger ttMs' else (),
 	                         if (@type eq 'choice')
 	                             then 'addChoice'
 	                         else if ($place-attr-values = 'botMargin'
