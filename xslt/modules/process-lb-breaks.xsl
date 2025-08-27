@@ -10,7 +10,7 @@
 	*
 	*    XSLT stylesheet: process-lb-breaks.xsl
 	*
-	*    Version: 1.2.0
+	*    Version: 1.2.1
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-02-13
@@ -19,6 +19,11 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.2.1 (2025-08-27)
+	*             - Remove <lb @break/> elements that are children of
+	*               <seg type="alt"> and <add type="choice"> in
+	*               `preserve-lb-breaks` mode since they can’t be
+	*               correctly displayed on the web.
 	*        v1.2.0 (2025-05-16)
 	*             - Remove whitespace and hyphen from text nodes in edge
 	*               case where <pb/>, <anchor/> and <handShift/> may appear
@@ -360,7 +365,8 @@
 	     * - in an <add> which is displayed above or below the text
 	     *   baseline,
 	     * - in a <del> in a <subst> where the <add> is displayed above
-	     *   or below the text baseline. * -->
+	     *   or below the text baseline.
+	     * - the child of a <seg type="alt">. * -->
 		<xsl:param name="context-node" as="node()"/>
 		
 		<xsl:sequence select="
@@ -374,6 +380,10 @@
 						or contains(@place, 'sublinear')]
 					]
 				]
+				or
+				$context-node/parent::tei:seg[@type eq 'alt']
+				or
+				$context-node/parent::tei:add[@type eq 'choice']
 			) then true() else false()
 		"/>
 	</xsl:function>
