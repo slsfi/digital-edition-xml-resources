@@ -208,4 +208,11 @@
 			</assert>
 		</rule>
 	</pattern>
+	<pattern id="only-one-medium-attr-value">
+		<rule context="tei:handNote[@medium]|tei:handShift[@medium]">
+			<report test="count(tokenize(@medium)) gt 1">
+				@medium must only have one value: multiple, space-separated values are not allowed.
+			</report>
+		</rule>
+	</pattern>
 </schema>
