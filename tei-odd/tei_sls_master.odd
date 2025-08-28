@@ -2652,13 +2652,7 @@
 						<attDef ident="source" mode="delete"/>
 						<attDef ident="function" mode="delete"/>
 						<attDef ident="subtype" mode="delete"/>
-						<attDef ident="hand" mode="delete"/>
-						<attDef ident="rend" mode="change">
-							<valList type="closed" mode="change">
-								<valItem mode="add" ident="printed"/>
-								<valItem mode="add" ident="stamped"/>
-							</valList>
-						</attDef>
+						<attDef ident="rend" mode="delete"/>
 						<attDef ident="type" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="alt">
