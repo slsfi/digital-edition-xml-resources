@@ -2,9 +2,9 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2025-08-28T16:00:34Z. . 
-    TEI Edition: P5 Version 4.10.0. Last updated on 15th August 2025, revision ebf0834e1 
-    TEI Edition Location: https://www.tei-c.org/Vault/P5/4.10.0/ 
+    Schema generated from ODD source 2025-09-10T09:57:28Z. . 
+    TEI Edition: P5 Version 4.10.2. Last updated on 4th September 2025, revision bcfa98f42 
+    TEI Edition Location: https://www.tei-c.org/Vault/P5/4.10.2/ 
     
   -->
   <!--
@@ -409,11 +409,6 @@
                     </xs:annotation>
                   </xs:enumeration>
                   <xs:enumeration value="violet-ink">
-                    <xs:annotation>
-                      <xs:documentation/>
-                    </xs:annotation>
-                  </xs:enumeration>
-                  <xs:enumeration value="pre-print">
                     <xs:annotation>
                       <xs:documentation/>
                     </xs:annotation>

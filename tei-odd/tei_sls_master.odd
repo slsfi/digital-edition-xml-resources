@@ -3399,7 +3399,6 @@
 								<valItem mode="add" ident="red-ink"/>
 								<valItem mode="add" ident="red-pencil"/>
 								<valItem mode="add" ident="violet-ink"/>
-								<valItem mode="add" ident="pre-print"/>
 								<valItem mode="add" ident="print"/>
 								<valItem mode="add" ident="stamp"/>
 								<valItem mode="add" ident="typescript"/>
