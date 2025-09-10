@@ -1040,9 +1040,6 @@
 					</attList>
 				</elementSpec>
 				<elementSpec ident="head" mode="change">
-					<classes mode="change">
-						<memberOf key="att.written" mode="delete"/>
-					</classes>
 					<attList>
 						<attDef ident="ana" mode="delete"/>
 						<attDef ident="change" mode="delete"/>
@@ -3002,7 +2999,6 @@
 						<attDef ident="resp" mode="delete"/>
 						<attDef ident="source" mode="delete"/>
 						<attDef ident="subtype" mode="delete"/>
-						<attDef ident="hand" mode="delete"/>
 						<attDef ident="type" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="letter"/>
