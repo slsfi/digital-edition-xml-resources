@@ -14,7 +14,7 @@
 	*
 	*    XSLT stylesheet: shared-functions.xsl
 	*
-	*    Version: 1.1.0
+	*    Version: 1.1.1
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-07
@@ -23,6 +23,8 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.1.1 (2025-09-11)
+	*             - Fix get-form-shift-classname().
 	*        v1.1.0 (2025-09-11)
 	*             - Add get-hand-medium(), get-text-elem-hand-medium(),
 	*               is-same-medium-type() and get-form-shift-classname().
@@ -295,7 +297,7 @@
 		              select="slsFn:get-hand-medium($context-item)"/>
 		<xsl:variable name="text-medium"
 		              select="slsFn:get-text-elem-hand-medium($context-item)"/>
-		<xsl:sequence select="if ($elem-medium and slsFn:is-same-medium-type($elem-medium, $text-medium))
+		<xsl:sequence select="if (empty($elem-medium) or slsFn:is-same-medium-type($elem-medium, $text-medium))
 		                          then ()
 		                      else 'form-shift'"/>
 	</xsl:function>
