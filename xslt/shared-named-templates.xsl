@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: shared-named-templates.xsl
 	*
-	*    Version: 1.1.1
+	*    Version: 1.2.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-07
@@ -22,11 +22,16 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.2.0 (2025-09-11)
+	*             - Add template `apply-templates-with-optional-form-
+	*               shift-wrapper`.
+	*             - Modify `document-heading` template to incorporate
+	*               form-shift classname if applicable.
 	*        v1.1.1 (2025-05-21)
 	*             - Add fixed class name 'head' to headings.
 	*        v1.1.0 (2025-04-24)
-	*             - Added template `document-heading`.
-	*             - Modified template `add-gap-space-content` to support
+	*             - Add template `document-heading`.
+	*             - Modify template `add-gap-space-content` to support
 	*               manuscript texts.
 	*             - Output newline characters only when `$debug` input
 	*               parameter is true.
@@ -299,6 +304,9 @@
 
 
 	<xsl:template name="document-heading">
+	<!-- * Generates a heading element (h1–h6 or a div with @aria-level)
+	     * based on the nesting of the context item and applies
+	     * templates. * -->
 		<xsl:param name="include-rend-attr" as="xs:boolean" select="false()"/>
 		
 		<xsl:variable name="heading-level"
@@ -317,10 +325,28 @@
 				<xsl:with-param name="class-names"
 					select="('head',
 					         if (@type) then @type else 'chapter',
-					         if ($include-rend-attr) then @rend else ())"/>
+					         if ($include-rend-attr) then @rend else (),
+					         slsFn:get-form-shift-classname(.))"/>
 			</xsl:call-template>
 			<xsl:apply-templates/>
 		</xsl:element>
+	</xsl:template>
+
+
+	<xsl:template name="apply-templates-with-optional-form-shift-wrapper">
+	<!-- * Applies templates and optionally wraps the content in a span
+	     * element with the form-shift classname if applicable. * -->
+		<xsl:variable name="form-shift-rend" select="slsFn:get-form-shift-classname(.)"/>
+		<xsl:choose>
+			<xsl:when test="$form-shift-rend">
+				<span class="{$form-shift-rend}">
+					<xsl:apply-templates/>
+				</span>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 </xsl:stylesheet>

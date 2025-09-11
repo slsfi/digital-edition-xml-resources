@@ -3,6 +3,7 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:xml="http://www.w3.org/XML/1998/namespace"
+	xmlns:map="http://www.w3.org/2005/xpath-functions/map"
 	xmlns:tei="http://www.tei-c.org/ns/1.0"
 	xmlns:slsFn="https://www.sls.fi/ns/digitaledition/functions/"
 	exclude-result-prefixes="#all"
@@ -13,7 +14,7 @@
 	*
 	*    XSLT stylesheet: shared-functions.xsl
 	*
-	*    Version: 1.0.0
+	*    Version: 1.1.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-07
@@ -22,6 +23,9 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.1.0 (2025-09-11)
+	*             - Add get-hand-medium(), get-text-elem-hand-medium(),
+	*               is-same-medium-type() and get-form-shift-classname().
 	*        v1.0.0 (2025-03-07)
 	*
 	*    Description:
@@ -227,6 +231,73 @@
 		                                           then 'rader'
 		                                       else 'rad'"/>
 		<xsl:sequence select="$quantity || ' ' || $unit-text"/>
+	</xsl:function>
+
+
+	<xsl:function name="slsFn:get-hand-medium" as="xs:string?">
+	<!-- * Look up the @medium corresponding to the @hand value of the
+	     * $context-item, which must be an element (of any type).
+	     * Relies on the prebuilt $hand-medium-by-id map for the lookup. * -->
+		<xsl:param name="context-item" as="element(*)"/>
+
+		<xsl:variable name="id" select="substring-after($context-item/@hand, '#')"/>
+		<xsl:sequence select="if ($id)
+			                      then map:get($hand-medium-by-id, $id)
+			                  else ()"/>
+	</xsl:function>
+
+
+	<xsl:function name="slsFn:get-text-elem-hand-medium" as="xs:string">
+	<!-- * Look up the @medium corresponding to the @hand value of the
+	     * tei:text element. $context-item is any node in the same
+		 * document (used to anchor the search). If @hand is not set on
+	     * the tei:text element, it is assumed to be of medium 'black-ink',
+	     * which is then returned. * -->
+		<xsl:param name="context-item" as="node()"/>
+
+		<xsl:variable name="text-hand"
+			select="root($context-item)/tei:TEI/tei:text/@hand"/>
+		<xsl:variable name="text-id"
+			select="substring-after($text-hand, '#')"/>
+		<xsl:sequence select="
+			if ($text-id)
+			    then map:get($hand-medium-by-id, $text-id)
+			else $default-medium
+		"/>
+	</xsl:function>
+
+
+	<xsl:function name="slsFn:is-same-medium-type" as="xs:boolean">
+	<!-- * Given two @medium values, returns true if they belong to
+	     * the same type of medium, and false otherwise. Medium values
+	     * 'print', 'stamp' and 'typescript' are considered to be of
+	     * the same type (“printlike”), and all other values of the
+	     * same type (“handwritinglike”). * -->
+		<xsl:param name="medium1" as="xs:string?"/>
+		<xsl:param name="medium2" as="xs:string?"/>
+		
+		<xsl:variable name="printlike-mediums" select="('print',
+			                                            'stamp',
+			                                            'typescript')"/>
+		<xsl:sequence select="($medium1 = $printlike-mediums) eq
+			                  ($medium2 = $printlike-mediums)"/>
+	</xsl:function>
+
+
+	<xsl:function name="slsFn:get-form-shift-classname" as="xs:string?">
+	<!-- * Given a $context-item, which can be an element of any type,
+	     * returns the string 'form-shift' if the element has such a @hand
+	     * that it involves a form-shift (“printlike” <-> “handwritinglike”)
+	     * that should be rendered, otherwise an empty sequence is returned. -->
+		<xsl:param name="context-item" as="element(*)"/>
+		
+		<xsl:variable name="elem-medium"
+		              select="slsFn:get-hand-medium($context-item)"/>
+		<xsl:variable name="text-medium"
+		              select="slsFn:get-text-elem-hand-medium($context-item)"/>
+		<xsl:sequence select="if ($elem-medium and slsFn:is-same-medium-type($elem-medium, $text-medium))
+		                          then ()
+		                      else 'form-shift'"/>
 	</xsl:function>
 
 </xsl:stylesheet>

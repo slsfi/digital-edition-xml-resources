@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: est.xsl
 	*
-	*    Version: 1.1.1
+	*    Version: 2.0.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-07
@@ -22,6 +22,10 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v2.0.0 (2025-09-11)
+	*             - Add form-shift classname to tei:head, tei:p, tei:note
+	*               and tei:seg if applicable.
+	*             - Remove processing of @rend in tei:seg.
 	*        v1.1.1 (2025-04-24)
 	*             - Move match templates common to est.xsl, ms_changes.xsl
 	*               and ms_normalized.xsl to shared-match-templates.xsl,
@@ -144,6 +148,10 @@
 
 	<xsl:template match="tei:head[@type eq 'subtitle']">
 		<p role="doc-subtitle">
+			<xsl:call-template name="set-class-attr">
+				<xsl:with-param name="class-names"
+					select="(slsFn:get-form-shift-classname(.))"/>
+			</xsl:call-template>
 			<xsl:apply-templates/>
 		</p>
 	</xsl:template>
@@ -200,7 +208,10 @@
 		<p>
 			<xsl:call-template name="set-attr-from-xml-id"/>
 			<xsl:call-template name="set-attr-from-xml-lang"/>
-			<xsl:call-template name="set-class-attr-from-rend"/>
+			<xsl:call-template name="set-class-attr">
+				<xsl:with-param name="class-names" select="(@rend,
+				                                            slsFn:get-form-shift-classname(.))"/>
+			</xsl:call-template>
 			<xsl:call-template name="add-paragraph-number"/>
 			<xsl:apply-templates/>
 		</p>
@@ -442,7 +453,7 @@
 			<span class="tooltip ttFoot" hidden="">
 				<span class="tei ttFixed">
 					<xsl:call-template name="set-attr-from-xml-id"/>
-					<xsl:apply-templates/>
+					<xsl:call-template name="apply-templates-with-optional-form-shift-wrapper"/>
 				</span>
 			</span>
 		</xsl:if>
@@ -526,13 +537,8 @@
 			<xsl:when test="@type eq 'alt'">
 				<xsl:apply-templates select="tei:add[@type eq 'choice']"/>
 			</xsl:when>
-			<xsl:when test="@rend">
-				<span class="{@rend}">
-					<xsl:apply-templates/>
-				</span>
-			</xsl:when>
 			<xsl:otherwise>
-				<xsl:apply-templates/>
+				<xsl:call-template name="apply-templates-with-optional-form-shift-wrapper"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>

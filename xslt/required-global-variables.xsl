@@ -3,6 +3,7 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:xml="http://www.w3.org/XML/1998/namespace"
+	xmlns:map="http://www.w3.org/2005/xpath-functions/map"
 	xmlns:tei="http://www.tei-c.org/ns/1.0"
 	xmlns:slsFn="https://www.sls.fi/ns/digitaledition/functions/"
 	exclude-result-prefixes="#all"
@@ -13,7 +14,7 @@
 	*
 	*    XSLT stylesheet: required-global-variables.xsl
 	*
-	*    Version: 1.0.1
+	*    Version: 1.1.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-10
@@ -22,6 +23,8 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.1.0 (2025-09-11)
+	*             - Add $default-medium and $hand-medium-by-id.
 	*        v1.0.1 (2025-04-24)
 	*             - Change the `icons-base-path` variable to non-static.
 	*        v1.0.0 (2025-03-10)
@@ -53,5 +56,18 @@
 		<img src="{$icons-base-path}/squared_times_gray.svg"
 		     alt="tomt" loading="lazy" aria-hidden="true"/>
 	</xsl:variable>
+
+	<!-- * Default @medium value. * -->
+	<xsl:variable name="default-medium" as="xs:string" static="yes"
+	              select="'black-ink'"/>
+
+	<!-- * Map of all tei:handNote elements where their @xml:id is mapped
+	     * to their @medium for fast lookups. * -->
+	<xsl:variable name="hand-medium-by-id" as="map(xs:string, xs:string)" select="
+		map:merge(
+			for $h in /tei:TEI/tei:teiHeader/tei:profileDesc/tei:handNotes/tei:handNote
+			return map:entry(string($h/@xml:id), string($h/@medium))
+		)
+	"/>
 
 </xsl:stylesheet>

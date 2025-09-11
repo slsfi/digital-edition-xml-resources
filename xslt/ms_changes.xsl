@@ -14,7 +14,7 @@
 	*
 	*    XSLT stylesheet: ms_changes.xsl
 	*
-	*    Version: 2.0.4
+	*    Version: 3.0.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
@@ -23,6 +23,11 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v3.0.0 (2025-09-11)
+	*             - Update values in $medium-map.
+	*             - Add form-shift classname to tei:head, tei:p, tei:note
+	*               and tei:seg if applicable.
+	*             - Remove processing of @rend in tei:seg.
 	*        v2.0.4 (2025-08-26)
 	*             - Fix output CSS classnames for tei:add and tei:del with
 	*               tei:subst parent that has @hand.
@@ -149,6 +154,7 @@
 	              select="map {
 	                           'black-ink':        'svart bläck',
 	                           'black-inkOther':   'annat svart bläck',
+	                           'black-pen':        'svart kulspetspenna',
 	                           'blue-ink':         'blått bläck',
 	                           'blue-pen':         'blå kulspetspenna',
 	                           'blue-pencil':      'blå färgpenna',
@@ -157,13 +163,15 @@
 	                           'green-ink':        'grönt bläck',
 	                           'green-pen':        'grön kulspetspenna',
 	                           'green-pencil':     'grön färgpenna',
+	                           'indeliblePencil':  'anilinpenna',
+	                           'pencil':           'blyertspenna',
+	                           'print':            'tryckt',
 	                           'red-ink':          'rött bläck',
 	                           'red-pen':          'röd kulspetspenna',
 	                           'red-pencil':       'röd färgpenna',
-	                           'violet-ink':       'violett bläck',
-	                           'indeliblePencil':  'anilinpenna',
-	                           'pencil':           'blyertspenna',
-	                           'typewrite':        'maskinskrivet'
+	                           'stamp':            'stämplat',
+	                           'typescript':       'maskinskrivet',
+	                           'violet-ink':       'violett bläck'
 	                          }"/>
 
 
@@ -213,7 +221,8 @@
 		                         then (if ($delspan-hand-attr)
 		                                   then 'delSpan delSpanHand'
 		                               else 'delSpan')
-		                     else ())"/>
+		                     else (),
+		                     slsFn:get-form-shift-classname(.))"/>
 			</xsl:call-template>
 			<xsl:apply-templates/>
 		</xsl:element>
@@ -232,16 +241,17 @@
 			<xsl:call-template name="set-class-attr">
 				<xsl:with-param name="class-names"
 					select="(@rend,
-					        if ($in-addspan)
-		                        then (if ($addspan-hand-attr)
-		                                  then 'addSpan hand'
-		                              else 'addSpan')
-		                    else (),
-		                    if ($in-delspan)
-		                        then (if ($delspan-hand-attr)
-		                                  then 'delSpan delSpanHand'
-		                              else 'delSpan')
-		                    else ())"/>
+					         if ($in-addspan)
+		                         then (if ($addspan-hand-attr)
+		                                   then 'addSpan hand'
+		                               else 'addSpan')
+		                     else (),
+		                     if ($in-delspan)
+		                         then (if ($delspan-hand-attr)
+		                                   then 'delSpan delSpanHand'
+		                               else 'delSpan')
+		                     else (),
+		                     slsFn:get-form-shift-classname(.))"/>
 			</xsl:call-template>
 			<xsl:apply-templates/>
 		</p>
@@ -337,7 +347,8 @@
 					                         then (if ($delspan-hand-attr)
 					                                   then 'delSpan delSpanHand'
 					                               else 'delSpan')
-					                     else ())"/>
+					                     else (),
+					                     slsFn:get-form-shift-classname(.))"/>
 			</xsl:call-template>
 			<xsl:apply-templates/>
 			<xsl:call-template name="render-transpose-end-mark"/>
@@ -837,14 +848,8 @@
 					<xsl:call-template name="render-transpose-end-mark"/>
 				</span>
 			</xsl:when>
-			<xsl:when test="@rend">
-				<span class="{@rend}">
-					<xsl:apply-templates/>
-					<xsl:call-template name="render-transpose-end-mark"/>
-				</span>
-			</xsl:when>
 			<xsl:otherwise>
-				<xsl:apply-templates/>
+				<xsl:call-template name="apply-templates-with-optional-form-shift-wrapper"/>
 				<xsl:call-template name="render-transpose-end-mark"/>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -1052,7 +1057,8 @@
 					                         else (),
 					                         if ($delspan-elem/@rend eq 'strikethrough')
 					                             then 'strikethrough'
-					                         else ())"/>
+					                         else (),
+					                         slsFn:get-form-shift-classname(.))"/>
 				</xsl:call-template>
 				<xsl:apply-templates/>
 				<xsl:call-template name="render-transpose-end-mark"/>
@@ -1061,7 +1067,7 @@
 
 		<!-- * Case: Neither addSpan nor delSpan. * -->
 		<xsl:if test="not($in-addspan) and not($in-delspan)">
-			<xsl:apply-templates/>
+			<xsl:call-template name="apply-templates-with-optional-form-shift-wrapper"/>
 			<xsl:call-template name="render-transpose-end-mark"/>
 		</xsl:if>
 	</xsl:template>

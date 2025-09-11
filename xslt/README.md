@@ -70,6 +70,10 @@ Stylesheet with required common global variables. This stylesheet must be import
 
 Stylesheet with common XSLT functions in the `slsFn` namespace (`https://www.sls.fi/ns/digitaledition/functions/`). The `required-global-variables.xsl` must be imported before this stylesheet.
 
+#### `shared-match-templates.xsl`
+
+Stylesheet with common match templates used by `est.xsl`, `ms_changes.xsl` and `ms_normalized.xsl`. The `required-global-variables.xsl`, `shared-functions.xsl` and `shared-named-templates.xsl` must be imported before this stylesheet.
+
 #### `shared-named-templates.xsl`
 
 Stylesheet with common named templates. The `required-global-variables.xsl` and `shared-functions.xsl` must be imported before this stylesheet.
