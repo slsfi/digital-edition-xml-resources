@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: est.xsl
 	*
-	*    Version: 2.0.0
+	*    Version: 2.0.1
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-07
@@ -22,6 +22,8 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v2.0.1 (2025-10-14)
+	*             - Enable output indentation.
 	*        v2.0.0 (2025-09-11)
 	*             - Add form-shift classname to tei:head, tei:p, tei:note
 	*               and tei:seg if applicable.
@@ -72,7 +74,7 @@
 	<!-- * SERIALIZATION OPTIONS ************************************** -->
 
 	<xsl:output method="html" html-version="5.0" encoding="UTF-8"
-	            include-content-type="no" indent="no"/>
+	            include-content-type="no" indent="yes"/>
 
 	<xsl:strip-space elements="tei:TEI tei:address tei:argument tei:body
 	                           tei:cit tei:closer tei:div tei:epigraph

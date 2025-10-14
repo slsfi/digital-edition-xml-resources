@@ -14,7 +14,7 @@
 	*
 	*    XSLT stylesheet: ms_changes.xsl
 	*
-	*    Version: 3.0.0
+	*    Version: 3.0.1
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
@@ -23,6 +23,8 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v3.0.1 (2025-10-14)
+	*             - Enable output indentation.
 	*        v3.0.0 (2025-09-11)
 	*             - Update values in $medium-map.
 	*             - Add form-shift classname to tei:head, tei:p, tei:note
@@ -92,7 +94,7 @@
 	<!-- * SERIALIZATION OPTIONS ************************************** -->
 
 	<xsl:output method="html" html-version="5.0" encoding="UTF-8"
-	            include-content-type="no" indent="no"/>
+	            include-content-type="no" indent="yes"/>
 
 	<xsl:strip-space elements="tei:TEI tei:address tei:argument tei:body
 	                           tei:cit tei:closer tei:div tei:epigraph
