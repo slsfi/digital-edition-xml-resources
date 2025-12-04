@@ -14,7 +14,7 @@
 	*
 	*    XSLT stylesheet: ms_changes.xsl
 	*
-	*    Version: 3.0.1
+	*    Version: 3.1.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
@@ -23,6 +23,8 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v3.1.0 (2025-12-04)
+	*             - Support <head type="part"> as part of hgroup.
 	*        v3.0.1 (2025-10-14)
 	*             - Enable output indentation.
 	*        v3.0.0 (2025-09-11)
@@ -192,8 +194,15 @@
 	                              and not(@type eq 'subtitle')]">
 		<xsl:variable name="heading-level"
 		              select="slsFn:get-heading-level(., $heading-level-offset)"/>
+		<xsl:variable name="is-hgroup-part-p"
+		              select="@type eq 'part'
+			                  and current-grouping-key() eq 'hgroup'
+			                  and count(current-group()) gt 1
+			                  and preceding-sibling::tei:head[@type ne 'subtitle']"/>
 		<xsl:variable name="element-name"
-		              select="if ($heading-level lt 7)
+		              select="if ($is-hgroup-part-p)
+		                          then 'p'
+		                      else if ($heading-level lt 7)
 		                          then 'h' || $heading-level
 		                      else 'div'"/>
 
@@ -212,7 +221,11 @@
 			<xsl:call-template name="set-class-attr">
 				<xsl:with-param name="class-names"
 					select="('head',
-					         if (@type) then @type else 'chapter',
+					         if ($is-hgroup-part-p)
+					             then 'part-title'
+					         else if (@type)
+					             then @type
+					         else 'chapter',
 					         @rend,
 					         if ($in-addspan)
 		                         then (if ($addspan-hand-attr)

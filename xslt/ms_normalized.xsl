@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: ms_normalized.xsl
 	*
-	*    Version: 2.0.1
+	*    Version: 2.1.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
@@ -22,6 +22,8 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v2.1.0 (2025-12-04)
+	*             - Support <head type="part"> as part of hgroup.
 	*        v2.0.1 (2025-10-14)
 	*             - Enable output indentation.
 	*        v2.0.0 (2025-09-11)
@@ -181,9 +183,27 @@
 	<xsl:template match="tei:head[not(parent::tei:figure)
 	                              and not(parent::tei:table)
 	                              and not(@type eq 'subtitle')]">
-		<xsl:call-template name="document-heading">
-			<xsl:with-param name="include-rend-attr" select="true()"/>
-		</xsl:call-template>
+		<xsl:choose>
+			<xsl:when test="@type eq 'part'
+			                and current-grouping-key() eq 'hgroup'
+			                and count(current-group()) gt 1
+			                and preceding-sibling::tei:head[@type ne 'subtitle']">
+				<p>
+					<xsl:call-template name="set-class-attr">
+						<xsl:with-param name="class-names"
+							select="('part-title',
+							         @rend,
+							         slsFn:get-form-shift-classname(.))"/>
+					</xsl:call-template>
+					<xsl:apply-templates/>
+				</p>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:call-template name="document-heading">
+					<xsl:with-param name="include-rend-attr" select="true()"/>
+				</xsl:call-template>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 
