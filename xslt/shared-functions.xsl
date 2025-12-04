@@ -14,7 +14,7 @@
 	*
 	*    XSLT stylesheet: shared-functions.xsl
 	*
-	*    Version: 1.1.1
+	*    Version: 1.1.2
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-07
@@ -23,6 +23,8 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.1.2 (2025-11-19)
+	*             - Fix decode-uri-encoded-colons().
 	*        v1.1.1 (2025-09-11)
 	*             - Fix get-form-shift-classname().
 	*        v1.1.0 (2025-09-11)
@@ -93,7 +95,7 @@
 	     * empty. * -->
 		<xsl:param name="text" as="xs:string?"/>
 
-		<xsl:sequence select="translate($text, '%3A', ':')"/>
+		<xsl:sequence select="replace($text, '%3A', ':')"/>
 	</xsl:function>
 
 
