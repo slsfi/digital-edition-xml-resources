@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: shared-match-templates.xsl
 	*
-	*    Version: 1.0.1
+	*    Version: 2.0.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
@@ -22,13 +22,16 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v2.0.0 (2025-11-19)
+	*             - Remove Swedish phrases from <milestone> output.
 	*        v1.0.1 (2025-05-09)
 	*             - Handle @hand in <hi>.
 	*        v1.0.0 (2025-04-24)
 	*
 	*    Description:
 	*        This XSLT document defines common match templates used by
-	*        `est.xsl`, `ms_changes.xsl` and `ms_normalized.xsl`.
+	*        `est.xsl`, `introduction.xsl`, `ms_changes.xsl` and
+	*        `ms_normalized.xsl`.
 	*
 	*    Dependencies:
 	*        The `required-global-variables.xsl`, `shared-functions.xsl`
@@ -232,7 +235,7 @@
 					              select="slsFn:format-date-or-year(@when)"/>
 					<xsl:variable name="milestone-source" as="xs:string?"
 						select="slsFn:decode-uri-encoded-colons(@source)"/>
-					<xsl:text>Publicerad{if ($milestone-source) then ' i ' || $milestone-source else ''}{if ($milestone-date) then ' ' || $milestone-date else ''}</xsl:text>
+					<xsl:text>{if ($milestone-source) then $milestone-source else ''}{if ($milestone-source and $milestone-date) then ' ' else ''}{if ($milestone-date) then $milestone-date else ''}</xsl:text>
 				</div>
 			</xsl:when>
 			<xsl:otherwise>
