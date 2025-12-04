@@ -54,6 +54,10 @@ Stylesheets in the folder:
 
 Main stylesheet for transforming a preprocessed reading-text TEI XML document (a “web version”) to an HTML5 fragment, that can be included in a web page (does not generate a complete HTML document). Relies on several “shared” XSLT stylesheets.
 
+#### `introduction.xsl`
+
+Main stylesheet for transforming a introduction TEI XML document to an HTML5 fragment, that can be included in a web page (does not generate a complete HTML document). Relies on several “shared” XSLT stylesheets.
+
 #### `ms_changes.xsl`
 
 Main stylesheet for transforming a preprocessed manuscript TEI XML document (a “web version”) to an HTML5 fragment, that can be included in a web page (does not generate a complete HTML document). Relies on several “shared” XSLT stylesheets. The manuscript changes will be visible in the result document.
@@ -77,3 +81,7 @@ Stylesheet with common match templates used by `est.xsl`, `ms_changes.xsl` and `
 #### `shared-named-templates.xsl`
 
 Stylesheet with common named templates. The `required-global-variables.xsl` and `shared-functions.xsl` must be imported before this stylesheet.
+
+#### `title.xsl`
+
+Main stylesheet for transforming a title page TEI XML document to an HTML5 fragment, that can be included in a web page (does not generate a complete HTML document). Relies on several “shared” XSLT stylesheets.
