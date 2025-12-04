@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: shared-named-templates.xsl
 	*
-	*    Version: 1.2.0
+	*    Version: 1.4.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-07
@@ -22,6 +22,17 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.4.0 (2025-11-20)
+	*             - Added parameter to the `document-heading` template for
+	*               adding a classname based on the heading level.
+	*        v1.3.0 (2025-11-19)
+	*             - Added parameter to the `list-footnotes` template for
+	*               controlling if the template should wrap the footnotes
+	*               list in a <section> element or not.
+	*             - Added parameter to the `document-heading` template for
+	*               specifying the default classname that should be added
+	*               to headings that are missing @type, defaults to
+	*               'chapter', which retains the previous behaviour.
 	*        v1.2.0 (2025-09-11)
 	*             - Add template `apply-templates-with-optional-form-
 	*               shift-wrapper`.
@@ -50,36 +61,49 @@
 	<!-- * NAMED TEMPLATES ******************************************** -->
 
 	<xsl:template name="list-footnotes">
-	<!-- * Generates a section containing a list of footnotes.
+	<!-- * Generates a list of footnotes.
 	     * If a section ID is provided, it retrieves footnotes from that section.
 	     * Otherwise, it collects all footnotes in the document. * -->
-		<xsl:param name="section-id" as="xs:string?"/>
+		<xsl:param name="section-id" as="xs:string?" select="()"/>
+		<xsl:param name="create-wrapper" as="xs:boolean" select="true()"/>
+		
+		<xsl:variable name="text-node" as="element(tei:text)?"
+			select="root(.)//tei:text"/>
+		<xsl:variable name="note-nodes" as="element(tei:note)*"
+			select="if (exists($section-id) and string-length($section-id) gt 0)
+					    then $text-node//tei:div[@xml:id eq $section-id]//tei:note
+					else $text-node//tei:note"/>
+		
+		<xsl:variable name="notes-list" as="element(*)?">
+			<xsl:where-populated>
+				<ol class="footnotesList">
+					<xsl:for-each select="$note-nodes">
+						<xsl:call-template name="add-footnote-list-item"/>
+					</xsl:for-each>
+				</ol>
+			</xsl:where-populated>
+		</xsl:variable>
 
 		<xsl:where-populated>
-			<xsl:if test=".//tei:div[@xml:id eq $section-id]//tei:note
-			              or .//tei:note">
+			<xsl:if test="exists($note-nodes)">
 				<xsl:text>{if ($debug) then $NL else ''}</xsl:text>
 			</xsl:if>
-			<section role="doc-endnotes">
-				<xsl:if test="parent::tei:text[@xml:lang]">
-					<xsl:attribute name="lang"
-					               select="parent::tei:text/@xml:lang"/>
-				</xsl:if>
-				<!-- * The footnotes section should have a heading for
-				     * accessibility. * -->
-				<xsl:where-populated>
-					<ol class="footnotesList">
-						<xsl:for-each select="
-							if (exists($section-id)
-						        and string-length($section-id) gt 0)
-						        then .//tei:div[@xml:id eq $section-id]//tei:note
-						    else .//tei:note
-						">
-							<xsl:call-template name="add-footnote-list-item"/>
-						</xsl:for-each>
-					</ol>
-				</xsl:where-populated>
-			</section>
+			<xsl:choose>
+				<xsl:when test="$create-wrapper">
+					<section role="doc-endnotes">
+						<xsl:if test="parent::tei:text[@xml:lang]">
+							<xsl:attribute name="lang"
+							               select="parent::tei:text/@xml:lang"/>
+						</xsl:if>
+						<!-- * TODO: The footnotes section should have a heading for
+						     * accessibility. * -->
+						<xsl:sequence select="$notes-list"/>
+					</section>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:sequence select="$notes-list"/>
+				</xsl:otherwise>
+			</xsl:choose>
 		</xsl:where-populated>
 	</xsl:template>
 
@@ -306,9 +330,13 @@
 	<xsl:template name="document-heading">
 	<!-- * Generates a heading element (h1–h6 or a div with @aria-level)
 	     * based on the nesting of the context item and applies
-	     * templates. * -->
+	     * templates.
+	     * If param add-heading-classname is true, a classname is added
+	     * based on the heading level ("heading1", "heading2", etc.). * -->
 		<xsl:param name="include-rend-attr" as="xs:boolean" select="false()"/>
-		
+		<xsl:param name="default-classname" as="xs:string?" select="'chapter'"/>
+		<xsl:param name="add-heading-classname" as="xs:boolean" select="false()"/>
+
 		<xsl:variable name="heading-level"
 		              select="slsFn:get-heading-level(., $heading-level-offset)"/>
 		<xsl:variable name="element-name"
@@ -324,8 +352,9 @@
 			<xsl:call-template name="set-class-attr">
 				<xsl:with-param name="class-names"
 					select="('head',
-					         if (@type) then @type else 'chapter',
+					         if (@type) then @type else $default-classname,
 					         if ($include-rend-attr) then @rend else (),
+					         if ($add-heading-classname) then 'heading' || $heading-level else (),
 					         slsFn:get-form-shift-classname(.))"/>
 			</xsl:call-template>
 			<xsl:apply-templates/>
