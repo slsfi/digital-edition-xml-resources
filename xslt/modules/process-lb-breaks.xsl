@@ -10,7 +10,7 @@
 	*
 	*    XSLT stylesheet: process-lb-breaks.xsl
 	*
-	*    Version: 1.2.1
+	*    Version: 1.3.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-02-13
@@ -19,6 +19,12 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.3.0 (2026-02-18)
+	*             - Remove trailing hyphen from text nodes in edge
+	*               case where the text node is in <add> in <subst>, and
+	*               <pb/>, <anchor/> and <handShift/> may appear
+	*               before a following sibling <lb break="word"/> of the
+	*               <subst>.
 	*        v1.2.1 (2025-08-27)
 	*             - Remove <lb @break/> elements that are children of
 	*               <seg type="alt"> and <add type="choice"> in
@@ -231,13 +237,14 @@
 			">
 				<xsl:value-of select="slsFn:strip-trailing-whitespace-and-hyphen(.)"/>
 			</xsl:when>
-			<!-- * Remove trailing hyphen from text nodes that are children of
-			     * <add> in <subst>, and the <subst> has <lb break='word'/> as
-					 * a following sibling (no other <lb/> may occur before) and
+			<!-- * Remove trailing hyphen from the last text node that is a child
+			     * of <add> in <subst>, and the <subst> has <lb break='word'/>
+			     * as a following sibling (no other <lb/> may occur before) and
 			     * there are only text nodes, comment nodes, <pb/>, <anchor/>
-			     * or <handShift/> nodes between the text node and the
+			     * or <handShift/> nodes between the <subst> node and the
 			     * <lb break='word'/>. * -->
-			<xsl:when test="parent::tei:add[parent::tei:subst[following-sibling::tei:lb[1][@break='word']]]">
+			<xsl:when test="parent::tei:add[parent::tei:subst[following-sibling::tei:lb[1][@break='word']]]
+			                and not(following-sibling::text())">
 				<xsl:variable name="next-sib-lb-break-word" as="element(tei:lb)?"
 				              select="parent::tei:add/parent::tei:subst/following-sibling::tei:lb[1][@break='word']"/>
 				<xsl:choose>
@@ -250,7 +257,7 @@
 			                                  or self::tei:handShift
 			                                  or self::comment()])
 					">
-						<!-- * Then remove a single trailing hyphen if present. * -->
+						<!-- * Remove a single trailing hyphen from the text node if present. * -->
 						<xsl:value-of select="replace(., '-$', '')"/>
 					</xsl:when>
 					<xsl:otherwise>
