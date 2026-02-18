@@ -231,6 +231,34 @@
 			">
 				<xsl:value-of select="slsFn:strip-trailing-whitespace-and-hyphen(.)"/>
 			</xsl:when>
+			<!-- * Remove trailing hyphen from text nodes that are children of
+			     * <add> in <subst>, and the <subst> has <lb break='word'/> as
+					 * a following sibling (no other <lb/> may occur before) and
+			     * there are only text nodes, comment nodes, <pb/>, <anchor/>
+			     * or <handShift/> nodes between the text node and the
+			     * <lb break='word'/>. * -->
+			<xsl:when test="parent::tei:add[parent::tei:subst[following-sibling::tei:lb[1][@break='word']]]">
+				<xsl:variable name="next-sib-lb-break-word" as="element(tei:lb)?"
+				              select="parent::tei:add/parent::tei:subst/following-sibling::tei:lb[1][@break='word']"/>
+				<xsl:choose>
+					<xsl:when test="$next-sib-lb-break-word
+							            and
+						              (every $n in parent::tei:add/parent::tei:subst/following-sibling::node()[. &lt;&lt; $next-sib-lb-break-word]
+			                     satisfies $n[self::tei:pb
+			                                  or self::tei:anchor
+			                                  or self::text()
+			                                  or self::tei:handShift
+			                                  or self::comment()])
+					">
+						<!-- * Then remove a single trailing hyphen if present. * -->
+						<xsl:value-of select="replace(., '-$', '')"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<!-- * Shallow copy the text node. * -->
+						<xsl:next-match/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
 			<xsl:otherwise>
 				<!-- * Shallow copy the text node. * -->
 				<xsl:next-match/>
