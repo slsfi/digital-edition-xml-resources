@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><TEI xmlns="http://www.tei-c.org/ns/1.0" xml:base=""><?TEIVERSION P5 Version 4.10.2. Last updated on
-        4th September 2025, revision bcfa98f42?>
+<?xml version="1.0" encoding="utf-8"?><TEI xmlns="http://www.tei-c.org/ns/1.0" xml:base=""><?TEIVERSION P5 Version 4.11.0. Last updated on
+        18th February 2026, revision 358d2e48e?>
 	<teiHeader><fileDesc>
 			<titleStmt>
 				<title>TEI SLS Master</title>
@@ -361,10 +361,7 @@ Elements</ref>
         <p>The values <val>I</val>, <val>M</val>, or <val>F</val>
         should be used only where it is clear how the element may
         be reconstituted.</p>
-      </remarks><remarks versionDate="2019-06-08" xml:lang="ja"><p><val>I</val>、<val>M</val>、または<val>F</val>という値は、要素の再構成方法が明らかな場合にのみ使用する。</p></remarks></attDef></attList></classSpec><classSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" predeclare="true" module="tei" type="atts" xml:id="class-attr-global.rendition" ident="att.global.rendition"><desc versionDate="2014-12-02" xml:lang="en">provides rendering attributes common to all elements in the TEI encoding scheme.</desc><desc versionDate="2019-07-21" xml:lang="ja">TEIの符号化スキーマにおけるすべての要素に共通するレンダリング属性を提供する。</desc><classes/><attList><attDef ident="rend" usage="opt"><gloss versionDate="2007-07-02" xml:lang="en">rendition</gloss><gloss versionDate="2007-12-20" xml:lang="ko">번역</gloss><gloss versionDate="2008-04-06" xml:lang="es">interpretación</gloss><gloss versionDate="2008-03-30" xml:lang="fr">interprétation</gloss><gloss versionDate="2007-11-06" xml:lang="it">resa</gloss><gloss versionDate="2019-07-21" xml:lang="ja">見た目の表示</gloss><desc versionDate="2005-10-10" xml:lang="en">indicates how the element in question was rendered or presented in the source text.</desc><desc versionDate="2007-12-20" xml:lang="ko">문제의 요소가 원본 텍스트에 제시된 방법을 나타낸다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">指出該元素如何呈現於來源文件中</desc><desc versionDate="2008-04-05" xml:lang="ja">当該要素が、元資料でどのように表示されていたかを示す。</desc><desc versionDate="2007-06-12" xml:lang="fr">indique comment l'élément en question a été rendu ou
-        présenté dans le texte source.</desc><desc versionDate="2007-05-04" xml:lang="es">indica cómo el elemento en cuestión ha sido dado o
-        proporcionado en el texto fuente.</desc><desc versionDate="2007-01-21" xml:lang="it">indica come l'elemento in questione è stato reso o
-        rappresentato nel testo originario</desc><datatype maxOccurs="unbounded"><dataRef key="teidata.word"/></datatype><valList type="closed" mode="change"/><exemplum xml:lang="en">
+      </remarks><remarks versionDate="2019-06-08" xml:lang="ja"><p><val>I</val>、<val>M</val>、または<val>F</val>という値は、要素の再構成方法が明らかな場合にのみ使用する。</p></remarks></attDef></attList></classSpec><classSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" predeclare="true" module="tei" type="atts" xml:id="class-attr-global.rendition" ident="att.global.rendition"><desc versionDate="2014-12-02" xml:lang="en">provides rendering attributes common to all elements in the TEI encoding scheme.</desc><desc versionDate="2019-07-21" xml:lang="ja">TEIの符号化スキーマにおけるすべての要素に共通するレンダリング属性を提供する。</desc><classes/><attList><attDef ident="rend" usage="opt"><gloss versionDate="2007-07-02" xml:lang="en">rendition</gloss><gloss versionDate="2007-12-20" xml:lang="ko">번역</gloss><gloss versionDate="2008-04-06" xml:lang="es">interpretación</gloss><gloss versionDate="2008-03-30" xml:lang="fr">interprétation</gloss><gloss versionDate="2007-11-06" xml:lang="it">resa</gloss><gloss versionDate="2019-07-21" xml:lang="ja">見た目の表示</gloss><desc versionDate="2005-10-10" xml:lang="en">indicates how the element in question was rendered or presented in the source text.</desc><desc versionDate="2007-12-20" xml:lang="ko">문제의 요소가 원본 텍스트에 제시된 방법을 나타낸다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">指出該元素如何呈現於來源文件中</desc><desc versionDate="2008-04-05" xml:lang="ja">当該要素が、元資料でどのように表示されていたかを示す。</desc><desc versionDate="2007-06-12" xml:lang="fr">indique comment l'élément en question a été rendu ou présenté dans le texte source.</desc><desc versionDate="2007-05-04" xml:lang="es">indica cómo el elemento en cuestión ha sido dado o proporcionado en el texto fuente.</desc><desc versionDate="2007-01-21" xml:lang="it">indica come l'elemento in questione è stato reso o rappresentato nel testo originario</desc><datatype maxOccurs="unbounded"><dataRef key="teidata.word"/></datatype><valList type="closed" mode="change"/><exemplum xml:lang="en">
         <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="class-attr-global.rendition-egXML-ci">
           <head rend="align(center) case(allcaps)"><lb/>To The <lb/>Duchesse <lb/>of <lb/>Newcastle,
             <lb/>On Her <lb/><hi rend="case(mixed)">New Blazing-World</hi>. </head>
@@ -373,7 +370,7 @@ Elements</ref>
       </exemplum><exemplum versionDate="2010-02-26" xml:lang="fr">
         <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="class-attr-global.rendition-egXML-gy" source="#fr-ex-Belloy">
           <head rend="align(center) case(allcaps)">épître dédicatoire<lb/>à <lb/>Monsieur de Coucy <lb/>
-                  <lb/>.</head>
+          <lb/>.</head>
         </egXML>
       </exemplum><remarks versionDate="2012-10-24" xml:lang="en">
         <p>These Guidelines make no binding recommendations for the values of the <att>rend</att>
@@ -395,7 +392,13 @@ Elements</ref>
           de texto a texto y la decisión para registrar o para omitir características individuales
           varía demasiado de proyecto a proyecto. Observar algunas convenciones que puedan resultar
           útiles en los puntos indicados en las guías de consulta.</p>
-      </remarks><remarks versionDate="2019-07-21" xml:lang="ja"><p>本ガイドラインでは、当該属性<att>rend</att>の値として推奨するものはない。活字化の特徴は様々であり、それらのどれを採用するかはプロジェクトごとでおそろしく異なるからである。当ガイドラインでは、有用な記述法があれば、その都度示すことになっている。<att>rend</att>属性の値は、空白によって区切られる順序不定の個々のトークンの集合である。</p></remarks></attDef></attList><listRef>
+      </remarks><remarks versionDate="2019-07-21" xml:lang="ja"><p>本ガイドラインでは、当該属性<att>rend</att>の値として推奨するものはない。活字化の特徴は様々であり、それらのどれを採用するかはプロジェクトごとでおそろしく異なるからである。当ガイドラインでは、有用な記述法があれば、その都度示すことになっている。<att>rend</att>属性の値は、空白によって区切られる順序不定の個々のトークンの集合である。</p></remarks></attDef></attList><remarks versionDate="2026-01-03" xml:lang="en">
+    <p>These guidelines provide no semantic basis or suggested
+    precedence when both <att>rend</att> and <att>rendition</att> are
+    provided. For this reason simultaneous use of both is not
+    recommended for interchange unless documentation explaining the
+    use is provided, probably in an ODD customization.</p>
+  </remarks><listRef>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/ST.html#STGAre">1.3.1.1.3. Rendition Indicators</ref>
   </listRef></classSpec><classSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="tei" predeclare="true" type="atts" xml:id="class-attr-global.responsibility" ident="att.global.responsibility"><desc versionDate="2014-12-10" xml:lang="en">provides attributes indicating the agent
     responsible for some aspect of the text, the markup or 
@@ -806,7 +809,7 @@ sub-classification for the element additional to that provided by its
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html#COXR">3.7. Simple Links and Cross-References</ref>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html#CONAAB">3.6.5. Abbreviations and Their Expansions</ref>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html#COVE">3.13.1. Core Tags for Verse</ref>
-    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/DR.html#DRPAL">7.2.5. Speech Contents</ref>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/DR.html#DRPAL">7.2.6. Speech Contents</ref>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/DS.html#DSDIV1">4.1.1. Un-numbered Divisions</ref>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/DS.html#DSDIV2">4.1.2. Numbered Divisions</ref>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/DS.html#DSHD">4.2.1. Headings and Trailers</ref>
@@ -1105,13 +1108,14 @@ sub-classification for the element additional to that provided by its
       <remarks versionDate="2019-06-08" xml:lang="ja"><p>この属性の利用に関する案内は<ref target="https://www.w3.org/TR/REC-xml/#sec-white-space">XML仕様</ref>を参照。xml:spaceを適切に扱うパーサーは多くない。</p></remarks>
     </attDef></attList><listRef>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/ST.html#STGA">1.3.1.1. Global Attributes</ref>
-  </listRef></classSpec><classSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="tei" type="atts" ident="att.handFeatures"><desc versionDate="2007-09-27" xml:lang="en">provides attributes describing aspects of the hand in which a manuscript is written.</desc><desc versionDate="2007-12-20" xml:lang="ko">원고가 쓰여진 필적의 측면을 기술하는 속성을 제공한다.</desc><desc versionDate="2008-04-06" xml:lang="es">proporciona atributos que describen los aspectos de la mano que ha escrito un manuscrito.</desc><desc versionDate="2008-04-05" xml:lang="ja">手書き資料の筆致に関する情報を表す情報を示す。</desc><desc versionDate="2008-03-30" xml:lang="fr">fournit des attributs décrivant les caractéristiques de la main par laquelle un manuscrit est écrit.</desc><desc versionDate="2007-11-06" xml:lang="it">indica degli attributi che descrivono aspetti delle mano utilizzata per la scrittura del manoscritto</desc><classes/><attList><attDef ident="medium"><desc versionDate="2007-09-27" xml:lang="en">describes the tint or type of ink, e.g. <mentioned>brown</mentioned>, or other
-writing medium, e.g. <mentioned>pencil</mentioned>.</desc><desc versionDate="2007-12-20" xml:lang="ko"><mentioned>brown</mentioned>와 같이 잉크의 색 또는 유형, 또는 <mentioned>pencil</mentioned>와 같이 글쓰기 방식 기술한다.</desc><desc versionDate="2008-04-05" xml:lang="ja">インクの種類や色合い、例えば、<mentioned>茶色</mentioned>
-      や、筆記具の種類、例えば、<mentioned>鉛筆</mentioned>など。</desc><desc versionDate="2009-05-29" xml:lang="fr">décrit la teinte ou le type d'encre, par
-        exemple <mentioned>brune</mentioned>, ou un autre outil d'écriture, par exemple un <mentioned>crayon</mentioned>.</desc><desc versionDate="2007-01-21" xml:lang="it">descrive la tinta o il tipo di inchiostro, per esempio <mentioned>marrone</mentioned>, o altri strumenti di scrittura, per esempio <mentioned>matita</mentioned></desc><desc versionDate="2007-05-04" xml:lang="es">describe la tinta o el tipo de tinta, p.ej. <mentioned>marrón</mentioned>, u otros instrumentos de escritura, p.ej. <mentioned>lápiz</mentioned>.</desc><datatype minOccurs="1" maxOccurs="unbounded"><dataRef key="teidata.enumerated"/></datatype><valList type="closed" mode="change"><valItem mode="add" ident="black-ink"/><valItem mode="add" ident="black-inkOther"/><valItem mode="add" ident="black-pen"/><valItem mode="add" ident="blue-ink"/><valItem mode="add" ident="blue-pen"/><valItem mode="add" ident="blue-pencil"/><valItem mode="add" ident="brown-ink"/><valItem mode="add" ident="brown-inkOther"/><valItem mode="add" ident="green-ink"/><valItem mode="add" ident="green-pen"/><valItem mode="add" ident="green-pencil"/><valItem mode="add" ident="indeliblePencil"/><valItem mode="add" ident="pencil"/><valItem mode="add" ident="red-ink"/><valItem mode="add" ident="red-pencil"/><valItem mode="add" ident="violet-ink"/><valItem mode="add" ident="print"/><valItem mode="add" ident="stamp"/><valItem mode="add" ident="typescript"/></valList></attDef></attList><remarks versionDate="2010-09-28" xml:lang="en">
-    <p>Usually either <att>script</att> or <att>scriptRef</att>, and
-    similarly, either <att>scribe</att> or <att>scribeRef</att>, will
-    be supplied.</p>
+  </listRef></classSpec><classSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="tei" type="atts" ident="att.handFeatures"><desc versionDate="2007-09-27" xml:lang="en">provides attributes describing aspects of the hand in which a manuscript is written.</desc><desc versionDate="2007-12-20" xml:lang="ko">원고가 쓰여진 필적의 측면을 기술하는 속성을 제공한다.</desc><desc versionDate="2008-04-06" xml:lang="es">proporciona atributos que describen los aspectos de la mano que ha escrito un manuscrito.</desc><desc versionDate="2008-04-05" xml:lang="ja">手書き資料の筆致に関する情報を表す情報を示す。</desc><desc versionDate="2008-03-30" xml:lang="fr">fournit des attributs décrivant les caractéristiques de la main par laquelle un manuscrit est écrit.</desc><desc versionDate="2007-11-06" xml:lang="it">indica degli attributi che descrivono aspetti delle mano utilizzata per la scrittura del manoscritto</desc><classes/><attList><attDef ident="medium"><desc versionDate="2007-09-27" xml:lang="en">describes the tint or type of ink, e.g. <mentioned>brown</mentioned>, or other writing medium, e.g. <mentioned>pencil</mentioned>.</desc><desc versionDate="2007-12-20" xml:lang="ko"><mentioned>brown</mentioned>와 같이 잉크의 색 또는 유형, 또는 <mentioned>pencil</mentioned>와 같이 글쓰기 방식 기술한다.</desc><desc versionDate="2008-04-05" xml:lang="ja">インクの種類や色合い、例えば、<mentioned>茶色</mentioned> や、筆記具の種類、例えば、<mentioned>鉛筆</mentioned>など。</desc><desc versionDate="2009-05-29" xml:lang="fr">décrit la teinte ou le type d'encre, par exemple <mentioned>brune</mentioned>, ou un autre outil d'écriture, par exemple un <mentioned>crayon</mentioned>.</desc><desc versionDate="2007-01-21" xml:lang="it">descrive la tinta o il tipo di inchiostro, per esempio <mentioned>marrone</mentioned>, o altri strumenti di scrittura, per esempio <mentioned>matita</mentioned></desc><desc versionDate="2007-05-04" xml:lang="es">describe la tinta o el tipo de tinta, p.ej. <mentioned>marrón</mentioned>, u otros instrumentos de escritura, p.ej. <mentioned>lápiz</mentioned>.</desc><datatype minOccurs="1" maxOccurs="unbounded"><dataRef key="teidata.enumerated"/></datatype><valList type="closed" mode="change"><valItem mode="add" ident="black-ink"/><valItem mode="add" ident="black-inkOther"/><valItem mode="add" ident="black-pen"/><valItem mode="add" ident="blue-ink"/><valItem mode="add" ident="blue-pen"/><valItem mode="add" ident="blue-pencil"/><valItem mode="add" ident="brown-ink"/><valItem mode="add" ident="brown-inkOther"/><valItem mode="add" ident="green-ink"/><valItem mode="add" ident="green-pen"/><valItem mode="add" ident="green-pencil"/><valItem mode="add" ident="indeliblePencil"/><valItem mode="add" ident="pencil"/><valItem mode="add" ident="red-ink"/><valItem mode="add" ident="red-pencil"/><valItem mode="add" ident="violet-ink"/><valItem mode="add" ident="print"/><valItem mode="add" ident="stamp"/><valItem mode="add" ident="typescript"/></valList></attDef></attList><remarks versionDate="2026-01-03" xml:lang="en">
+    <p>These guidelines provide no semantic basis or suggested
+    precedence when both <att>script</att> and <att>scriptRef</att> or
+    when both <att>scribe</att> and <att>scribeRef</att> are
+    provided. For this reason simultaneous use of either pair of
+    attributes is not recommended for interchange unless documentation
+    explaining the use is provided, probably in an ODD
+    customization.</p>
   </remarks><remarks versionDate="2019-09-16" xml:lang="ja">
     <p>通常は <att>script</att> または <att>scriptRef</att> そして同様に、 <att>scribe</att> あるいは <att>scribeRef</att> が用いられるだろう。</p>
   </remarks><listRef>
@@ -3398,7 +3402,7 @@ Elements</ref>
       </egXML>
   </exemplum><listRef>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html#COPA">3.1. Paragraphs</ref>
-    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/DR.html#DRPAL">7.2.5. Speech Contents</ref>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/DR.html#DRPAL">7.2.6. Speech Contents</ref>
   </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" rend="change" module="core" xml:id="gi-foreign" ident="foreign"><gloss versionDate="2007-01-21" xml:lang="en">foreign</gloss><gloss versionDate="2007-12-20" xml:lang="ko">외국어</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">外文</gloss><gloss versionDate="2009-01-06" xml:lang="fr">étranger</gloss><gloss versionDate="2007-05-04" xml:lang="es">extranjero</gloss><gloss versionDate="2007-01-21" xml:lang="it">straniero</gloss><gloss versionDate="2017-06-04" xml:lang="de">fremd</gloss><desc versionDate="2005-01-14" xml:lang="en">identifies a word or phrase as belonging to some language other than that of the
                 surrounding text.</desc><desc versionDate="2007-12-20" xml:lang="ko">주변 텍스트와 다른 언어로 사용된 단어나 구를 표시한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">標明所屬語言不同於週遭文字的字詞。</desc><desc versionDate="2008-04-05" xml:lang="ja">記述のベースで使われている言語と異なる言語による語句を定義する。</desc><desc versionDate="2009-01-06" xml:lang="fr">reconnaît un mot ou une expression comme
                 appartenant à une langue différente de celle du contexte.</desc><desc versionDate="2007-05-04" xml:lang="es">identidica una palabra o frase perteneciente a otra
@@ -4518,7 +4522,7 @@ concerned, as further discussed in section <ref target="https://www.tei-c.org/re
   </exemplum><listRef>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/ND.html#NDPER">14.2.1. Personal Names</ref>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html#CONARS">3.6.1. Referring Strings</ref>
-  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" rend="change" module="core" xml:id="gi-address" ident="address"><gloss versionDate="2016-11-24" xml:lang="en">address</gloss><gloss versionDate="2016-11-24" xml:lang="de">Adresse</gloss><desc versionDate="2007-02-15" xml:lang="en">contains a postal address, for example of a publisher, an organization, or an individual.</desc><desc versionDate="2007-12-20" xml:lang="ko">예를 들어, 출판사, 기관, 개인의 우편 주소를 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含出版者、機構、或是個人的郵寄地址或其他地址。</desc><desc versionDate="2008-04-05" xml:lang="ja">郵便配達情報を示す。例えば、出版者、組織、個人の住所など。</desc><desc versionDate="2009-01-06" xml:lang="fr">contient une adresse postale ou d'un autre type, par exemple l'adresse d'un éditeur, d'un organisme ou d'une personne.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene una dirección postal, por ejemplo de un editor, una institución, etc.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene un indirizzo (postale), ad esempio di un editore, di un'organizzazione, di un individuo.</desc><desc versionDate="2016-11-24" xml:lang="de">enthält eine Postadresse, z. B. eines Verlegers, einer Organisation oder einer Einzelperson.</desc><classes><memberOf key="att.global"/><memberOf key="model.addressLike"/><memberOf key="model.publicationStmtPart.detail"/></classes><content><sequence minOccurs="1" maxOccurs="1"><classRef key="model.global" minOccurs="0" maxOccurs="unbounded"/><sequence minOccurs="1" maxOccurs="unbounded"><classRef key="model.addrPart"/><classRef key="model.global" minOccurs="0" maxOccurs="unbounded"/></sequence></sequence></content><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/></attList><exemplum xml:lang="en">
+  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" rend="change" module="core" xml:id="gi-address" ident="address"><gloss versionDate="2016-11-24" xml:lang="en">address</gloss><gloss versionDate="2016-11-24" xml:lang="de">Adresse</gloss><desc versionDate="2007-02-15" xml:lang="en">contains a postal address, for example of a publisher, an organization, or an individual.</desc><desc versionDate="2007-12-20" xml:lang="ko">예를 들어, 출판사, 기관, 개인의 우편 주소를 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含出版者、機構、或是個人的郵寄地址或其他地址。</desc><desc versionDate="2008-04-05" xml:lang="ja">郵便配達情報を示す。例えば、出版者、組織、個人の住所など。</desc><desc versionDate="2009-01-06" xml:lang="fr">contient une adresse postale ou d'un autre type, par exemple l'adresse d'un éditeur, d'un organisme ou d'une personne.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene una dirección postal, por ejemplo de un editor, una institución, etc.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene un indirizzo (postale), ad esempio di un editore, di un'organizzazione, di un individuo.</desc><desc versionDate="2016-11-24" xml:lang="de">enthält eine Postadresse, z. B. eines Verlegers, einer Organisation oder einer Einzelperson.</desc><classes><memberOf key="att.global"/><memberOf key="model.addressLike"/><memberOf key="model.divBottomPart"/><memberOf key="model.divTopPart"/><memberOf key="model.publicationStmtPart.detail"/></classes><content><sequence minOccurs="1" maxOccurs="1"><classRef key="model.global" minOccurs="0" maxOccurs="unbounded"/><sequence minOccurs="1" maxOccurs="unbounded"><classRef key="model.addrPart"/><classRef key="model.global" minOccurs="0" maxOccurs="unbounded"/></sequence></sequence></content><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="type" mode="delete"/><attDef ident="role" mode="delete"/></attList><exemplum xml:lang="en">
     <p>Using just the elements defined by the core module, an address could be represented as follows:</p>
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-address-egXML-rj" source="#NONE">
       <address>
@@ -4543,8 +4547,7 @@ concerned, as further discussed in section <ref target="https://www.tei-c.org/re
       <address>
         <addrLine>Centre d'Études Supérieures de la Renaissance</addrLine>
         <addrLine>59, rue Néricault-Destouches</addrLine>
-        <addrLine> 37013
-TOURS</addrLine>
+        <addrLine> 37013 TOURS</addrLine>
         <addrLine>France</addrLine>
       </address>
     </egXML>
@@ -4571,35 +4574,46 @@ TOURS</addrLine>
       <address>
         <addrLine>Computing Center, MC 135</addrLine>
         <addrLine>P.O. Box 6998</addrLine>
-        <addrLine>Chicago, IL  60680</addrLine>
+        <addrLine>Chicago, IL 60680</addrLine>
         <addrLine>USA</addrLine>
       </address>
     </egXML>
   </exemplum><exemplum xml:lang="mul">
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-address-egXML-zn" source="#NONE">
       <address>
-           <country key="FR"/>
-             <settlement type="city">Lyon</settlement>
-              <postCode>69002</postCode>
-             <district type="arrondissement">IIème</district>
-             <district type="quartier">Perrache</district>
-             <street><num>30</num>, Cours de Verdun</street>
-         </address>
+        <country key="FR"/>
+        <settlement type="city">Lyon</settlement>
+        <postCode>69002</postCode>
+        <district type="arrondissement">IIème</district>
+        <district type="quartier">Perrache</district>
+        <street><num>30</num>, Cours de Verdun</street>
+      </address>
     </egXML>
   </exemplum><remarks versionDate="2007-12-16" xml:lang="en">
-    <p rend="dataDesc">This element should be used for postal addresses only. Within it, the generic element <gi>addrLine</gi> may
-      be used as an alternative to any of the more specialized elements available from the <ident type="class">model.addrPart</ident> class, such as <gi>street</gi>, <gi>postCode</gi> etc.</p>
+    <p rend="dataDesc">This element should be used for postal
+    addresses only. Within it, the generic element <gi>addrLine</gi>
+    may be used as an alternative to any of the more specialized
+    elements available from the <ident type="class">model.addrPart</ident> class, such as
+    <gi>street</gi>, <gi>postCode</gi> etc.</p>
   </remarks><remarks versionDate="2007-06-12" xml:lang="fr">
-    <p rend="dataDesc">Cet élément ne doit être utilisé que pour donner une adresse postale. A l'intérieur de cet élément,
-      l'élément générique <gi>addrLine</gi> peut être utilisé comme élément alternatif aux éléments plus spécialisés de la classe
-        <ident type="class">model.addrPart</ident> class, tels que <gi>street</gi>, <gi>postCode</gi> etc.</p>
+    <p rend="dataDesc">Cet élément ne doit être utilisé que pour
+    donner une adresse postale. A l'intérieur de cet élément,
+    l'élément générique <gi>addrLine</gi> peut être utilisé comme
+    élément alternatif aux éléments plus spécialisés de la classe
+    <ident type="class">model.addrPart</ident> class, tels que
+    <gi>street</gi>, <gi>postCode</gi> etc.</p>
   </remarks><remarks versionDate="2008-04-05" xml:lang="ja">
-    <p rend="dataDesc"> 当該要素は、郵便配達情報にのみ使用されるべきである。 子要素として要素<gi>addrLine</gi>は、クラスmodel.addrPartにある要
-      素の代わりとして、例えば、要素<gi>street</gi>や要素 <gi>postcode</gi>として使用することができる。 </p>
+    <p rend="dataDesc"> 当該要素は、郵便配達情報にのみ使用されるべきで
+    ある。 子要素として要素<gi>addrLine</gi>は、クラスmodel.addrPartに
+    ある要 素の代わりとして、例えば、要素<gi>street</gi>や要素
+    <gi>postcode</gi>として使用することができる。 </p>
   </remarks><remarks versionDate="2016-11-24" xml:lang="de">
-    <p rend="dataDesc">Dieses Element sollte ausschließlich für postalische Addressen verwendet werden. Innerhalb des Elements 
-          kann das generische <gi>addrLine</gi>-Element als Alternative zu den spezielleren Elementen aus der 
-          <ident type="class">model.addrPart</ident>-Klasse, wie <gi>street</gi> (Straße), <gi>postCode</gi> (Postleitzahl), etc. verwendet werden.</p>
+    <p rend="dataDesc">Dieses Element sollte ausschließlich für
+    postalische Addressen verwendet werden. Innerhalb des Elements
+    kann das generische <gi>addrLine</gi>-Element als Alternative zu
+    den spezielleren Elementen aus der <ident type="class">model.addrPart</ident>-Klasse, wie <gi>street</gi>
+    (Straße), <gi>postCode</gi> (Postleitzahl), etc. verwendet
+    werden.</p>
   </remarks><listRef>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html#CONAAD">3.6.2. Addresses</ref>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/HD.html#HD24">2.2.4. Publication, Distribution, Licensing, etc.</ref>
@@ -5350,7 +5364,7 @@ TOURS</addrLine>
     </egXML>
   </exemplum><exemplum versionDate="2008-04-06" xml:lang="fr">
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-item-egXML-fz" source="#fr-ex-Perec-vie">
-      <list type="unordered">
+      <list>
         <head>Tentative d'inventaire de quelques-unes des choses qui ont été trouvées dans
               les escaliers au fil des ans.</head>
         <item>Plusieurs photos, dont celle d'une jeune fille de quinze<lb/> ans vêtue d'un slip
@@ -5529,7 +5543,7 @@ TOURS</addrLine>
         des listes ordonnées.</p>
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-label-egXML-of" source="#fr-ex-ATILF"> L’unité mixte de
         recherche ATILF (Analyse et Traitement Informatique de la Langue Française) propose 3 types
-        de ressources : <list rend="runon" type="ordered"><label>(1)</label><item>Des ressources linguistiques publiées.</item><label>(2) </label><item>Des ressources linguistiques informatisées.</item><label>(3) </label><item>Des ressources linguistiques logicielles.</item></list>
+        de ressources : <list rend="runon numbered"><label>(1)</label><item>Des ressources linguistiques publiées.</item><label>(2) </label><item>Des ressources linguistiques informatisées.</item><label>(3) </label><item>Des ressources linguistiques logicielles.</item></list>
       </egXML>
   </exemplum><exemplum versionDate="2008-04-06" xml:lang="fr">
     <p>On emploie aussi <gi>label</gi> dans d'autres listes structurées, comme dans cet extrait du
@@ -5584,7 +5598,7 @@ TOURS</addrLine>
       </list>
     </egXML>
   </exemplum><exemplum xml:lang="zh-TW">
-    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-label-egXML-te"> 有關本書的版權問題，我做出以下兩點聲明。<list rend="runon" type="ordered"><label>(1)</label><item>未經授權許可，請勿擅自複印。</item><label>(2) </label><item>歡迎學術引用本文，然請詳細標明出處。</item></list>
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-label-egXML-te"> 有關本書的版權問題，我做出以下兩點聲明。<list rend="runon numbered"><label>(1)</label><item>未經授權許可，請勿擅自複印。</item><label>(2) </label><item>歡迎學術引用本文，然請詳細標明出處。</item></list>
       </egXML>
   </exemplum><exemplum xml:lang="zh-TW">
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-label-egXML-jn" source="#biblzh-tw_n9">
@@ -5605,7 +5619,7 @@ TOURS</addrLine>
       the <gi>label</gi> element is synonymous with the <att>n</att> attribute on the <gi>item</gi>
       element:</p>
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-label-egXML-dj" source="#GibAut">I will add two facts, which have seldom occurred
-      in the composition of six, or at least of five quartos. <list rend="runon" type="ordered"><label>(1)</label><item>My first rough manuscript, without any intermediate copy, has been sent to the press.</item><label>(2) </label><item>Not a sheet has been seen by any human eyes, excepting those of the author and the
+      in the composition of six, or at least of five quartos. <list rend="runon numbered"><label>(1)</label><item>My first rough manuscript, without any intermediate copy, has been sent to the press.</item><label>(2) </label><item>Not a sheet has been seen by any human eyes, excepting those of the author and the
           printer: the faults and the merits are exclusively my own.</item></list>
       </egXML>
   </exemplum><exemplum versionDate="2017-06-25" xml:lang="de">
@@ -5614,7 +5628,7 @@ TOURS</addrLine>
       <title>Autobiographie</title>. In diesem Fall ist das <gi>label</gi>-Element gleichbedeutend
       mit dem <att>n</att>-Attribut des <gi>item</gi>-Elements:</p>
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-label-egXML-pr" source="#GibAut">I will add two facts, which have seldom occurred
-      in the composition of six, or at least of five quartos. <list rend="runon" type="ordered"><label>(1)</label><item>My first rough manuscript, without any intermediate copy, has been sent to the press.</item><label>(2) </label><item>Not a sheet has been seen by any human eyes, excepting those of the author and the
+      in the composition of six, or at least of five quartos. <list rend="runon numbered"><label>(1)</label><item>My first rough manuscript, without any intermediate copy, has been sent to the press.</item><label>(2) </label><item>Not a sheet has been seen by any human eyes, excepting those of the author and the
         printer: the faults and the merits are exclusively my own.</item></list>
     </egXML>
   </exemplum><exemplum xml:lang="en">
@@ -6356,7 +6370,7 @@ soi-<lb break="no"/>xante &amp; dixhuytiesme livre.
   </remarks><listRef>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html#CORS5">3.11.3. Milestone
 Elements</ref>
-    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/DR.html#DRPAL">7.2.5. Speech Contents</ref>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/DR.html#DRPAL">7.2.6. Speech Contents</ref>
   </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" rend="change" module="core" xml:id="gi-author" ident="author"><gloss xml:lang="en" versionDate="2011-11-26">author</gloss><gloss xml:lang="es" versionDate="2022-02-24">autor/a</gloss><gloss versionDate="2011-11-26" xml:lang="fr">auteur</gloss><gloss versionDate="2017-06-04" xml:lang="de">Autor</gloss><desc versionDate="2011-11-26" xml:lang="en">in a bibliographic reference, contains the name(s) of an author, personal or corporate, of a work; for example in the same form as that provided by a recognized bibliographic name authority.</desc><desc versionDate="2007-12-20" xml:lang="ko">참고문헌에 작가, 단독 저자, 공동 저자의 이름을 포함한다; 서지 항목의 책임에 관한 1차적 진술.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">在書目參照中，包含一件作品的作者 (群) 姓名，無論是個人或是團體性質；這也是書目項目責任歸屬的主要陳述。</desc><desc versionDate="2023-08-30" xml:lang="ja">書誌参照において、作品の著者となる人や法人の名前を、たとえば、よく知られた書誌典拠情報機関の形式で提供されるものに合わせるなどして記述する。</desc><desc versionDate="2009-01-06" xml:lang="fr">dans une référence bibliographique contient le nom de la (des) personne(s) physique(s) ou du collectif, auteur(s) d'une oeuvre ; par exemple dans la même forme que celle utilisée par une référence bibliographique reconnue.</desc><desc versionDate="2022-02-24" xml:lang="es">en una referencia bibliográfica, contiene el nombre del autor/a/es, ya sea una persona o una institución, de una obra; por ejemplo, en la misma forma que la proporcionada por una autoridad bibliográfica reconocida.</desc><desc versionDate="2007-01-21" xml:lang="it">in un riferimento bibliografico contiene il nome dell'autore (o degli autori), personale o collettivo, di un'opera; è la dichiarazione di responsabilità primaria di ciascuna unità bibliografica.</desc><desc versionDate="2017-06-04" xml:lang="de">enthält in einer bibliografischen Referenz den oder die Namen eines Autors eines Werks (oder einer für das Werk verantwortlichen Körperschaft); zum Beispiel in der Form, wie sie eine anerkannte bibliografische Instanz anbietet.</desc><classes><memberOf key="att.global"/><memberOf key="model.respLike"/></classes><content><macroRef key="macro.phraseSeq"/></content><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="calendar" mode="delete"/></attList><exemplum xml:lang="en">
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-author-egXML-lq" source="#COBICOR-eg-251">
       <author>British Broadcasting Corporation</author>
@@ -6927,7 +6941,7 @@ epistemology, methodology and history of
   </exemplum><listRef>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html#COVE">3.13.1. Core Tags for Verse</ref>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html#CODV">3.13. Passages of Verse or Drama</ref>
-    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/DR.html#DRPAL">7.2.5. Speech Contents</ref>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/DR.html#DRPAL">7.2.6. Speech Contents</ref>
   </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" rend="change" module="core" xml:id="gi-lg" ident="lg"><gloss versionDate="2005-01-14" xml:lang="en">line group</gloss><gloss versionDate="2007-12-20" xml:lang="ko">시행군</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">行組</gloss><gloss versionDate="2009-01-06" xml:lang="fr">groupe de vers</gloss><gloss versionDate="2007-05-04" xml:lang="es">grupo de versos</gloss><gloss versionDate="2007-01-21" xml:lang="it">un gruppo di versi</gloss><gloss versionDate="2017-06-13" xml:lang="de">Gruppe von Vers(zeil)en</gloss><desc versionDate="2012-04-17" xml:lang="en">contains one or more verse lines functioning as a formal unit, e.g. a stanza, refrain, verse paragraph, etc.</desc><desc versionDate="2007-12-20" xml:lang="ko">예를 들어, 연, 후렴구, 운문 단락과 같이 형식적 단위로 기능하는 운문 행군을 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含形式上視為一組的詩行，例如詩節、疊句、韻文段落等。</desc><desc versionDate="2008-04-05" xml:lang="ja">形式単位としてある、ある韻文の行をまとまりを示す。例えば、連、リフレ イン、詩節など。</desc><desc versionDate="2009-01-06" xml:lang="fr">contient un groupe de vers fonctionnant comme une unité formelle, par exemple une strophe, un refrain, un paragraphe en vers, etc.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene un grupo de versos que funcionan como una unidad formal, p.ej. una estrofa, un refrán, un estribillo, etc.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene un gruppo di versi che costituiscono un'unità formale, per esempio una stanza, un refrain, un paragrafo in versi, ecc.</desc><desc versionDate="2017-06-13" xml:lang="de">enthält eine oder mehrere Verse bzw. Verszeilen, die zusammen eine formale Einheit (z. B. Strophe, Refrain) bilden.</desc><classes><memberOf key="att.global"/><memberOf key="att.typed"/><memberOf key="model.divPart"/><memberOf key="model.paraPart"/></classes><content><sequence minOccurs="1" maxOccurs="1"><alternate minOccurs="0" maxOccurs="unbounded"><classRef key="model.divTop"/><classRef key="model.global"/></alternate><alternate minOccurs="1" maxOccurs="1"><classRef key="model.lLike"/><classRef key="model.stageLike"/><classRef key="model.labelLike"/><classRef key="model.pPart.transcriptional"/><elementRef key="lg"/></alternate><alternate minOccurs="0" maxOccurs="unbounded"><classRef key="model.lLike"/><classRef key="model.stageLike"/><classRef key="model.labelLike"/><classRef key="model.pPart.transcriptional"/><classRef key="model.global"/><elementRef key="lg"/></alternate><sequence minOccurs="0" maxOccurs="unbounded"><classRef key="model.divBottom"/><classRef key="model.global" minOccurs="0" maxOccurs="unbounded"/></sequence></sequence></content><constraintSpec scheme="schematron" ident="atleast1oflggapl" xml:lang="en">
     <constraint>
       <sch:rule context="tei:lg">
@@ -7013,7 +7027,7 @@ epistemology, methodology and history of
   </remarks><listRef>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html#COVE">3.13.1. Core Tags for Verse</ref>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html#CODV">3.13. Passages of Verse or Drama</ref>
-    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/DR.html#DRPAL">7.2.5. Speech Contents</ref>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/DR.html#DRPAL">7.2.6. Speech Contents</ref>
   </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="header" xml:id="gi-teiHeader" ident="teiHeader"><gloss versionDate="2013-02-02" xml:lang="en">TEI header</gloss><gloss versionDate="2009-01-05" xml:lang="fr">en-tête TEI</gloss><gloss versionDate="2007-12-20" xml:lang="ko">TEI 헤더</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">TEI標頭</gloss><gloss versionDate="2006-10-18" xml:lang="de">TEI-Header (elektronische Titelseite)</gloss><gloss versionDate="2007-05-04" xml:lang="es">Encabezado TEI</gloss><gloss versionDate="2007-01-21" xml:lang="it">intestazione</gloss><desc versionDate="2016-02-19" xml:lang="en">supplies descriptive and
     declarative metadata associated with a digital resource or set of
     resources.</desc><desc versionDate="2009-01-05" xml:lang="fr">fournit des informations descriptives et déclaratives qui
@@ -9653,7 +9667,7 @@ dedicatory epistle, or other division of a text.</desc><desc versionDate="2007-1
   </remarks><listRef>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/SA.html#SASE">17.3. Blocks, Segments, and Anchors</ref>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/VE.html#VESE">6.2. Components of the Verse Line</ref>
-    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/DR.html#DRPAL">7.2.5. Speech Contents</ref>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/DR.html#DRPAL">7.2.6. Speech Contents</ref>
   </listRef></elementSpec><classSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" predeclare="true" module="transcr" type="atts" ident="att.global.facs"><desc versionDate="2021-05-09" xml:lang="en">provides attributes used to express correspondence between an element and all or part of a facsimile image or surface.</desc><desc versionDate="2007-12-20" xml:lang="ko"><gi>facsimile</gi> 요소 내에서 이미지 또는 표면부와 관련될 수 있는 요소</desc><desc versionDate="2008-04-06" xml:lang="es">los elementos que se pueden asociar a una imagen o a una
     superficie dentro de un <gi>facsímil</gi>.</desc><desc versionDate="2019-07-21" xml:lang="ja">転写されたテキストを含む要素と、そのテキストを表す画像の全部または一部との間の対応を表すために使用される属性を提供する。</desc><desc versionDate="2009-11-16" xml:lang="fr">attributs utilisables pour les éléments correspondant à tout ou partie d'une image, parce qu'ils contiennent une représentation alternative de cette image, généralement mais
     pas nécessairement, une transcription.</desc><desc versionDate="2007-11-06" xml:lang="it">elementi che possono essere associati a un'immagine o una
@@ -10163,10 +10177,9 @@ supplied as the content of a child <gi>wit</gi> element.</p>
         </p>
       </remarks></attDef></attList><listRef>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/TC.html#TCAPLL">13.1. The Apparatus Entry, Readings, and Witnesses</ref>
-  </listRef></classSpec><classSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" rend="change" module="textcrit" xml:id="READINGS" type="atts" ident="att.textCritical"><desc versionDate="2005-10-10" xml:lang="en">defines a set of attributes common to all elements representing variant readings in text critical work.</desc><desc versionDate="2007-12-20" xml:lang="ko">텍스트 비평 작품에서 이문 독법을 나타내는 모든 요소에 공통된 속성 집합을 정의한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">定義在文件評論作品中，所有標記變異對應本的元素可用的一套屬性。</desc><desc versionDate="2008-04-05" xml:lang="ja">校勘資料における解釈を示す要素全てに付与される属性を定義する。</desc><desc versionDate="2009-05-28" xml:lang="fr">définit un ensemble d'attributs communs à tous
-			les éléments présentant différentes leçons dans l'analyse critique d'un texte.</desc><desc versionDate="2007-05-04" xml:lang="es">define un conjunto de atributos comunes a todos los elementos que presentan lecturas de variantes en la lectura crítica de una obra</desc><desc versionDate="2007-01-21" xml:lang="it">definisce un insieme di attributi comuni a tutti gli elementi che rappresentano letture di varianti nella lettura critica di un'opera</desc><classes><memberOf key="att.written"/></classes><attList><attDef ident="type" usage="opt"><desc versionDate="2005-10-10" xml:lang="en">classifies the reading according to some useful typology.</desc><desc versionDate="2007-12-20" xml:lang="ko">유용한 유형에 따라 독법을 분류한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">用合宜的分類法將對應本分類。</desc><desc versionDate="2008-04-05" xml:lang="ja">当該解釈の分類を示す。</desc><desc versionDate="2009-05-28" xml:lang="fr">établit une classification de la leçon selon une typologie utile.</desc><desc versionDate="2007-05-04" xml:lang="es">clasifica la lectura según alguna tipología funcional.</desc><desc versionDate="2007-01-21" xml:lang="it">classifica la lettura secondo una tipologia funzionale</desc><datatype><dataRef key="teidata.enumerated"/></datatype><valList type="closed" mode="change"><valItem mode="add" ident="empty"/></valList></attDef></attList><remarks versionDate="2005-10-10" xml:lang="en">
+  </listRef></classSpec><classSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" rend="change" module="textcrit" xml:id="READINGS" type="atts" ident="att.textCritical"><desc versionDate="2005-10-10" xml:lang="en">defines a set of attributes common to all elements representing variant readings in text critical work.</desc><desc versionDate="2007-12-20" xml:lang="ko">텍스트 비평 작품에서 이문 독법을 나타내는 모든 요소에 공통된 속성 집합을 정의한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">定義在文件評論作品中，所有標記變異對應本的元素可用的一套屬性。</desc><desc versionDate="2008-04-05" xml:lang="ja">校勘資料における解釈を示す要素全てに付与される属性を定義する。</desc><desc versionDate="2009-05-28" xml:lang="fr">définit un ensemble d'attributs communs à tous les éléments présentant différentes leçons dans l'analyse critique d'un texte.</desc><desc versionDate="2007-05-04" xml:lang="es">define un conjunto de atributos comunes a todos los elementos que presentan lecturas de variantes en la lectura crítica de una obra</desc><desc versionDate="2007-01-21" xml:lang="it">definisce un insieme di attributi comuni a tutti gli elementi che rappresentano letture di varianti nella lettura critica di un'opera</desc><classes><memberOf key="att.written"/></classes><attList><attDef ident="type" usage="opt"><desc versionDate="2005-10-10" xml:lang="en">classifies the reading according to some useful typology.</desc><desc versionDate="2007-12-20" xml:lang="ko">유용한 유형에 따라 독법을 분류한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">用合宜的分類法將對應本分類。</desc><desc versionDate="2008-04-05" xml:lang="ja">当該解釈の分類を示す。</desc><desc versionDate="2009-05-28" xml:lang="fr">établit une classification de la leçon selon une typologie utile.</desc><desc versionDate="2007-05-04" xml:lang="es">clasifica la lectura según alguna tipología funcional.</desc><desc versionDate="2007-01-21" xml:lang="it">classifica la lettura secondo una tipologia funzionale</desc><datatype><dataRef key="teidata.enumerated"/></datatype><valList type="closed" mode="change"><valItem mode="add" ident="empty"/></valList></attDef></attList><remarks versionDate="2005-10-10" xml:lang="en">
     <p>This element class defines attributes inherited by
-<gi>rdg</gi>, <gi>lem</gi>, and <gi>rdgGrp</gi>.</p>
+    <gi>rdg</gi>, <gi>lem</gi>, and <gi>rdgGrp</gi>.</p>
   </remarks><remarks versionDate="2007-06-12" xml:lang="fr">
     <p>Cette classe d'éléments définit les attributs hérités par les éléments <gi>rdg</gi>, <gi>lem</gi> et <gi>rdgGrp</gi>.</p>
   </remarks><remarks versionDate="2008-04-05" xml:lang="ja">
@@ -10227,7 +10240,7 @@ lemma and usually one or more readings or notes on the relevant passage.</desc><
     </egXML>
   </exemplum><listRef>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/TC.html#TCAPEN">13.1.1. The Apparatus Entry</ref>
-  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" rend="change" module="textcrit" xml:id="gi-lem" ident="lem"><gloss versionDate="2005-01-14" xml:lang="en">lemma</gloss><gloss versionDate="2007-12-20" xml:lang="ko">레마</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">主題</gloss><gloss versionDate="2007-06-12" xml:lang="fr">lemme</gloss><gloss versionDate="2007-05-04" xml:lang="es">lema</gloss><desc versionDate="2005-01-14" xml:lang="en">contains the lemma, or base text, of a textual variation.</desc><desc versionDate="2007-12-20" xml:lang="ko">텍스트 변이형의 레마 또는 기본 텍스트를 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含一個原文變異的主題或基礎文件。</desc><desc versionDate="2008-04-05" xml:lang="ja">異なるテキストにおける対象語、すなわち基底テキスト(base text)を示す。</desc><desc versionDate="2007-06-12" xml:lang="fr">contient le lemme ou le texte de base d'une variante textuelle.</desc><desc versionDate="2022-06-30" xml:lang="es">contiene el lema, o texto base, de una variante textual.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene il lemma, o testo base, di una variante testuale</desc><classes><memberOf key="att.global"/><memberOf key="att.textCritical"/><memberOf key="att.witnessed"/></classes><content><alternate minOccurs="0" maxOccurs="unbounded"><textNode/><classRef key="model.divLike"/><classRef key="model.divPart"/><elementRef key="titlePage"/><elementRef key="argument"/><elementRef key="byline"/><elementRef key="docAuthor"/><elementRef key="docDate"/><elementRef key="docEdition"/><elementRef key="docImprint"/><elementRef key="docTitle"/><elementRef key="epigraph"/><elementRef key="imprimatur"/><elementRef key="titlePart"/><elementRef key="epilogue"/><elementRef key="performance"/><elementRef key="prologue"/><elementRef key="set"/><classRef key="model.gLike"/><classRef key="model.phrase"/><classRef key="model.inter"/><classRef key="model.global"/><classRef key="model.rdgPart"/></alternate></content><attList><attDef ident="ana" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="hand" mode="delete"/></attList><exemplum xml:lang="en">
+  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" rend="change" module="textcrit" xml:id="gi-lem" ident="lem"><gloss versionDate="2005-01-14" xml:lang="en">lemma</gloss><gloss versionDate="2007-12-20" xml:lang="ko">레마</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">主題</gloss><gloss versionDate="2007-06-12" xml:lang="fr">lemme</gloss><gloss versionDate="2007-05-04" xml:lang="es">lema</gloss><desc versionDate="2005-01-14" xml:lang="en">contains the lemma, or base text, of a textual variation.</desc><desc versionDate="2007-12-20" xml:lang="ko">텍스트 변이형의 레마 또는 기본 텍스트를 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含一個原文變異的主題或基礎文件。</desc><desc versionDate="2008-04-05" xml:lang="ja">異なるテキストにおける対象語、すなわち基底テキスト(base text)を示す。</desc><desc versionDate="2007-06-12" xml:lang="fr">contient le lemme ou le texte de base d'une variante textuelle.</desc><desc versionDate="2022-06-30" xml:lang="es">contiene el lema, o texto base, de una variante textual.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene il lemma, o testo base, di una variante testuale</desc><classes><memberOf key="att.global"/><memberOf key="att.textCritical"/><memberOf key="att.witnessed"/></classes><content><alternate minOccurs="0" maxOccurs="unbounded"><textNode/><classRef key="model.divLike"/><classRef key="model.divPart"/><elementRef key="titlePage"/><elementRef key="argument"/><elementRef key="byline"/><elementRef key="docAuthor"/><elementRef key="docDate"/><elementRef key="docEdition"/><elementRef key="docImprint"/><elementRef key="docTitle"/><elementRef key="epigraph"/><elementRef key="imprimatur"/><elementRef key="speaker"/><elementRef key="titlePart"/><elementRef key="epilogue"/><elementRef key="performance"/><elementRef key="prologue"/><elementRef key="set"/><classRef key="model.gLike"/><classRef key="model.phrase"/><classRef key="model.inter"/><classRef key="model.global"/><classRef key="model.rdgPart"/></alternate></content><attList><attDef ident="ana" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="hand" mode="delete"/></attList><exemplum xml:lang="en">
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-lem-egXML-vt">
       <app>
         <lem wit="#El #Hg">Experience</lem>
