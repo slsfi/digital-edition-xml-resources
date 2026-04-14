@@ -4102,7 +4102,7 @@ Normalization</ref>
           <val>cancelled and illegible</val></desc><desc versionDate="2025-03-31" xml:lang="zh-TW">說明省略的原因。</desc><desc versionDate="2008-04-05" xml:lang="ja">省略の理由を示す。例えば、 <val>見本</val>、<val>聞こえない</val>、
           <val>無関係</val>、<val>取り消し</val>、<val>取り消しがありかつ判読できない</val>、など。</desc><desc versionDate="2017-02-06" xml:lang="fr">donne la raison de l'omission.</desc><desc versionDate="2007-05-04" xml:lang="es">declara la causa de la omisión</desc><desc versionDate="2007-01-21" xml:lang="it">indica il motivo dell'omisione</desc><desc versionDate="2017-02-07" xml:lang="de">gibt den Grund für die Auslassung an.</desc><datatype maxOccurs="unbounded">
         <dataRef key="teidata.enumerated"/>
-      </datatype><valList type="closed" mode="change"><valItem mode="add" ident="binding"/><valItem mode="add" ident="damage"/><valItem mode="add" ident="endline"/><valItem mode="add" ident="erased"/><valItem mode="add" ident="faded"/><valItem mode="add" ident="glue"/><valItem mode="add" ident="inksmudge"/><valItem mode="add" ident="overstrike"/><valItem mode="add" ident="overwritten"/><valItem mode="add" ident="seal"/><valItem mode="add" ident="stamp"/><valItem mode="add" ident="writing"/></valList></attDef><attDef ident="agent" mode="delete"/></attList><exemplum xml:lang="en">
+      </datatype><valList type="closed" mode="change"><valItem mode="add" ident="binding"/><valItem mode="add" ident="damage"/><valItem mode="add" ident="endline"/><valItem mode="add" ident="erased"/><valItem mode="add" ident="faded"/><valItem mode="add" ident="glue"/><valItem mode="add" ident="illegible"/><valItem mode="add" ident="inksmudge"/><valItem mode="add" ident="overstrike"/><valItem mode="add" ident="overwritten"/><valItem mode="add" ident="seal"/><valItem mode="add" ident="stamp"/><valItem mode="add" ident="writing"/></valList></attDef><attDef ident="agent" mode="delete"/></attList><exemplum xml:lang="en">
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-gap-egXML-jq" source="#UND">
       <gap quantity="4" unit="chars" reason="illegible"/>
     </egXML>
@@ -5902,6 +5902,7 @@ entre les Romains.</label>
 								<valItem mode="add" ident="end"/>
 								<valItem mode="add" ident="foot"/>
 								<valItem mode="add" ident="leftMargin"/>
+								<valItem mode="add" ident="margin"/>
 								<valItem mode="add" ident="other"/>
 								<valItem mode="add" ident="rightMargin"/>
 								<valItem mode="add" ident="topMargin"/>

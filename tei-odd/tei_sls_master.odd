@@ -967,6 +967,7 @@
 								<valItem mode="add" ident="erased"/>
 								<valItem mode="add" ident="faded"/>
 								<valItem mode="add" ident="glue"/>
+								<valItem mode="add" ident="illegible"/>
 								<valItem mode="add" ident="inksmudge"/>
 								<valItem mode="add" ident="overstrike"/>
 								<valItem mode="add" ident="overwritten"/>
@@ -1713,6 +1714,7 @@
 								<valItem mode="add" ident="end"/>
 								<valItem mode="add" ident="foot"/>
 								<valItem mode="add" ident="leftMargin"/>
+								<valItem mode="add" ident="margin"/>
 								<valItem mode="add" ident="other"/>
 								<valItem mode="add" ident="rightMargin"/>
 								<valItem mode="add" ident="topMargin"/>
