@@ -48,24 +48,90 @@
 				<p>TEI Minimal.</p>
 			</sourceDesc>
 		</fileDesc>
-		<encodingDesc>
-			<appInfo>
-				<application ident="RomaJS" version="1.1.2" when="2025-02-25T12:47:55.750Z">
-					<desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc>
-				</application>
-			</appInfo>
-		</encodingDesc>
 		<revisionDesc>
-			<change when="2026-04-15">
-				- Added elements: extent, dimensions height, objectDesc, physDesc, supportDesc, width.
-				- Modified @unit in att.dimensions and defined @unit explicitly on the elements that
-				  include it.
+			<change when="2024-12-09">
+				- Initial commit.
+				- Fix @type values on correspAction.
 			</change>
-			<change when="2025-02-25">Added: @xml:lang on note; @xml:id on cell, item, l, lg,
-				p, row and seg; @n on metamark; @function=transp on metamark, listTranspose
-				and transpose. Modified @rend values on byline and dateline.</change>
-			<change when="2025-02-05">Added support for msDesc and child elements.</change>
-			<change when="2025-02-04">Support TEI <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/readme-4.9.0.html">P5 version 4.9.0</ref>.</change>
+			<change when="2024-12-12">
+				- Add "smallCaps" to values of @rend.
+			</change>
+			<change when="2025-01-09">
+				- Add @n on lg.
+			</change>
+			<change when="2025-01-15">
+				- Modify values of @type on idno.
+				- Add textClass and related child elements.
+				- Add xenoData.
+			</change>
+			<change when="2025-01-21">
+				- Make attributes of gap and unclear optional.
+			</change>
+			<change when="2025-01-22">
+				- Add "move" to values of `@type` on add and addSpan.
+			</change>
+			<change when="2025-02-04">
+				- Support TEI <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/readme-4.9.0.html">P5
+				  version 4.9.0</ref>.
+			</change>
+			<change when="2025-02-05">
+				- Add msDesc and child elements (msIdentifier and related).
+			</change>
+			<change when="2025-02-11">
+				- Remove requirement of @n, @place, and @xml:id on note.
+			</change>
+			<change when="2025-02-22">
+				- Remove @xml:space="preserve" requirement from body.
+			</change>
+			<change when="2025-02-25">
+				- Add @xml:lang on note; @xml:id on cell, item, l, lg, p, row, and seg; @n on metamark;
+				  @function="transp" on metamark, listTranspose, and transpose.
+				- Update values of @rend on byline and dateline.
+			</change>
+			<change when="2025-03-11">
+				- Add @cert and @role to rs.
+				- Mark @unit and @quantity as optional on space.
+			</change>
+			<change when="2025-03-13">
+				- Add "host" to values of @type on title.
+			</change>
+			<change when="2025-04-23">
+				- Add @rend="strikethrough" on delSpan.
+			</change>
+			<change when="2025-05-05">
+				- Remove @hand from head.
+			</change>
+			<change when="2025-05-07">
+				- Add "main" to values of @type on title.
+			</change>
+			<change when="2025-06-24">
+				- Add "black-pen" to values of @medium.
+			</change>
+			<change when="2025-08-26">
+				- Add "smaller" to values of @rend on q.
+			</change>
+			<change when="2025-08-28">
+				- Add @hand on p and seg.
+				- Remove @rend from seg.
+				- Remove "typewrite" from values of @medium. Add "pre-print", "print", "stamp", and
+				  "typescript" to values of @medium.
+			</change>
+			<change when="2025-09-10">
+				- Add @hand on head and text.
+				- Remove "pre-print" from values of @medium.
+			</change>
+			<change when="2026-04-15">
+				- Add "illegible" to values of @reason on gap, and "margin" to values of @place
+				  on note.
+				- Support TEI <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/readme-4.11.0.html">P5
+				  version 4.11.0</ref>.
+			</change>
+			<change when="2026-04-15">
+				- Add extent, dimensions height, objectDesc, physDesc, supportDesc, and width.
+				- Modify @unit in att.dimensions and define @unit explicitly on the elements that
+				  include it.
+				- Fix the list of revisions to the ODD.
+			</change>
 		</revisionDesc>
 	</teiHeader>
 	<text>
@@ -74,7 +140,8 @@
 				(SLS)</head>
 
 			<p>This TEI ODD defines a TEI customization that is used as the master TEI customization
-				for TEI-encoded text by the Society of Swedish Literature in Finland (<ref target="https://www.sls.fi/">SLS</ref>). This customization can be further
+				for TEI-encoded text by the Society of Swedish Literature in Finland
+				(<ref target="https://www.sls.fi/">SLS</ref>). This customization can be further
 				customized for different text types or editions. The ODD was originally created in
 				October–December 2024, first with RomaJS 1.1.1, then by manual editing to fix
 				problems that RomaJS caused.</p>
