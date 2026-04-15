@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2026-04-15T06:03:26Z. . 
+    Schema generated from ODD source 2026-04-15T09:05:45Z. . 
     TEI Edition: P5 Version 4.11.0. Last updated on 18th February 2026, revision 358d2e48e 
     TEI Edition Location: https://www.tei-c.org/Vault/P5/4.11.0/ 
     
@@ -5598,7 +5598,10 @@ Suggested values include: 1] label; 2] data</xs:documentation>
         <xs:group minOccurs="0" maxOccurs="unbounded" ref="tei:tei_model.headLike"/>
         <xs:choice>
           <xs:group maxOccurs="unbounded" ref="tei:tei_model.pLike"/>
-          <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:physDesc"/>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element ref="tei:physDesc"/>
+            <xs:element ref="tei:history"/>
+          </xs:choice>
         </xs:choice>
       </xs:sequence>
     </xs:complexType>
@@ -5754,6 +5757,22 @@ Suggested values include: 1] label; 2] data</xs:documentation>
         <xs:element minOccurs="0" ref="tei:extent"/>
       </xs:choice>
     </xs:complexType>
+  </xs:element>
+  <xs:element name="history">
+    <xs:annotation>
+      <xs:documentation>(history) groups elements describing the full history of a manuscript, manuscript part, or other object. [11.8. History]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice>
+        <xs:group maxOccurs="unbounded" ref="tei:tei_model.pLike"/>
+        <xs:element minOccurs="0" ref="tei:origin"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="origin" type="tei:tei_macro.specialPara">
+    <xs:annotation>
+      <xs:documentation>(origin) contains any descriptive or other information concerning the origin of a manuscript, manuscript part, or other object. [11.8. History]</xs:documentation>
+    </xs:annotation>
   </xs:element>
   <xs:element name="persName">
     <xs:annotation>

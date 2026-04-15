@@ -120,14 +120,15 @@
 				- Add @hand on head and text.
 				- Remove "pre-print" from values of @medium.
 			</change>
-			<change when="2026-04-15">
+			<change when="2026-04-14">
 				- Add "illegible" to values of @reason on gap, and "margin" to values of @place
 				  on note.
 				- Support TEI <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/readme-4.11.0.html">P5
 				  version 4.11.0</ref>.
 			</change>
 			<change when="2026-04-15">
-				- Add extent, dimensions height, objectDesc, physDesc, supportDesc, and width.
+				- Add extent, dimensions, height, history, objectDesc, origin, physDesc,
+				  supportDesc, and width.
 				- Modify @unit in att.dimensions and define @unit explicitly on the elements that
 				  include it.
 				- Fix the list of revisions to the ODD.
@@ -174,9 +175,9 @@
 				<moduleRef key="textcrit" include="app lem rdg"/>
 				<moduleRef key="analysis" include="c pc"/>
 				<moduleRef key="figures" include="cell figDesc figure row table"/>
-				<moduleRef key="msdescription" include="collection dimensions height institution
-					msDesc msIdentifier msName objectDesc origDate physDesc repository
-					supportDesc width"/>
+				<moduleRef key="msdescription" include="collection dimensions height history
+					institution msDesc msIdentifier msName objectDesc origDate origin
+					physDesc repository supportDesc width"/>
 				<moduleRef key="namesdates" include="country persName placeName region settlement"/>
 
 				<elementSpec ident="ab" mode="change">
@@ -1285,6 +1286,20 @@
 						</attDef>
 					</attList>
 				</elementSpec>
+				<elementSpec ident="history" mode="change">
+					<attList>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+					</attList>
+				</elementSpec>
 				<elementSpec ident="idno" mode="change">
 					<attList>
 						<attDef ident="period" mode="delete"/>
@@ -2005,6 +2020,20 @@
 						<attDef ident="from" mode="delete"/>
 						<attDef ident="to" mode="delete"/>
 						<attDef ident="when" mode="change" usage="req"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="origin" mode="change">
+					<attList>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="p" mode="change">
