@@ -49,76 +49,14 @@
 			</sourceDesc>
 		</fileDesc>
 		<revisionDesc>
-			<change when="2024-12-09">
-				- Initial commit.
-				- Fix @type values on correspAction.
-			</change>
-			<change when="2024-12-12">
-				- Add "smallCaps" to values of @rend.
-			</change>
-			<change when="2025-01-09">
-				- Add @n on lg.
-			</change>
-			<change when="2025-01-15">
-				- Modify values of @type on idno.
-				- Add textClass and related child elements.
-				- Add xenoData.
-			</change>
-			<change when="2025-01-21">
-				- Make attributes of gap and unclear optional.
-			</change>
-			<change when="2025-01-22">
-				- Add "move" to values of `@type` on add and addSpan.
-			</change>
-			<change when="2025-02-04">
-				- Support TEI <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/readme-4.9.0.html">P5
-				  version 4.9.0</ref>.
-			</change>
-			<change when="2025-02-05">
-				- Add msDesc and child elements (msIdentifier and related).
-			</change>
-			<change when="2025-02-11">
-				- Remove requirement of @n, @place, and @xml:id on note.
-			</change>
-			<change when="2025-02-22">
-				- Remove @xml:space="preserve" requirement from body.
-			</change>
-			<change when="2025-02-25">
-				- Add @xml:lang on note; @xml:id on cell, item, l, lg, p, row, and seg; @n on metamark;
-				  @function="transp" on metamark, listTranspose, and transpose.
-				- Update values of @rend on byline and dateline.
-			</change>
-			<change when="2025-03-11">
-				- Add @cert and @role to rs.
-				- Mark @unit and @quantity as optional on space.
-			</change>
-			<change when="2025-03-13">
-				- Add "host" to values of @type on title.
-			</change>
-			<change when="2025-04-23">
-				- Add @rend="strikethrough" on delSpan.
-			</change>
-			<change when="2025-05-05">
-				- Remove @hand from head.
-			</change>
-			<change when="2025-05-07">
-				- Add "main" to values of @type on title.
-			</change>
-			<change when="2025-06-24">
-				- Add "black-pen" to values of @medium.
-			</change>
-			<change when="2025-08-26">
-				- Add "smaller" to values of @rend on q.
-			</change>
-			<change when="2025-08-28">
-				- Add @hand on p and seg.
-				- Remove @rend from seg.
-				- Remove "typewrite" from values of @medium. Add "pre-print", "print", "stamp", and
-				  "typescript" to values of @medium.
-			</change>
-			<change when="2025-09-10">
-				- Add @hand on head and text.
-				- Remove "pre-print" from values of @medium.
+			<change when="2026-04-15">
+				- Add extent, dimensions, height, history, objectDesc, origin, physDesc,
+				  supportDesc, and width.
+				- Modify @unit in att.dimensions and define @unit explicitly on the elements that
+				  include it.
+				- Fix the list of revisions to the ODD.
+				- Add @from, @to, @notAfter, and @notBefore on origDate, and @notAfter and
+				  @notBefore on date.
 			</change>
 			<change when="2026-04-14">
 				- Add "illegible" to values of @reason on gap, and "margin" to values of @place
@@ -126,12 +64,76 @@
 				- Support TEI <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/readme-4.11.0.html">P5
 				  version 4.11.0</ref>.
 			</change>
-			<change when="2026-04-15">
-				- Add extent, dimensions, height, history, objectDesc, origin, physDesc,
-				  supportDesc, and width.
-				- Modify @unit in att.dimensions and define @unit explicitly on the elements that
-				  include it.
-				- Fix the list of revisions to the ODD.
+			<change when="2025-09-10">
+				- Add @hand on head and text.
+				- Remove "pre-print" from values of @medium.
+			</change>
+			<change when="2025-08-28">
+				- Add @hand on p and seg.
+				- Remove @rend from seg.
+				- Remove "typewrite" from values of @medium. Add "pre-print", "print", "stamp", and
+				  "typescript" to values of @medium.
+			</change>
+			<change when="2025-08-26">
+				- Add "smaller" to values of @rend on q.
+			</change>
+			<change when="2025-06-24">
+				- Add "black-pen" to values of @medium.
+			</change>
+			<change when="2025-05-07">
+				- Add "main" to values of @type on title.
+			</change>
+			<change when="2025-05-05">
+				- Remove @hand from head.
+			</change>
+			<change when="2025-04-23">
+				- Add @rend="strikethrough" on delSpan.
+			</change>
+			<change when="2025-03-13">
+				- Add "host" to values of @type on title.
+			</change>
+			<change when="2025-03-11">
+				- Add @cert and @role to rs.
+				- Mark @unit and @quantity as optional on space.
+			</change>
+			<change when="2025-02-25">
+				- Add @xml:lang on note; @xml:id on cell, item, l, lg, p, row, and seg; @n on metamark;
+				  @function="transp" on metamark, listTranspose, and transpose.
+				- Update values of @rend on byline and dateline.
+			</change>
+			<change when="2025-02-22">
+				- Remove @xml:space="preserve" requirement from body.
+			</change>
+			<change when="2025-02-11">
+				- Remove requirement of @n, @place, and @xml:id on note.
+			</change>
+			<change when="2025-02-05">
+				- Add msDesc and child elements (msIdentifier and related).
+			</change>
+			<change when="2025-02-04">
+				- Support TEI <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/readme-4.9.0.html">P5
+				  version 4.9.0</ref>.
+			</change>
+			<change when="2025-01-22">
+				- Add "move" to values of `@type` on add and addSpan.
+			</change>
+			<change when="2025-01-21">
+				- Make attributes of gap and unclear optional.
+			</change>
+			<change when="2025-01-15">
+				- Modify values of @type on idno.
+				- Add textClass and related child elements.
+				- Add xenoData.
+			</change>
+			<change when="2025-01-09">
+				- Add @n on lg.
+			</change>
+			<change when="2024-12-12">
+				- Add "smallCaps" to values of @rend.
+			</change>
+			<change when="2024-12-09">
+				- Initial commit.
+				- Fix @type values on correspAction.
 			</change>
 		</revisionDesc>
 	</teiHeader>
@@ -719,8 +721,6 @@
 						<attDef ident="cert" mode="delete"/>
 						<attDef ident="resp" mode="delete"/>
 						<attDef ident="source" mode="delete"/>
-						<attDef ident="notAfter" mode="delete"/>
-						<attDef ident="notBefore" mode="delete"/>
 						<attDef ident="rend" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="bold"/>
@@ -1751,6 +1751,8 @@
 						<attDef ident="subtype" mode="delete"/>
 						<attDef ident="from" mode="delete"/>
 						<attDef ident="to" mode="delete"/>
+						<attDef ident="notAfter" mode="delete"/>
+						<attDef ident="notBefore" mode="delete"/>
 						<attDef ident="type" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="asterisk"/>
@@ -2017,9 +2019,6 @@
 						<attDef ident="source" mode="delete"/>
 						<attDef ident="type" mode="delete"/>
 						<attDef ident="subtype" mode="delete"/>
-						<attDef ident="from" mode="delete"/>
-						<attDef ident="to" mode="delete"/>
-						<attDef ident="when" mode="change" usage="req"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="origin" mode="change">
@@ -3509,12 +3508,6 @@
 				<classSpec ident="att.canonical" type="atts" mode="change">
 					<attList>
 						<attDef ident="ref" mode="delete"/>
-					</attList>
-				</classSpec>
-				<classSpec ident="att.datable.w3c" type="atts" mode="change">
-					<attList>
-						<attDef ident="notBefore" mode="delete"/>
-						<attDef ident="notAfter" mode="delete"/>
 					</attList>
 				</classSpec>
 				<classSpec ident="att.dimensions" type="atts" mode="change">

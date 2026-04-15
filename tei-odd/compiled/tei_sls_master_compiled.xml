@@ -55,76 +55,14 @@
         <sch:ns xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" prefix="sch" uri="http://purl.oclc.org/dsdl/schematron"/>
         <sch:ns xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" prefix="sch1x" uri="http://www.ascc.net/xml/schematron"/>
       </tei:constraintDecl></tei:encodingDesc><revisionDesc>
-			<change when="2024-12-09">
-				- Initial commit.
-				- Fix @type values on correspAction.
-			</change>
-			<change when="2024-12-12">
-				- Add "smallCaps" to values of @rend.
-			</change>
-			<change when="2025-01-09">
-				- Add @n on lg.
-			</change>
-			<change when="2025-01-15">
-				- Modify values of @type on idno.
-				- Add textClass and related child elements.
-				- Add xenoData.
-			</change>
-			<change when="2025-01-21">
-				- Make attributes of gap and unclear optional.
-			</change>
-			<change when="2025-01-22">
-				- Add "move" to values of `@type` on add and addSpan.
-			</change>
-			<change when="2025-02-04">
-				- Support TEI <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/readme-4.9.0.html">P5
-				  version 4.9.0</ref>.
-			</change>
-			<change when="2025-02-05">
-				- Add msDesc and child elements (msIdentifier and related).
-			</change>
-			<change when="2025-02-11">
-				- Remove requirement of @n, @place, and @xml:id on note.
-			</change>
-			<change when="2025-02-22">
-				- Remove @xml:space="preserve" requirement from body.
-			</change>
-			<change when="2025-02-25">
-				- Add @xml:lang on note; @xml:id on cell, item, l, lg, p, row, and seg; @n on metamark;
-				  @function="transp" on metamark, listTranspose, and transpose.
-				- Update values of @rend on byline and dateline.
-			</change>
-			<change when="2025-03-11">
-				- Add @cert and @role to rs.
-				- Mark @unit and @quantity as optional on space.
-			</change>
-			<change when="2025-03-13">
-				- Add "host" to values of @type on title.
-			</change>
-			<change when="2025-04-23">
-				- Add @rend="strikethrough" on delSpan.
-			</change>
-			<change when="2025-05-05">
-				- Remove @hand from head.
-			</change>
-			<change when="2025-05-07">
-				- Add "main" to values of @type on title.
-			</change>
-			<change when="2025-06-24">
-				- Add "black-pen" to values of @medium.
-			</change>
-			<change when="2025-08-26">
-				- Add "smaller" to values of @rend on q.
-			</change>
-			<change when="2025-08-28">
-				- Add @hand on p and seg.
-				- Remove @rend from seg.
-				- Remove "typewrite" from values of @medium. Add "pre-print", "print", "stamp", and
-				  "typescript" to values of @medium.
-			</change>
-			<change when="2025-09-10">
-				- Add @hand on head and text.
-				- Remove "pre-print" from values of @medium.
+			<change when="2026-04-15">
+				- Add extent, dimensions, height, history, objectDesc, origin, physDesc,
+				  supportDesc, and width.
+				- Modify @unit in att.dimensions and define @unit explicitly on the elements that
+				  include it.
+				- Fix the list of revisions to the ODD.
+				- Add @from, @to, @notAfter, and @notBefore on origDate, and @notAfter and
+				  @notBefore on date.
 			</change>
 			<change when="2026-04-14">
 				- Add "illegible" to values of @reason on gap, and "margin" to values of @place
@@ -132,12 +70,76 @@
 				- Support TEI <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/readme-4.11.0.html">P5
 				  version 4.11.0</ref>.
 			</change>
-			<change when="2026-04-15">
-				- Add extent, dimensions, height, history, objectDesc, origin, physDesc,
-				  supportDesc, and width.
-				- Modify @unit in att.dimensions and define @unit explicitly on the elements that
-				  include it.
-				- Fix the list of revisions to the ODD.
+			<change when="2025-09-10">
+				- Add @hand on head and text.
+				- Remove "pre-print" from values of @medium.
+			</change>
+			<change when="2025-08-28">
+				- Add @hand on p and seg.
+				- Remove @rend from seg.
+				- Remove "typewrite" from values of @medium. Add "pre-print", "print", "stamp", and
+				  "typescript" to values of @medium.
+			</change>
+			<change when="2025-08-26">
+				- Add "smaller" to values of @rend on q.
+			</change>
+			<change when="2025-06-24">
+				- Add "black-pen" to values of @medium.
+			</change>
+			<change when="2025-05-07">
+				- Add "main" to values of @type on title.
+			</change>
+			<change when="2025-05-05">
+				- Remove @hand from head.
+			</change>
+			<change when="2025-04-23">
+				- Add @rend="strikethrough" on delSpan.
+			</change>
+			<change when="2025-03-13">
+				- Add "host" to values of @type on title.
+			</change>
+			<change when="2025-03-11">
+				- Add @cert and @role to rs.
+				- Mark @unit and @quantity as optional on space.
+			</change>
+			<change when="2025-02-25">
+				- Add @xml:lang on note; @xml:id on cell, item, l, lg, p, row, and seg; @n on metamark;
+				  @function="transp" on metamark, listTranspose, and transpose.
+				- Update values of @rend on byline and dateline.
+			</change>
+			<change when="2025-02-22">
+				- Remove @xml:space="preserve" requirement from body.
+			</change>
+			<change when="2025-02-11">
+				- Remove requirement of @n, @place, and @xml:id on note.
+			</change>
+			<change when="2025-02-05">
+				- Add msDesc and child elements (msIdentifier and related).
+			</change>
+			<change when="2025-02-04">
+				- Support TEI <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/readme-4.9.0.html">P5
+				  version 4.9.0</ref>.
+			</change>
+			<change when="2025-01-22">
+				- Add "move" to values of `@type` on add and addSpan.
+			</change>
+			<change when="2025-01-21">
+				- Make attributes of gap and unclear optional.
+			</change>
+			<change when="2025-01-15">
+				- Modify values of @type on idno.
+				- Add textClass and related child elements.
+				- Add xenoData.
+			</change>
+			<change when="2025-01-09">
+				- Add @n on lg.
+			</change>
+			<change when="2024-12-12">
+				- Add "smallCaps" to values of @rend.
+			</change>
+			<change when="2024-12-09">
+				- Initial commit.
+				- Fix @type values on correspAction.
 			</change>
 		</revisionDesc></teiHeader>
 	<text>
@@ -254,29 +256,41 @@ Elements</ref>
     probably in an ODD customization, for interchange.</p>
   </remarks><listRef>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/ND.html#NDATTSnr">14.1.1. Linking Names and Their Referents</ref>
-  </listRef></classSpec><classSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="tei" type="atts" ident="att.datable.w3c" xml:id="DATABLEW3C"><desc versionDate="2013-11-22" xml:lang="en">provides attributes for normalization of elements that contain
+  </listRef></classSpec><classSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" module="tei" type="atts" ident="att.datable.w3c" xml:id="DATABLEW3C">
+  <desc versionDate="2013-11-22" xml:lang="en">provides attributes for normalization of elements that contain
   datable events  conforming to the W3C
-    <ref target="#XSD2">XML Schema Part 2: Datatypes Second Edition</ref>.</desc><desc versionDate="2007-12-20" xml:lang="ko">W3C 데이터 유형을 사용하여 날짜가 명기된 사건을 포함하는 요소의 규격화를 위한 속성을 제공한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">提供用於元素規格化的屬性，這些元素包含以W3C datatypes所定義的日期明確之事件。</desc><desc versionDate="2019-02-13" xml:lang="ja">W3Cの<ref target="#XSD2">XML Schema Part 2: Datatypes Second Edition</ref>に準拠した年代測定可能なイベントを含む要素の正規化に関する属性を提供する。</desc><desc versionDate="2007-06-12" xml:lang="fr">fournit des attributs
+    <ref target="#XSD2">XML Schema Part 2: Datatypes Second Edition</ref>.</desc>
+  <desc versionDate="2007-12-20" xml:lang="ko">W3C 데이터 유형을 사용하여 날짜가 명기된 사건을 포함하는 요소의 규격화를 위한 속성을 제공한다.</desc>
+  <desc versionDate="2007-05-02" xml:lang="zh-TW">提供用於元素規格化的屬性，這些元素包含以W3C datatypes所定義的日期明確之事件。</desc>
+  <desc versionDate="2019-02-13" xml:lang="ja">W3Cの<ref target="#XSD2">XML Schema Part 2: Datatypes Second Edition</ref>に準拠した年代測定可能なイベントを含む要素の正規化に関する属性を提供する。</desc>
+  <desc versionDate="2007-06-12" xml:lang="fr">fournit des attributs
   pour la normalisation d'éléments qui contiennent des mentions
-  d'événements datés ou susceptibles de l'être.</desc><desc versionDate="2007-11-06" xml:lang="it">indica degli attributi per la normalizzazione di elementi che contengono eventi databili utilizzando i tipi di dati del W3C</desc><desc versionDate="2007-05-04" xml:lang="es">proporciona atributos para la normalización de elementos que contienen eventos datables.</desc><classes/><constraintSpec ident="att-datable-w3c-when" scheme="schematron" xml:lang="en">
+  d'événements datés ou susceptibles de l'être.</desc>
+  <desc versionDate="2007-11-06" xml:lang="it">indica degli attributi per la normalizzazione di elementi che contengono eventi databili utilizzando i tipi di dati del W3C</desc>
+  <desc versionDate="2007-05-04" xml:lang="es">proporciona atributos para la normalización de elementos que contienen eventos datables.</desc>
+  <constraintSpec ident="att-datable-w3c-when" scheme="schematron" xml:lang="en">
     <constraint>
       <sch:rule context="tei:*[@when]">
         <sch:report test="@notBefore|@notAfter|@from|@to" role="nonfatal">The @when attribute cannot be used with any other att.datable.w3c attributes.</sch:report>
       </sch:rule>
     </constraint>
-  </constraintSpec><constraintSpec ident="att-datable-w3c-from" scheme="schematron" xml:lang="en">
+  </constraintSpec>
+  <constraintSpec ident="att-datable-w3c-from" scheme="schematron" xml:lang="en">
     <constraint>
       <sch:rule context="tei:*[@from]">
         <sch:report test="@notBefore" role="nonfatal">The @from and @notBefore attributes cannot be used together.</sch:report>
       </sch:rule>
     </constraint>
-  </constraintSpec><constraintSpec ident="att-datable-w3c-to" scheme="schematron" xml:lang="en">
+  </constraintSpec>
+  <constraintSpec ident="att-datable-w3c-to" scheme="schematron" xml:lang="en">
     <constraint>
       <sch:rule context="tei:*[@to]">
         <sch:report test="@notAfter" role="nonfatal">The @to and @notAfter attributes cannot be used together.</sch:report>
       </sch:rule>
     </constraint>
-  </constraintSpec><attList><attDef ident="when" usage="opt">
+  </constraintSpec>
+  <attList>
+    <attDef ident="when" usage="opt">
       <desc versionDate="2008-07-23" xml:lang="en">supplies the value of the date or time in a standard form,
         e.g. yyyy-mm-dd.</desc>
       <desc versionDate="2007-12-20" xml:lang="ko">표준형식으로 날짜 또는 시간의 값을 제공한다.</desc>
@@ -343,7 +357,32 @@ Elements</ref>
           </opener>
         </egXML>
       </exemplum>
-    </attDef><attDef ident="from" usage="opt">
+    </attDef>
+    <attDef ident="notBefore" usage="opt">
+      <desc versionDate="2007-04-09" xml:lang="en">specifies the earliest possible date for the event in
+        standard form, e.g. yyyy-mm-dd.</desc>
+      <desc versionDate="2007-12-20" xml:lang="ko">yyyy-mm-dd와 같은 표준 형식으로 사건의 가능한 한 이른 날짜를 명시한다.</desc>
+      <desc versionDate="2007-05-02" xml:lang="zh-TW">以標準格式說明該事件可能發生的最早日期，例如年-月-日。</desc>
+      <desc versionDate="2008-04-05" xml:lang="ja">当該事象の一番古い日付を、標準形式で示す。例えば、yyyy-mm-dd。</desc>
+      <desc versionDate="2007-06-12" xml:lang="fr">spécifie la date la plus ancienne pour
+        l'événement sous une forme normalisée, par ex. aaaa-mm-jj.</desc>
+      <desc versionDate="2007-11-06" xml:lang="it">specifica la prima data possibile per un evento nel formato standard aaaa-mm-gg</desc>
+      <desc versionDate="2007-05-04" xml:lang="es">especifica la fecha más temprana posible para un evento en un formato estándard, p.ej. aaaa-mm-dd.</desc>
+      <datatype><dataRef key="teidata.temporal.w3c"/></datatype>
+    </attDef>
+    <attDef ident="notAfter" usage="opt">
+      <desc versionDate="2007-04-09" xml:lang="en">specifies the latest possible date for the event in
+        standard form, e.g. yyyy-mm-dd.</desc>
+      <desc versionDate="2007-12-20" xml:lang="ko">yyyy-mm-dd와 같은 표준 형식으로 사건의 가능한 한 나중 날짜를 명시한다.</desc>
+      <desc versionDate="2007-05-02" xml:lang="zh-TW">以標準形式標明該事件可能的最晚日期，例如年-月-日。</desc>
+      <desc versionDate="2008-04-05" xml:lang="ja">当該事象の一番新しい日付を、標準形式で示す。例えば、yyyy-mm-dd。</desc>
+      <desc versionDate="2007-06-12" xml:lang="fr">spécifie la date la plus récente possible pour
+        l'événement sous une forme normalisée, par ex. aaaa-mm-jj.</desc>
+      <desc versionDate="2007-11-06" xml:lang="it">specifica l'ultima data possibile per un evento nel formato standard aaaa-mm-gg</desc>
+      <desc versionDate="2007-05-04" xml:lang="es">especifica la fecha más tardana posible para un evento en un formato estándard, p.ej. aaaa-mm-dd.</desc>
+      <datatype><dataRef key="teidata.temporal.w3c"/></datatype>
+    </attDef>
+    <attDef ident="from" usage="opt">
       <desc versionDate="2008-02-10" xml:lang="en">indicates the starting point of the period in standard form, e.g. yyyy-mm-dd.</desc>
       <desc versionDate="2007-12-20" xml:lang="ko">표준 형식으로 기간의 시작 지점을 표시한다.</desc>
       <desc versionDate="2007-05-02" xml:lang="zh-TW">以標準格式表示該段時間的起始點。</desc>
@@ -353,7 +392,8 @@ Elements</ref>
       <desc versionDate="2007-11-06" xml:lang="it">indica l'inizio del periodo nel formato standard</desc>
       <desc versionDate="2007-05-04" xml:lang="es">indica el punto de inicio del período en el formato estándard.</desc>
       <datatype><dataRef key="teidata.temporal.w3c"/></datatype>
-    </attDef><attDef ident="to" usage="opt">
+    </attDef>
+    <attDef ident="to" usage="opt">
       <desc versionDate="2008-02-10" xml:lang="en">indicates the ending point of the period in standard
         form, e.g. yyyy-mm-dd.</desc>
       <desc versionDate="2007-12-20" xml:lang="ko">표준 형식으로 기간의 종료 지점을 나타낸다.</desc>
@@ -364,11 +404,15 @@ Elements</ref>
       <desc versionDate="2007-11-06" xml:lang="it">indica la fine del periodo nel formato standard</desc>
       <desc versionDate="2007-05-04" xml:lang="es">indica el punto final de un periodo en formato estándard.</desc>
       <datatype><dataRef key="teidata.temporal.w3c"/></datatype>
-    </attDef></attList><exemplum xml:lang="en">
+    </attDef>
+  </attList>
+  
+  <exemplum xml:lang="en">
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="DATABLEW3C-egXML-yq">
       <date from="1863-05-28" to="1863-06-01">28 May through 1 June 1863</date>
     </egXML>
-  </exemplum><remarks versionDate="2008-07-23" xml:lang="en">
+  </exemplum>
+      <remarks versionDate="2008-07-23" xml:lang="en">
         <p>The value of these attributes should be a normalized
         representation of the date, time, or combined date &amp; time
         intended, in any of the standard formats specified by <ref target="#XSD2">XML Schema Part 2: Datatypes Second
@@ -382,11 +426,14 @@ Elements</ref>
         <p>Note that this format does not currently permit use of the
         value <val>0000</val> to represent the year 1 BCE; instead the
         value <val>-0001</val> should be used. </p>
-      </remarks><remarks versionDate="2007-06-12" xml:lang="fr">
+      </remarks>
+      <remarks versionDate="2007-06-12" xml:lang="fr">
         <p>La valeur de l'attribut <att>when</att> doit être une représentation normalisée de la date ou de l'heure, ou des deux, dans l'un des formats spécifiés par le <ref target="#XSD2">XML Schema Part 2: Datatypes Second Edition</ref>, selon le calendrier grégorien.</p>
         <p> Pour la date, le format le plus courant est <code>yyyy-mm-dd</code>, mais on trouve aussi <code>yyyy</code>, <code>--mm</code>, <code>---dd</code>, <code>yyyy-mm</code>, ou <code>--mm-dd</code>. Pour l'heure, on utilise le format <code>hh:mm:ss</code>.</p>
         <p>Il faut noter qu'actuellement ce format ne permet pas d'utiliser la valeur <val>0000</val> pour représenter l'année précédant le début de l'ère chrétienne ; on doit utiliser la valeur <val>-0001</val>.</p>
-      </remarks><remarks versionDate="2018-09-08" xml:lang="es"><p>El valor del atributo <att>cuando</att> es una serie que representa una fecha o una hora, o ambas, en cualquiera de los siguientes formatos: <list><item>una fecha en los formatos estándares descritos por la <ref target="#XSD2">XML Schema Part 2: Datatypes Second Edition</ref>, p.ej. en el formato más común <code>aaaa-mm-dd</code>, pero también <code>aaaa</code>, <code>--mm</code>, <code>---dd</code>, <code>aaaa-mm</code>, o <code>--mm-dd</code></item><item>; una hora en el formato estándar descrito en <ref target="#XSD2">XML Schema Part 2: Datatypes Second Edition</ref>, es decir. <code>hh: mm: ss</code></item><item>; o una fecha y una hora combinadas en los formatos estándares descritos en <ref target="#XSD2">XML Schema Part 2: Datatypes Second Edition</ref>, es decir. <code>aaaa-mm-ddThh: mm: ss</code></item></list>. Obligatoriamente el valor de <att>cuando</att> aparecerá en un formato de fecha, tiempo, o ambos formatos combinados, de los reconocidos por W3C <ref target="#XSD2">XML Schema Part 2: Datatypes Second Edition</ref>. Esto se dará si el componente de la fecha (eventualmente) es una fecha gregoriana o proléptica gregoriana. A la hora de esta escritura, W3C no permite el año <val>0000</val>, que sería utilizado normalmente para representar el año 1 antes de nuestra era. Usando el sistema actual de W3C, el año 1 a.C. se indica con <val>-0001</val>, el año 2 a.C. con <val>-0002</val>, etc. <quote>Es la intención del grupo de trabajo del esquema de XML permitir <val>0000</val> como la representación léxica de 1 a.C. (que es un año bisiesto), <val>-0001</val> se convertiria en la representación léxica de 2 a.C., <val>-0002</val> de 3 a.C., etc.</quote> Así en algunos casos puede ser ventajoso utilizar en su lugar el atributo <att>cuando-ISO</att> para indicar los años anteriores a nuestra era.</p></remarks><remarks versionDate="2019-03-28" xml:lang="ja">
+      </remarks>
+  <remarks versionDate="2018-09-08" xml:lang="es"><p>El valor del atributo <att>cuando</att> es una serie que representa una fecha o una hora, o ambas, en cualquiera de los siguientes formatos: <list><item>una fecha en los formatos estándares descritos por la <ref target="#XSD2">XML Schema Part 2: Datatypes Second Edition</ref>, p.ej. en el formato más común <code>aaaa-mm-dd</code>, pero también <code>aaaa</code>, <code>--mm</code>, <code>---dd</code>, <code>aaaa-mm</code>, o <code>--mm-dd</code></item><item>; una hora en el formato estándar descrito en <ref target="#XSD2">XML Schema Part 2: Datatypes Second Edition</ref>, es decir. <code>hh: mm: ss</code></item><item>; o una fecha y una hora combinadas en los formatos estándares descritos en <ref target="#XSD2">XML Schema Part 2: Datatypes Second Edition</ref>, es decir. <code>aaaa-mm-ddThh: mm: ss</code></item></list>. Obligatoriamente el valor de <att>cuando</att> aparecerá en un formato de fecha, tiempo, o ambos formatos combinados, de los reconocidos por W3C <ref target="#XSD2">XML Schema Part 2: Datatypes Second Edition</ref>. Esto se dará si el componente de la fecha (eventualmente) es una fecha gregoriana o proléptica gregoriana. A la hora de esta escritura, W3C no permite el año <val>0000</val>, que sería utilizado normalmente para representar el año 1 antes de nuestra era. Usando el sistema actual de W3C, el año 1 a.C. se indica con <val>-0001</val>, el año 2 a.C. con <val>-0002</val>, etc. <quote>Es la intención del grupo de trabajo del esquema de XML permitir <val>0000</val> como la representación léxica de 1 a.C. (que es un año bisiesto), <val>-0001</val> se convertiria en la representación léxica de 2 a.C., <val>-0002</val> de 3 a.C., etc.</quote> Así en algunos casos puede ser ventajoso utilizar en su lugar el atributo <att>cuando-ISO</att> para indicar los años anteriores a nuestra era.</p></remarks>
+      <remarks versionDate="2019-03-28" xml:lang="ja">
         <p>
           この属性の値は、グレゴリオ暦を用い、<ref target="#XSD2">XML Schema Part 2: Datatypes Second Edition</ref>で定義されるいずれかの標準形式で正規化された日付や時刻、あるいはその組み合わせである。時間の属性としてもっともよく使われる形式は、<code>yyyy-mm-dd</code>だが、<code>yyyy</code>、<code>--mm</code>、<code>---dd</code>、<code>yyyy-mm</code>、<code>--mm-dd</code>も用いてもよい。時間については、<code>hh:mm:ss</code>が用いられる。この形式は、紀元前1年を表現するのに<val>0000</val>という値を用いることは現在のところ許容していないことには注意されたい。代わりに<val>-0001</val>という値を用いる必要がある。
 	           </p>
@@ -409,10 +456,12 @@ Elements</ref>
 	  従って、場合によっては、属性<att>when-iso</att>により紀元前
         を示した方が便利かもしれない。
 	  </p>
-      </remarks><listRef>
+      </remarks>
+  <listRef>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html#CONADA">3.6.4. Dates and Times</ref>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/ND.html#NDDATE">14.4. Dates</ref>
-  </listRef></classSpec><classSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="tei" type="atts" ident="att.fragmentable"><desc versionDate="2021-08-22" xml:lang="en">provides attributes for representing
+  </listRef>
+</classSpec><classSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="tei" type="atts" ident="att.fragmentable"><desc versionDate="2021-08-22" xml:lang="en">provides attributes for representing
     fragmentation of a structural element, typically as 
   a consequence of some overlapping hierarchy.</desc><desc versionDate="2019-06-16" xml:lang="ja">通常は階層関係のオーバーラップなどに起因する、構造を持つ要素の断片化を表現するための属性を与える。</desc><classes/><attList><attDef ident="part" usage="opt"><desc versionDate="2013-06-21" xml:lang="en">specifies whether or not its parent element is fragmented
       in some way, typically by some other overlapping structure: for
@@ -4770,7 +4819,7 @@ concerned, as further discussed in section <ref target="https://www.tei-c.org/re
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html#CONAAD">3.6.2. Addresses</ref>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/HD.html#HD24">2.2.4. Publication, Distribution, Licensing, etc.</ref>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html#COBICOI">3.12.2.4. Imprint, Size of a Document, and Reprint Information</ref>
-  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" rend="change" module="core" xml:id="gi-date" ident="date"><gloss versionDate="2009-01-06" xml:lang="en">date</gloss><gloss versionDate="2009-01-06" xml:lang="fr">date</gloss><gloss versionDate="2016-11-25" xml:lang="de">Datum</gloss><desc versionDate="2005-01-14" xml:lang="en">contains a date in any format.</desc><desc versionDate="2007-12-20" xml:lang="ko">다양한 형식의 날짜를 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含任何格式的日期表示。</desc><desc versionDate="2008-04-05" xml:lang="ja">日付を示す。</desc><desc versionDate="2009-01-06" xml:lang="fr">contient une date exprimée dans n'importe quel format.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene una fecha en cualquier formato.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene una data in qualsiasi foemato</desc><desc versionDate="2016-11-25" xml:lang="de">enthält ein Datum in beliebigem Format.</desc><classes><memberOf key="att.datable.w3c"/><memberOf key="att.global"/><memberOf key="model.dateLike"/><memberOf key="model.publicationStmtPart.detail"/></classes><content><alternate minOccurs="0" maxOccurs="unbounded"><textNode/><classRef key="model.gLike"/><classRef key="model.phrase"/><classRef key="model.global"/></alternate></content><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="notAfter" mode="delete"/><attDef ident="notBefore" mode="delete"/><attDef ident="rend" mode="change">
+  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" rend="change" module="core" xml:id="gi-date" ident="date"><gloss versionDate="2009-01-06" xml:lang="en">date</gloss><gloss versionDate="2009-01-06" xml:lang="fr">date</gloss><gloss versionDate="2016-11-25" xml:lang="de">Datum</gloss><desc versionDate="2005-01-14" xml:lang="en">contains a date in any format.</desc><desc versionDate="2007-12-20" xml:lang="ko">다양한 형식의 날짜를 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含任何格式的日期表示。</desc><desc versionDate="2008-04-05" xml:lang="ja">日付を示す。</desc><desc versionDate="2009-01-06" xml:lang="fr">contient une date exprimée dans n'importe quel format.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene una fecha en cualquier formato.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene una data in qualsiasi foemato</desc><desc versionDate="2016-11-25" xml:lang="de">enthält ein Datum in beliebigem Format.</desc><classes><memberOf key="att.datable.w3c"/><memberOf key="att.global"/><memberOf key="model.dateLike"/><memberOf key="model.publicationStmtPart.detail"/></classes><content><alternate minOccurs="0" maxOccurs="unbounded"><textNode/><classRef key="model.gLike"/><classRef key="model.phrase"/><classRef key="model.global"/></alternate></content><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="rend" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="bold"/>
 								<valItem mode="add" ident="encircled"/>
@@ -6200,7 +6249,7 @@ psychological significance.
     testo, come indicato da cambiamenti nel sistema di riferimento standard, qualora la sezione non
     sia rappresentata da un elemento strutturale.</desc><desc versionDate="2016-11-29" xml:lang="de">markiert einen Grenzpunkt, der Abschnitte eines Textes trennen kann, 
     typischerweise (aber nicht notwendigerweise) den Wechsel eines Bezugssystems, 
-    der nicht durch ein strukturelles Markup beschrieben werden kann.</desc><classes><memberOf key="att.datable.w3c"/><memberOf key="att.global"/><memberOf key="att.breaking"/><memberOf key="att.milestoneUnit"/><memberOf key="att.spanning"/><memberOf key="att.typed"/><memberOf key="model.milestoneLike"/></classes><content><empty/></content><attList><attDef ident="ana" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="break" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="spanTo" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="from" mode="delete"/><attDef ident="to" mode="delete"/><attDef ident="type" mode="change">
+    der nicht durch ein strukturelles Markup beschrieben werden kann.</desc><classes><memberOf key="att.datable.w3c"/><memberOf key="att.global"/><memberOf key="att.breaking"/><memberOf key="att.milestoneUnit"/><memberOf key="att.spanning"/><memberOf key="att.typed"/><memberOf key="model.milestoneLike"/></classes><content><empty/></content><attList><attDef ident="ana" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="break" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="spanTo" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="from" mode="delete"/><attDef ident="to" mode="delete"/><attDef ident="notAfter" mode="delete"/><attDef ident="notBefore" mode="delete"/><attDef ident="type" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="asterisk"/>
 								<valItem mode="add" ident="bar"/>
@@ -11257,7 +11306,7 @@ facing the observer, and perpendicular to that indicated by the
 <soCalled>depth</soCalled> axis.</p>
   </remarks><listRef>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/MS.html#msdim">11.3.4. Dimensions</ref>
-  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="msdescription" xml:id="ORIGDATE" ident="origDate"><gloss versionDate="2007-07-04" xml:lang="en">origin date</gloss><gloss versionDate="2007-12-20" xml:lang="ko">생성 날짜</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW"/><gloss versionDate="2008-04-06" xml:lang="es">fecha origen</gloss><gloss versionDate="2007-06-12" xml:lang="fr">date de la création</gloss><gloss versionDate="2007-11-06" xml:lang="it">data di origine</gloss><desc versionDate="2019-01-17" xml:lang="en" xml:id="origdate.desc">contains any form of date, used to identify the date of origin for a manuscript, manuscript part, or other object.</desc><desc versionDate="2007-12-20" xml:lang="ko">원고 또는 원고의 일부의 생산 날짜를 식별하는 날짜 형식을 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含任何格式的日期，用以確認手稿或手稿部分的來源日期。</desc><desc versionDate="2008-04-05" xml:lang="ja">手書き資料が生まれた日付を特定するたための日付を示す。</desc><desc versionDate="2007-06-12" xml:lang="fr">contient une date, dans une forme libre, utilisée pour dater la création d'un manuscrit ou d'une partie d'un manuscrit.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene cualquier tipo de fecha utilizada para indicar la fecha de origen de un manuscrito o de una de sus partes.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene una data espressa in una forma qualsiasi utilizzata per indicare la data di origine di un manoscritto o di una sua parte</desc><classes><memberOf key="att.datable.w3c"/><memberOf key="att.global"/><memberOf key="att.dimensions"/><memberOf key="att.typed"/><memberOf key="model.pPart.msdesc"/></classes><content><alternate minOccurs="0" maxOccurs="unbounded"><textNode/><classRef key="model.gLike"/><classRef key="model.phrase"/><classRef key="model.global"/></alternate></content><attList><attDef ident="period" mode="delete"/><attDef ident="when-custom" mode="delete"/><attDef ident="notBefore-custom" mode="delete"/><attDef ident="notAfter-custom" mode="delete"/><attDef ident="from-custom" mode="delete"/><attDef ident="to-custom" mode="delete"/><attDef ident="datingPoint" mode="delete"/><attDef ident="datingMethod" mode="delete"/><attDef ident="when-iso" mode="delete"/><attDef ident="notBefore-iso" mode="delete"/><attDef ident="notAfter-iso" mode="delete"/><attDef ident="from-iso" mode="delete"/><attDef ident="to-iso" mode="delete"/><attDef ident="ana" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="atLeast" mode="delete"/><attDef ident="atMost" mode="delete"/><attDef ident="min" mode="delete"/><attDef ident="max" mode="delete"/><attDef ident="confidence" mode="delete"/><attDef ident="unit" mode="delete"/><attDef ident="quantity" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="type" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="from" mode="delete"/><attDef ident="to" mode="delete"/><attDef ident="when" mode="change" usage="req"/></attList><exemplum xml:lang="en">
+  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="msdescription" xml:id="ORIGDATE" ident="origDate"><gloss versionDate="2007-07-04" xml:lang="en">origin date</gloss><gloss versionDate="2007-12-20" xml:lang="ko">생성 날짜</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW"/><gloss versionDate="2008-04-06" xml:lang="es">fecha origen</gloss><gloss versionDate="2007-06-12" xml:lang="fr">date de la création</gloss><gloss versionDate="2007-11-06" xml:lang="it">data di origine</gloss><desc versionDate="2019-01-17" xml:lang="en" xml:id="origdate.desc">contains any form of date, used to identify the date of origin for a manuscript, manuscript part, or other object.</desc><desc versionDate="2007-12-20" xml:lang="ko">원고 또는 원고의 일부의 생산 날짜를 식별하는 날짜 형식을 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含任何格式的日期，用以確認手稿或手稿部分的來源日期。</desc><desc versionDate="2008-04-05" xml:lang="ja">手書き資料が生まれた日付を特定するたための日付を示す。</desc><desc versionDate="2007-06-12" xml:lang="fr">contient une date, dans une forme libre, utilisée pour dater la création d'un manuscrit ou d'une partie d'un manuscrit.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene cualquier tipo de fecha utilizada para indicar la fecha de origen de un manuscrito o de una de sus partes.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene una data espressa in una forma qualsiasi utilizzata per indicare la data di origine di un manoscritto o di una sua parte</desc><classes><memberOf key="att.datable.w3c"/><memberOf key="att.global"/><memberOf key="att.dimensions"/><memberOf key="att.typed"/><memberOf key="model.pPart.msdesc"/></classes><content><alternate minOccurs="0" maxOccurs="unbounded"><textNode/><classRef key="model.gLike"/><classRef key="model.phrase"/><classRef key="model.global"/></alternate></content><attList><attDef ident="period" mode="delete"/><attDef ident="when-custom" mode="delete"/><attDef ident="notBefore-custom" mode="delete"/><attDef ident="notAfter-custom" mode="delete"/><attDef ident="from-custom" mode="delete"/><attDef ident="to-custom" mode="delete"/><attDef ident="datingPoint" mode="delete"/><attDef ident="datingMethod" mode="delete"/><attDef ident="when-iso" mode="delete"/><attDef ident="notBefore-iso" mode="delete"/><attDef ident="notAfter-iso" mode="delete"/><attDef ident="from-iso" mode="delete"/><attDef ident="to-iso" mode="delete"/><attDef ident="ana" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="atLeast" mode="delete"/><attDef ident="atMost" mode="delete"/><attDef ident="min" mode="delete"/><attDef ident="max" mode="delete"/><attDef ident="confidence" mode="delete"/><attDef ident="unit" mode="delete"/><attDef ident="quantity" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="type" mode="delete"/><attDef ident="subtype" mode="delete"/></attList><exemplum xml:lang="en">
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="ORIGDATE-egXML-zq">
       <origDate notBefore="-0300" notAfter="-0200">3rd century BCE</origDate>
     </egXML>

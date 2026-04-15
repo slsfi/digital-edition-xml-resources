@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2026-04-15T09:05:45Z. . 
+    Schema generated from ODD source 2026-04-15T11:26:51Z. . 
     TEI Edition: P5 Version 4.11.0. Last updated on 18th February 2026, revision 358d2e48e 
     TEI Edition Location: https://www.tei-c.org/Vault/P5/4.11.0/ 
     
@@ -89,6 +89,8 @@
   </xs:attributeGroup>
   <xs:attributeGroup name="tei_att.datable.w3c.attributes">
     <xs:attributeGroup ref="tei:tei_att.datable.w3c.attribute.when"/>
+    <xs:attributeGroup ref="tei:tei_att.datable.w3c.attribute.notBefore"/>
+    <xs:attributeGroup ref="tei:tei_att.datable.w3c.attribute.notAfter"/>
     <xs:attributeGroup ref="tei:tei_att.datable.w3c.attribute.from"/>
     <xs:attributeGroup ref="tei:tei_att.datable.w3c.attribute.to"/>
   </xs:attributeGroup>
@@ -96,6 +98,26 @@
     <xs:attribute name="when">
       <xs:annotation>
         <xs:documentation>supplies the value of the date or time in a standard form, e.g. yyyy-mm-dd.</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:union memberTypes="xs:date xs:gYear xs:gMonth xs:gDay xs:gYearMonth xs:gMonthDay xs:time xs:dateTime"/>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="tei_att.datable.w3c.attribute.notBefore">
+    <xs:attribute name="notBefore">
+      <xs:annotation>
+        <xs:documentation>specifies the earliest possible date for the event in standard form, e.g. yyyy-mm-dd.</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:union memberTypes="xs:date xs:gYear xs:gMonth xs:gDay xs:gYearMonth xs:gMonthDay xs:time xs:dateTime"/>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="tei_att.datable.w3c.attribute.notAfter">
+    <xs:attribute name="notAfter">
+      <xs:annotation>
+        <xs:documentation>specifies the latest possible date for the event in standard form, e.g. yyyy-mm-dd.</xs:documentation>
       </xs:annotation>
       <xs:simpleType>
         <xs:union memberTypes="xs:date xs:gYear xs:gMonth xs:gDay xs:gYearMonth xs:gMonthDay xs:time xs:dateTime"/>
@@ -5647,14 +5669,7 @@ Suggested values include: 1] label; 2] data</xs:documentation>
         <xs:group ref="tei:tei_model.phrase"/>
         <xs:group ref="tei:tei_model.global"/>
       </xs:choice>
-      <xs:attribute name="when" use="required">
-        <xs:annotation>
-          <xs:documentation>supplies the value of the date or time in a standard form, e.g. yyyy-mm-dd.</xs:documentation>
-        </xs:annotation>
-        <xs:simpleType>
-          <xs:union memberTypes="xs:date xs:gYear xs:gMonth xs:gDay xs:gYearMonth xs:gMonthDay xs:time xs:dateTime"/>
-        </xs:simpleType>
-      </xs:attribute>
+      <xs:attributeGroup ref="tei:tei_att.datable.w3c.attributes"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="msIdentifier">
