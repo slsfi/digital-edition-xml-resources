@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2026-04-15T11:26:51Z. . 
+    Schema generated from ODD source 2026-04-15T12:56:39Z. . 
     TEI Edition: P5 Version 4.11.0. Last updated on 18th February 2026, revision 358d2e48e 
     TEI Edition Location: https://www.tei-c.org/Vault/P5/4.11.0/ 
     
@@ -141,6 +141,30 @@
       </xs:annotation>
       <xs:simpleType>
         <xs:union memberTypes="xs:date xs:gYear xs:gMonth xs:gDay xs:gYearMonth xs:gMonthDay xs:time xs:dateTime"/>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="tei_att.edition.attributes">
+    <xs:attributeGroup ref="tei:tei_att.edition.attribute.ed"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="tei_att.edition.attribute.ed">
+    <xs:attribute name="ed">
+      <xs:annotation>
+        <xs:documentation>(edition) supplies a sigil or other arbitrary identifier for the source edition in which the associated feature (for example, a page, column, or line beginning) occurs at this point in the text.</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction>
+          <xs:simpleType>
+            <xs:list>
+              <xs:simpleType>
+                <xs:restriction base="xs:token">
+                  <xs:pattern value="[^\p{C}\p{Z}]+"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:list>
+          </xs:simpleType>
+          <xs:minLength value="1"/>
+        </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
   </xs:attributeGroup>
@@ -1868,12 +1892,22 @@
     <xs:attributeGroup ref="tei:tei_att.milestoneUnit.attribute.unit"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="tei_att.milestoneUnit.attribute.unit">
-    <xs:attribute name="unit">
+    <xs:attribute name="unit" use="required">
       <xs:annotation>
         <xs:documentation>provides a conventional name for the kind of section changing at this milestone.</xs:documentation>
       </xs:annotation>
       <xs:simpleType>
         <xs:restriction base="xs:token">
+          <xs:enumeration value="section">
+            <xs:annotation>
+              <xs:documentation>sections of any kind.</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="item">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
           <xs:enumeration value="part">
             <xs:annotation>
               <xs:documentation/>
@@ -3445,11 +3479,13 @@ Elements]</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:attributeGroup ref="tei:tei_att.datable.w3c.attribute.when"/>
-      <xs:attributeGroup ref="tei:tei_att.global.source.attribute.source"/>
+      <xs:attributeGroup ref="tei:tei_att.edition.attributes"/>
       <xs:attributeGroup ref="tei:tei_att.milestoneUnit.attributes"/>
-      <xs:attribute name="type">
+      <xs:attributeGroup ref="tei:tei_att.global.attribute.xmlid"/>
+      <xs:attributeGroup ref="tei:tei_att.global.attribute.n"/>
+      <xs:attribute name="rend">
         <xs:annotation>
-          <xs:documentation>characterizes the element in some sense, using any convenient classification scheme or typology.</xs:documentation>
+          <xs:documentation>(rendition) indicates how the element in question was rendered or presented in the source text.</xs:documentation>
         </xs:annotation>
         <xs:simpleType>
           <xs:restriction base="xs:token">
@@ -3459,6 +3495,11 @@ Elements]</xs:documentation>
               </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="bar">
+              <xs:annotation>
+                <xs:documentation/>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="blankLine">
               <xs:annotation>
                 <xs:documentation/>
               </xs:annotation>

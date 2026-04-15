@@ -57,6 +57,8 @@
 				- Fix the list of revisions to the ODD.
 				- Add @from, @to, @notAfter, and @notBefore on origDate, and @notAfter and
 				  @notBefore on date.
+				- Remove @source and @type from milestone. Add @ed, @n, @rend, and @xml:id to
+				  milestone. Modify values of @unit on milestone and make it required.
 			</change>
 			<change when="2026-04-14">
 				- Add "illegible" to values of @reason on gap, and "margin" to values of @place
@@ -1539,6 +1541,8 @@
 						<attDef ident="spanTo" mode="delete"/>
 						<attDef ident="type" mode="delete"/>
 						<attDef ident="subtype" mode="delete"/>
+						<attDef ident="ed" mode="delete"/>
+						<attDef ident="edRef" mode="delete"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="lem" mode="change">
@@ -1725,6 +1729,8 @@
 				<elementSpec ident="milestone" mode="change">
 					<classes mode="change">
 						<memberOf key="att.datable.w3c"/>
+						<memberOf key="att.edition"/>
+						<memberOf key="att.milestoneUnit"/>
 					</classes>
 					<attList>
 						<attDef ident="ana" mode="delete"/>
@@ -1738,13 +1744,11 @@
 						<attDef ident="exclude" mode="delete"/>
 						<attDef ident="select" mode="delete"/>
 						<attDef ident="break" mode="delete"/>
-						<attDef ident="xml:id" mode="delete"/>
-						<attDef ident="n" mode="delete"/>
 						<attDef ident="xml:lang" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
 						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
 						<attDef ident="facs" mode="delete"/>
-						<attDef ident="rend" mode="delete"/>
 						<attDef ident="cert" mode="delete"/>
 						<attDef ident="resp" mode="delete"/>
 						<attDef ident="spanTo" mode="delete"/>
@@ -1753,10 +1757,15 @@
 						<attDef ident="to" mode="delete"/>
 						<attDef ident="notAfter" mode="delete"/>
 						<attDef ident="notBefore" mode="delete"/>
-						<attDef ident="type" mode="change">
+						<attDef ident="type" mode="delete"/>
+						<attDef ident="rend" mode="change">
+							<datatype>
+								<dataRef key="teidata.enumerated"/>
+							</datatype>
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="asterisk"/>
 								<valItem mode="add" ident="bar"/>
+								<valItem mode="add" ident="blankLine"/>
 								<valItem mode="add" ident="dashedLine"/>
 							</valList>
 						</attDef>
@@ -2084,6 +2093,8 @@
 						<attDef ident="resp" mode="delete"/>
 						<attDef ident="source" mode="delete"/>
 						<attDef ident="spanTo" mode="delete"/>
+						<attDef ident="ed" mode="delete"/>
+						<attDef ident="edRef" mode="delete"/>
 						<attDef ident="type" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="author"/>
@@ -3471,7 +3482,6 @@
 				<classSpec ident="att.duration.w3c" type="atts" mode="delete"/>
 				<classSpec ident="att.duration.iso" type="atts" mode="delete"/>
 				<classSpec ident="att.editLike" type="atts" mode="delete"/>
-				<classSpec ident="att.edition" type="atts" mode="delete"/>
 				<classSpec ident="att.global.analytic" type="atts" mode="delete"/>
 				<classSpec ident="att.global.change" type="atts" mode="delete"/>
 				<classSpec ident="att.global.linking" type="atts" mode="delete"/>
@@ -3524,6 +3534,11 @@
 						<attDef ident="extent" mode="delete"/>
 						<attDef ident="precision" mode="delete"/>
 						<attDef ident="scope" mode="delete"/>
+					</attList>
+				</classSpec>
+				<classSpec ident="att.edition" type="atts" mode="change">
+					<attList>
+						<attDef ident="edRef" mode="delete"/>
 					</attList>
 				</classSpec>
 				<classSpec ident="att.fragmentable" type="atts" mode="change">
@@ -3649,9 +3664,11 @@
 				</classSpec>
 				<classSpec ident="att.milestoneUnit" type="atts" mode="change">
 					<attList>
-						<attDef ident="unit" mode="change" usage="opt">
+						<attDef ident="unit" mode="change" usage="req">
 							<valList type="closed" mode="change">
+								<valItem mode="add" ident="item"/>
 								<valItem mode="add" ident="part"/>
+								<valItem mode="change" ident="section"/>
 								<valItem mode="delete" ident="page"/>
 								<valItem mode="delete" ident="column"/>
 								<valItem mode="delete" ident="line"/>
@@ -3662,7 +3679,6 @@
 								<valItem mode="delete" ident="stanza"/>
 								<valItem mode="delete" ident="act"/>
 								<valItem mode="delete" ident="scene"/>
-								<valItem mode="delete" ident="section"/>
 								<valItem mode="delete" ident="absent"/>
 								<valItem mode="delete" ident="unnumbered"/>
 							</valList>
