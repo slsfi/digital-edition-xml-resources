@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema xmlns="http://purl.oclc.org/dsdl/schematron" queryBinding="xslt2">
    <title>ISO Schematron rules</title>
-   <!-- This file generated 2026-04-14T12:05:46Z by 'extract-isosch.xsl'. -->
+   <!-- This file generated 2026-04-15T14:17:59Z by 'extract-isosch.xsl'. -->
    <!-- ********************* -->
    <!-- namespaces, declared: -->
    <!-- ********************* -->
@@ -12,7 +12,7 @@
    <ns prefix="sch" uri="http://purl.oclc.org/dsdl/schematron"/>
    <ns prefix="sch1x" uri="http://www.ascc.net/xml/schematron"/>
    <!-- ******************************************************* -->
-   <!-- constraints in en, und, mul, zxx, of which there are 30 -->
+   <!-- constraints in en, und, mul, zxx, of which there are 31 -->
    <!-- ******************************************************* -->
    <pattern id="schematron-constraint-att-datable-w3c-when-1">
       <rule context="tei:*[@when]">
@@ -138,7 +138,14 @@
          <report test="preceding-sibling::*[ name(.) eq $gi ]                           and                           not( following-sibling::*[ name(.) eq $gi ] )"> Only one <name/> is allowed as a child of <value-of select="name(..)"/>.</report>
       </rule>
    </pattern>
-   <pattern id="schematron-constraint-msId_minimal-25">
+   <pattern id="schematron-constraint-duplicateDim-25">
+      <rule context="tei:dimensions">
+         <report test="count(tei:width) gt 1"> The element <name/> may appear once only</report>
+         <report test="count(tei:height) gt 1"> The element <name/> may appear once only</report>
+         <report test="count(tei:depth) gt 1"> The element <name/> may appear once only</report>
+      </rule>
+   </pattern>
+   <pattern id="schematron-constraint-msId_minimal-26">
       <rule context="tei:msIdentifier">
          <report test="not( parent::tei:msPart )                           and                           ( child::*[1]/self::idno  or  child::*[1]/self::altIdentifier  or  normalize-space(.) eq '')">An msIdentifier must contain either a repository or location.</report>
       </rule>
