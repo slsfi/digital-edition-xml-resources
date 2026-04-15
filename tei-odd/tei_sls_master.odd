@@ -56,6 +56,11 @@
 			</appInfo>
 		</encodingDesc>
 		<revisionDesc>
+			<change when="2026-04-15">
+				- Added elements: extent, dimensions height, objectDesc, physDesc, supportDesc, width.
+				- Modified @unit in att.dimensions and defined @unit explicitly on the elements that
+				  include it.
+			</change>
 			<change when="2025-02-25">Added: @xml:lang on note; @xml:id on cell, item, l, lg,
 				p, row and seg; @n on metamark; @function=transp on metamark, listTranspose
 				and transpose. Modified @rend values on byline and dateline.</change>
@@ -78,9 +83,9 @@
 
 				<!-- required minimal header elements -->
 				<moduleRef key="header" include="availability change correspAction correspDesc
-					encodingDesc fileDesc handNote idno keywords licence notesStmt publicationStmt
-					profileDesc revisionDesc seriesStmt sourceDesc teiHeader textClass titleStmt
-					xenoData"/>
+					encodingDesc extent fileDesc handNote idno keywords licence notesStmt
+					publicationStmt profileDesc revisionDesc seriesStmt sourceDesc teiHeader
+					textClass titleStmt xenoData"/>
 
 				<!-- required core elements (p and title for use in titleStmt) -->
 				<moduleRef key="core" include="abbr add address addrLine author bibl choice cit corr
@@ -92,9 +97,9 @@
 				<moduleRef key="textstructure" include="argument body byline closer dateline div
 					epigraph floatingText opener postscript salute signed TEI text"/>
 
-				<!-- required module tei instantiates lots of classes used for further expansion of this odd -->
+				<!-- required module tei instantiates lots of classes used for further expansion
+					 of this odd -->
 				<moduleRef key="tei"/>
-
 
 				<moduleRef key="linking" include="ab anchor seg"/>
 				<moduleRef key="transcr" include="addSpan delSpan handNotes handShift listTranspose
@@ -102,8 +107,9 @@
 				<moduleRef key="textcrit" include="app lem rdg"/>
 				<moduleRef key="analysis" include="c pc"/>
 				<moduleRef key="figures" include="cell figDesc figure row table"/>
-				<moduleRef key="msdescription" include="collection institution msDesc
-					msIdentifier msName origDate repository"/>
+				<moduleRef key="msdescription" include="collection dimensions height institution
+					msDesc msIdentifier msName objectDesc origDate physDesc repository
+					supportDesc width"/>
 				<moduleRef key="namesdates" include="country persName placeName region settlement"/>
 
 				<elementSpec ident="ab" mode="change">
@@ -744,6 +750,30 @@
 						<attDef ident="spanTo" mode="change" usage="req"/>
 					</attList>
 				</elementSpec>
+				<elementSpec ident="dimensions" mode="change">
+					<attList>
+						<attDef ident="type" mode="delete"/>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+						<attDef ident="quantity" mode="delete"/>
+						<attDef ident="subtype" mode="delete"/>
+						<attDef ident="unit" mode="change">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="cm">
+									<desc versionDate="2026-04-15" xml:lang="en">centimetres</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
 				<elementSpec ident="div" mode="change">
 					<classes mode="change">
 						<memberOf key="att.fragmentable"/>
@@ -831,6 +861,20 @@
 						<attDef ident="rend" mode="delete"/>
 						<attDef ident="facs" mode="delete"/>
 						<attDef ident="cert" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="extent" mode="change">
+					<attList>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
 						<attDef ident="source" mode="delete"/>
 					</attList>
 				</elementSpec>
@@ -957,7 +1001,22 @@
 						<attDef ident="precision" mode="delete"/>
 						<attDef ident="scope" mode="delete"/>
 						<attDef ident="agent" mode="delete"/>
-						<attDef ident="unit" mode="change"/>
+						<attDef ident="unit" mode="change">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="chars">
+									<desc versionDate="2024-09-30" xml:lang="en">characters of
+										text</desc>
+								</valItem>
+								<valItem mode="add" ident="lines">
+									<desc versionDate="2024-09-30" xml:lang="en">lines of
+										text</desc>
+								</valItem>
+								<valItem mode="add" ident="words">
+									<desc versionDate="2024-09-30" xml:lang="en">words of
+										text</desc>
+								</valItem>
+							</valList>
+						</attDef>
 						<attDef ident="quantity" mode="change"/>
 						<attDef ident="reason" mode="change">
 							<valList type="closed" mode="change">
@@ -1100,6 +1159,22 @@
 							</valList>
 						</attDef>
 						<attDef ident="subtype" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="height" mode="change">
+					<attList>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+						<attDef ident="unit" mode="delete"/>
+						<attDef ident="quantity" mode="delete"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="hi" mode="change">
@@ -1749,6 +1824,21 @@
 						<attDef ident="source" mode="delete"/>
 					</attList>
 				</elementSpec>
+				<elementSpec ident="objectDesc" mode="change">
+					<attList>
+						<attDef ident="form" mode="delete"/>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+					</attList>
+				</elementSpec>
 				<elementSpec ident="opener" mode="change">
 					<attList>
 						<attDef ident="ana" mode="delete"/>
@@ -2011,6 +2101,20 @@
 							</valList>
 						</attDef>
 						<attDef ident="calendar" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="physDesc" mode="change">
+					<attList>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="placeName" mode="change">
@@ -2787,7 +2891,22 @@
 						<attDef ident="source" mode="delete"/>
 						<attDef ident="type" mode="delete"/>
 						<attDef ident="subtype" mode="delete"/>
-						<attDef ident="unit" mode="change"/>
+						<attDef ident="unit" mode="change">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="chars">
+									<desc versionDate="2024-09-30" xml:lang="en">characters of
+										text</desc>
+								</valItem>
+								<valItem mode="add" ident="lines">
+									<desc versionDate="2024-09-30" xml:lang="en">lines of
+										text</desc>
+								</valItem>
+								<valItem mode="add" ident="words">
+									<desc versionDate="2024-09-30" xml:lang="en">words of
+										text</desc>
+								</valItem>
+							</valList>
+						</attDef>
 						<attDef ident="quantity" mode="change"/>
 						<attDef ident="dim" mode="delete"/>
 					</attList>
@@ -2872,6 +2991,21 @@
 						<attDef ident="facs" mode="delete"/>
 						<attDef ident="rend" mode="delete"/>
 						<attDef ident="cert" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="supportDesc" mode="change">
+					<attList>
+						<attDef ident="material" mode="delete"/>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="table" mode="change">
@@ -3191,6 +3325,22 @@
 						<attDef ident="resp" mode="change" usage="opt"/>
 					</attList>
 				</elementSpec>
+				<elementSpec ident="width" mode="change">
+					<attList>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+						<attDef ident="unit" mode="delete"/>
+						<attDef ident="quantity" mode="delete"/>
+					</attList>
+				</elementSpec>
 				<elementSpec ident="xenoData" mode="change">
 					<attList>
 						<attDef ident="xml:id" mode="delete"/>
@@ -3275,18 +3425,6 @@
 					<attList>
 						<attDef ident="unit" mode="change">
 							<valList type="closed" mode="change">
-								<valItem mode="add" ident="chars">
-									<desc versionDate="2024-09-30" xml:lang="en">characters of
-										text</desc>
-								</valItem>
-								<valItem mode="add" ident="lines">
-									<desc versionDate="2024-09-30" xml:lang="en">lines of
-										text</desc>
-								</valItem>
-								<valItem mode="add" ident="words">
-									<desc versionDate="2024-09-30" xml:lang="en">words of
-										text</desc>
-								</valItem>
 								<valItem mode="delete" ident="cm"/>
 								<valItem mode="delete" ident="mm"/>
 								<valItem mode="delete" ident="in"/>
@@ -3494,7 +3632,6 @@
 						</attDef>
 					</attList>
 				</classSpec>
-
 				<classSpec ident="att.textCritical" type="atts" mode="change">
 					<attList>
 						<attDef ident="type" mode="change">

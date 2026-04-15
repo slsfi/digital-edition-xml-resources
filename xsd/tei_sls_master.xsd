@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2026-04-14T13:00:11Z. . 
+    Schema generated from ODD source 2026-04-15T06:03:26Z. . 
     TEI Edition: P5 Version 4.11.0. Last updated on 18th February 2026, revision 358d2e48e 
     TEI Edition Location: https://www.tei-c.org/Vault/P5/4.11.0/ 
     
@@ -717,6 +717,48 @@
       <xs:element maxOccurs="unbounded" ref="tei:date"/>
     </xs:sequence>
   </xs:group>
+  <xs:group name="tei_model.dimLike">
+    <xs:choice>
+      <xs:element ref="tei:height"/>
+      <xs:element ref="tei:width"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="tei_model.measureLike">
+    <xs:choice>
+      <xs:element ref="tei:height"/>
+      <xs:element ref="tei:width"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="tei_model.measureLike_alternation">
+    <xs:choice>
+      <xs:element ref="tei:height"/>
+      <xs:element ref="tei:width"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="tei_model.measureLike_sequence">
+    <xs:sequence>
+      <xs:element ref="tei:height"/>
+      <xs:element ref="tei:width"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="tei_model.measureLike_sequenceOptional">
+    <xs:sequence>
+      <xs:element minOccurs="0" ref="tei:height"/>
+      <xs:element minOccurs="0" ref="tei:width"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="tei_model.measureLike_sequenceOptionalRepeatable">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:height"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:width"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="tei_model.measureLike_sequenceRepeatable">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="tei:height"/>
+      <xs:element maxOccurs="unbounded" ref="tei:width"/>
+    </xs:sequence>
+  </xs:group>
   <xs:group name="tei_model.graphicLike">
     <xs:sequence>
       <xs:element ref="tei:graphic"/>
@@ -748,32 +790,38 @@
     </xs:sequence>
   </xs:group>
   <xs:group name="tei_model.pPart.msdesc">
-    <xs:sequence>
+    <xs:choice>
+      <xs:element ref="tei:dimensions"/>
       <xs:element ref="tei:origDate"/>
-    </xs:sequence>
+    </xs:choice>
   </xs:group>
   <xs:group name="tei_model.pPart.msdesc_alternation">
-    <xs:sequence>
+    <xs:choice>
+      <xs:element ref="tei:dimensions"/>
       <xs:element ref="tei:origDate"/>
-    </xs:sequence>
+    </xs:choice>
   </xs:group>
   <xs:group name="tei_model.pPart.msdesc_sequence">
     <xs:sequence>
+      <xs:element ref="tei:dimensions"/>
       <xs:element ref="tei:origDate"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="tei_model.pPart.msdesc_sequenceOptional">
     <xs:sequence>
+      <xs:element minOccurs="0" ref="tei:dimensions"/>
       <xs:element minOccurs="0" ref="tei:origDate"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="tei_model.pPart.msdesc_sequenceOptionalRepeatable">
     <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:dimensions"/>
       <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:origDate"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="tei_model.pPart.msdesc_sequenceRepeatable">
     <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="tei:dimensions"/>
       <xs:element maxOccurs="unbounded" ref="tei:origDate"/>
     </xs:sequence>
   </xs:group>
@@ -1659,6 +1707,7 @@
       <xs:group ref="tei:tei_model.imprintPart"/>
       <xs:element ref="tei:quote"/>
       <xs:element ref="tei:bibl"/>
+      <xs:element ref="tei:extent"/>
       <xs:element ref="tei:availability"/>
       <xs:element ref="tei:msIdentifier"/>
     </xs:choice>
@@ -1672,6 +1721,7 @@
   <xs:group name="tei_model.pPart.data">
     <xs:choice>
       <xs:group ref="tei:tei_model.dateLike"/>
+      <xs:group ref="tei:tei_model.measureLike"/>
       <xs:group ref="tei:tei_model.addressLike"/>
       <xs:group ref="tei:tei_model.nameLike"/>
     </xs:choice>
@@ -1679,6 +1729,7 @@
   <xs:group name="tei_model.pPart.data_alternation">
     <xs:choice>
       <xs:group ref="tei:tei_model.dateLike_alternation"/>
+      <xs:group ref="tei:tei_model.measureLike_alternation"/>
       <xs:group ref="tei:tei_model.addressLike_alternation"/>
       <xs:group ref="tei:tei_model.nameLike_alternation"/>
     </xs:choice>
@@ -1686,6 +1737,7 @@
   <xs:group name="tei_model.pPart.data_sequence">
     <xs:sequence>
       <xs:group ref="tei:tei_model.dateLike_sequence"/>
+      <xs:group ref="tei:tei_model.measureLike_sequence"/>
       <xs:group ref="tei:tei_model.addressLike_sequence"/>
       <xs:group ref="tei:tei_model.nameLike_sequence"/>
     </xs:sequence>
@@ -1693,6 +1745,7 @@
   <xs:group name="tei_model.pPart.data_sequenceOptional">
     <xs:sequence>
       <xs:group minOccurs="0" ref="tei:tei_model.dateLike_sequenceOptional"/>
+      <xs:group minOccurs="0" ref="tei:tei_model.measureLike_sequenceOptional"/>
       <xs:group minOccurs="0" ref="tei:tei_model.addressLike_sequenceOptional"/>
       <xs:group minOccurs="0" ref="tei:tei_model.nameLike_sequenceOptional"/>
     </xs:sequence>
@@ -1700,6 +1753,7 @@
   <xs:group name="tei_model.pPart.data_sequenceOptionalRepeatable">
     <xs:sequence>
       <xs:group minOccurs="0" maxOccurs="unbounded" ref="tei:tei_model.dateLike_sequenceOptionalRepeatable"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="tei:tei_model.measureLike_sequenceOptionalRepeatable"/>
       <xs:group minOccurs="0" maxOccurs="unbounded" ref="tei:tei_model.addressLike_sequenceOptionalRepeatable"/>
       <xs:group minOccurs="0" maxOccurs="unbounded" ref="tei:tei_model.nameLike_sequenceOptionalRepeatable"/>
     </xs:sequence>
@@ -3812,6 +3866,7 @@ Elements 7.2.6. Speech Contents]</xs:documentation>
       <xs:sequence>
         <xs:sequence>
           <xs:element ref="tei:titleStmt"/>
+          <xs:element minOccurs="0" ref="tei:extent"/>
           <xs:element ref="tei:publicationStmt"/>
           <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:seriesStmt"/>
           <xs:element minOccurs="0" ref="tei:notesStmt"/>
@@ -3830,6 +3885,11 @@ Elements 7.2.6. Speech Contents]</xs:documentation>
         <xs:group minOccurs="0" maxOccurs="unbounded" ref="tei:tei_model.respLike"/>
       </xs:sequence>
     </xs:complexType>
+  </xs:element>
+  <xs:element name="extent" type="tei:tei_macro.phraseSeq">
+    <xs:annotation>
+      <xs:documentation>(extent) describes the approximate size of a text stored on some carrier medium or of some other object, digital or non-digital, specified in any convenient units. [2.2.3. Type and Extent of File 2.2. The File Description 3.12.2.4. Imprint, Size of a Document, and Reprint Information 11.7.1. Object Description]</xs:documentation>
+    </xs:annotation>
   </xs:element>
   <xs:element name="publicationStmt">
     <xs:annotation>
@@ -5536,9 +5596,44 @@ Suggested values include: 1] label; 2] data</xs:documentation>
       <xs:sequence>
         <xs:element ref="tei:msIdentifier"/>
         <xs:group minOccurs="0" maxOccurs="unbounded" ref="tei:tei_model.headLike"/>
-        <xs:group minOccurs="0" maxOccurs="unbounded" ref="tei:tei_model.pLike"/>
+        <xs:choice>
+          <xs:group maxOccurs="unbounded" ref="tei:tei_model.pLike"/>
+          <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:physDesc"/>
+        </xs:choice>
       </xs:sequence>
     </xs:complexType>
+  </xs:element>
+  <xs:element name="dimensions">
+    <xs:annotation>
+      <xs:documentation>(dimensions) contains a dimensional specification. [11.3.4. Dimensions]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="tei:tei_model.dimLike"/>
+      <xs:attribute name="unit">
+        <xs:annotation>
+          <xs:documentation>names the unit used for the measurement</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="cm">
+              <xs:annotation>
+                <xs:documentation>centimetres</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="height" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>(height) contains a measurement measured along the axis at a right angle to the bottom of the object. [11.3.4. Dimensions]</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="width" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>(width) contains a measurement of an object along the axis parallel to its bottom, e.g. perpendicular to the spine of a book or codex. [11.3.4. Dimensions]</xs:documentation>
+    </xs:annotation>
   </xs:element>
   <xs:element name="origDate">
     <xs:annotation>
@@ -5625,6 +5720,39 @@ Suggested values include: 1] label; 2] data</xs:documentation>
         <xs:element ref="tei:name"/>
       </xs:choice>
       <xs:attributeGroup ref="tei:tei_att.global.attribute.xmllang"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="physDesc">
+    <xs:annotation>
+      <xs:documentation>(physical description) contains a full physical description of a manuscript, manuscript part, or other object optionally subdivided using more specialized elements from the model.physDescPart class. [11.7. Physical Description]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="tei:tei_model.pLike"/>
+        <xs:element minOccurs="0" ref="tei:objectDesc"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="objectDesc">
+    <xs:annotation>
+      <xs:documentation>(object description) contains a description of the physical components making up the object which is being described. [11.7.1. Object Description]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice>
+        <xs:group maxOccurs="unbounded" ref="tei:tei_model.pLike"/>
+        <xs:element minOccurs="0" ref="tei:supportDesc"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="supportDesc">
+    <xs:annotation>
+      <xs:documentation>(support description) groups elements describing the physical support for the written part of a manuscript or other object. [11.7.1. Object Description]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice>
+        <xs:group maxOccurs="unbounded" ref="tei:tei_model.pLike"/>
+        <xs:element minOccurs="0" ref="tei:extent"/>
+      </xs:choice>
     </xs:complexType>
   </xs:element>
   <xs:element name="persName">

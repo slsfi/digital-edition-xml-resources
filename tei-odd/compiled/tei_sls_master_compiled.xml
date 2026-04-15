@@ -849,16 +849,7 @@ sub-classification for the element additional to that provided by its
   </listRef>
 </classSpec><classSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="tei" type="atts" xml:id="class-attr-dimensions" ident="att.dimensions"><desc versionDate="2007-08-05" xml:lang="en">provides attributes for describing the size of physical objects.</desc><desc versionDate="2007-12-20" xml:lang="ko">물리적 대상의 크기를 기술하는 속성을 제공한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">提供符合某種度量值的屬性值。</desc><desc versionDate="2008-04-05" xml:lang="ja">物理的対象の大きさを表す属性を示す。</desc><desc versionDate="2009-05-25" xml:lang="fr">fournit des attributs pour décrire la taille des objets physiques.</desc><desc versionDate="2007-11-06" xml:lang="it">assegna degli attributi che descrivono la grandezza di
     oggetti fisici</desc><desc versionDate="2007-05-04" xml:lang="es">proporciona atributos que califican una determinata
-    medición.</desc><classes/><attList><attDef ident="unit" usage="opt"><desc versionDate="2007-08-02" xml:lang="en">names the unit used for the measurement</desc><desc versionDate="2007-12-20" xml:lang="ko">측정 단위의 이름을 기술한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">度量單位的名稱。</desc><desc versionDate="2008-04-05" xml:lang="ja">当該大きさの単位を示す。</desc><desc versionDate="2007-06-12" xml:lang="fr">noms des unités utilisées pour la mesure.</desc><desc versionDate="2007-05-04" xml:lang="es">especifica las unidades usadas para la medición.</desc><desc versionDate="2007-01-21" xml:lang="it">specifica le unità usate per la misurazione</desc><datatype><dataRef key="teidata.enumerated"/></datatype><valList type="closed" mode="change"><valItem mode="add" ident="chars">
-									<desc versionDate="2024-09-30" xml:lang="en">characters of
-										text</desc>
-								</valItem><valItem mode="add" ident="lines">
-									<desc versionDate="2024-09-30" xml:lang="en">lines of
-										text</desc>
-								</valItem><valItem mode="add" ident="words">
-									<desc versionDate="2024-09-30" xml:lang="en">words of
-										text</desc>
-								</valItem></valList></attDef><attDef ident="quantity">
+    medición.</desc><classes/><attList><attDef ident="unit" usage="opt"><desc versionDate="2007-08-02" xml:lang="en">names the unit used for the measurement</desc><desc versionDate="2007-12-20" xml:lang="ko">측정 단위의 이름을 기술한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">度量單位的名稱。</desc><desc versionDate="2008-04-05" xml:lang="ja">当該大きさの単位を示す。</desc><desc versionDate="2007-06-12" xml:lang="fr">noms des unités utilisées pour la mesure.</desc><desc versionDate="2007-05-04" xml:lang="es">especifica las unidades usadas para la medición.</desc><desc versionDate="2007-01-21" xml:lang="it">specifica le unità usate per la misurazione</desc><datatype><dataRef key="teidata.enumerated"/></datatype><valList type="closed" mode="change"/></attDef><attDef ident="quantity">
       <desc versionDate="2007-08-02" xml:lang="en">specifies the length in the units specified</desc>
       <desc versionDate="2007-12-20" xml:lang="ko">명시된 단위의 길이를 명시한다.</desc>
       <desc versionDate="2008-04-06" xml:lang="es">especifica la longitud en las unidades especificadas</desc>
@@ -1297,6 +1288,9 @@ or corporate bodies.</desc>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html#CONADA">3.6.4. Dates and Times</ref>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/ND.html#NDDATE">14.4. Dates</ref>
   </listRef>
+</classSpec><classSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" module="tei" type="model" ident="model.dimLike">
+  <desc versionDate="2009-04-05" xml:lang="en">groups elements which describe a measurement forming part of
+  the physical dimensions of some object.</desc>
 </classSpec><classSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" module="tei" type="model" ident="model.measureLike">
   <desc versionDate="2007-10-18" xml:lang="en">groups elements which denote a number, a quantity, a measurement, or similar piece of text
     that conveys some numerical meaning.</desc>
@@ -4097,7 +4091,22 @@ Normalization</ref>
     trascrizione, sia per ragioni editoriali descritte nell'intestazione TEI, come pratica di
     campionatura, sia perché il materiale è illegibile o incomprensibile.</desc><desc versionDate="2016-11-25" xml:lang="de">weist in einer Transkription auf eine Stelle hin, 
     in der Text aus der Vorlage ausgelassen worden ist, sei es aus editorischen Gründen, die im TEI-Header beschrieben werden, 
-    sei es auf Grund der Auswahlpraxis, sei es weil das Material nicht lesbar, nicht sichtbar oder nicht hörbar ist.</desc><classes><memberOf key="att.written"/><memberOf key="att.global"/><memberOf key="att.dimensions"/><memberOf key="model.global.edit"/></classes><content><alternate minOccurs="0" maxOccurs="unbounded"><classRef key="model.descLike"/><classRef key="model.certLike"/></alternate></content><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="extent" mode="delete"/><attDef ident="precision" mode="delete"/><attDef ident="scope" mode="delete"/><attDef ident="unit" mode="change"/><attDef ident="quantity" mode="change"/><attDef ident="reason" usage="opt"><gloss versionDate="2016-11-25" xml:lang="en">reason</gloss><gloss versionDate="2016-11-25" xml:lang="de">Grund</gloss><desc versionDate="2017-02-06" xml:lang="en">gives the reason for omission.</desc><desc versionDate="2007-12-20" xml:lang="ko">누락의 이유를 제시한다. 그 값의 예들은 다음과 같다: <val>sampling</val>,
+    sei es auf Grund der Auswahlpraxis, sei es weil das Material nicht lesbar, nicht sichtbar oder nicht hörbar ist.</desc><classes><memberOf key="att.written"/><memberOf key="att.global"/><memberOf key="att.dimensions"/><memberOf key="model.global.edit"/></classes><content><alternate minOccurs="0" maxOccurs="unbounded"><classRef key="model.descLike"/><classRef key="model.certLike"/></alternate></content><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="extent" mode="delete"/><attDef ident="precision" mode="delete"/><attDef ident="scope" mode="delete"/><attDef ident="unit" mode="change">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="chars">
+									<desc versionDate="2024-09-30" xml:lang="en">characters of
+										text</desc>
+								</valItem>
+								<valItem mode="add" ident="lines">
+									<desc versionDate="2024-09-30" xml:lang="en">lines of
+										text</desc>
+								</valItem>
+								<valItem mode="add" ident="words">
+									<desc versionDate="2024-09-30" xml:lang="en">words of
+										text</desc>
+								</valItem>
+							</valList>
+						</attDef><attDef ident="quantity" mode="change"/><attDef ident="reason" usage="opt"><gloss versionDate="2016-11-25" xml:lang="en">reason</gloss><gloss versionDate="2016-11-25" xml:lang="de">Grund</gloss><desc versionDate="2017-02-06" xml:lang="en">gives the reason for omission.</desc><desc versionDate="2007-12-20" xml:lang="ko">누락의 이유를 제시한다. 그 값의 예들은 다음과 같다: <val>sampling</val>,
           <val>illegible</val>, <val>inaudible</val>, <val>irrelevant</val>, <val>cancelled</val>,
           <val>cancelled and illegible</val></desc><desc versionDate="2025-03-31" xml:lang="zh-TW">說明省略的原因。</desc><desc versionDate="2008-04-05" xml:lang="ja">省略の理由を示す。例えば、 <val>見本</val>、<val>聞こえない</val>、
           <val>無関係</val>、<val>取り消し</val>、<val>取り消しがありかつ判読できない</val>、など。</desc><desc versionDate="2017-02-06" xml:lang="fr">donne la raison de l'omission.</desc><desc versionDate="2007-05-04" xml:lang="es">declara la causa de la omisión</desc><desc versionDate="2007-01-21" xml:lang="it">indica il motivo dell'omisione</desc><desc versionDate="2017-02-07" xml:lang="de">gibt den Grund für die Auslassung an.</desc><datatype maxOccurs="unbounded">
@@ -7316,6 +7325,54 @@ epistemology, methodology and history of
   </exemplum><listRef>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/HD.html#HD21">2.2.1. The Title Statement</ref>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/HD.html#HD2">2.2. The File Description</ref>
+  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="header" xml:id="gi-extent" ident="extent"><gloss versionDate="2007-06-12" xml:lang="en">extent</gloss><gloss versionDate="2007-06-12" xml:lang="fr">étendue</gloss><desc versionDate="2013-01-07" xml:lang="en">describes the approximate size of a text stored on some carrier medium or of some other object, digital  or non-digital, specified in any convenient units.</desc><desc versionDate="2009-01-05" xml:lang="fr">décrit la taille approximative d’un texte stocké sur son support, numérique ou non numérique, exprimé dans une unité quelconque appropriée.</desc><desc versionDate="2007-12-20" xml:lang="ko">전달 매체, 즉, 디지털 또는 비디지털로 저장된 텍스트의, 다양한 단위로 명시되는, 대략적 규모를 기술한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">描述電子文件儲存在某一承載媒介時的約略大小，標以任何適用的單位。</desc><desc versionDate="2008-04-05" xml:lang="ja">電子・非電子テキストのおよその大きさを任意の単位で示す。</desc><desc versionDate="2016-11-25" xml:lang="de">beschreibt die ungefähre Größe des elektronischen Textes, die er auf einem Datenträger einnimmt; 
+    kann auch für andere digitale oder nicht digitale Objekte verwendet werden; die Angabe erfolgt in entsprechenden Maßeinheiten.</desc><desc versionDate="2007-05-04" xml:lang="es">describe el tamaño aproximado de un texto almacenado en algún medio, digital o no, especificándolo en alguna unidad funcional.</desc><desc versionDate="2007-01-21" xml:lang="it">descrive la grandezza approssimativa di un documento elettronico così come immagazzinata su supporto, secondo una qualsiasi unità funzionale.</desc><classes><memberOf key="att.global"/><memberOf key="model.biblPart"/></classes><content><macroRef key="macro.phraseSeq"/></content><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/></attList><exemplum xml:lang="en">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-extent-egXML-zk">
+      <extent>3200 sentences</extent>
+      <extent>between 10 and 20 Mb</extent>
+      <extent>ten 3.5 inch high density diskettes</extent>
+    </egXML>
+  </exemplum><exemplum versionDate="2016-11-04" xml:lang="en">
+    <p>The  <gi>measure</gi> element may be used to supply normalized
+or machine tractable versions of the size or sizes concerned.</p>
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-extent-egXML-ig">
+      <extent>
+        <measure unit="MiB" quantity="4.2">About four megabytes</measure>
+        <measure unit="pages" quantity="245">245 pages of source
+material</measure>
+      </extent>
+    </egXML>
+  </exemplum><exemplum versionDate="2016-11-25" xml:lang="de">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-extent-egXML-dt">
+      <extent>400 Seiten</extent>
+      <extent>ungefähr 10MB</extent>
+    </egXML>
+  </exemplum><exemplum versionDate="2023-02-03" xml:lang="de">
+    <p>Das <gi>measure</gi>-Element kann dazu verwendet werden, um normalisierte oder 
+      maschinenlesbare Versionen der Größen-Angaben bereitzustellen.</p>
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-extent-egXML-eo">
+      <extent>
+        <measure unit="MiB" quantity="4.2">Ungefähr vier Megabyte</measure>
+        <measure unit="pages" quantity="245">Textumfang 245 Seiten</measure>
+      </extent>
+    </egXML>
+  </exemplum><exemplum versionDate="2010-02-26" xml:lang="fr">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-extent-egXML-lh">
+      <extent>198 pages</extent>
+      <extent>90 195 mots</extent>
+      <extent>1 Mo</extent>
+    </egXML>
+  </exemplum><exemplum xml:lang="zh-TW">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-extent-egXML-gd">
+      <extent>3200個句子</extent>
+      <extent>介於10 到20 Mb</extent>
+      <extent>10片3.5吋磁碟片</extent>
+    </egXML>
+  </exemplum><listRef>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/HD.html#HD23">2.2.3. Type and Extent of File</ref>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/HD.html#HD2">2.2. The File Description</ref>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html#COBICOI">3.12.2.4. Imprint, Size of a Document, and Reprint Information</ref>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/MS.html#msph1">11.7.1. Object Description</ref>
   </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="header" xml:id="gi-publicationStmt" ident="publicationStmt"><gloss versionDate="2005-01-14" xml:lang="en">publication statement</gloss><gloss versionDate="2009-01-05" xml:lang="fr">mention de publication</gloss><gloss versionDate="2007-12-20" xml:lang="ko">출판 진술</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">出版陳述</gloss><gloss versionDate="2016-11-17" xml:lang="de">Angaben zur Veröffentlichung</gloss><gloss versionDate="2007-05-04" xml:lang="es">declaración de la publicación</gloss><gloss versionDate="2007-01-21" xml:lang="it">dichiarazione sulla pubblicazione</gloss><desc versionDate="2005-01-14" xml:lang="en">groups information concerning the publication or distribution of an electronic or other text.</desc><desc versionDate="2009-01-05" xml:lang="fr">regroupe des informations concernant la publication ou
     la diffusion d’un texte électronique ou d’un autre type de texte.</desc><desc versionDate="2007-12-20" xml:lang="ko">전자 또는 기타 텍스트의 출판 또는 배포에 관한 정보를 모아 놓는다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">匯集電子文件或其他類型文件的出版或發行相關資訊。</desc><desc versionDate="2008-04-05" xml:lang="ja">電子テキストなどの出版や頒布に関する情報をまとめる。</desc><desc versionDate="2016-11-17" xml:lang="de">umfasst Angaben zu Veröffentlichung oder Vertrieb eines elektronischen oder sonstigen Textes.</desc><desc versionDate="2007-05-04" xml:lang="es">agrupa la información concerniente a la publicación o
     distribución de un texto electrónico u otro texto.</desc><desc versionDate="2007-01-21" xml:lang="it">raggruppa le informazioni riguardo la pubblicazione o la
@@ -9919,7 +9976,22 @@ For I hate this
     <p>L'attribut <att>type</att> de cet élément caractérise la manière dont l'intervention supprimée a été mentionnée, par exemple par une note marginale, par une surcharge de l'écriture, par un balisage additionnel, etc. </p>
   </remarks><listRef>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/PH.html#PHCD">12.3.1.6. Cancellation of Deletions and Other Markings</ref>
-  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="transcr" xml:id="gi-space" ident="space"><gloss versionDate="2007-06-12" xml:lang="en">space</gloss><gloss versionDate="2007-06-12" xml:lang="fr">espace</gloss><desc versionDate="2005-01-14" xml:lang="en">indicates the location of a significant space in the text.</desc><desc versionDate="2007-12-20" xml:lang="ko">복사본에서 중요한 공간의 위치를 표시한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">指出來源文件中出現大片空白的位置。</desc><desc versionDate="2008-04-05" xml:lang="ja">元資料にある重要な空白の場所を示す。</desc><desc versionDate="2009-11-16" xml:lang="fr">permet de situer un espace significatif dans le texte édité.</desc><desc versionDate="2007-05-04" xml:lang="es">indica la localización de un espacio significativo en el texto de copia.</desc><desc versionDate="2007-01-21" xml:lang="it">indica la posizione di uno spazio significativo nel testo copia</desc><classes><memberOf key="att.global"/><memberOf key="att.dimensions"/><memberOf key="att.typed"/><memberOf key="model.global.edit"/></classes><content><alternate minOccurs="0" maxOccurs="unbounded"><classRef key="model.descLike"/><classRef key="model.certLike"/></alternate></content><attList><attDef ident="ana" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="atLeast" mode="delete"/><attDef ident="atMost" mode="delete"/><attDef ident="min" mode="delete"/><attDef ident="max" mode="delete"/><attDef ident="confidence" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="type" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="unit" mode="change"/><attDef ident="quantity" mode="change"/><attDef ident="dim" mode="delete"/><attDef ident="resp" mode="delete"/></attList><exemplum xml:lang="en">
+  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="transcr" xml:id="gi-space" ident="space"><gloss versionDate="2007-06-12" xml:lang="en">space</gloss><gloss versionDate="2007-06-12" xml:lang="fr">espace</gloss><desc versionDate="2005-01-14" xml:lang="en">indicates the location of a significant space in the text.</desc><desc versionDate="2007-12-20" xml:lang="ko">복사본에서 중요한 공간의 위치를 표시한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">指出來源文件中出現大片空白的位置。</desc><desc versionDate="2008-04-05" xml:lang="ja">元資料にある重要な空白の場所を示す。</desc><desc versionDate="2009-11-16" xml:lang="fr">permet de situer un espace significatif dans le texte édité.</desc><desc versionDate="2007-05-04" xml:lang="es">indica la localización de un espacio significativo en el texto de copia.</desc><desc versionDate="2007-01-21" xml:lang="it">indica la posizione di uno spazio significativo nel testo copia</desc><classes><memberOf key="att.global"/><memberOf key="att.dimensions"/><memberOf key="att.typed"/><memberOf key="model.global.edit"/></classes><content><alternate minOccurs="0" maxOccurs="unbounded"><classRef key="model.descLike"/><classRef key="model.certLike"/></alternate></content><attList><attDef ident="ana" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="atLeast" mode="delete"/><attDef ident="atMost" mode="delete"/><attDef ident="min" mode="delete"/><attDef ident="max" mode="delete"/><attDef ident="confidence" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="type" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="unit" mode="change">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="chars">
+									<desc versionDate="2024-09-30" xml:lang="en">characters of
+										text</desc>
+								</valItem>
+								<valItem mode="add" ident="lines">
+									<desc versionDate="2024-09-30" xml:lang="en">lines of
+										text</desc>
+								</valItem>
+								<valItem mode="add" ident="words">
+									<desc versionDate="2024-09-30" xml:lang="en">words of
+										text</desc>
+								</valItem>
+							</valList>
+						</attDef><attDef ident="quantity" mode="change"/><attDef ident="dim" mode="delete"/><attDef ident="resp" mode="delete"/></attList><exemplum xml:lang="en">
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-space-egXML-np">By god if wommen had writen storyes
       As <space quantity="7" unit="minims"/> han within her oratoryes</egXML>
   </exemplum><exemplum xml:lang="en">
@@ -10763,7 +10835,21 @@ purposes.</p>
       ist. Es kann weiters für Indexierungen und Dokumentationen benutzt werden.</p>
   </remarks><listRef>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/FT.html#FTGRA">15.4. Specific Elements for Graphic Images</ref>
-  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="msdescription" xml:id="MSDESC" ident="msDesc"><gloss versionDate="2007-07-04" xml:lang="en">manuscript description</gloss><gloss versionDate="2007-12-20" xml:lang="ko">원고 기술</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW"/><gloss versionDate="2008-04-06" xml:lang="es">descripción del manuscrito</gloss><gloss versionDate="2007-06-12" xml:lang="fr">description d'un manuscrit</gloss><gloss versionDate="2007-11-06" xml:lang="it">decrizione del manoscritto</gloss><desc versionDate="2022-02-23" xml:lang="en" xml:id="msdesc.desc">contains a description of a single identifiable
+  </listRef></elementSpec><classSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" module="msdescription" type="model" ident="model.physDescPart">
+  
+  <desc versionDate="2012-03-14" xml:lang="en">groups specialized elements forming part of the physical description of a manuscript or
+    similar written source.</desc>
+  <desc versionDate="2007-12-20" xml:lang="ko">원고 또는 유사 문어 원본의 물리적 기술 부분을 형성하는 특별한 요소를 모아 놓는다.</desc>
+  <desc versionDate="2007-05-02" xml:lang="zh-TW">特殊的描述性元素，包含寫本或相似書寫來源的外觀描述。</desc>
+  <desc versionDate="2008-04-05" xml:lang="ja">手書き資料などの物理的解説を構成する要素をまとめる。</desc>
+  <desc versionDate="2009-05-28" xml:lang="fr">regroupe des éléments spécialisés constituant
+    la description physique d'un manuscrit ou d'une source écrite de même nature.</desc>
+  <desc versionDate="2007-05-04" xml:lang="es">elementos descriptivos específicos que constituyen la
+    descripción física de un manuscrito o de una fuente escrita similar.</desc>
+  <desc versionDate="2007-01-21" xml:lang="it">elementi descrittivi specifici che costituiscono la
+    descrizione fisica di un manoscritto o di una fonte scritta simile</desc>
+  <classes/>
+</classSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="msdescription" xml:id="MSDESC" ident="msDesc"><gloss versionDate="2007-07-04" xml:lang="en">manuscript description</gloss><gloss versionDate="2007-12-20" xml:lang="ko">원고 기술</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW"/><gloss versionDate="2008-04-06" xml:lang="es">descripción del manuscrito</gloss><gloss versionDate="2007-06-12" xml:lang="fr">description d'un manuscrit</gloss><gloss versionDate="2007-11-06" xml:lang="it">decrizione del manoscritto</gloss><desc versionDate="2022-02-23" xml:lang="en" xml:id="msdesc.desc">contains a description of a single identifiable
     manuscript or other text-bearing object such as an early printed book.</desc><desc versionDate="2007-12-20" xml:lang="ko">하나의 식별가능한 원고에 대한 기술을 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含單一份可識別手稿的描述。</desc><desc versionDate="2008-04-05" xml:lang="ja">単一の識別可能な手書き資料の解説を示す。</desc><desc versionDate="2007-06-12" xml:lang="fr">contient la description d'un manuscrit individuel.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene la definición de un único manuscrito.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene la descrizione di un unico manoscritto</desc><classes><memberOf key="att.global"/><memberOf key="att.typed"/><memberOf key="model.biblLike"/></classes><content><sequence minOccurs="1" maxOccurs="1"><elementRef key="msIdentifier"/><classRef key="model.headLike" minOccurs="0" maxOccurs="unbounded"/><alternate minOccurs="1" maxOccurs="1"><classRef key="model.pLike" minOccurs="1" maxOccurs="unbounded"/><alternate minOccurs="0" maxOccurs="unbounded"><elementRef key="msContents"/><elementRef key="physDesc"/><elementRef key="history"/><elementRef key="additional"/><elementRef key="msPart"/><elementRef key="msFrag"/></alternate></alternate></sequence></content><constraintSpec scheme="schematron" ident="one_ms_singleton_max" xml:lang="en">
     <constraint>
       <sch:rule context="tei:msContents|tei:physDesc|tei:history|tei:additional">
@@ -10960,6 +11046,143 @@ purposes.</p>
     <gi>object</gi> may be more suitable.</p>
   </remarks><listRef>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/MS.html#msov">11.1. Overview</ref>
+  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="msdescription" xml:id="DIMENSIONS" ident="dimensions"><gloss versionDate="2009-04-17" xml:lang="en">dimensions</gloss><gloss versionDate="2009-04-17" xml:lang="fr">dimensions</gloss><desc versionDate="2007-08-02" xml:lang="en" xml:id="dimensions.desc">contains a dimensional specification.</desc><desc versionDate="2007-12-20" xml:lang="ko">어떤 차원의 명세를 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">尺寸的詳細說明。</desc><desc versionDate="2008-04-05" xml:lang="ja">大きさ・程度を示す。</desc><desc versionDate="2008-03-30" xml:lang="fr">contient une spécification des dimensions.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene cualquier tipo de especificación referente a las dimensiones.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene una qualsiasi indicazione relativa alle dimensioni</desc><classes><memberOf key="att.global"/><memberOf key="att.dimensions"/><memberOf key="att.typed"/><memberOf key="model.pPart.msdesc"/></classes><content><alternate minOccurs="0" maxOccurs="unbounded"><elementRef key="dim"/><classRef key="model.dimLike"/></alternate></content><constraintSpec scheme="schematron" ident="duplicateDim" xml:lang="en">
+    <!-- It would be simpler to use just
+         "( count(tei:width), count(tei:height), count(tei:depth) ) > 1",
+         but then we would not be able to tell the user which element
+         had too many occurrences. -->
+    <constraint>
+      <sch:rule context="tei:dimensions">
+        <sch:report test="count(tei:width) gt 1">
+          The element <sch:name/> may appear once only
+        </sch:report>
+        <sch:report test="count(tei:height) gt 1">
+          The element <sch:name/> may appear once only
+        </sch:report>
+        <sch:report test="count(tei:depth) gt 1">
+          The element <sch:name/> may appear once only
+        </sch:report>
+      </sch:rule>
+    </constraint>
+  </constraintSpec><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="quantity" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="unit" mode="change">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="cm">
+									<desc versionDate="2026-04-15" xml:lang="en">centimetres</desc>
+								</valItem>
+							</valList>
+						</attDef><attDef ident="type" mode="delete"/></attList><exemplum xml:lang="und">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="DIMENSIONS-egXML-ru">
+      <dimensions type="leaves">
+        <height scope="range">157-160</height>
+        <width>105</width>
+      </dimensions>
+      <dimensions type="ruled">
+        <height scope="most">90</height>
+        <width scope="most">48</width>
+      </dimensions>
+      <dimensions unit="in">
+        <height>12</height>
+        <width>10</width>
+      </dimensions>
+    </egXML>
+  </exemplum><exemplum versionDate="2008-04-06" xml:lang="fr">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="DIMENSIONS-egXML-jd" source="#fr-ex-BnF-Reliures">
+      <dimensions type="binding">
+        <height unit="mm">328 (336)</height>
+        <width unit="mm">203</width>
+        <depth unit="mm">74</depth>
+      </dimensions>
+    </egXML>
+  </exemplum><exemplum versionDate="2008-04-06" xml:lang="fr">
+    <p>Quand de simples quantités numériques sont impliquées, elles peuvent être exprimées par
+        l'attribut <att>quantity</att> sur chaque ou sur tous les éléments enfants, comme dans
+        l'exemple suivant : </p>
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="DIMENSIONS-egXML-jj" source="#fr-ex-BnF-Reliures">
+      <dimensions type="binding">
+        <height unit="mm">170</height>
+        <width unit="mm">98</width>
+        <depth unit="mm">15</depth>
+      </dimensions>
+      <dimensions type="binding">
+        <height unit="mm">168</height>
+        <width unit="mm">106</width>
+        <depth unit="mm">22</depth>
+      </dimensions>
+    </egXML>
+  </exemplum><exemplum xml:lang="en">
+    <p>This element may be used to record the dimensions of any
+text-bearing object, not necessarily a codex. For example:</p>
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="DIMENSIONS-egXML-wz">
+      <dimensions type="panels">
+        <height scope="all">7004</height>
+        <width scope="all">1803</width>
+        <dim type="relief" unit="mm">345</dim>
+      </dimensions>
+    </egXML>
+    <p>This might be used to show that the inscribed panels on some (imaginary)
+monument are all the same size (7004 by 1803 cm) and stand out from
+the rest of the monument by 345 mm.
+</p>
+  </exemplum><exemplum xml:lang="en">
+    <p>When simple numeric quantities are involved, they may be
+    expressed on the <att>quantity</att> attribute of any or all of
+    the child elements, as in the following example:</p>
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="DIMENSIONS-egXML-kk">
+      <dimensions type="leaves">
+        <height scope="range">157-160</height>
+        <width quantity="105"/>
+      </dimensions>
+      <dimensions type="ruled">
+        <height unit="cm" scope="most" quantity="90"/>
+        <width unit="cm" scope="most" quantity="48"/>
+      </dimensions>
+      <dimensions unit="in">
+        <height quantity="12"/>
+        <width quantity="10"/>
+      </dimensions>
+    </egXML>
+  </exemplum><remarks versionDate="2012-03-14" xml:lang="en">
+    <p>Contains no more than one of each of the specialized elements
+    used to express a three-dimensional object's height, width, and
+    depth, combined with any number of other kinds of dimensional
+    specification.</p>
+  </remarks><remarks versionDate="2007-06-12" xml:lang="fr">
+    <p>Contient la mesure de la hauteur, de la largeur et de la profondeur d'un objet à 1,
+                2 ou 3 dimensions.</p>
+  </remarks><remarks versionDate="2008-04-05" xml:lang="ja">
+    <p>
+    対象物の高さ、幅、奥行きの大きさを示す。
+    </p>
+  </remarks><listRef>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/MS.html#msdim">11.3.4. Dimensions</ref>
+  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="msdescription" xml:id="HEIGHT" ident="height"><gloss versionDate="2007-06-12" xml:lang="en">height</gloss><gloss versionDate="2007-06-12" xml:lang="fr">hauteur</gloss><desc versionDate="2019-05-08" xml:lang="en" xml:id="height.desc">contains a measurement measured along the axis at a right angle to the bottom of the object.</desc><desc versionDate="2007-12-20" xml:lang="ko">책의 높이 치수를 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">沿著與書脊平行的軸線所量出的測量值。</desc><desc versionDate="2008-04-05" xml:lang="ja">背に沿って計測された大きさを示す。</desc><desc versionDate="2007-06-12" xml:lang="fr">contient une dimension prise sur l'axe parallèle au
+      dos du manuscrit.</desc><desc versionDate="2007-05-04" xml:lang="es">refiere la medida tomada del largo del eje paralelo del dorso.***</desc><desc versionDate="2007-01-21" xml:lang="it">si riferisce a una misurazione presa lungo l'asse parallelo al dorso</desc><classes><memberOf key="att.global"/><memberOf key="att.dimensions"/><memberOf key="model.dimLike"/><memberOf key="model.measureLike"/></classes><content><macroRef key="macro.xtext"/></content><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="unit" mode="delete"/><attDef ident="quantity" mode="delete"/></attList><exemplum xml:lang="und">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="HEIGHT-egXML-uu" source="#UND">
+      <height unit="in" quantity="7"/>
+    </egXML>
+  </exemplum><exemplum versionDate="2008-04-06" xml:lang="fr">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="HEIGHT-egXML-bk" source="#UND">
+      <height unit="in" quantity="7"/>
+    </egXML>
+  </exemplum><listRef>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/MS.html#msdim">11.3.4. Dimensions</ref>
+  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="msdescription" xml:id="WIDTH" ident="width"><gloss versionDate="2007-06-12" xml:lang="en">width</gloss><gloss versionDate="2007-06-12" xml:lang="fr">largeur</gloss><desc versionDate="2019-05-08" xml:lang="en" xml:id="width.desc">contains a measurement of an object along the axis parallel to its bottom, e.g. perpendicular to the spine of a book or codex.</desc><desc versionDate="2007-12-20" xml:lang="ko">책의 너비 치수를 명시한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">沿著與書脊垂直的軸線所量出的測量值</desc><desc versionDate="2008-04-05" xml:lang="ja">背に対して直角に計測される計測値を示す。</desc><desc versionDate="2007-06-12" xml:lang="fr">contient une dimension mesurée sur l'axe
+      perpendiculaire au dos du manuscrit.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene la medida tomada al largo del eje perpendicular del dorso.***</desc><desc versionDate="2007-01-21" xml:lang="it">si riferisce a una misurazione presa lungo l'asse perpendicolare al dorso</desc><classes><memberOf key="att.global"/><memberOf key="att.dimensions"/><memberOf key="model.dimLike"/><memberOf key="model.measureLike"/></classes><content><macroRef key="macro.xtext"/></content><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="unit" mode="delete"/><attDef ident="quantity" mode="delete"/></attList><exemplum xml:lang="und">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="WIDTH-egXML-cb">
+      <width unit="in">4</width>
+    </egXML>
+  </exemplum><exemplum versionDate="2008-04-06" xml:lang="fr">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="WIDTH-egXML-la" source="#fr-ex-BnF-Reliures">
+      <width unit="mm">240</width>
+    </egXML>
+  </exemplum><remarks versionDate="2009-06-29" xml:lang="en">
+    <p>If  used to specify the depth of a non text-bearing
+portion of some object, for example a monument, this element
+conventionally refers to the axis
+facing the observer, and perpendicular to that indicated by the
+<soCalled>depth</soCalled> axis.</p>
+  </remarks><listRef>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/MS.html#msdim">11.3.4. Dimensions</ref>
   </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="msdescription" xml:id="ORIGDATE" ident="origDate"><gloss versionDate="2007-07-04" xml:lang="en">origin date</gloss><gloss versionDate="2007-12-20" xml:lang="ko">생성 날짜</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW"/><gloss versionDate="2008-04-06" xml:lang="es">fecha origen</gloss><gloss versionDate="2007-06-12" xml:lang="fr">date de la création</gloss><gloss versionDate="2007-11-06" xml:lang="it">data di origine</gloss><desc versionDate="2019-01-17" xml:lang="en" xml:id="origdate.desc">contains any form of date, used to identify the date of origin for a manuscript, manuscript part, or other object.</desc><desc versionDate="2007-12-20" xml:lang="ko">원고 또는 원고의 일부의 생산 날짜를 식별하는 날짜 형식을 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含任何格式的日期，用以確認手稿或手稿部分的來源日期。</desc><desc versionDate="2008-04-05" xml:lang="ja">手書き資料が生まれた日付を特定するたための日付を示す。</desc><desc versionDate="2007-06-12" xml:lang="fr">contient une date, dans une forme libre, utilisée pour dater la création d'un manuscrit ou d'une partie d'un manuscrit.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene cualquier tipo de fecha utilizada para indicar la fecha de origen de un manuscrito o de una de sus partes.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene una data espressa in una forma qualsiasi utilizzata per indicare la data di origine di un manoscritto o di una sua parte</desc><classes><memberOf key="att.datable.w3c"/><memberOf key="att.global"/><memberOf key="att.dimensions"/><memberOf key="att.typed"/><memberOf key="model.pPart.msdesc"/></classes><content><alternate minOccurs="0" maxOccurs="unbounded"><textNode/><classRef key="model.gLike"/><classRef key="model.phrase"/><classRef key="model.global"/></alternate></content><attList><attDef ident="period" mode="delete"/><attDef ident="when-custom" mode="delete"/><attDef ident="notBefore-custom" mode="delete"/><attDef ident="notAfter-custom" mode="delete"/><attDef ident="from-custom" mode="delete"/><attDef ident="to-custom" mode="delete"/><attDef ident="datingPoint" mode="delete"/><attDef ident="datingMethod" mode="delete"/><attDef ident="when-iso" mode="delete"/><attDef ident="notBefore-iso" mode="delete"/><attDef ident="notAfter-iso" mode="delete"/><attDef ident="from-iso" mode="delete"/><attDef ident="to-iso" mode="delete"/><attDef ident="ana" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="atLeast" mode="delete"/><attDef ident="atMost" mode="delete"/><attDef ident="min" mode="delete"/><attDef ident="max" mode="delete"/><attDef ident="confidence" mode="delete"/><attDef ident="unit" mode="delete"/><attDef ident="quantity" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="type" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="from" mode="delete"/><attDef ident="to" mode="delete"/><attDef ident="when" mode="change" usage="req"/></attList><exemplum xml:lang="en">
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="ORIGDATE-egXML-zq">
       <origDate notBefore="-0300" notAfter="-0200">3rd century BCE</origDate>
@@ -11077,6 +11300,85 @@ nominum</soCalled>, o soprannome</desc><desc versionDate="2024-12-23" xml:lang="
     </egXML>
   </exemplum><listRef>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/MS.html#msid">11.4. The Manuscript Identifier</ref>
+  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="msdescription" xml:id="PHYSDESC" ident="physDesc"><gloss versionDate="2007-07-04" xml:lang="en">physical description</gloss><gloss versionDate="2007-12-20" xml:lang="ko">물리적 기술</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW"/><gloss versionDate="2008-04-06" xml:lang="es">descripción física</gloss><gloss versionDate="2007-06-12" xml:lang="fr">description physique</gloss><gloss versionDate="2007-11-06" xml:lang="it">descrizione fisica</gloss><desc versionDate="2018-10-26" xml:lang="en" xml:id="physdesc.desc">contains a full physical description of a
+manuscript, manuscript part, or other object optionally subdivided using more
+specialized elements from the <ident type="class">model.physDescPart</ident> class.</desc><desc versionDate="2007-12-20" xml:lang="ko">model.physDescPart 클래스에서 더 특별화된 요소로 사용하기 위해 수의적으로 더 세분화한 원고 또는 원고 일부에 대한 완전한 물리적 기술을 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含一個手稿或手稿部分的完整材質描述，可以利用model.physDescPart class中的專門元素選擇性地再分類。</desc><desc versionDate="2008-04-05" xml:lang="ja">手書き資料の物理的な解説を示す。選択的に、クラスmodel.physDescPartに
+  ある要素に下位分解される。</desc><desc versionDate="2007-06-12" xml:lang="fr">contient la description physique complète d'un
+      manuscrit ou d'une partie d'un manuscrit, éventuellement structurée en utilisant les éléments
+      plus spécialisés appartenant à la classe <ident type="class">model.physDescPart</ident>.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene una descripción física completa de un manuscrito o de una de sus partes que puede ser ulteriormente subdividida utilizando elementos específicos de la clase <ident type="class">model.physDescPart</ident>.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene una descrizione fisica completa di un manoscritto o di una sua parte che può essere ulteriormente suddivisa utilizzando elementi specifici della classe .physDescPart.</desc><classes><memberOf key="att.global"/></classes><content><sequence minOccurs="1" maxOccurs="1"><classRef key="model.pLike" minOccurs="0" maxOccurs="unbounded"/><classRef key="model.physDescPart" expand="sequenceOptional"/></sequence></content><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/></attList><exemplum xml:lang="en">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="PHYSDESC-egXML-jp">
+      <physDesc>
+        <objectDesc form="codex">
+          <supportDesc material="perg">
+            <support>Parchment.</support>
+            <extent>i + 55 leaves
+                 <dimensions scope="all" type="leaf" unit="inch"><height>7¼</height><width>5⅜</width></dimensions>
+                  </extent>
+          </supportDesc>
+          <layoutDesc>
+            <layout columns="2">In double columns.</layout>
+          </layoutDesc>
+        </objectDesc>
+        <handDesc>
+          <p>Written in more than one hand.</p>
+        </handDesc>
+        <decoDesc>
+          <p>With a few coloured capitals.</p>
+        </decoDesc>
+      </physDesc>
+    </egXML>
+  </exemplum><listRef>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/MS.html#msph">11.7. Physical Description</ref>
+  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="msdescription" xml:id="OBJECTDESC" ident="objectDesc"><gloss versionDate="2020-12-20" xml:lang="en">object description</gloss><gloss versionDate="2007-06-12" xml:lang="fr">description d'objet</gloss><desc versionDate="2019-01-17" xml:lang="en">contains a description of the physical components making up the object which is being described.</desc><desc versionDate="2007-12-20" xml:lang="ko">기술되고 있는 대상을 구성하는 물리적 성분에 대한 기술을 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含討論中物件的材質組成成分描述。</desc><desc versionDate="2008-04-05" xml:lang="ja">当該対象の物理的構成要素の解説を示す。</desc><desc versionDate="2007-06-12" xml:lang="fr">contient la description des composants matériels de
+      l'objet en cours de traitement.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene una descripción de los componentes físicos que constituyen el objeto descrito.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene una descrizione delle componenti fisiche che costituiscono l'oggetto descritto</desc><classes><memberOf key="att.global"/><memberOf key="model.physDescPart"/></classes><content><alternate minOccurs="1" maxOccurs="1"><classRef key="model.pLike" minOccurs="1" maxOccurs="unbounded"/><sequence minOccurs="1" maxOccurs="1"><elementRef key="supportDesc" minOccurs="0"/><elementRef key="layoutDesc" minOccurs="0"/></sequence></alternate></content><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="form" mode="delete"/></attList><exemplum xml:lang="en">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="OBJECTDESC-egXML-ds">
+      <objectDesc form="codex">
+        <supportDesc material="mixed">
+          <p>Early modern
+<material>parchment</material> and
+<material>paper</material>.</p>
+        </supportDesc>
+        <layoutDesc>
+          <layout ruledLines="25 32"/>
+        </layoutDesc>
+      </objectDesc>
+    </egXML>
+  </exemplum><exemplum versionDate="2008-04-06" xml:lang="fr">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="OBJECTDESC-egXML-vo" source="#fr-ex-BnF-Reliures">
+      <objectDesc>
+        <supportDesc>
+          <extent>
+            <dimensions type="binding">
+              <height unit="mm">168</height>
+              <width unit="mm">106</width>
+              <depth unit="mm">22</depth>
+            </dimensions>
+          </extent>
+        </supportDesc>
+      </objectDesc>
+    </egXML>
+  </exemplum><exemplum xml:lang="zh-TW">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="OBJECTDESC-egXML-lh">
+      <objectDesc form="codex">
+        <supportDesc material="mixed">
+          <p>現代早期 <material>羊皮紙</material>與<material>白紙</material>。</p>
+        </supportDesc>
+        <layoutDesc>
+          <layout ruledLines="25 32"/>
+        </layoutDesc>
+      </objectDesc>
+    </egXML>
+  </exemplum><listRef>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/MS.html#msph1">11.7.1. Object Description</ref>
+  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="msdescription" xml:id="SUPPORTDESC" ident="supportDesc"><gloss versionDate="2007-07-04" xml:lang="en">support description</gloss><gloss versionDate="2007-12-20" xml:lang="ko">보충 기술</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW"/><gloss versionDate="2008-04-06" xml:lang="es">descripción de ayuda</gloss><gloss versionDate="2007-06-12" xml:lang="fr">description du support</gloss><gloss versionDate="2007-11-06" xml:lang="it">descrizione del supporto</gloss><desc versionDate="2019-01-17" xml:lang="en">groups elements describing the physical support for the written part of a manuscript or other object.</desc><desc versionDate="2007-12-20" xml:lang="ko">원고의 텍스트 부분에 대한 물리적 서류를 기술하는 요소를 모아 놓는다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">匯集描述手稿書寫部分的物質載體元素。</desc><desc versionDate="2008-04-05" xml:lang="ja">手書き資料のテキスト部分を作る物理的な素材を示す要素をまとめる。</desc><desc versionDate="2007-06-12" xml:lang="fr">regroupe les éléments décrivant le support physique du texte du manuscrit.</desc><desc versionDate="2007-05-04" xml:lang="es">agrupa los elementos que describen el soporte físico de la parte escrita de un manuscrito.</desc><desc versionDate="2007-01-21" xml:lang="it">raggruppa gli elementi che descrivono il supporto fisico della parte scritta di un manoscritto</desc><classes><memberOf key="att.global"/></classes><content><alternate minOccurs="1" maxOccurs="1"><classRef key="model.pLike" minOccurs="1" maxOccurs="unbounded"/><sequence minOccurs="1" maxOccurs="1"><elementRef key="support" minOccurs="0"/><elementRef key="extent" minOccurs="0"/><elementRef key="foliation" minOccurs="0" maxOccurs="unbounded"/><elementRef key="collation" minOccurs="0"/><elementRef key="condition" minOccurs="0"/></sequence></alternate></content><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="material" mode="delete"/></attList><exemplum xml:lang="en">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="SUPPORTDESC-egXML-hj">
+      <supportDesc>
+        <support> Parchment roll with <material>silk</material> ribbons.
+   </support>
+      </supportDesc>
+    </egXML>
+  </exemplum><listRef>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/MS.html#msph1">11.7.1. Object Description</ref>
   </listRef></elementSpec><classSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" predeclare="true" module="namesdates" xml:id="PERSPART" type="model" ident="model.persNamePart">
   <desc versionDate="2007-10-03" xml:lang="en">groups elements which form part of a personal name.</desc>
   <desc versionDate="2009-05-27" xml:lang="fr">regroupe des éléments qui font partie d'un nom de personne.</desc>
