@@ -222,4 +222,11 @@
 			</report>
 		</rule>
 	</pattern>
+   <pattern id="no-milestone-in-pLike">
+		<rule context="tei:p|tei:head|tei:l|tei:byline|tei:dateline|tei:signed|tei:salute|tei:ab|tei:address|tei:cell|tei:figure|tei:item|tei:note">
+			<report test=".//tei:milestone">
+				&lt;milestone&gt; is not allowed in &lt;p&gt;, &lt;head&gt;, &lt;l&gt;, and similar block-level elements that are not wrappers.
+			</report>
+		</rule>
+	</pattern>
 </schema>
