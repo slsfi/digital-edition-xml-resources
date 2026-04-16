@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: shared-match-templates.xsl
 	*
-	*    Version: 2.0.0
+	*    Version: 3.0.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
@@ -22,6 +22,8 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v3.0.0 (2026-04-16)
+	*             - Update <milestone> handling based on changed spec.
 	*        v2.0.0 (2025-11-19)
 	*             - Remove Swedish phrases from <milestone> output.
 	*        v1.0.1 (2025-05-09)
@@ -226,16 +228,25 @@
 
 	<xsl:template match="tei:milestone">
 		<xsl:choose>
-			<xsl:when test="@type">
-				<hr class="milestone {@type}"/>
+			<xsl:when test="normalize-space(@rend)">
+				<xsl:variable name="first-rend" as="xs:string"
+					select="tokenize(@rend)[1]"/>
+				<hr class="milestone {if ($first-rend eq 'blankLine') then 'blank' else $first-rend}"/>
 			</xsl:when>
-			<xsl:when test="@unit eq 'part' and (@when or @source)">
+			<xsl:when test="@unit eq 'part' and (@when or @ed)">
 				<div class="milestone milestonePart">
+					<xsl:call-template name="set-attr-from-xml-id"/>
 					<xsl:variable name="milestone-date" as="xs:string?"
 					              select="slsFn:format-date-or-year(@when)"/>
 					<xsl:variable name="milestone-source" as="xs:string?"
-						select="slsFn:decode-uri-encoded-colons(@source)"/>
+						select="@ed"/>
 					<xsl:text>{if ($milestone-source) then $milestone-source else ''}{if ($milestone-source and $milestone-date) then ' ' else ''}{if ($milestone-date) then $milestone-date else ''}</xsl:text>
+				</div>
+			</xsl:when>
+			<xsl:when test="@unit eq 'item' and @n">
+				<div class="milestone milestoneItem">
+					<xsl:call-template name="set-attr-from-xml-id"/>
+					<xsl:text>{@n}</xsl:text>
 				</div>
 			</xsl:when>
 			<xsl:otherwise>
