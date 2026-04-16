@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: shared-match-templates.xsl
 	*
-	*    Version: 3.0.0
+	*    Version: 3.1.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
@@ -22,6 +22,9 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v3.1.0 (2026-04-16)
+	*             - Treat missing @rend on <milestone unit="section"> as
+	*               @rend="blankLine".
 	*        v3.0.0 (2026-04-16)
 	*             - Update <milestone> handling based on changed spec.
 	*        v2.0.0 (2025-11-19)
@@ -227,11 +230,14 @@
 
 
 	<xsl:template match="tei:milestone">
+		<xsl:variable name="rend-values" as="xs:string*"
+			select="tokenize(@rend)"/>
+
 		<xsl:choose>
-			<xsl:when test="normalize-space(@rend)">
-				<xsl:variable name="first-rend" as="xs:string"
-					select="tokenize(@rend)[1]"/>
-				<hr class="milestone {if ($first-rend eq 'blankLine') then 'blank' else $first-rend}"/>
+			<xsl:when test="$rend-values or @unit eq 'section'">
+				<xsl:variable name="first-rend" as="xs:string?"
+					select="if ($rend-values) then $rend-values[1] else ()"/>
+				<hr class="milestone {if ($first-rend eq 'blankLine' or empty($rend-values)) then 'blank' else $first-rend}"/>
 			</xsl:when>
 			<xsl:when test="@unit eq 'part' and (@when or @ed)">
 				<div class="milestone milestonePart">
