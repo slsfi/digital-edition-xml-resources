@@ -14,7 +14,7 @@
 	*
 	*    XSLT stylesheet: shared-functions.xsl
 	*
-	*    Version: 1.1.2
+	*    Version: 1.2.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-07
@@ -23,6 +23,8 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.2.0 (2026-04-16)
+	*             - Add 'illegible' to values handled by get-reason-text().
 	*        v1.1.2 (2025-11-19)
 	*             - Fix decode-uri-encoded-colons().
 	*        v1.1.1 (2025-09-11)
@@ -107,7 +109,7 @@
 		<xsl:param name="reason" as="xs:string?"/>
 
 		<xsl:sequence
-			select="if ($reason eq 'writing' or not($reason))
+			select="if ($reason eq 'writing' or $reason eq 'illegible' or not($reason))
 			            then 'handstil eller innehåll'
 			        else if ($reason eq 'binding')
 			            then 'inbindning/konservering'
