@@ -59,6 +59,7 @@
 				  @notBefore on date.
 				- Remove @source and @type from milestone. Add @ed, @n, @rend, and @xml:id to
 				  milestone. Modify values of @unit on milestone and make it required.
+				- Fix declaration of @type values on correspAction.
 			</change>
 			<change when="2026-04-14">
 				- Add "illegible" to values of @reason on gap, and "margin" to values of @place
@@ -659,10 +660,8 @@
 						<attDef ident="subtype" mode="delete"/>
 						<attDef ident="type" mode="change" usage="req">
 							<valList type="closed" mode="change">
-								<valItem mode="add" ident="sent"/>
-								<valItem mode="add" ident="received"/>
-								<valItem mode="delete" ident="received"/>
-								<valItem mode="delete" ident="sent"/>
+								<valItem mode="replace" ident="sent"/>
+								<valItem mode="replace" ident="received"/>
 								<valItem mode="delete" ident="transmitted"/>
 								<valItem mode="delete" ident="redirected"/>
 								<valItem mode="delete" ident="forwarded"/>

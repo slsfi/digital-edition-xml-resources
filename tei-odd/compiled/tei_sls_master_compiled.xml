@@ -65,6 +65,7 @@
 				  @notBefore on date.
 				- Remove @source and @type from milestone. Add @ed, @n, @rend, and @xml:id to
 				  milestone. Modify values of @unit on milestone and make it required.
+				- Fix declaration of @type values on correspAction.
 			</change>
 			<change when="2026-04-14">
 				- Add "illegible" to values of @reason on gap, and "margin" to values of @place
@@ -8361,7 +8362,7 @@ should be supplied for the <att>scheme</att> attribute.</p>
   date related to the sending/receiving of a message or any other
   action related to the correspondence.</desc><desc versionDate="2022-06-02" xml:lang="ja">メッセージの送信・受信をはじめとする書簡に関する所作についての場所、人名／組織名、日付の構造的記述を含む。</desc><classes><memberOf key="att.global"/><memberOf key="att.typed"/><memberOf key="model.correspDescPart"/></classes><content><alternate minOccurs="1" maxOccurs="1"><classRef key="model.correspActionPart" minOccurs="1" maxOccurs="unbounded"/><classRef key="model.pLike" minOccurs="1" maxOccurs="unbounded"/></alternate></content><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="type" mode="change" rend="change" usage="req"><desc versionDate="2015-01-29" xml:lang="en">describes the nature of the action.</desc><desc versionDate="2022-06-02" xml:lang="ja">（書簡に関する）所作の性質を記述する。</desc><datatype>
         <dataRef key="teidata.enumerated"/>
-      </datatype><valList type="closed" mode="change"><valItem mode="add" ident="sent"/><valItem mode="add" ident="received"/></valList></attDef></attList><exemplum xml:lang="en">
+      </datatype><valList type="closed" mode="change"><valItem mode="replace" ident="sent"/><valItem mode="replace" ident="received"/></valList></attDef></attList><exemplum xml:lang="en">
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-correspAction-egXML-lz">
       <correspAction type="sent">
         <persName>Adelbert von Chamisso</persName>
