@@ -10,7 +10,7 @@
 	*
 	*    XSLT stylesheet: process-lb-breaks.xsl
 	*
-	*    Version: 1.3.0
+	*    Version: 1.4.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-02-13
@@ -19,6 +19,11 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.4.0 (2026-04-21)
+	*             - Convert <lb break="line"/> in the `remove-lb-breaks`
+	*               mode to a space when effectively preceded by a text
+	*               node (can be nested in <add>), and convert to empty
+	*               string when effectively followed by a comma.
 	*        v1.3.0 (2026-02-18)
 	*             - Remove trailing hyphen from text nodes in edge
 	*               case where the text node is in <add> in <subst>, and
@@ -353,9 +358,15 @@
 
 	<xsl:template name="convert-break">
 		<xsl:if test="@break eq 'line'
-		              and preceding-sibling::text()[normalize-space()]">
+		              and (preceding-sibling::text()[normalize-space()]
+		                   or preceding-sibling::tei:add[child::text()[normalize-space() ne '']]
+		                   or preceding-sibling::tei:subst[child::tei:add[child::text()[normalize-space() ne '']]])
+		              and not(following-sibling::node()[1][self::tei:del]
+		                      and following-sibling::node()[2][self::text()[starts-with(., ',')]])">
 			<!-- * Output a space if <lb/> is preceded by any non-empty
-			     * text node. * -->
+			     * text node (can be in tei:add, optionally in tei:subst),
+			     * but not a tei:del followed by a text node starting
+			     * with a comma. * -->
 			<xsl:text> </xsl:text>
 		</xsl:if>
 		<!-- * If @break eq 'word', do nothing, which means removing
