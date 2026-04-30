@@ -14,7 +14,7 @@
 	*
 	*    XSLT stylesheet: ms_changes.xsl
 	*
-	*    Version: 3.1.0
+	*    Version: 3.2.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
@@ -23,6 +23,9 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v3.2.0 (2026-04-21)
+	*             - Render <note> without @place and not decendant of <p>
+	*               as <p>.
 	*        v3.1.0 (2025-12-04)
 	*             - Support <head type="part"> as part of hgroup.
 	*        v3.0.1 (2025-10-14)
@@ -721,14 +724,14 @@
 
 
 	<xsl:template match="tei:note">
-		<xsl:if test="@place and @xml:id">
-			<xsl:variable name="in-addspan" select="slsFn:is-in-addspan(.)"/>
-	    	<xsl:variable name="in-delspan" select="slsFn:is-in-delspan(.)"/>
-			<xsl:variable name="addspan-hand-attr"
-			              select="preceding::tei:addSpan[1]/@hand"/>
-			<xsl:variable name="delspan-hand-attr"
-			              select="preceding::tei:delSpan[1]/@hand"/>
+		<xsl:variable name="in-addspan" select="slsFn:is-in-addspan(.)"/>
+    	<xsl:variable name="in-delspan" select="slsFn:is-in-delspan(.)"/>
+		<xsl:variable name="addspan-hand-attr"
+		              select="preceding::tei:addSpan[1]/@hand"/>
+		<xsl:variable name="delspan-hand-attr"
+		              select="preceding::tei:delSpan[1]/@hand"/>
 
+		<xsl:if test="@place and @xml:id">
 			<span tabindex="0" role="doc-noteref">
 				<xsl:call-template name="set-attr-from-xml-id"/>
 				<xsl:call-template name="set-attr-from-xml-lang"/>
@@ -756,6 +759,29 @@
 				</span>
 			</span>
 		</xsl:if>
+		<xsl:if test="not(@place) and not(ancestor::tei:p)">
+			<p>
+				<xsl:call-template name="set-class-attr">
+					<xsl:with-param name="class-names"
+					                select="('note',
+					                         if (parent::tei:opener)
+						                         then 'left'
+						                     else (),
+						                     if ($in-addspan)
+						                         then (if ($addspan-hand-attr)
+						                                   then 'addSpan hand'
+						                               else 'addSpan')
+						                     else (),
+						                     if ($in-delspan)
+						                         then (if ($delspan-hand-attr)
+						                                   then 'delSpan delSpanHand'
+						                               else 'delSpan')
+						                     else ())"/>
+				</xsl:call-template>
+				<xsl:apply-templates/>
+			</p>
+		</xsl:if>
+		
 	</xsl:template>
 
 
