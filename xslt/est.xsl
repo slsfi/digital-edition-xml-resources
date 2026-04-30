@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: est.xsl
 	*
-	*    Version: 2.1.0
+	*    Version: 2.2.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-07
@@ -22,6 +22,11 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v2.2.0 (2026-04-21)
+	*             - Don't output empty lines for lines with only deleted
+	*               content.
+	*             - Render <note> without @place and not decendant of <p>
+	*               as <p>.
 	*        v2.1.0 (2025-12-04)
 	*             - Support <head type="part"> as part of hgroup.
 	*        v2.0.2 (2025-11-19)
@@ -458,7 +463,32 @@
 
 
 	<xsl:template match="tei:lb">
-		<br/>
+		<xsl:choose>
+			<!-- * To avoid blank lines due to lines with only deleted
+			     * content, don't output anything if:
+			     * - the following siblings contain at least one tei:del
+			     *   and only comments, and whitespace-only text nodes
+			     * - the following siblings before the next sibling <lb/>
+			     *   contain at least one tei:del and only comments, and
+			     *   whitespace-only text nodes * -->
+			<xsl:when test="let $allowed := function($n as node()) as xs:boolean {
+	                            $n/self::comment()
+	                            or $n/self::tei:del
+	                            or ($n instance of text() and normalize-space($n) eq '')
+	                        },
+	                        $lb := following-sibling::tei:lb[1],
+	                        $range := if (exists($lb))
+	                                  then following-sibling::node()[. &lt;&lt; $lb]
+	                                  else following-sibling::node()
+	                        return
+	                            exists($range[self::tei:del])
+	                            and
+	                            (every $n in $range satisfies $allowed($n))
+	        "/>
+			<xsl:otherwise>
+				<br/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 
@@ -480,6 +510,19 @@
 					<xsl:call-template name="apply-templates-with-optional-form-shift-wrapper"/>
 				</span>
 			</span>
+		</xsl:if>
+		<xsl:if test="not(@place) and not(ancestor::tei:p)">
+			<p>
+				<xsl:call-template name="set-attr-from-xml-lang"/>
+				<xsl:call-template name="set-class-attr">
+					<xsl:with-param name="class-names"
+						select="('note',
+						         if (parent::tei:opener)
+						             then 'left'
+						         else ())"/>
+				</xsl:call-template>
+				<xsl:apply-templates/>
+			</p>
 		</xsl:if>
 	</xsl:template>
 
