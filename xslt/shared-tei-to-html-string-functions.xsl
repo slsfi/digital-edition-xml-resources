@@ -3,7 +3,6 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:xml="http://www.w3.org/XML/1998/namespace"
-	xmlns:map="http://www.w3.org/2005/xpath-functions/map"
 	xmlns:tei="http://www.tei-c.org/ns/1.0"
 	xmlns:slsFn="https://www.sls.fi/ns/digitaledition/functions/"
 	exclude-result-prefixes="#all"
@@ -25,9 +24,33 @@
 	*        v1.0.0 (2026-05-05)
 	*
 	*    Description:
-	*        This XSLT document defines functions in the `slsFn` namespace
-	*        https://www.sls.fi/ns/digitaledition/functions/ for transforming
-	*        TEI elements into inline HTML strings.
+	*        This XSLT document defines XSLT 3.0 functions in the `slsFn`
+	*        namespace https://www.sls.fi/ns/digitaledition/functions/ for
+	*        converting selected inline TEI markup into HTML fragment strings.
+	*
+	*        The functions are intended for metadata transformations where a
+	*        TEI element, currently most often a bibliographic source element,
+	*        must be written into a string value while preserving simple inline
+	*        semantics. Text is whitespace-normalised and HTML-escaped,
+	*        <ref target="..."> is rendered as an <a href="..."> string, and
+	*        <title> inside a <bibl> wrapper is rendered as a <cite> string.
+	*        Other elements are unwrapped and processed recursively.
+	*
+	*    Usage:
+	*        Import this stylesheet and call the entry point function
+	*        slsFn:tei-inline-html() with the TEI element whose inline content
+	*        should be serialised:
+	*
+	*            <xsl:import href="shared-tei-to-html-string-functions.xsl"/>
+	*
+	*            <xsl:variable name="source" as="xs:string?"
+	*                          select="slsFn:tei-inline-html($bibl)"/>
+	*
+	*        For example, slsFn:tei-inline-html($bibl) can return a string
+	*        such as:
+	*
+	*            In <cite>Book title</cite>,
+	*            <a href="https://example.org/">related source</a>.
 	*
 	*    Dependencies:
 	*        None.
@@ -38,14 +61,12 @@
 	<!-- * FUNCTIONS ************************************************** -->
 
 	<xsl:function name="slsFn:tei-inline-html" as="xs:string?">
-	<!-- * This is the entry point function for the feature in this file.
-		 * Serialises the inline content of a TEI element as an HTML string.
-		 * Text nodes are whitespace-normalised with boundary spaces around
-	     * adjacent inline elements.
-	     * tei:ref elements with target attributes are converted to HTML anchor tags.
-	     * Other elements are processed recursively by serialising their child nodes.
-	     * The function returns a string for use in map entries that are later
-	     * serialised as JSON. * -->
+	<!-- * Entry point for converting one TEI element's inline content to an
+	     * HTML fragment string.
+	     * The element itself is not rendered; its child nodes are serialised
+	     * with slsFn:tei-node-to-html() and concatenated.
+	     * The outer result is whitespace-normalised.
+	     * Returns the empty sequence when the element parameter is empty. * -->
 		<xsl:param name="element" as="element()?"/>
 	
 		<xsl:sequence select="
@@ -62,16 +83,16 @@
 
 
 	<xsl:function name="slsFn:tei-node-to-html" as="xs:string">
-		<!-- * Serialises a TEI node as an HTML string.
-		 * `wrapper` is the ancestor element.
-	     * Text nodes are returned as escaped, normalised text.
-	     * tei:ref elements are returned as HTML anchor strings when they have
-	     * a target attribute.
-	     * tei:ref elements without target attributes are returned as plain text.
-	     * tei:title elements in tei:bibl wrappers are returned as HTML citation
+	<!-- * Internal helper that serialises one node to an HTML fragment string.
+		 * The wrapper parameter is the TEI element whose inline content is being
+	     * serialised, and is used for context-dependent output.
+	     * Text nodes are returned as escaped, whitespace-normalised text.
+	     * tei:ref elements with @target are returned as HTML <a> strings.
+	     * tei:ref elements without @target are unwrapped to their text content.
+	     * tei:title elements in a tei:bibl wrapper are returned as HTML <cite>
 	     * strings.
-	     * Other elements are processed recursively by serialising their child nodes.
-	     *  * -->
+	     * Other elements are unwrapped and processed recursively.
+	     * Other node types are ignored. * -->
 	    <xsl:param name="node" as="node()"/>
 		<xsl:param name="wrapper" as="element()"/>
 	
@@ -122,14 +143,15 @@
 
 
 	<xsl:function name="slsFn:tei-text-to-html" as="xs:string">
-		<!-- * Serialises a TEI text node as HTML-safe text.
+	<!-- * Internal helper that serialises one TEI text node as HTML-safe
+	     * character data.
 	     * Internal whitespace is collapsed.
 	     * Whitespace-only text nodes between two element siblings are treated as
 	     * a single word-boundary space.
-	     * Leading boundary whitespace is preserved after an element sibling unless
-	     * the text starts with punctuation.
+	     * Leading boundary whitespace is preserved after an element sibling
+	     * unless the text starts with punctuation.
 	     * Trailing boundary whitespace is preserved before an element sibling.
-	     * The text content is HTML-escaped. * -->
+	     * The resulting text is escaped with slsFn:escape-html-text(). * -->
 	    <xsl:param name="node" as="text()"/>
 	
 	    <xsl:variable name="raw" as="xs:string"
@@ -180,7 +202,9 @@
 
 
 	<xsl:function name="slsFn:escape-html-text" as="xs:string">
-		<!-- * Escapes text for use in HTML character data in an HTML string. * -->
+	<!-- * Escapes &, < and > for use in HTML character data inside an
+	     * HTML fragment string.
+	     * Empty input is treated as an empty string. * -->
 	    <xsl:param name="text" as="xs:string?"/>
 	
 	    <xsl:sequence select="
@@ -193,7 +217,9 @@
 
 
 	<xsl:function name="slsFn:escape-html-attribute" as="xs:string">
-		<!-- * Escapes text for use in an HTML attribute value in an HTML string. * -->
+	<!-- * Escapes &, <, >, double quotes and single quotes for use in an
+	     * HTML attribute value inside an HTML fragment string.
+	     * Empty input is treated as an empty string. * -->
 	    <xsl:param name="text" as="xs:string?"/>
 
 	    <xsl:sequence select="
