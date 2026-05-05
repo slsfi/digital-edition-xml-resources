@@ -25,13 +25,57 @@
 	*        v1.0.0 (2026-05-04)
 	*
 	*    Description:
-	*        This XSLT document ...
+	*        This XSLT document creates publication-level metadata as JSON.
+	*        It combines metadata supplied by the calling application with
+	*        metadata read from referenced TEI XML documents, normalises selected
+	*        values, and emits a compact metadata object for downstream use.
 	*
 	*    Usage:
-	*        Set input parameters on the XSLT processor 
+	*        Set the db-json input parameter on the XSLT processor and run the
+	*        stylesheet with its initial template. No primary source document is
+	*        required; XML documents are loaded from URI values in the input
+	*        metadata when available.
+	*
+	*    Input parameters:
+	*        - db-json (xs:string?, required): A JSON object serialised as a
+	*          string. The object is parsed with parse-json() and is expected to
+	*          contain publication metadata from the database.
+	*
+	*          Expected top-level shape:
+	*
+	*              {
+	*                  "metadata_language": "...",
+	*                  "publication_id": "...",
+	*                  "publication_title": "...",
+	*                  "publication_date": "...",
+	*                  "publication_genre": "...",
+	*                  "publication_language": "...",
+	*                  "publication_filepath": "...",
+	*                  "publication_filepath_uri": "...",
+	*                  "comment_filepath": "...",
+	*                  "comment_filepath_uri": "...",
+	*                  "collection_id": "...",
+	*                  "collection_title": "...",
+	*                  "manuscripts": [ ... ],
+	*                  "variants": [ ... ],
+	*                  "facsimiles": [ ... ]
+	*              }
+	*
+	*          The manuscripts array contains objects with manuscript metadata,
+	*          including id, title, original_filename, original_filename_uri,
+	*          section_id, sort_order and language.
+	*
+	*          The variants array contains objects with variant metadata,
+	*          including id, title, original_filename, original_filename_uri,
+	*          section_id, sort_order and type.
+	*
+	*          The facsimiles array contains objects with facsimile metadata,
+	*          including id, facs_coll_id, publication_manuscript_id,
+	*          publication_variant_id, title, section_id, priority, page_nr,
+	*          number_of_images, description and external_url.
 	*
 	*    Output:
-	*        
+	*        A JSON object containing normalised publication metadata.
 	*
 	******************************************************************* -->
 
@@ -237,8 +281,8 @@
 		<xsl:variable name="source" as="xs:string?"
 		              select="let $ms-identifier := $main-doc/tei:TEI/tei:teiHeader/tei:fileDesc
 		                               /tei:sourceDesc/tei:msDesc/tei:msIdentifier,
-		                          $bibl := $main-doc/tei:TEI/tei:teiHeader/tei:fileDesc
-		                               /tei:sourceDesc/tei:bibl
+		                          $source-desc := $main-doc/tei:TEI/tei:teiHeader/tei:fileDesc
+		                               /tei:sourceDesc
 		                      return
 		                          if (exists($ms-identifier))
 		                              then (let $parts := ($ms-identifier/tei:collection,
@@ -252,8 +296,10 @@
 		                                        $parts ! string(.)
 		                                        ! normalize-space(.)
 		                                        => string-join(', '))
-		                          else if (exists($bibl))
-		                              then slsFn:tei-inline-html($bibl)
+		                          else if (exists($source-desc/tei:bibl))
+		                              then slsFn:tei-inline-html($source-desc/tei:bibl[1])
+		                          else if (exists($source-desc/tei:*))
+		                              then slsFn:tei-inline-html($source-desc)
 		                          else ()"/>
 
 		<xsl:map>
