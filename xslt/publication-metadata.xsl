@@ -181,27 +181,6 @@
 		                                       )
 		                      return slsFn:language-name($lang-code, $meta-lang)"/>
 
-		<xsl:variable name="author" as="array(xs:string)"
-		              select="array {
-		                             for $a in $main-doc/tei:TEI/tei:teiHeader/tei:fileDesc
-		                                 /tei:titleStmt/tei:author
-		                             return normalize-space(string($a))
-		                      }"/>
-
-		<xsl:variable name="orig-date" as="xs:string?"
-		              select="($main-doc/tei:TEI/tei:teiHeader/tei:fileDesc
-		                           /tei:sourceDesc//tei:origDate[@when]/@when,
-		                       $main-doc/tei:TEI/tei:teiHeader/tei:fileDesc
-		                           /tei:sourceDesc//tei:date[1][@when]/@when,
-		                       $main-doc/tei:TEI/tei:teiHeader/tei:profileDesc
-		                           /tei:correspDesc/tei:correspAction[@type eq 'sent']
-		                           /tei:date[@when]/@when,
-		                       normalize-space($db-meta?publication_date))[1]"/>
-
-		<xsl:variable name="publication-date" as="xs:string?"
-		              select="slsFn:format-w3c-date($orig-date,
-				                                    $meta-lang)"/>
-
 		<xsl:variable name="keywords-elem" as="element(tei:keywords)?"
 		              select="$main-doc/tei:TEI/tei:teiHeader/tei:profileDesc
 		                      /tei:textClass/tei:keywords"/>
@@ -247,69 +226,12 @@
 		<xsl:variable name="availability-metadata" as="map(*)"
 		              select="slsFn:tei-availability-metadata-map($main-doc)"/>
 
-		<xsl:variable name="phys-dimensions" as="xs:string?"
-		              select="let $dim-elem := $main-doc/tei:TEI/tei:teiHeader/tei:fileDesc
-		                               /tei:sourceDesc/tei:msDesc/tei:physDesc/tei:objectDesc
-		                               /tei:supportDesc/tei:extent/tei:dimensions
-		                      return
-		                          if ($dim-elem and $dim-elem/tei:height and $dim-elem/tei:width)
-		                              then string($dim-elem/tei:width) || ' × '
-		                                   || string($dim-elem/tei:height)
-		                                   || (if ($dim-elem[@unit])
-		                                           then (' ' || string($dim-elem/@unit))
-		                                       else '')
-		                          else ()"/>
-
-		<xsl:variable name="phys-description" as="xs:string?"
-		              select="let $phys-desc :=  $main-doc/tei:TEI/tei:teiHeader/tei:fileDesc
-		                                          /tei:sourceDesc/tei:msDesc/tei:physDesc,
-		                          $phys-desc-p := $phys-desc/tei:p
-		                      return
-		                          slsFn:tei-inline-html-from-seq($phys-desc-p, $phys-desc)"/>
-
-		<xsl:variable name="source-desc" as="element(tei:sourceDesc)?"
-		              select="$main-doc/tei:TEI/tei:teiHeader/tei:fileDesc
-		                               /tei:sourceDesc"/>
-
-		<xsl:variable name="source-archive" as="xs:string?"
-		              select="let $ms-identifier := $source-desc/tei:msDesc/tei:msIdentifier
-		                      return
-		                          if (exists($ms-identifier))
-		                              then (let $norm-ms-name := if (exists($ms-identifier/tei:msName))
-		                                                             then normalize-space(string($ms-identifier/tei:msName))
-		                                                         else (),
-		                                        $ms-name := if (boolean($norm-ms-name))
-		                                                        then '”' || $norm-ms-name || '”'
-		                                                    else (),
-		                                        $parts := ($ms-identifier/tei:collection,
-		                                                   $ms-identifier/tei:repository,
-		                                                   $ms-identifier/tei:institution,
-		                                                   $ms-identifier/tei:settlement,
-		                                                   $ms-identifier/tei:country,
-		                                                   $ms-name,
-		                                                   $ms-identifier/tei:idno)
-		                                    return
-		                                        $parts ! string(.)
-		                                        ! normalize-space(.)
-		                                        => string-join(', '))
-		                          else ()"/>
-
-		<xsl:variable name="source-bibl" as="xs:string?"
-		              select="if (exists($source-desc/tei:bibl))
-		                          then slsFn:tei-inline-html($source-desc/tei:bibl[1])
-		                      else ()"/>
-
 		<xsl:map>
 			<xsl:map-entry key="'id'"
 				           select="$db-meta?publication_id"/>
 
 			<xsl:map-entry key="'publication_title'"
 				           select="$publication-title"/>
-
-			<xsl:if test="$publication-date">
-				<xsl:map-entry key="'publication_date'"
-				               select="$publication-date"/>
-			</xsl:if>
 
 			<xsl:if test="exists($publication-language)">
 				<xsl:map-entry key="'publication_language'"
@@ -332,32 +254,21 @@
 			                   select="$keywords"/>
 			</xsl:if>
 
+			<xsl:sequence select="slsFn:tei-date-metadata-map(
+			                          $main-doc,
+			                          normalize-space($db-meta?publication_date),
+			                          false()
+			                      )"/>
+
+			<xsl:if test="array:size($sender) eq 0">
+				<xsl:sequence select="slsFn:tei-author-metadata-map($main-doc)"/>
+			</xsl:if>
+
+			<xsl:sequence select="slsFn:tei-source-metadata-map($main-doc)"/>
+
+			<xsl:sequence select="slsFn:tei-physical-metadata-map($main-doc)"/>
+
 			<xsl:sequence select="$availability-metadata"/>
-
-			<xsl:if test="exists($source-archive)">
-				<xsl:map-entry key="'source_archive'"
-			                   select="$source-archive"/>
-			</xsl:if>
-
-			<xsl:if test="exists($source-bibl)">
-				<xsl:map-entry key="'source_bibl'"
-			                   select="$source-bibl"/>
-			</xsl:if>
-
-			<xsl:if test="exists($phys-dimensions)">
-				<xsl:map-entry key="'phys_dimensions'"
-			                   select="$phys-dimensions"/>
-			</xsl:if>
-
-			<xsl:if test="exists($phys-description)">
-				<xsl:map-entry key="'phys_description'"
-				               select="$phys-description"/>
-			</xsl:if>
-
-			<xsl:if test="array:size($author) gt 0 and array:size($sender) eq 0">
-				<xsl:map-entry key="'author'"
-				               select="$author"/>
-			</xsl:if>
 
 			<xsl:if test="array:size($sender) gt 0">
 				<xsl:map-entry key="'sender'"
@@ -498,6 +409,153 @@
 	</xsl:function>
 
 
+	<xsl:function name="slsFn:tei-author-metadata-map" as="map(*)?">
+		<!-- * Constructs author metadata from a TEI document. * -->
+		<xsl:param name="doc" as="document-node()?"/>
+
+		<xsl:variable name="author" as="array(xs:string)"
+		              select="array {
+		                          for $a in $doc/tei:TEI/tei:teiHeader/tei:fileDesc
+		                              /tei:titleStmt/tei:author
+		                          return normalize-space(string($a))
+		                      }"/>
+
+		<xsl:if test="array:size($author) gt 0">
+			<xsl:map>
+				<xsl:map-entry key="'author'"
+				               select="$author"/>
+			</xsl:map>
+		</xsl:if>
+	</xsl:function>
+
+
+	<xsl:function name="slsFn:tei-date-metadata-map" as="map(*)?">
+		<!-- * Constructs date metadata from a TEI document, falling back to
+			 * the supplied date when the document has no usable date. * -->
+		<xsl:param name="doc" as="document-node()?"/>
+		<xsl:param name="fallback-date" as="xs:string?"/>
+		<xsl:param name="orig-date-field" as="xs:boolean"/>
+
+		<xsl:variable name="orig-date" as="xs:string?"
+		              select="($doc/tei:TEI/tei:teiHeader/tei:fileDesc
+		                           /tei:sourceDesc//tei:origDate[@when]/@when,
+		                       $doc/tei:TEI/tei:teiHeader/tei:fileDesc
+		                           /tei:sourceDesc//tei:date[1][@when]/@when,
+		                       $doc/tei:TEI/tei:teiHeader/tei:profileDesc
+		                           /tei:correspDesc/tei:correspAction[@type eq 'sent']
+		                           /tei:date[@when]/@when,
+		                       normalize-space($fallback-date))[1]"/>
+
+		<xsl:variable name="publication-date" as="xs:string?"
+		              select="slsFn:format-w3c-date($orig-date, $meta-lang)"/>
+
+		<xsl:if test="exists($publication-date)">
+			<xsl:map>
+				<xsl:map-entry key="if ($orig-date-field)
+					                    then 'orig_date'
+					                else 'publication_date'"
+				               select="$publication-date"/>
+			</xsl:map>
+		</xsl:if>
+	</xsl:function>
+
+
+	<xsl:function name="slsFn:tei-source-metadata-map" as="map(*)?">
+		<!-- * Constructs source-related metadata from a TEI document. * -->
+		<xsl:param name="doc" as="document-node()?"/>
+
+		<xsl:variable name="source-desc" as="element(tei:sourceDesc)?"
+		              select="$doc/tei:TEI/tei:teiHeader/tei:fileDesc
+		                          /tei:sourceDesc"/>
+
+		<xsl:variable name="source-archive" as="xs:string?"
+		              select="let $ms-identifier := $source-desc/tei:msDesc/tei:msIdentifier
+		                      return
+		                          if (exists($ms-identifier))
+		                              then (let $norm-ms-name := if (exists($ms-identifier/tei:msName))
+		                                                             then normalize-space(string($ms-identifier/tei:msName))
+		                                                         else (),
+		                                        $ms-name := if (boolean($norm-ms-name))
+		                                                        then '”' || $norm-ms-name || '”'
+		                                                    else (),
+		                                        $parts := ($ms-identifier/tei:collection,
+		                                                   $ms-identifier/tei:repository,
+		                                                   $ms-identifier/tei:institution,
+		                                                   $ms-identifier/tei:settlement,
+		                                                   $ms-identifier/tei:country,
+		                                                   $ms-name,
+		                                                   $ms-identifier/tei:idno)
+		                                    return
+		                                        $parts ! string(.)
+		                                        ! normalize-space(.)
+		                                        => string-join(', '))
+		                          else ()"/>
+
+		<xsl:variable name="source-bibl" as="xs:string?"
+		              select="if (exists($source-desc/tei:bibl))
+		                          then slsFn:tei-inline-html($source-desc/tei:bibl[1])
+		                      else ()"/>
+
+		<xsl:if test="exists($source-archive) or exists($source-bibl)">
+			<xsl:map>
+				<xsl:if test="exists($source-archive)">
+					<xsl:map-entry key="'source_archive'"
+				                   select="$source-archive"/>
+				</xsl:if>
+
+				<xsl:if test="exists($source-bibl)">
+					<xsl:map-entry key="'source_bibl'"
+				                   select="$source-bibl"/>
+				</xsl:if>
+			</xsl:map>
+		</xsl:if>
+	</xsl:function>
+
+
+	<xsl:function name="slsFn:tei-physical-metadata-map" as="map(*)?">
+		<!-- * Constructs physical description metadata from a TEI document. * -->
+		<xsl:param name="doc" as="document-node()?"/>
+
+		<xsl:variable name="source-desc" as="element(tei:sourceDesc)?"
+		              select="$doc/tei:TEI/tei:teiHeader/tei:fileDesc
+		                          /tei:sourceDesc"/>
+
+		<xsl:variable name="dim-elem" as="element(tei:dimensions)?"
+		              select="($source-desc/tei:msDesc/tei:physDesc/tei:objectDesc
+		                           /tei:supportDesc/tei:extent/tei:dimensions)[1]"/>
+
+		<xsl:variable name="phys-dimensions" as="xs:string?"
+		              select="if ($dim-elem and $dim-elem/tei:height and $dim-elem/tei:width)
+		                          then string($dim-elem/tei:width) || ' × '
+		                               || string($dim-elem/tei:height)
+		                               || (if ($dim-elem[@unit])
+		                                       then (' ' || string($dim-elem/@unit))
+		                                   else '')
+		                      else ()"/>
+
+		<xsl:variable name="phys-desc" as="element(tei:physDesc)?"
+		              select="$source-desc/tei:msDesc/tei:physDesc"/>
+		<xsl:variable name="phys-desc-p" as="element(tei:p)*"
+		              select="$phys-desc/tei:p"/>
+		<xsl:variable name="phys-description" as="xs:string?"
+		              select="slsFn:tei-inline-html-from-seq($phys-desc-p, $phys-desc)"/>
+
+		<xsl:if test="exists($phys-dimensions) or exists($phys-description)">
+			<xsl:map>
+				<xsl:if test="exists($phys-dimensions)">
+					<xsl:map-entry key="'phys_dimensions'"
+				                   select="$phys-dimensions"/>
+				</xsl:if>
+
+				<xsl:if test="exists($phys-description)">
+					<xsl:map-entry key="'phys_description'"
+					               select="$phys-description"/>
+				</xsl:if>
+			</xsl:map>
+		</xsl:if>
+	</xsl:function>
+
+
 	<xsl:function name="slsFn:tei-availability-metadata-map" as="map(*)">
 		<!-- * Constructs a metadata map from the language-appropriate
 			 * tei:availability element in a TEI document.
@@ -608,31 +666,41 @@
 
 		<xsl:map>
 			<xsl:map-entry key="'id'" select="$facs?id"/>
+			
 			<xsl:map-entry key="'facs_coll_id'" select="$facs?facs_coll_id"/>
+			
 			<xsl:if test="boolean($facs-title)">
 				<xsl:map-entry key="'title'" select="$facs-title"/>
 			</xsl:if>
+			
 			<xsl:if test="boolean($facs-description)">
 				<xsl:map-entry key="'description'" select="$facs-description"/>
 			</xsl:if>
+			
 			<xsl:if test="boolean($facs-external-url)">
 				<xsl:map-entry key="'external_url'" select="$facs-external-url"/>
 			</xsl:if>
+			
 			<xsl:if test="exists($facs?publication_manuscript_id)">
 				<xsl:map-entry key="'publication_manuscript_id'" select="$facs?publication_manuscript_id"/>
 			</xsl:if>
+			
 			<xsl:if test="exists($facs?publication_variant_id)">
 				<xsl:map-entry key="'publication_variant_id'" select="$facs?publication_variant_id"/>
 			</xsl:if>
+			
 			<xsl:if test="exists($facs-section-id)">
 				<xsl:map-entry key="'section_id'" select="$facs-section-id"/>
 			</xsl:if>
+			
 			<xsl:if test="exists($facs?priority)">
 				<xsl:map-entry key="'priority'" select="$facs?priority"/>
 			</xsl:if>
+			
 			<xsl:if test="exists($facs?page_nr)">
 				<xsl:map-entry key="'page_nr'" select="$facs?page_nr"/>
 			</xsl:if>
+			
 			<xsl:if test="exists($facs?number_of_images)">
 				<xsl:map-entry key="'number_of_images'" select="$facs?number_of_images"/>
 			</xsl:if>
@@ -656,8 +724,8 @@
 			 * @return
 			 * A map containing the manuscript fields used in the generated
 			 * output:
-			 * id, title, section_id, sort_order, language, and availability
-			 * metadata when present. * -->
+			 * id, title, section_id, sort_order, language, and document or
+			 * availability metadata when present. * -->
 		<xsl:param name="ms" as="map(*)"/>
 
 		<xsl:variable name="ms-title"
@@ -676,15 +744,19 @@
 
 		<xsl:map>
 			<xsl:map-entry key="'id'" select="$ms?id"/>
+			
 			<xsl:if test="boolean($ms-title)">
 				<xsl:map-entry key="'title'" select="$ms-title"/>
 			</xsl:if>
+			
 			<xsl:if test="exists($ms-section-id)">
 				<xsl:map-entry key="'section_id'" select="$ms-section-id"/>
 			</xsl:if>
+			
 			<xsl:if test="exists($ms?sort_order)">
 				<xsl:map-entry key="'sort_order'" select="$ms?sort_order"/>
 			</xsl:if>
+			
 			<xsl:if test="boolean($ms-language-code)">
 				<xsl:map-entry key="'language'"
 					           select="slsFn:language-name(
@@ -692,6 +764,14 @@
 					                       $meta-lang
 					                   )"/>
 			</xsl:if>
+
+			<xsl:sequence select="slsFn:tei-author-metadata-map($ms-doc)"/>
+
+			<xsl:sequence select="slsFn:tei-date-metadata-map($ms-doc, (), true())"/>
+
+			<xsl:sequence select="slsFn:tei-source-metadata-map($ms-doc)"/>
+
+			<xsl:sequence select="slsFn:tei-physical-metadata-map($ms-doc)"/>
 
 			<xsl:sequence select="$ms-availability-metadata"/>
 		</xsl:map>
@@ -714,8 +794,9 @@
 			 * @return
 			 * A map containing the variant fields used in the generated
 			 * output:
-			 * id, title, section_id, sort_order, type, and availability
-			 * metadata when present. * -->
+			 * id, title, section_id, sort_order, type, language, author,
+			 * orig_date, source_archive, source_bibl, phys_description,
+			 * and phys_dimensions when present. * -->
 		<xsl:param name="var" as="map(*)"/>
 
 		<xsl:variable name="var-title"
@@ -729,21 +810,44 @@
 		              select="slsFn:doc-if-available($var?original_filename_uri)"/>
 		<xsl:variable name="var-availability-metadata" as="map(*)"
 		              select="slsFn:tei-availability-metadata-map($var-doc)"/>
+		
+		<xsl:variable name="var-language-code"
+		              select="normalize-space($var-doc/tei:TEI/tei:text/@xml:lang)"/>
 
 		<xsl:map>
 			<xsl:map-entry key="'id'" select="$var?id"/>
+			
 			<xsl:if test="boolean($var-title)">
 				<xsl:map-entry key="'title'" select="$var-title"/>
 			</xsl:if>
+			
 			<xsl:if test="exists($var-section-id)">
 				<xsl:map-entry key="'section_id'" select="$var-section-id"/>
 			</xsl:if>
+			
 			<xsl:if test="exists($var?sort_order)">
 				<xsl:map-entry key="'sort_order'" select="$var?sort_order"/>
 			</xsl:if>
+			
 			<xsl:if test="exists($var?type)">
 				<xsl:map-entry key="'type'" select="$var?type"/>
 			</xsl:if>
+			
+			<xsl:if test="boolean($var-language-code)">
+				<xsl:map-entry key="'language'"
+					           select="slsFn:language-name(
+					                       slsFn:normalise-language($var-language-code),
+					                       $meta-lang
+					                   )"/>
+			</xsl:if>
+
+			<xsl:sequence select="slsFn:tei-author-metadata-map($var-doc)"/>
+
+			<xsl:sequence select="slsFn:tei-date-metadata-map($var-doc, (), true())"/>
+
+			<xsl:sequence select="slsFn:tei-source-metadata-map($var-doc)"/>
+
+			<xsl:sequence select="slsFn:tei-physical-metadata-map($var-doc)"/>
 
 			<xsl:sequence select="$var-availability-metadata"/>
 		</xsl:map>
