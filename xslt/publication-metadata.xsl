@@ -14,15 +14,15 @@
 	<!-- ******************************************************************
 	*
 	*    XSLT stylesheet: publication-metadata.xsl
-	*    Version: 1.0.0
+	*    Version: 1.0.0-beta
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
-	*    Created: 2026-05-04
+	*    Created: 2026-05-19
 	*    Licence: CC-BY 4.0 (Attribution 4.0 International),
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
-	*        v1.0.0 (2026-05-04)
+	*        v1.0.0-beta (2026-05-19)
 	*
 	*    Description:
 	*        This XSLT document creates publication-level metadata as JSON.
@@ -56,10 +56,15 @@
 	*                  "comment_filepath_uri": "...",
 	*                  "collection_id": "...",
 	*                  "collection_title": "...",
+	*                  "facsimiles": [ ... ],
 	*                  "manuscripts": [ ... ],
-	*                  "variants": [ ... ],
-	*                  "facsimiles": [ ... ]
+	*                  "variants": [ ... ]
 	*              }
+	*
+	*          The facsimiles array contains objects with facsimile metadata,
+	*          including id, facs_coll_id, publication_manuscript_id,
+	*          publication_variant_id, title, section_id, priority, page_nr,
+	*          number_of_images, description and external_url.
 	*
 	*          The manuscripts array contains objects with manuscript metadata,
 	*          including id, title, original_filename, original_filename_uri,
@@ -68,11 +73,6 @@
 	*          The variants array contains objects with variant metadata,
 	*          including id, title, original_filename, original_filename_uri,
 	*          section_id, sort_order and type.
-	*
-	*          The facsimiles array contains objects with facsimile metadata,
-	*          including id, facs_coll_id, publication_manuscript_id,
-	*          publication_variant_id, title, section_id, priority, page_nr,
-	*          number_of_images, description and external_url.
 	*
 	*    Output:
 	*        A JSON object containing normalised publication metadata.
@@ -125,6 +125,10 @@
 		<!-- * Number of manuscripts. * -->
 		<xsl:variable name="ms-count" as="xs:integer"
 			          select="count($db-meta?manuscripts?*)"/>
+		
+		<!-- * Number of variants. * -->
+		<xsl:variable name="var-count" as="xs:integer"
+			          select="count($db-meta?variants?*)"/>
 
 		<!-- * Boolean which is true if the publication has a publication_filepath,
 			 * i.e. a reading text XML file. * -->
@@ -140,13 +144,13 @@
 		                              then $db-meta?manuscripts?1?original_filename_uri
 		                          else ()
 		                      return
-		                      $ms-count eq 1 and
-		                      exists($first-ms-filepath) and
-		                      (
-		                       not($has-readingtext)
-		                       or
-		                       $db-meta?publication_filepath_uri eq $first-ms-filepath
-		                      )"/>
+		                          $ms-count eq 1 and
+		                          exists($first-ms-filepath) and
+		                          (
+		                           not($has-readingtext)
+		                           or
+		                           $db-meta?publication_filepath_uri eq $first-ms-filepath
+		                          )"/>
 
 		<xsl:variable name="main-doc" as="document-node()?"
 		              select="if ($single-ms-publication)
@@ -154,23 +158,21 @@
 		                      else (
 		                          let $publication-file := slsFn:doc-if-available($db-meta?publication_filepath_uri)
 		                          return
-		                          if (exists($publication-file))
-		                              then $publication-file
-		                          else if ($ms-count gt 1)
-		                              then slsFn:doc-if-available($db-meta?manuscripts?1?original_filename_uri)
-		                          else ()
+		                              if (exists($publication-file))
+		                                  then $publication-file
+		                              else ()
 		                      )"/>
 
 		<xsl:variable name="publication-title" as="xs:string"
 		              select="let $norm-publ-title := normalize-space($db-meta?publication_title)
 		                      return
-		                      if ($norm-publ-title)
-						          then $norm-publ-title
-						      else if ($single-ms-publication)
-						          then normalize-space($db-meta?manuscripts?1?title)
-						      else if ($meta-lang eq 'en')
-						          then 'unknown title'
-						      else 'okänd titel'"/>
+		                          if (boolean($norm-publ-title))
+						              then $norm-publ-title
+						          else if ($single-ms-publication)
+						              then normalize-space($db-meta?manuscripts?1?title)
+						          else if ($meta-lang eq 'en')
+						              then 'unknown title'
+						          else 'okänd titel'"/>
 
 		<xsl:variable name="publication-language" as="xs:string?"
 		              select="let $lang-code:= slsFn:normalise-language(
@@ -184,7 +186,7 @@
 		                             for $a in $main-doc/tei:TEI/tei:teiHeader/tei:fileDesc
 		                                 /tei:titleStmt/tei:author
 		                             return normalize-space(string($a))
-		                            }"/>
+		                      }"/>
 
 		<xsl:variable name="orig-date" as="xs:string?"
 		              select="($main-doc/tei:TEI/tei:teiHeader/tei:fileDesc
@@ -209,9 +211,9 @@
 		                                     $keywords-elem/tei:term[@type eq 'genre'],
 		                                     $db-meta?publication_genre)[1]
 		                      return
-		                      if (exists($genre))
-		                          then string($genre) => normalize-space() => lower-case()
-		                      else ()"/>
+		                          if (boolean(normalize-space($genre)))
+		                              then string($genre) => normalize-space() => lower-case()
+		                          else ()"/>
 
 		<xsl:variable name="keywords" as="xs:string?"
 		              select="let $lang-terms := $keywords-elem/tei:term[not(@type eq 'genre')][@xml:lang eq $meta-lang],
@@ -219,12 +221,12 @@
 		                                        then $lang-terms
 		                                    else $keywords-elem/tei:term[not(@type eq 'genre')]
 		                      return
-		                      if (exists($terms))
-		                          then $terms ! normalize-space(.)
-		                               ! lower-case(.)
-		                               => sort('http://www.w3.org/2013/collation/UCA?lang=sv')
-		                               => string-join(', ')
-		                      else ()"/>
+		                          if (exists($terms))
+		                              then $terms ! normalize-space(.)
+		                                   ! lower-case(.)
+		                                   => sort('http://www.w3.org/2013/collation/UCA?lang=sv')
+		                                   => string-join(', ')
+		                          else ()"/>
 
 		<xsl:variable name="sender" as="array(xs:string)"
 		              select="array {
@@ -232,7 +234,7 @@
 			                          /tei:correspDesc/tei:correspAction[@type eq 'sent']
 			                          //tei:persName
 			                      return normalize-space(string($s))
-			                     }"/>
+			                  }"/>
 
 		<xsl:variable name="receiver" as="array(xs:string)"
 		              select="array {
@@ -240,22 +242,49 @@
 			                          /tei:correspDesc/tei:correspAction[@type eq 'received']
 			                          //tei:persName
 			                      return normalize-space(string($r))
-			                     }"/>
+			                  }"/>
 
-		<xsl:variable name="licence-elem" as="element(tei:licence)?"
-		              select="($main-doc/tei:TEI/tei:teiHeader/tei:fileDesc/tei:publicationStmt
-			                           /tei:availability/tei:licence[@xml:lang eq $meta-lang][1],
-			                   $main-doc/tei:TEI/tei:teiHeader/tei:fileDesc/tei:publicationStmt
-			                           /tei:availability/tei:licence[1])[1]"/>
+		<xsl:variable name="availability-elem" as="element(tei:availability)?"
+		              select="let $pubStmt-elem := $main-doc/tei:TEI/tei:teiHeader/tei:fileDesc/tei:publicationStmt
+		                      return
+		                          ($pubStmt-elem/tei:availability[@xml:lang eq $meta-lang][1],
+			                       $pubStmt-elem/tei:availability[not(@xml:lang)][1],
+			                       $pubStmt-elem/tei:availability[1])[1]"/>
+
+		<xsl:variable name="licence-elem" as="element(*)?"
+		              select="($availability-elem/tei:ab[@type eq 'licence'][1],
+			                   $availability-elem/tei:licence[1])[1]"/>
 
 		<xsl:variable name="licence" as="xs:string?"
-		              select="if (exists($licence-elem))
-		                          then normalize-space(string($licence-elem))
+		              select="if ($licence-elem instance of element(tei:licence))
+		                          then if (not($licence-elem//tei:ref))
+		                                   then slsFn:tei-node-to-html($licence-elem, ())
+		                               else slsFn:tei-inline-html($licence-elem)
 		                      else ()"/>
 
-		<xsl:variable name="licence-url" as="xs:string?"
-		              select="if (exists($licence) and exists($licence-elem/@target))
-		                          then $licence-elem/@target
+		<xsl:variable name="licence-work" as="xs:string?"
+		              select="if (exists($licence-elem[@subtype eq 'sourceWork']))
+		                          then if (not($licence-elem//tei:ref))
+		                                   then normalize-space(string($licence-elem))
+		                               else slsFn:tei-inline-html($licence-elem)
+		                      else ()"/>
+
+		<xsl:variable name="licence-encoding" as="xs:string?"
+		              select="if (exists($licence-elem[@subtype eq 'teiEncoding']))
+		                          then if (not($licence-elem//tei:ref))
+		                                   then normalize-space(string($licence-elem))
+		                               else slsFn:tei-inline-html($licence-elem)
+		                      else ()"/>
+		
+		<xsl:variable name="rights-elem" as="element(tei:ab)?"
+		              select="($availability-elem/tei:ab[@type eq 'rights'][@subtype eq 'sourceWork'],
+		                       $availability-elem/tei:ab[@type eq 'rights'][1])[1]"/>
+
+		<xsl:variable name="rights" as="xs:string?"
+		              select="if (exists($rights-elem) and boolean(normalize-space(string($rights-elem))))
+		                          then if (not($rights-elem//tei:ref))
+		                                   then normalize-space(string($rights-elem))
+		                               else slsFn:tei-inline-html($rights-elem)
 		                      else ()"/>
 
 		<xsl:variable name="phys-dimensions" as="xs:string?"
@@ -271,36 +300,44 @@
 		                                       else '')
 		                          else ()"/>
 
-		<xsl:variable name="phys-description" as="array(xs:string)"
-		              select="array {
-		                          for $p in $main-doc/tei:TEI/tei:teiHeader/tei:fileDesc
-		                                    /tei:sourceDesc/tei:msDesc/tei:physDesc/tei:p
-		                          return normalize-space(string($p))
-		                      }"/>
+		<xsl:variable name="phys-description" as="xs:string?"
+		              select="let $phys-desc :=  $main-doc/tei:TEI/tei:teiHeader/tei:fileDesc
+		                                          /tei:sourceDesc/tei:msDesc/tei:physDesc,
+		                          $phys-desc-p := $phys-desc/tei:p
+		                      return
+		                          slsFn:tei-inline-html-from-seq($phys-desc-p, $phys-desc)"/>
 
-		<xsl:variable name="source" as="xs:string?"
-		              select="let $ms-identifier := $main-doc/tei:TEI/tei:teiHeader/tei:fileDesc
-		                               /tei:sourceDesc/tei:msDesc/tei:msIdentifier,
-		                          $source-desc := $main-doc/tei:TEI/tei:teiHeader/tei:fileDesc
-		                               /tei:sourceDesc
+		<xsl:variable name="source-desc" as="element(tei:sourceDesc)?"
+		              select="$main-doc/tei:TEI/tei:teiHeader/tei:fileDesc
+		                               /tei:sourceDesc"/>
+
+		<xsl:variable name="source-archive" as="xs:string?"
+		              select="let $ms-identifier := $source-desc/tei:msDesc/tei:msIdentifier
 		                      return
 		                          if (exists($ms-identifier))
-		                              then (let $parts := ($ms-identifier/tei:collection,
+		                              then (let $norm-ms-name := if (exists($ms-identifier/tei:msName))
+		                                                             then normalize-space(string($ms-identifier/tei:msName))
+		                                                         else (),
+		                                        $ms-name := if (boolean($norm-ms-name))
+		                                                        then '”' || $norm-ms-name || '”'
+		                                                    else (),
+		                                        $parts := ($ms-identifier/tei:collection,
 		                                                   $ms-identifier/tei:repository,
 		                                                   $ms-identifier/tei:institution,
 		                                                   $ms-identifier/tei:settlement,
 		                                                   $ms-identifier/tei:country,
-		                                                   '”' || string($ms-identifier/tei:msName) || '”',
+		                                                   $ms-name,
 		                                                   $ms-identifier/tei:idno)
 		                                    return
 		                                        $parts ! string(.)
 		                                        ! normalize-space(.)
 		                                        => string-join(', '))
-		                          else if (exists($source-desc/tei:bibl))
-		                              then slsFn:tei-inline-html($source-desc/tei:bibl[1])
-		                          else if (exists($source-desc/tei:*))
-		                              then slsFn:tei-inline-html($source-desc)
 		                          else ()"/>
+
+		<xsl:variable name="source-bibl" as="xs:string?"
+		              select="if (exists($source-desc/tei:bibl))
+		                          then slsFn:tei-inline-html($source-desc/tei:bibl[1])
+		                      else ()"/>
 
 		<xsl:map>
 			<xsl:map-entry key="'id'"
@@ -340,22 +377,37 @@
 			                   select="$licence"/>
 			</xsl:if>
 
-			<xsl:if test="exists($licence-url)">
-				<xsl:map-entry key="'licence_url'"
-			                   select="$licence-url"/>
+			<xsl:if test="exists($licence-encoding)">
+				<xsl:map-entry key="'licence_encoding'"
+			                   select="$licence-encoding"/>
 			</xsl:if>
 
-			<xsl:if test="exists($source)">
-				<xsl:map-entry key="'source'"
-			                   select="$source"/>
+			<xsl:if test="exists($licence-work)">
+				<xsl:map-entry key="'licence_work'"
+			                   select="$licence-work"/>
+			</xsl:if>
+			
+			<xsl:if test="exists($rights)">
+				<xsl:map-entry key="'rights'"
+			                   select="$rights"/>
 			</xsl:if>
 
-			<xsl:if test="$phys-dimensions">
+			<xsl:if test="exists($source-archive)">
+				<xsl:map-entry key="'source_archive'"
+			                   select="$source-archive"/>
+			</xsl:if>
+
+			<xsl:if test="exists($source-bibl)">
+				<xsl:map-entry key="'source_bibl'"
+			                   select="$source-bibl"/>
+			</xsl:if>
+
+			<xsl:if test="exists($phys-dimensions)">
 				<xsl:map-entry key="'phys_dimensions'"
 			                   select="$phys-dimensions"/>
 			</xsl:if>
 
-			<xsl:if test="array:size($phys-description) gt 0">
+			<xsl:if test="exists($phys-description)">
 				<xsl:map-entry key="'phys_description'"
 				               select="$phys-description"/>
 			</xsl:if>
@@ -378,6 +430,42 @@
 			<xsl:if test="$single-ms-publication or $ms-count eq 1">
 				<xsl:map-entry key="'manuscript_id'"
 				               select="$db-meta?manuscripts?1?id"/>
+			</xsl:if>
+			
+			<xsl:if test="$facs-count gt 0">
+				<xsl:map-entry key="'facsimiles'">
+					<xsl:sequence select="
+						array {
+						    for $facs in $db-meta?facsimiles?*
+						    return slsFn:facsimile-map($facs)
+						}
+					"/>
+				</xsl:map-entry>
+			</xsl:if>
+			
+			<!-- * Create manuscripts map if there are manuscripts and
+			     * they do not comprise only a single manuscript which
+			     * is also set as the reading text. * -->
+			<xsl:if test="not($single-ms-publication) and $ms-count gt 0">
+				<xsl:map-entry key="'manuscripts'">
+					<xsl:sequence select="
+						array {
+						    for $ms in $db-meta?manuscripts?*
+						    return slsFn:manuscript-map($ms)
+						}
+					"/>
+				</xsl:map-entry>
+			</xsl:if>
+			
+			<xsl:if test="$var-count gt 0">
+				<xsl:map-entry key="'variants'">
+					<xsl:sequence select="
+						array {
+						    for $var in $db-meta?variants?*
+						    return slsFn:variant-map($var)
+						}
+					"/>
+				</xsl:map-entry>
 			</xsl:if>
 		</xsl:map>
 
@@ -467,6 +555,227 @@
 		                      else ()"/>
 	</xsl:function>
 
+
+	<xsl:function name="slsFn:facsimile-map" as="map(*)">
+		<!-- * Constructs the normalized metadata map for a single
+			 * facsimile entry.
+			 *
+			 * The input parameter $facs is expected to be a map representing
+			 * one facsimile from $db-meta?facsimiles. The function copies
+			 * selected facsimile properties into a new map and may compute
+			 * or normalize individual values, such as whitespace-normalized
+			 * titles.
+			 * 
+			 * @param $facs
+			 * A facsimile metadata map.
+			 * 
+			 * @return
+			 * A map containing the facsimile fields used in the generated
+			 * output. * -->
+		<xsl:param name="facs" as="map(*)"/>
+		
+		<xsl:variable name="facs-title"
+		              select="normalize-space($facs?title)"/>
+		<xsl:variable name="facs-description"
+		              select="normalize-space($facs?description)"/>
+		<xsl:variable name="facs-external-url"
+		              select="normalize-space($facs?external_url)"/>
+		<xsl:variable name="facs-section-id"
+		              select="if (exists($facs?section_id) and $facs?section_id eq 0)
+				                  then ()
+				              else $facs?section_id"/>
+
+		<xsl:map>
+			<xsl:map-entry key="'id'" select="$facs?id"/>
+			<xsl:map-entry key="'facs_coll_id'" select="$facs?facs_coll_id"/>
+			<xsl:if test="boolean($facs-title)">
+				<xsl:map-entry key="'title'" select="$facs-title"/>
+			</xsl:if>
+			<xsl:if test="boolean($facs-description)">
+				<xsl:map-entry key="'description'" select="$facs-description"/>
+			</xsl:if>
+			<xsl:if test="boolean($facs-external-url)">
+				<xsl:map-entry key="'external_url'" select="$facs-external-url"/>
+			</xsl:if>
+			<xsl:if test="exists($facs?publication_manuscript_id)">
+				<xsl:map-entry key="'publication_manuscript_id'" select="$facs?publication_manuscript_id"/>
+			</xsl:if>
+			<xsl:if test="exists($facs?publication_variant_id)">
+				<xsl:map-entry key="'publication_variant_id'" select="$facs?publication_variant_id"/>
+			</xsl:if>
+			<xsl:if test="exists($facs-section-id)">
+				<xsl:map-entry key="'section_id'" select="$facs-section-id"/>
+			</xsl:if>
+			<xsl:if test="exists($facs?priority)">
+				<xsl:map-entry key="'priority'" select="$facs?priority"/>
+			</xsl:if>
+			<xsl:if test="exists($facs?page_nr)">
+				<xsl:map-entry key="'page_nr'" select="$facs?page_nr"/>
+			</xsl:if>
+			<xsl:if test="exists($facs?number_of_images)">
+				<xsl:map-entry key="'number_of_images'" select="$facs?number_of_images"/>
+			</xsl:if>
+		</xsl:map>
+	</xsl:function>
+
+
+	<xsl:function name="slsFn:manuscript-map" as="map(*)">
+		<!-- * Constructs the normalized metadata map for a single
+			 * manuscript entry.
+			 *
+			 * The input parameter $ms is expected to be a map representing
+			 * one manuscript from $db-meta?manuscripts. The function copies
+			 * selected manuscript properties into a new map and may compute
+			 * or normalize individual values, such as whitespace-normalized
+			 * titles.
+			 * 
+			 * @param $ms
+			 * A manuscript metadata map.
+			 * 
+			 * @return
+			 * A map containing the manuscript fields used in the generated
+			 * output:
+			 * id, title. section_id, sort_order, and language. * -->
+		<xsl:param name="ms" as="map(*)"/>
+
+		<xsl:variable name="ms-title"
+		              select="normalize-space($ms?title)"/>
+		<xsl:variable name="ms-language-code"
+		              select="normalize-space($ms?language)"/>
+		<xsl:variable name="ms-section-id"
+		              select="if (exists($ms?section_id) and $ms?section_id eq 0)
+				                  then ()
+				              else $ms?section_id"/>
+		
+		<xsl:variable name="ms-doc"
+		              select="slsFn:doc-if-available($ms?original_filename_uri)"/>
+		
+		<xsl:variable name="ms-availability-elem" as="element(tei:availability)?"
+		              select="let $pubStmt-elem := $ms-doc/tei:TEI/tei:teiHeader/tei:fileDesc/tei:publicationStmt
+		                      return
+		                          ($pubStmt-elem/tei:availability[@xml:lang eq $meta-lang][1],
+			                       $pubStmt-elem/tei:availability[not(@xml:lang)][1],
+			                       $pubStmt-elem/tei:availability[1])[1]"/>
+
+		<xsl:variable name="ms-licence-elem" as="element(*)?"
+		              select="($ms-availability-elem/tei:ab[@type eq 'licence'][1],
+			                   $ms-availability-elem/tei:licence[1])[1]"/>
+
+		<xsl:variable name="ms-licence" as="xs:string?"
+		              select="if ($ms-licence-elem instance of element(tei:licence))
+		                          then if (not($ms-licence-elem//tei:ref))
+		                                   then slsFn:tei-node-to-html($ms-licence-elem, ())
+		                               else slsFn:tei-inline-html($ms-licence-elem)
+		                      else ()"/>
+
+		<xsl:variable name="ms-licence-work" as="xs:string?"
+		              select="if (exists($ms-licence-elem[@subtype eq 'sourceWork']))
+		                          then if (not($ms-licence-elem//tei:ref))
+		                                   then normalize-space(string($ms-licence-elem))
+		                               else slsFn:tei-inline-html($ms-licence-elem)
+		                      else ()"/>
+
+		<xsl:variable name="ms-licence-encoding" as="xs:string?"
+		              select="if (exists($ms-licence-elem[@subtype eq 'teiEncoding']))
+		                          then if (not($ms-licence-elem//tei:ref))
+		                                   then normalize-space(string($ms-licence-elem))
+		                               else slsFn:tei-inline-html($ms-licence-elem)
+		                      else ()"/>
+		
+		<xsl:variable name="ms-rights-elem" as="element(tei:ab)?"
+		              select="($ms-availability-elem/tei:ab[@type eq 'rights'][@subtype eq 'sourceWork'],
+		                       $ms-availability-elem/tei:ab[@type eq 'rights'][1])[1]"/>
+
+		<xsl:variable name="ms-rights" as="xs:string?"
+		              select="if (exists($ms-rights-elem) and boolean(normalize-space(string($ms-rights-elem))))
+		                          then if (not($ms-rights-elem//tei:ref))
+		                                   then normalize-space(string($ms-rights-elem))
+		                               else slsFn:tei-inline-html($ms-rights-elem)
+		                      else ()"/>
+
+		<xsl:map>
+			<xsl:map-entry key="'id'" select="$ms?id"/>
+			<xsl:if test="boolean($ms-title)">
+				<xsl:map-entry key="'title'" select="$ms-title"/>
+			</xsl:if>
+			<xsl:if test="exists($ms-section-id)">
+				<xsl:map-entry key="'section_id'" select="$ms-section-id"/>
+			</xsl:if>
+			<xsl:if test="exists($ms?sort_order)">
+				<xsl:map-entry key="'sort_order'" select="$ms?sort_order"/>
+			</xsl:if>
+			<xsl:if test="boolean($ms-language-code)">
+				<xsl:map-entry key="'language'"
+					           select="slsFn:language-name(
+					                       slsFn:normalise-language($ms-language-code),
+					                       $meta-lang
+					                   )"/>
+			</xsl:if>
+			<xsl:if test="exists($ms-licence)">
+				<xsl:map-entry key="'licence'"
+			                   select="$ms-licence"/>
+			</xsl:if>
+
+			<xsl:if test="exists($ms-licence-encoding)">
+				<xsl:map-entry key="'licence_encoding'"
+			                   select="$ms-licence-encoding"/>
+			</xsl:if>
+
+			<xsl:if test="exists($ms-licence-work)">
+				<xsl:map-entry key="'licence_work'"
+			                   select="$ms-licence-work"/>
+			</xsl:if>
+			
+			<xsl:if test="exists($ms-rights)">
+				<xsl:map-entry key="'rights'"
+			                   select="$ms-rights"/>
+			</xsl:if>
+		</xsl:map>
+	</xsl:function>
+
+
+	<xsl:function name="slsFn:variant-map" as="map(*)">
+		<!-- * Constructs the normalized metadata map for a single
+			 * variant entry.
+			 *
+			 * The input parameter $var is expected to be a map representing
+			 * one variant from $db-meta?variants. The function copies
+			 * selected variant properties into a new map and may compute
+			 * or normalize individual values, such as whitespace-normalized
+			 * titles.
+			 * 
+			 * @param $var
+			 * A variant metadata map.
+			 * 
+			 * @return
+			 * A map containing the variant fields used in the generated
+			 * output:
+			 * id, title, section_id, sort_order, and type. * -->
+		<xsl:param name="var" as="map(*)"/>
+
+		<xsl:variable name="var-title"
+		              select="normalize-space($var?title)"/>
+		<xsl:variable name="var-section-id"
+		              select="if (exists($var?section_id) and $var?section_id eq 0)
+				                  then ()
+				              else $var?section_id"/>
+
+		<xsl:map>
+			<xsl:map-entry key="'id'" select="$var?id"/>
+			<xsl:if test="boolean($var-title)">
+				<xsl:map-entry key="'title'" select="$var-title"/>
+			</xsl:if>
+			<xsl:if test="exists($var-section-id)">
+				<xsl:map-entry key="'section_id'" select="$var-section-id"/>
+			</xsl:if>
+			<xsl:if test="exists($var?sort_order)">
+				<xsl:map-entry key="'sort_order'" select="$var?sort_order"/>
+			</xsl:if>
+			<xsl:if test="exists($var?type)">
+				<xsl:map-entry key="'type'" select="$var?type"/>
+			</xsl:if>
+		</xsl:map>
+	</xsl:function>
 
 
 </xsl:stylesheet>

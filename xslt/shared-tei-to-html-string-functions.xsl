@@ -16,12 +16,12 @@
 	*    Version: 1.0.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
-	*    Created: 2026-05-05
+	*    Created: 2026-05-19
 	*    Licence: CC-BY 4.0 (Attribution 4.0 International),
 	*             https://creativecommons.org/licenses/by/4.0/
 	*
 	*    Changes:
-	*        v1.0.0 (2026-05-05)
+	*        v1.0.0 (2026-05-19)
 	*
 	*    Description:
 	*        This XSLT document defines XSLT 3.0 functions in the `slsFn`
@@ -32,7 +32,8 @@
 	*        TEI element, currently most often a bibliographic source element,
 	*        must be written into a string value while preserving simple inline
 	*        semantics. Text is whitespace-normalised and HTML-escaped,
-	*        <ref target="..."> is rendered as an <a href="..."> string, and
+	*        <ref target="..."> is rendered as an <a href="..."> string,
+	*        <hi rend="italics"> is rendered as a <i> string, and
 	*        <title> inside a <bibl> wrapper is rendered as a <cite> string.
 	*        Other elements are unwrapped and processed recursively.
 	*
@@ -82,26 +83,55 @@
 	</xsl:function>
 
 
+	<xsl:function name="slsFn:tei-inline-html-from-seq" as="xs:string?">
+	<!-- * Entry point for converting a sequence of nodes to an
+	     * HTML fragment string.
+	     * The nodes are serialised with slsFn:tei-node-to-html() and
+	     * concatenated.
+	     * The context element is typically the parent element of the
+	     * nodes, used for context-dependent output.
+	     * The outer result is whitespace-normalised.
+	     * Returns the empty sequence when the nodes parameter is empty. * -->
+		<xsl:param name="nodes" as="node()*"/>
+		<xsl:param name="context" as="element()?"/>
+	
+		<xsl:sequence select="
+		    if (empty($nodes))
+		        then ()
+		    else
+	            string-join(
+	                for $node in $nodes
+	                return slsFn:tei-node-to-html($node, $context),
+	                ''
+	            ) => normalize-space()
+		    "/>
+	</xsl:function>
+
+
 	<xsl:function name="slsFn:tei-node-to-html" as="xs:string">
 	<!-- * Internal helper that serialises one node to an HTML fragment string.
-		 * The wrapper parameter is the TEI element whose inline content is being
-	     * serialised, and is used for context-dependent output.
+		 * The optional wrapper parameter is the TEI element whose inline
+		 * content is being serialised, and is used for context-dependent output.
 	     * Text nodes are returned as escaped, whitespace-normalised text.
-	     * tei:ref elements with @target are returned as HTML <a> strings.
-	     * tei:ref elements without @target are unwrapped to their text content.
+	     * tei:ref and tei:licence elements with @target are returned as HTML
+	     * <a> strings.
+	     * tei:ref and tei:licence elements without @target are unwrapped to
+	     * their text content.
+	     * tei:hi[@rend eq 'italics'] elements are returned as HTML <i> strings.
 	     * tei:title elements in a tei:bibl wrapper are returned as HTML <cite>
 	     * strings.
 	     * Other elements are unwrapped and processed recursively.
 	     * Other node types are ignored. * -->
 	    <xsl:param name="node" as="node()"/>
-		<xsl:param name="wrapper" as="element()"/>
+		<xsl:param name="wrapper" as="element()?"/>
 	
 	    <xsl:choose>
 	        <xsl:when test="$node instance of text()">
 	            <xsl:sequence select="slsFn:tei-text-to-html($node)"/>
 	        </xsl:when>
 	
-	        <xsl:when test="$node instance of element(tei:ref)">
+	        <xsl:when test="$node instance of element(tei:ref) or
+	        	            $node instance of element(tei:licence)">
 	            <xsl:variable name="content" as="xs:string"
 	                          select="slsFn:tei-inline-html($node)"/>
 	
@@ -117,8 +147,24 @@
 	                    $content
 	            "/>
 	        </xsl:when>
+	    	
+	    	<xsl:when test="$node instance of element(tei:hi)">
+	    		<xsl:variable name="content" as="xs:string"
+	                          select="slsFn:tei-inline-html($node)"/>
+	    		
+	    		<xsl:sequence select="
+	    			if ($node/@rend eq 'italics')
+	    			    then
+	    			        '&lt;i&gt;' ||
+	                        $content ||
+	                        '&lt;/i&gt;'
+	                else
+	                    $content
+	    		"/>
+	    	</xsl:when>
 
 			<xsl:when test="$node instance of element(tei:title) and
+				            exists($wrapper) and
 				            $wrapper instance of element(tei:bibl)">
 				<xsl:sequence select="
 					'&lt;cite&gt;' || slsFn:tei-inline-html($node) || '&lt;/cite&gt;'
