@@ -244,48 +244,8 @@
 			                      return normalize-space(string($r))
 			                  }"/>
 
-		<xsl:variable name="availability-elem" as="element(tei:availability)?"
-		              select="let $pubStmt-elem := $main-doc/tei:TEI/tei:teiHeader/tei:fileDesc/tei:publicationStmt
-		                      return
-		                          ($pubStmt-elem/tei:availability[@xml:lang eq $meta-lang][1],
-			                       $pubStmt-elem/tei:availability[not(@xml:lang)][1],
-			                       $pubStmt-elem/tei:availability[1])[1]"/>
-
-		<xsl:variable name="licence-elem" as="element(*)?"
-		              select="($availability-elem/tei:ab[@type eq 'licence'][1],
-			                   $availability-elem/tei:licence[1])[1]"/>
-
-		<xsl:variable name="licence" as="xs:string?"
-		              select="if ($licence-elem instance of element(tei:licence))
-		                          then if (not($licence-elem//tei:ref))
-		                                   then slsFn:tei-node-to-html($licence-elem, ())
-		                               else slsFn:tei-inline-html($licence-elem)
-		                      else ()"/>
-
-		<xsl:variable name="licence-work" as="xs:string?"
-		              select="if (exists($licence-elem[@subtype eq 'sourceWork']))
-		                          then if (not($licence-elem//tei:ref))
-		                                   then normalize-space(string($licence-elem))
-		                               else slsFn:tei-inline-html($licence-elem)
-		                      else ()"/>
-
-		<xsl:variable name="licence-encoding" as="xs:string?"
-		              select="if (exists($licence-elem[@subtype eq 'teiEncoding']))
-		                          then if (not($licence-elem//tei:ref))
-		                                   then normalize-space(string($licence-elem))
-		                               else slsFn:tei-inline-html($licence-elem)
-		                      else ()"/>
-		
-		<xsl:variable name="rights-elem" as="element(tei:ab)?"
-		              select="($availability-elem/tei:ab[@type eq 'rights'][@subtype eq 'sourceWork'],
-		                       $availability-elem/tei:ab[@type eq 'rights'][1])[1]"/>
-
-		<xsl:variable name="rights" as="xs:string?"
-		              select="if (exists($rights-elem) and boolean(normalize-space(string($rights-elem))))
-		                          then if (not($rights-elem//tei:ref))
-		                                   then normalize-space(string($rights-elem))
-		                               else slsFn:tei-inline-html($rights-elem)
-		                      else ()"/>
+		<xsl:variable name="availability-metadata" as="map(*)"
+		              select="slsFn:tei-availability-metadata-map($main-doc)"/>
 
 		<xsl:variable name="phys-dimensions" as="xs:string?"
 		              select="let $dim-elem := $main-doc/tei:TEI/tei:teiHeader/tei:fileDesc
@@ -372,25 +332,7 @@
 			                   select="$keywords"/>
 			</xsl:if>
 
-			<xsl:if test="exists($licence)">
-				<xsl:map-entry key="'licence'"
-			                   select="$licence"/>
-			</xsl:if>
-
-			<xsl:if test="exists($licence-encoding)">
-				<xsl:map-entry key="'licence_encoding'"
-			                   select="$licence-encoding"/>
-			</xsl:if>
-
-			<xsl:if test="exists($licence-work)">
-				<xsl:map-entry key="'licence_work'"
-			                   select="$licence-work"/>
-			</xsl:if>
-			
-			<xsl:if test="exists($rights)">
-				<xsl:map-entry key="'rights'"
-			                   select="$rights"/>
-			</xsl:if>
+			<xsl:sequence select="$availability-metadata"/>
 
 			<xsl:if test="exists($source-archive)">
 				<xsl:map-entry key="'source_archive'"
@@ -556,6 +498,85 @@
 	</xsl:function>
 
 
+	<xsl:function name="slsFn:tei-availability-metadata-map" as="map(*)">
+		<!-- * Constructs a metadata map from the language-appropriate
+			 * tei:availability element in a TEI document.
+			 *
+			 * @param $doc
+			 * An optional TEI XML document node.
+			 *
+			 * @return
+			 * A map containing licence, licence_encoding, licence_work and
+			 * rights entries when the corresponding values exist. * -->
+		<xsl:param name="doc" as="document-node()?"/>
+
+		<xsl:variable name="availability-elem" as="element(tei:availability)?"
+		              select="let $pubStmt-elem := $doc/tei:TEI/tei:teiHeader/tei:fileDesc/tei:publicationStmt
+		                      return
+		                          ($pubStmt-elem/tei:availability[@xml:lang eq $meta-lang][1],
+			                       $pubStmt-elem/tei:availability[not(@xml:lang)][1],
+			                       $pubStmt-elem/tei:availability[1])[1]"/>
+
+		<xsl:variable name="licence-elem" as="element(*)?"
+		              select="($availability-elem/tei:ab[@type eq 'licence'][1],
+			                   $availability-elem/tei:licence[1])[1]"/>
+
+		<xsl:variable name="licence" as="xs:string?"
+		              select="if ($licence-elem instance of element(tei:licence))
+		                          then if (not($licence-elem//tei:ref))
+		                                   then slsFn:tei-node-to-html($licence-elem, ())
+		                               else slsFn:tei-inline-html($licence-elem)
+		                      else ()"/>
+
+		<xsl:variable name="licence-work" as="xs:string?"
+		              select="if (exists($licence-elem[@subtype eq 'sourceWork']))
+		                          then if (not($licence-elem//tei:ref))
+		                                   then normalize-space(string($licence-elem))
+		                               else slsFn:tei-inline-html($licence-elem)
+		                      else ()"/>
+
+		<xsl:variable name="licence-encoding" as="xs:string?"
+		              select="if (exists($licence-elem[@subtype eq 'teiEncoding']))
+		                          then if (not($licence-elem//tei:ref))
+		                                   then normalize-space(string($licence-elem))
+		                               else slsFn:tei-inline-html($licence-elem)
+		                      else ()"/>
+
+		<xsl:variable name="rights-elem" as="element(tei:ab)?"
+		              select="($availability-elem/tei:ab[@type eq 'rights'][@subtype eq 'sourceWork'],
+		                       $availability-elem/tei:ab[@type eq 'rights'][1])[1]"/>
+
+		<xsl:variable name="rights" as="xs:string?"
+		              select="if (exists($rights-elem) and boolean(normalize-space(string($rights-elem))))
+		                          then if (not($rights-elem//tei:ref))
+		                                   then normalize-space(string($rights-elem))
+		                               else slsFn:tei-inline-html($rights-elem)
+		                      else ()"/>
+
+		<xsl:map>
+			<xsl:if test="exists($licence)">
+				<xsl:map-entry key="'licence'"
+			                   select="$licence"/>
+			</xsl:if>
+
+			<xsl:if test="exists($licence-encoding)">
+				<xsl:map-entry key="'licence_encoding'"
+			                   select="$licence-encoding"/>
+			</xsl:if>
+
+			<xsl:if test="exists($licence-work)">
+				<xsl:map-entry key="'licence_work'"
+			                   select="$licence-work"/>
+			</xsl:if>
+
+			<xsl:if test="exists($rights)">
+				<xsl:map-entry key="'rights'"
+			                   select="$rights"/>
+			</xsl:if>
+		</xsl:map>
+	</xsl:function>
+
+
 	<xsl:function name="slsFn:facsimile-map" as="map(*)">
 		<!-- * Constructs the normalized metadata map for a single
 			 * facsimile entry.
@@ -635,7 +656,8 @@
 			 * @return
 			 * A map containing the manuscript fields used in the generated
 			 * output:
-			 * id, title. section_id, sort_order, and language. * -->
+			 * id, title, section_id, sort_order, language, and availability
+			 * metadata when present. * -->
 		<xsl:param name="ms" as="map(*)"/>
 
 		<xsl:variable name="ms-title"
@@ -647,51 +669,10 @@
 				                  then ()
 				              else $ms?section_id"/>
 		
-		<xsl:variable name="ms-doc"
+		<xsl:variable name="ms-doc" as="document-node()?"
 		              select="slsFn:doc-if-available($ms?original_filename_uri)"/>
-		
-		<xsl:variable name="ms-availability-elem" as="element(tei:availability)?"
-		              select="let $pubStmt-elem := $ms-doc/tei:TEI/tei:teiHeader/tei:fileDesc/tei:publicationStmt
-		                      return
-		                          ($pubStmt-elem/tei:availability[@xml:lang eq $meta-lang][1],
-			                       $pubStmt-elem/tei:availability[not(@xml:lang)][1],
-			                       $pubStmt-elem/tei:availability[1])[1]"/>
-
-		<xsl:variable name="ms-licence-elem" as="element(*)?"
-		              select="($ms-availability-elem/tei:ab[@type eq 'licence'][1],
-			                   $ms-availability-elem/tei:licence[1])[1]"/>
-
-		<xsl:variable name="ms-licence" as="xs:string?"
-		              select="if ($ms-licence-elem instance of element(tei:licence))
-		                          then if (not($ms-licence-elem//tei:ref))
-		                                   then slsFn:tei-node-to-html($ms-licence-elem, ())
-		                               else slsFn:tei-inline-html($ms-licence-elem)
-		                      else ()"/>
-
-		<xsl:variable name="ms-licence-work" as="xs:string?"
-		              select="if (exists($ms-licence-elem[@subtype eq 'sourceWork']))
-		                          then if (not($ms-licence-elem//tei:ref))
-		                                   then normalize-space(string($ms-licence-elem))
-		                               else slsFn:tei-inline-html($ms-licence-elem)
-		                      else ()"/>
-
-		<xsl:variable name="ms-licence-encoding" as="xs:string?"
-		              select="if (exists($ms-licence-elem[@subtype eq 'teiEncoding']))
-		                          then if (not($ms-licence-elem//tei:ref))
-		                                   then normalize-space(string($ms-licence-elem))
-		                               else slsFn:tei-inline-html($ms-licence-elem)
-		                      else ()"/>
-		
-		<xsl:variable name="ms-rights-elem" as="element(tei:ab)?"
-		              select="($ms-availability-elem/tei:ab[@type eq 'rights'][@subtype eq 'sourceWork'],
-		                       $ms-availability-elem/tei:ab[@type eq 'rights'][1])[1]"/>
-
-		<xsl:variable name="ms-rights" as="xs:string?"
-		              select="if (exists($ms-rights-elem) and boolean(normalize-space(string($ms-rights-elem))))
-		                          then if (not($ms-rights-elem//tei:ref))
-		                                   then normalize-space(string($ms-rights-elem))
-		                               else slsFn:tei-inline-html($ms-rights-elem)
-		                      else ()"/>
+		<xsl:variable name="ms-availability-metadata" as="map(*)"
+		              select="slsFn:tei-availability-metadata-map($ms-doc)"/>
 
 		<xsl:map>
 			<xsl:map-entry key="'id'" select="$ms?id"/>
@@ -711,25 +692,8 @@
 					                       $meta-lang
 					                   )"/>
 			</xsl:if>
-			<xsl:if test="exists($ms-licence)">
-				<xsl:map-entry key="'licence'"
-			                   select="$ms-licence"/>
-			</xsl:if>
 
-			<xsl:if test="exists($ms-licence-encoding)">
-				<xsl:map-entry key="'licence_encoding'"
-			                   select="$ms-licence-encoding"/>
-			</xsl:if>
-
-			<xsl:if test="exists($ms-licence-work)">
-				<xsl:map-entry key="'licence_work'"
-			                   select="$ms-licence-work"/>
-			</xsl:if>
-			
-			<xsl:if test="exists($ms-rights)">
-				<xsl:map-entry key="'rights'"
-			                   select="$ms-rights"/>
-			</xsl:if>
+			<xsl:sequence select="$ms-availability-metadata"/>
 		</xsl:map>
 	</xsl:function>
 
@@ -750,7 +714,8 @@
 			 * @return
 			 * A map containing the variant fields used in the generated
 			 * output:
-			 * id, title, section_id, sort_order, and type. * -->
+			 * id, title, section_id, sort_order, type, and availability
+			 * metadata when present. * -->
 		<xsl:param name="var" as="map(*)"/>
 
 		<xsl:variable name="var-title"
@@ -759,6 +724,11 @@
 		              select="if (exists($var?section_id) and $var?section_id eq 0)
 				                  then ()
 				              else $var?section_id"/>
+
+		<xsl:variable name="var-doc" as="document-node()?"
+		              select="slsFn:doc-if-available($var?original_filename_uri)"/>
+		<xsl:variable name="var-availability-metadata" as="map(*)"
+		              select="slsFn:tei-availability-metadata-map($var-doc)"/>
 
 		<xsl:map>
 			<xsl:map-entry key="'id'" select="$var?id"/>
@@ -774,6 +744,8 @@
 			<xsl:if test="exists($var?type)">
 				<xsl:map-entry key="'type'" select="$var?type"/>
 			</xsl:if>
+
+			<xsl:sequence select="$var-availability-metadata"/>
 		</xsl:map>
 	</xsl:function>
 
