@@ -14,15 +14,15 @@
 	<!-- ******************************************************************
 	*
 	*    XSLT stylesheet: publication-metadata.xsl
-	*    Version: 1.0.0-beta
+	*    Version: 1.0.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
-	*    Created: 2026-05-19
+	*    Created: 2026-05-21
 	*    Licence: CC-BY 4.0 (Attribution 4.0 International),
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
-	*        v1.0.0-beta (2026-05-19)
+	*        v1.0.0 (2026-05-21)
 	*
 	*    Description:
 	*        This XSLT document creates publication-level metadata as JSON.
@@ -172,6 +172,8 @@
 						              then normalize-space($db-meta?manuscripts?1?title)
 						          else if ($meta-lang eq 'en')
 						              then 'unknown title'
+						          else if ($meta-lang eq 'fi')
+						              then 'tuntematon nimike'
 						          else 'okänd titel'"/>
 
 		<xsl:variable name="publication-language" as="xs:string?"
@@ -223,9 +225,6 @@
 			                      return normalize-space(string($r))
 			                  }"/>
 
-		<xsl:variable name="availability-metadata" as="map(*)"
-		              select="slsFn:tei-availability-metadata-map($main-doc)"/>
-
 		<xsl:map>
 			<xsl:map-entry key="'id'"
 				           select="$db-meta?publication_id"/>
@@ -268,7 +267,9 @@
 
 			<xsl:sequence select="slsFn:tei-physical-metadata-map($main-doc)"/>
 
-			<xsl:sequence select="$availability-metadata"/>
+			<xsl:sequence select="slsFn:tei-availability-metadata-map($main-doc)"/>
+			
+			<xsl:sequence select="slsFn:tei-responsibility-metadata-map($main-doc)"/>
 
 			<xsl:if test="array:size($sender) gt 0">
 				<xsl:map-entry key="'sender'"
@@ -436,18 +437,75 @@
 		<xsl:param name="fallback-date" as="xs:string?"/>
 		<xsl:param name="orig-date-field" as="xs:boolean"/>
 
-		<xsl:variable name="orig-date" as="xs:string?"
-		              select="($doc/tei:TEI/tei:teiHeader/tei:fileDesc
-		                           /tei:sourceDesc//tei:origDate[@when]/@when,
-		                       $doc/tei:TEI/tei:teiHeader/tei:fileDesc
-		                           /tei:sourceDesc//tei:date[1][@when]/@when,
-		                       $doc/tei:TEI/tei:teiHeader/tei:profileDesc
-		                           /tei:correspDesc/tei:correspAction[@type eq 'sent']
-		                           /tei:date[@when]/@when,
-		                       normalize-space($fallback-date))[1]"/>
+		<xsl:variable name="date-elem" as="element(*)"
+		              select="let $source-desc := $doc/tei:TEI/tei:teiHeader/tei:fileDesc
+		                           /tei:sourceDesc,
+		                          $history-orig-date := $source-desc/tei:msDesc/tei:history
+		                           /tei:origin/tei:origDate
+		                      return
+		                          ($history-orig-date[@when or @notBefore or @notAfter or @from or @to],
+		                           $source-desc//tei:origDate[@when or @notBefore or @notAfter or @from or @to],
+		                           $source-desc//tei:date[@when or @notBefore or @notAfter or @from or @to][1],
+		                           $doc/tei:TEI/tei:teiHeader/tei:profileDesc
+		                               /tei:correspDesc/tei:correspAction[@type eq 'sent']
+		                               /tei:date[@when or @notBefore or @notAfter or @from or @to][1])[1]"/>
+		
+		<xsl:variable name="date-content" as="xs:string?"
+		              select="normalize-space($date-elem/string())"/>
 
 		<xsl:variable name="publication-date" as="xs:string?"
-		              select="slsFn:format-w3c-date($orig-date, $meta-lang)"/>
+		              select="if ($date-elem[@when])
+		                          then (let $formatted-when := slsFn:format-w3c-date($date-elem/@when, $meta-lang)
+		                                return
+		                                    if ($formatted-when castable as xs:gYear and
+		                                        boolean($date-content) and
+		                                        starts-with($date-content, 'ca '))
+		                                        then (slsFn:get-temporal-term('ca', $meta-lang), '~')[1] || substring($date-content, 3)
+		                                    else $formatted-when
+		                              )
+		                      else if ($date-elem[@from or @to])
+		                          then (let $from := slsFn:format-w3c-date($date-elem/@from, $meta-lang),
+		                                    $to := slsFn:format-w3c-date($date-elem/@to, $meta-lang)
+		                                return
+		                                    if (exists($from) and exists($to))
+		                                        then if ($from castable as xs:gYear and
+		                                                 $to castable as xs:gYear and
+		                                                 boolean($date-content) and
+		                                                 starts-with($date-content, 'ca '))
+		                                                 then (slsFn:get-temporal-term('ca', $meta-lang), '~')[1] || substring($date-content, 3)
+		                                             else  $from || '–' || $to
+		                                    else if (exists($from))
+		                                        then (let $term := slsFn:get-temporal-term('from', $meta-lang)
+		                                              return
+		                                                  if (exists($term))
+		                                                      then $term || ' ' || $from
+		                                                  else $from || '–'
+		                                             )
+		                                    else (let $term := slsFn:get-temporal-term('to', $meta-lang)
+		                                          return
+		                                              if (exists($term))
+		                                                  then $term || ' ' || $to
+		                                              else '–' || $to
+		                                         )
+		                               )
+		                      else if ($date-elem[@notBefore or @notAfter])
+		                          then (let $not-before := slsFn:format-w3c-date($date-elem/@notBefore, $meta-lang),
+		                                    $not-after := slsFn:format-w3c-date($date-elem/@notAfter, $meta-lang),
+		                                    $not-before-term := (slsFn:get-temporal-term('notBefore', $meta-lang), 'not before')[1],
+		                                    $not-after-term := (slsFn:get-temporal-term('notAfter', $meta-lang), 'not after')[1]
+		                                return
+		                                    if (exists($not-before) and exists($not-after))
+		                                        then if ($not-before castable as xs:gYear and
+		                                                 $not-after castable as xs:gYear and
+		                                                 boolean($date-content) and
+		                                                 starts-with($date-content, 'ca '))
+		                                                 then (slsFn:get-temporal-term('ca', $meta-lang), '~')[1] || substring($date-content, 3)
+		                                             else $not-before-term || ' ' || $not-before || ', ' || $not-after-term || ' ' || $not-after
+		                                    else if (exists($not-before))
+		                                        then $not-before-term || ' ' || $not-before
+		                                    else $not-after-term || ' ' || $not-after
+		                               )
+		                      else slsFn:format-w3c-date(normalize-space($fallback-date), $meta-lang)"/>
 
 		<xsl:if test="exists($publication-date)">
 			<xsl:map>
@@ -635,6 +693,80 @@
 	</xsl:function>
 
 
+	<xsl:function name="slsFn:tei-responsibility-metadata-map" as="map(xs:string, array(map(*)?))?">
+		<!-- * Constructs a metadata map from the tei:respStmt element
+			 * nodes in a TEI document.
+			 *
+			 * @param $doc
+			 * An optional TEI XML document node.
+			 *
+			 * @return
+			 * A map containing a 'responsibility' key with an array
+			 * of maps as value. * -->
+		<xsl:param name="doc" as="document-node()?"/>
+		
+		<xsl:variable name="responsibility" as="array(map(*)?)"
+		              select="array {
+		                          for $resp-stmt in $doc/tei:TEI/tei:teiHeader
+		                              /tei:fileDesc/tei:titleStmt/tei:respStmt
+		                          return slsFn:resp-stmt-map($resp-stmt)
+		                      }"/>
+
+		<xsl:if test="array:size($responsibility) gt 0">
+			<xsl:map>
+				<xsl:map-entry key="'responsibility'"
+				               select="$responsibility"/>
+			</xsl:map>
+		</xsl:if>
+	</xsl:function>
+	
+	
+	<xsl:function name="slsFn:resp-stmt-map" as="map(*)?">
+		<!-- * Constructs a language-appropriate map from a single
+			 * tei:respStmt element.
+			 *
+			 * @param $resp-stmt
+			 * A tei:respStmt element node.
+			 *
+			 * @return
+			 * A map containing a 'resp' key with a string value,
+			 * and a 'names' key with an array of strings value. * -->
+		<xsl:param name="resp-stmt" as="element(tei:respStmt)"/>
+		
+		<xsl:variable name="resp" as="xs:string?"
+		              select="let $resp-elem := ($resp-stmt/tei:resp[@xml:lang eq $meta-lang][1],
+		                                         $resp-stmt/tei:resp[not(@xml:lang)][1])[1],
+		                          $norm-resp := normalize-space($resp-elem/string()),
+		                          $resp-cont := if (boolean($norm-resp))
+		                                            then $norm-resp
+		                                        else (),
+		                          $last-char := substring($resp-cont, string-length($resp-cont))
+		                      return
+		                          if (($last-char) = (':', '.'))
+		                              then substring($resp-cont, 1, string-length($resp-cont) - 1)
+		                          else $resp-cont
+		                      "/>
+
+		<xsl:variable name="name-elems" as="element(*)"
+		              select="($resp-stmt/tei:name, $resp-stmt/tei:persName)"/>
+
+		<xsl:variable name="names" as="array(xs:string)"
+		              select="array {
+		                          for $n in $name-elems
+		                          return slsFn:tei-node-to-html($n, ())
+		                      }"/>
+		<xsl:if test="exists($resp) and array:size($names) gt 0">
+			<xsl:map>
+				<xsl:map-entry key="'resp'"
+				               select="$resp"/>
+				<xsl:map-entry key="'names'"
+				               select="$names"/>
+			</xsl:map>
+		</xsl:if>
+		
+	</xsl:function>
+
+
 	<xsl:function name="slsFn:facsimile-map" as="map(*)">
 		<!-- * Constructs the normalized metadata map for a single
 			 * facsimile entry.
@@ -739,8 +871,6 @@
 		
 		<xsl:variable name="ms-doc" as="document-node()?"
 		              select="slsFn:doc-if-available($ms?original_filename_uri)"/>
-		<xsl:variable name="ms-availability-metadata" as="map(*)"
-		              select="slsFn:tei-availability-metadata-map($ms-doc)"/>
 
 		<xsl:map>
 			<xsl:map-entry key="'id'" select="$ms?id"/>
@@ -773,7 +903,9 @@
 
 			<xsl:sequence select="slsFn:tei-physical-metadata-map($ms-doc)"/>
 
-			<xsl:sequence select="$ms-availability-metadata"/>
+			<xsl:sequence select="slsFn:tei-availability-metadata-map($ms-doc)"/>
+			
+			<xsl:sequence select="slsFn:tei-responsibility-metadata-map($ms-doc)"/>
 		</xsl:map>
 	</xsl:function>
 
@@ -808,8 +940,6 @@
 
 		<xsl:variable name="var-doc" as="document-node()?"
 		              select="slsFn:doc-if-available($var?original_filename_uri)"/>
-		<xsl:variable name="var-availability-metadata" as="map(*)"
-		              select="slsFn:tei-availability-metadata-map($var-doc)"/>
 		
 		<xsl:variable name="var-language-code"
 		              select="normalize-space($var-doc/tei:TEI/tei:text/@xml:lang)"/>
@@ -849,7 +979,9 @@
 
 			<xsl:sequence select="slsFn:tei-physical-metadata-map($var-doc)"/>
 
-			<xsl:sequence select="$var-availability-metadata"/>
+			<xsl:sequence select="slsFn:tei-availability-metadata-map($var-doc)"/>
+			
+			<xsl:sequence select="slsFn:tei-responsibility-metadata-map($var-doc)"/>
 		</xsl:map>
 	</xsl:function>
 

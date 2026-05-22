@@ -79,10 +79,56 @@
 	                  }
 	              }
 	              "/>
+	
+	<xsl:variable name="temporal-terms" static="yes"
+	              as="map(xs:string, map(xs:string, xs:string))"
+	              select="
+	              map {
+	                  'en': map {
+	                      'notAfter': 'not after',
+	                      'notBefore': 'not before',
+	                      'from': 'from',
+	                      'to': 'to',
+	                      'ca': 'c.'
+	                  },
+	                  'sv': map {
+	                      'notAfter': 'senast',
+	                      'notBefore': 'tidigast',
+	                      'from': 'från',
+	                      'to': 'till',
+	                      'ca': 'ca'
+	                  },
+	                  'fi': map {
+	                      'notAfter': 'myöhäisintään',
+	                      'notBefore': 'aikaisintaan',
+	                      'from': 'alkaen',
+	                      'to': 'päättyen',
+	                      'ca': 'n.'
+	                  }
+	              }
+	              "/>
 
 	
 	
 	<!-- * FUNCTIONS ************************************************** -->
+	
+	<xsl:function name="slsFn:get-temporal-term" as="xs:string?">
+		<!-- * Returns the localised name of a temporal term.
+			 * If the term is empty or unsupported, the empty
+			 * sequence is returned. * -->
+		<xsl:param name="term" as="xs:string?"/>
+		<xsl:param name="language" as="xs:string?"/>
+		
+		<xsl:variable name="lang" as="xs:string"
+		              select="if ($language = ('en', 'fi', 'sv'))
+		                          then $language
+		                      else 'sv'"/>
+	
+		<xsl:sequence select="if (boolean($term))
+			                      then $temporal-terms($lang)($term)
+			                  else ()"/>
+	</xsl:function>
+	
 	
 	<xsl:function name="slsFn:month-name" as="xs:string?">
 		<!-- * Returns the localised name of a month.

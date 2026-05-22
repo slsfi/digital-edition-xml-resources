@@ -117,6 +117,10 @@
 	     * <a> strings.
 	     * tei:ref and tei:licence elements without @target are unwrapped to
 	     * their text content.
+	     * tei:name and tei:persName elements with @ref are returned as HTML
+	     * <a> strings.
+	     * tei:name and tei:persName elements without @ref are unwrapped to
+	     * their text content.
 	     * tei:hi[@rend eq 'italics'] elements are returned as HTML <i> strings.
 	     * tei:title elements in a tei:bibl wrapper are returned as HTML <cite>
 	     * strings.
@@ -131,15 +135,23 @@
 	        </xsl:when>
 	
 	        <xsl:when test="$node instance of element(tei:ref) or
-	        	            $node instance of element(tei:licence)">
+	        	            $node instance of element(tei:licence) or
+	        	            $node instance of element(tei:name) or
+	        	            $node instance of element(tei:persName)">
 	            <xsl:variable name="content" as="xs:string"
 	                          select="slsFn:tei-inline-html($node)"/>
+	        
+	        	<xsl:variable name="target" as="xs:string?"
+	        	              select="if ($node instance of element(tei:ref) or
+	        	                          $node instance of element(tei:licence))
+	        	                          then $node/@target
+	        	                      else $node/@ref"/>
 	
 	            <xsl:sequence select="
-	                if ($node/@target)
+	                if ($target)
 	                    then
 	                        '&lt;a href=&quot;' ||
-	                        slsFn:escape-html-attribute(string($node/@target)) ||
+	                        slsFn:escape-html-attribute(string($target)) ||
 	                        '&quot;&gt;' ||
 	                        $content ||
 	                        '&lt;/a&gt;'
