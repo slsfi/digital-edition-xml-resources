@@ -49,6 +49,9 @@
 			</sourceDesc>
 		</fileDesc>
 		<revisionDesc>
+			<change when="2026-05-25">
+				- Add @xml:lang on availability and licence.
+			</change>
 			<change when="2026-04-15">
 				- Add extent, dimensions, height, history, objectDesc, origin, physDesc,
 				  supportDesc, and width.
@@ -428,7 +431,6 @@
 					<attList>
 						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="n" mode="delete"/>
-						<attDef ident="xml:lang" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
 						<attDef ident="xml:space" mode="delete"/>
 						<attDef ident="rend" mode="delete"/>
@@ -1627,7 +1629,6 @@
 						<attDef ident="select" mode="delete"/>
 						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="n" mode="delete"/>
-						<attDef ident="xml:lang" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
 						<attDef ident="xml:space" mode="delete"/>
 						<attDef ident="facs" mode="delete"/>

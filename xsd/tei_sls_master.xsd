@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2026-04-16T04:20:49Z. . 
+    Schema generated from ODD source 2026-05-25T11:54:12Z. . 
     TEI Edition: P5 Version 4.11.0. Last updated on 18th February 2026, revision 358d2e48e 
     TEI Edition Location: https://www.tei-c.org/Vault/P5/4.11.0/ 
     
@@ -4074,6 +4074,7 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationComId; 3] dbPublic
         <xs:group ref="tei:tei_model.availabilityPart"/>
         <xs:group ref="tei:tei_model.pLike"/>
       </xs:choice>
+      <xs:attributeGroup ref="tei:tei_att.global.attribute.xmllang"/>
       <xs:attribute name="status">
         <xs:annotation>
           <xs:documentation>(status) supplies a code identifying the current availability of the text.</xs:documentation>
@@ -4107,6 +4108,7 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationComId; 3] dbPublic
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="tei:tei_macro.specialPara">
+          <xs:attributeGroup ref="tei:tei_att.global.attribute.xmllang"/>
           <xs:attributeGroup ref="tei:tei_att.pointing.attributes"/>
         </xs:extension>
       </xs:complexContent>
