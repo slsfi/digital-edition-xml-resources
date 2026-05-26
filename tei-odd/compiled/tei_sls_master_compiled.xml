@@ -57,6 +57,7 @@
       </tei:constraintDecl></tei:encodingDesc><revisionDesc>
 			<change when="2026-05-25">
 				- Add @xml:lang on availability and licence.
+				- Add @type and @subtype on ab, and @type on date.
 			</change>
 			<change when="2026-04-15">
 				- Add extent, dimensions, height, history, objectDesc, origin, physDesc,
@@ -4866,7 +4867,7 @@ concerned, as further discussed in section <ref target="https://www.tei-c.org/re
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html#CONAAD">3.6.2. Addresses</ref>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/HD.html#HD24">2.2.4. Publication, Distribution, Licensing, etc.</ref>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html#COBICOI">3.12.2.4. Imprint, Size of a Document, and Reprint Information</ref>
-  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" rend="change" module="core" xml:id="gi-date" ident="date"><gloss versionDate="2009-01-06" xml:lang="en">date</gloss><gloss versionDate="2009-01-06" xml:lang="fr">date</gloss><gloss versionDate="2016-11-25" xml:lang="de">Datum</gloss><desc versionDate="2005-01-14" xml:lang="en">contains a date in any format.</desc><desc versionDate="2007-12-20" xml:lang="ko">다양한 형식의 날짜를 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含任何格式的日期表示。</desc><desc versionDate="2008-04-05" xml:lang="ja">日付を示す。</desc><desc versionDate="2009-01-06" xml:lang="fr">contient une date exprimée dans n'importe quel format.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene una fecha en cualquier formato.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene una data in qualsiasi foemato</desc><desc versionDate="2016-11-25" xml:lang="de">enthält ein Datum in beliebigem Format.</desc><classes><memberOf key="att.datable.w3c"/><memberOf key="att.global"/><memberOf key="model.dateLike"/><memberOf key="model.publicationStmtPart.detail"/></classes><content><alternate minOccurs="0" maxOccurs="unbounded"><textNode/><classRef key="model.gLike"/><classRef key="model.phrase"/><classRef key="model.global"/></alternate></content><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="rend" mode="change">
+  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" rend="change" module="core" xml:id="gi-date" ident="date"><gloss versionDate="2009-01-06" xml:lang="en">date</gloss><gloss versionDate="2009-01-06" xml:lang="fr">date</gloss><gloss versionDate="2016-11-25" xml:lang="de">Datum</gloss><desc versionDate="2005-01-14" xml:lang="en">contains a date in any format.</desc><desc versionDate="2007-12-20" xml:lang="ko">다양한 형식의 날짜를 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含任何格式的日期表示。</desc><desc versionDate="2008-04-05" xml:lang="ja">日付を示す。</desc><desc versionDate="2009-01-06" xml:lang="fr">contient une date exprimée dans n'importe quel format.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene una fecha en cualquier formato.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene una data in qualsiasi foemato</desc><desc versionDate="2016-11-25" xml:lang="de">enthält ein Datum in beliebigem Format.</desc><classes><memberOf key="att.datable.w3c"/><memberOf key="att.global"/><memberOf key="att.typed"/><memberOf key="model.dateLike"/><memberOf key="model.publicationStmtPart.detail"/></classes><content><alternate minOccurs="0" maxOccurs="unbounded"><textNode/><classRef key="model.gLike"/><classRef key="model.phrase"/><classRef key="model.global"/></alternate></content><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="rend" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="bold"/>
 								<valItem mode="add" ident="encircled"/>
@@ -4883,6 +4884,10 @@ concerned, as further discussed in section <ref target="https://www.tei-c.org/re
 								<valItem mode="add" ident="underlineDashed"/>
 								<valItem mode="add" ident="underlineDouble"/>
 								<valItem mode="add" ident="uppercase"/>
+							</valList>
+						</attDef><attDef ident="type" mode="change">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="copyrightExpiry"/>
 							</valList>
 						</attDef></attList><exemplum xml:lang="en">
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-date-egXML-vd">
@@ -9749,7 +9754,7 @@ dedicatory epistle, or other division of a text.</desc><desc versionDate="2007-1
         </sch:assert>
       </sch:rule>
     </constraint>
-  </constraintSpec><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="rend" mode="change">
+  </constraintSpec><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="rend" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="bold"/>
 								<valItem mode="add" ident="encircled"/>
@@ -9767,7 +9772,17 @@ dedicatory epistle, or other division of a text.</desc><desc versionDate="2007-1
 								<valItem mode="add" ident="underlineDouble"/>
 								<valItem mode="add" ident="uppercase"/>
 							</valList>
-						</attDef><attDef ident="type" mode="delete"/></attList><exemplum xml:lang="en">
+						</attDef><attDef ident="type" mode="change">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="licence"/>
+								<valItem mode="add" ident="rights"/>
+							</valList>
+						</attDef><attDef ident="subtype" mode="change">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="sourceWork"/>
+								<valItem mode="add" ident="teiEncoding"/>
+							</valList>
+						</attDef></attList><exemplum xml:lang="en">
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-ab-egXML-zb" source="#SASE-eg-40">
       <div type="book" n="Genesis">
         <div type="chapter" n="1">
