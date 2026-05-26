@@ -19,13 +19,14 @@
 			</sourceDesc>
 		</fileDesc>
 		<revisionDesc>
-			<change when="2026-05-25" who="#SK">
+			<change when="2026-05-26" who="#SK">
 				- Change the default Roma-generated licence to CC BY-SA 4.0.
 				- Add @xml:lang on availability and licence.
 				- Add @type and @subtype on ab, and @type on date.
 				- Add @xml:id, @from, @ref, @to, and @when on name.
 				- Add @xml:lang, @from, @to, and @when on resp.
 				- Add @xml:lang and @extent on dimensions.
+				- Add @xml:lang on msDesc.
 			</change>
 			<change when="2026-04-15" who="#SK"> 
 				- Add extent, dimensions, height, history, objectDesc, origin, physDesc,
@@ -1765,7 +1766,6 @@
 					<attList>
 						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="n" mode="delete"/>
-						<attDef ident="xml:lang" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
 						<attDef ident="xml:space" mode="delete"/>
 						<attDef ident="facs" mode="delete"/>
