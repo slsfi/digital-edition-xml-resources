@@ -2,46 +2,16 @@
         18th February 2026, revision 358d2e48e?>
 	<teiHeader><fileDesc>
 			<titleStmt>
-				<title>TEI SLS Master</title>
-				<author>Sebastian Köhler</author>
+				<title>TEI SLS master schema</title>
+				<author xml:id="SK">Sebastian Köhler</author>
 			</titleStmt>
 			<publicationStmt>
-				<publisher>TEI Consortium</publisher>
+				<publisher xml:lang="sv">Svenska litteratursällskapet i Finland</publisher>
+				<publisher xml:lang="en">Society of Swedish Literature in Finland</publisher>
+                <ref target="https://www.sls.fi/">https://www.sls.fi/</ref>
 				<availability status="free">
-					<licence target="http://creativecommons.org/licenses/by-sa/3.0/"> Distributed
-						under a Creative Commons Attribution-ShareAlike 3.0 Unported License </licence>
-					<licence target="http://www.opensource.org/licenses/BSD-2-Clause">
-						<p>Copyright 2013 TEI Consortium.</p>
-						<p>All rights reserved.</p>
-						<p>Redistribution and use in source and binary forms, with or without
-							modification, are permitted provided that the following conditions are
-							met:</p>
-						<list>
-							<item>Redistributions of source code must retain the above copyright
-								notice, this list of conditions and the following disclaimer.</item>
-							<item>Redistributions in binary form must reproduce the above copyright
-								notice, this list of conditions and the following disclaimer in the
-								documentation and/or other materials provided with the
-								distribution.</item>
-						</list>
-						<p>This software is provided by the copyright holders and contributors "as
-							is" and any express or implied warranties, including, but not limited
-							to, the implied warranties of merchantability and fitness for a
-							particular purpose are disclaimed. In no event shall the copyright
-							holder or contributors be liable for any direct, indirect, incidental,
-							special, exemplary, or consequential damages (including, but not limited
-							to, procurement of substitute goods or services; loss of use, data, or
-							profits; or business interruption) however caused and on any theory of
-							liability, whether in contract, strict liability, or tort (including
-							negligence or otherwise) arising in any way out of the use of this
-							software, even if advised of the possibility of such damage.</p>
-					</licence>
-					<p>TEI material can be licensed differently depending on the use you intend to
-						make of it. Hence it is made available under both the CC+BY and BSD-2
-						licences. The CC+BY licence is generally appropriate for usages which treat
-						TEI content as data or documentation. The BSD-2 licence is generally
-						appropriate for usage of TEI content in a software environment. For further
-						information or clarification, please contact the <ref target="mailto:info@tei-c.org">TEI Consortium</ref>.</p>
+					<licence target="https://creativecommons.org/licenses/by-sa/4.0/">Distributed
+						under a Creative Commons Attribution-ShareAlike 4.0 International License</licence>
 				</availability>
 			</publicationStmt>
 			<sourceDesc>
@@ -55,14 +25,15 @@
         <sch:ns xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" prefix="sch" uri="http://purl.oclc.org/dsdl/schematron"/>
         <sch:ns xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" prefix="sch1x" uri="http://www.ascc.net/xml/schematron"/>
       </tei:constraintDecl></tei:encodingDesc><revisionDesc>
-			<change when="2026-05-25">
+			<change when="2026-05-25" who="#SK">
+				- Change the default Roma-generated licence to CC BY-SA 4.0.
 				- Add @xml:lang on availability and licence.
 				- Add @type and @subtype on ab, and @type on date.
 				- Add @xml:id, @from, @ref, @to, and @when on name.
 				- Add @xml:lang, @from, @to, and @when on resp.
 				- Add @xml:lang and @extent on dimensions.
 			</change>
-			<change when="2026-04-15">
+			<change when="2026-04-15" who="#SK"> 
 				- Add extent, dimensions, height, history, objectDesc, origin, physDesc,
 				  supportDesc, and width.
 				- Modify @unit in att.dimensions and define @unit explicitly on the elements that
@@ -74,80 +45,80 @@
 				  milestone. Modify values of @unit on milestone and make it required.
 				- Fix declaration of @type values on correspAction.
 			</change>
-			<change when="2026-04-14">
+			<change when="2026-04-14" who="#SK"> 
 				- Add "illegible" to values of @reason on gap, and "margin" to values of @place
 				  on note.
 				- Support TEI <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/readme-4.11.0.html">P5
 				  version 4.11.0</ref>.
 			</change>
-			<change when="2025-09-10">
+			<change when="2025-09-10" who="#SK"> 
 				- Add @hand on head and text.
 				- Remove "pre-print" from values of @medium.
 			</change>
-			<change when="2025-08-28">
+			<change when="2025-08-28" who="#SK"> 
 				- Add @hand on p and seg.
 				- Remove @rend from seg.
 				- Remove "typewrite" from values of @medium. Add "pre-print", "print", "stamp", and
 				  "typescript" to values of @medium.
 			</change>
-			<change when="2025-08-26">
+			<change when="2025-08-26" who="#SK"> 
 				- Add "smaller" to values of @rend on q.
 			</change>
-			<change when="2025-06-24">
+			<change when="2025-06-24" who="#SK"> 
 				- Add "black-pen" to values of @medium.
 			</change>
-			<change when="2025-05-07">
+			<change when="2025-05-07" who="#SK"> 
 				- Add "main" to values of @type on title.
 			</change>
-			<change when="2025-05-05">
+			<change when="2025-05-05" who="#SK"> 
 				- Remove @hand from head.
 			</change>
-			<change when="2025-04-23">
+			<change when="2025-04-23" who="#SK"> 
 				- Add @rend="strikethrough" on delSpan.
 			</change>
-			<change when="2025-03-13">
+			<change when="2025-03-13" who="#SK"> 
 				- Add "host" to values of @type on title.
 			</change>
-			<change when="2025-03-11">
+			<change when="2025-03-11" who="#SK"> 
 				- Add @cert and @role to rs.
 				- Mark @unit and @quantity as optional on space.
 			</change>
-			<change when="2025-02-25">
+			<change when="2025-02-25" who="#SK"> 
 				- Add @xml:lang on note; @xml:id on cell, item, l, lg, p, row, and seg; @n on metamark;
 				  @function="transp" on metamark, listTranspose, and transpose.
 				- Update values of @rend on byline and dateline.
 			</change>
-			<change when="2025-02-22">
+			<change when="2025-02-22" who="#SK"> 
 				- Remove @xml:space="preserve" requirement from body.
 			</change>
-			<change when="2025-02-11">
+			<change when="2025-02-11" who="#SK"> 
 				- Remove requirement of @n, @place, and @xml:id on note.
 			</change>
-			<change when="2025-02-05">
+			<change when="2025-02-05" who="#SK"> 
 				- Add msDesc and child elements (msIdentifier and related).
 			</change>
-			<change when="2025-02-04">
+			<change when="2025-02-04" who="#SK"> 
 				- Support TEI <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/readme-4.9.0.html">P5
 				  version 4.9.0</ref>.
 			</change>
-			<change when="2025-01-22">
+			<change when="2025-01-22" who="#SK"> 
 				- Add "move" to values of `@type` on add and addSpan.
 			</change>
-			<change when="2025-01-21">
+			<change when="2025-01-21" who="#SK"> 
 				- Make attributes of gap and unclear optional.
 			</change>
-			<change when="2025-01-15">
+			<change when="2025-01-15" who="#SK"> 
 				- Modify values of @type on idno.
 				- Add textClass and related child elements.
 				- Add xenoData.
 			</change>
-			<change when="2025-01-09">
+			<change when="2025-01-09" who="#SK"> 
 				- Add @n on lg.
 			</change>
-			<change when="2024-12-12">
+			<change when="2024-12-12" who="#SK"> 
 				- Add "smallCaps" to values of @rend.
 			</change>
-			<change when="2024-12-09">
+			<change when="2024-12-09" who="#SK"> 
 				- Initial commit.
 				- Fix @type values on correspAction.
 			</change>
