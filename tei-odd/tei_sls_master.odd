@@ -53,7 +53,8 @@
 				- Add @xml:lang on availability and licence.
 				- Add @type and @subtype on ab, and @type on date.
 				- Add @xml:id, @from, @ref, @to, and @when on name.
-				- Add @xml:lang, @from, @to, and @when on resp. 
+				- Add @xml:lang, @from, @to, and @when on resp.
+				- Add @xml:lang and @extent on dimensions.
 			</change>
 			<change when="2026-04-15">
 				- Add extent, dimensions, height, history, objectDesc, origin, physDesc,
@@ -844,7 +845,6 @@
 						<attDef ident="type" mode="delete"/>
 						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="n" mode="delete"/>
-						<attDef ident="xml:lang" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
 						<attDef ident="xml:space" mode="delete"/>
 						<attDef ident="facs" mode="delete"/>
@@ -1264,6 +1264,7 @@
 						<attDef ident="source" mode="delete"/>
 						<attDef ident="unit" mode="delete"/>
 						<attDef ident="quantity" mode="delete"/>
+						<attDef ident="extent" mode="delete"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="hi" mode="change">
@@ -2037,6 +2038,7 @@
 						<attDef ident="confidence" mode="delete"/>
 						<attDef ident="unit" mode="delete"/>
 						<attDef ident="quantity" mode="delete"/>
+						<attDef ident="extent" mode="delete"/>
 						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="n" mode="delete"/>
 						<attDef ident="xml:lang" mode="delete"/>
@@ -2723,6 +2725,7 @@
 						<attDef ident="confidence" mode="delete"/>
 						<attDef ident="unit" mode="delete"/>
 						<attDef ident="quantity" mode="delete"/>
+						<attDef ident="extent" mode="delete"/>
 						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="n" mode="delete"/>
 						<attDef ident="xml:lang" mode="delete"/>
@@ -3037,6 +3040,7 @@
 							</valList>
 						</attDef>
 						<attDef ident="quantity" mode="change"/>
+						<attDef ident="extent" mode="delete"/>
 						<attDef ident="dim" mode="delete"/>
 					</attList>
 				</elementSpec>
@@ -3067,6 +3071,7 @@
 						<attDef ident="seq" mode="delete"/>
 						<attDef ident="unit" mode="delete"/>
 						<attDef ident="quantity" mode="delete"/>
+						<attDef ident="extent" mode="delete"/>
 						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="n" mode="delete"/>
 						<attDef ident="xml:lang" mode="delete"/>
@@ -3112,6 +3117,7 @@
 						</attDef>
 						<attDef ident="unit" mode="delete"/>
 						<attDef ident="quantity" mode="delete"/>
+						<attDef ident="extent" mode="delete"/>
 						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="n" mode="delete"/>
 						<attDef ident="xml:lang" mode="delete"/>
@@ -3442,6 +3448,7 @@
 						<attDef ident="hand" mode="delete"/>
 						<attDef ident="unit" mode="delete"/>
 						<attDef ident="quantity" mode="delete"/>
+						<attDef ident="extent" mode="delete"/>
 						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="n" mode="delete"/>
 						<attDef ident="xml:lang" mode="delete"/>
@@ -3468,6 +3475,7 @@
 						<attDef ident="source" mode="delete"/>
 						<attDef ident="unit" mode="delete"/>
 						<attDef ident="quantity" mode="delete"/>
+						<attDef ident="extent" mode="delete"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="xenoData" mode="change">
@@ -3554,7 +3562,7 @@
 								<valItem mode="delete" ident="char"/>
 							</valList>
 						</attDef>
-						<attDef ident="extent" mode="delete"/>
+						<attDef ident="extent" mode="change"/>
 						<attDef ident="precision" mode="delete"/>
 						<attDef ident="scope" mode="delete"/>
 					</attList>
