@@ -525,9 +525,15 @@
 		<xsl:variable name="source-desc" as="element(tei:sourceDesc)?"
 		              select="$doc/tei:TEI/tei:teiHeader/tei:fileDesc
 		                          /tei:sourceDesc"/>
+		
+		<xsl:variable name="ms-desc" as="element(tei:msDesc)?"
+		              select="($doc/tei:TEI/tei:teiHeader/tei:fileDesc
+		                          /tei:sourceDesc/tei:msDesc[@xml:lang eq $meta-lang][1],
+		                      $doc/tei:TEI/tei:teiHeader/tei:fileDesc
+		                          /tei:sourceDesc/tei:msDesc[1])[1]"/>
 
 		<xsl:variable name="source-archive" as="xs:string?"
-		              select="let $ms-identifier := $source-desc/tei:msDesc/tei:msIdentifier
+		              select="let $ms-identifier := $ms-desc/tei:msIdentifier
 		                      return
 		                          if (exists($ms-identifier))
 		                              then (let $norm-ms-name := if (exists($ms-identifier/tei:msName))
@@ -577,22 +583,34 @@
 		<xsl:variable name="source-desc" as="element(tei:sourceDesc)?"
 		              select="$doc/tei:TEI/tei:teiHeader/tei:fileDesc
 		                          /tei:sourceDesc"/>
+		
+		<xsl:variable name="ms-desc" as="element(tei:msDesc)?"
+		              select="($source-desc/tei:msDesc[@xml:lang eq $meta-lang][1],
+		                       $source-desc/tei:msDesc[1])[1]"/>
+		
+		<xsl:variable name="all-dim-elems" as="element(tei:dimensions)*"
+		              select="$ms-desc/tei:physDesc/tei:objectDesc
+		                              /tei:supportDesc/tei:extent/tei:dimensions"/>
+		
+		<xsl:variable name="localised-dim-elems" as="element(tei:dimensions)*"
+		              select="$all-dim-elems[@xml:lang eq $meta-lang]"/>
+		
+		<xsl:variable name="dim-elems" as="element(tei:dimensions)*"
+		              select="if (exists($localised-dim-elems))
+		                          then $localised-dim-elems
+		                      else $all-dim-elems"/>
 
-		<xsl:variable name="dim-elem" as="element(tei:dimensions)?"
-		              select="($source-desc/tei:msDesc/tei:physDesc/tei:objectDesc
-		                           /tei:supportDesc/tei:extent/tei:dimensions)[1]"/>
+		<xsl:variable name="dim-strings" as="xs:string*"
+		              select="for $dim-elem in $dim-elems
+		                      return slsFn:get-dimensions-string($dim-elem)"/>
 
 		<xsl:variable name="phys-dimensions" as="xs:string?"
-		              select="if ($dim-elem and $dim-elem/tei:height and $dim-elem/tei:width)
-		                          then string($dim-elem/tei:width) || ' × '
-		                               || string($dim-elem/tei:height)
-		                               || (if ($dim-elem[@unit])
-		                                       then (' ' || string($dim-elem/@unit))
-		                                   else '')
+		              select="if (exists($dim-strings))
+		                          then string-join($dim-strings, ', ')
 		                      else ()"/>
 
 		<xsl:variable name="phys-desc" as="element(tei:physDesc)?"
-		              select="$source-desc/tei:msDesc/tei:physDesc"/>
+		              select="$ms-desc/tei:physDesc"/>
 		<xsl:variable name="phys-desc-p" as="element(tei:p)*"
 		              select="$phys-desc/tei:p"/>
 		<xsl:variable name="phys-description" as="xs:string?"
@@ -611,6 +629,27 @@
 				</xsl:if>
 			</xsl:map>
 		</xsl:if>
+	</xsl:function>
+
+
+	<xsl:function name="slsFn:get-dimensions-string" as="xs:string?">
+		<xsl:param name="dim-elem" as="element(tei:dimensions)?"/>
+
+		<xsl:variable name="dim-extent" as="xs:string?"
+		              select="if ($dim-elem[@extent])
+		                          then normalize-space($dim-elem/@extent)
+		                      else ()"/>
+
+		<xsl:sequence select="if ($dim-elem and $dim-elem/tei:height and $dim-elem/tei:width)
+		                          then string($dim-elem/tei:width) || ' × '
+		                               || string($dim-elem/tei:height)
+		                               || (if ($dim-elem[@unit])
+		                                       then (' ' || string($dim-elem/@unit))
+		                                   else '')
+		                               || (if (boolean($dim-extent))
+		                                       then ' (' || $dim-extent || ')'
+		                                   else '')
+		                      else ()"/>
 	</xsl:function>
 
 
@@ -747,7 +786,7 @@
 		                          else $resp-cont
 		                      "/>
 
-		<xsl:variable name="name-elems" as="element(*)"
+		<xsl:variable name="name-elems" as="element(*)*"
 		              select="($resp-stmt/tei:name, $resp-stmt/tei:persName)"/>
 
 		<xsl:variable name="names" as="array(xs:string)"
