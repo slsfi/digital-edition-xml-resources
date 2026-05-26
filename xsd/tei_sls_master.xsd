@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2026-05-25T13:52:36Z. . 
+    Schema generated from ODD source 2026-05-26T06:54:21Z. . 
     TEI Edition: P5 Version 4.11.0. Last updated on 18th February 2026, revision 358d2e48e 
     TEI Edition Location: https://www.tei-c.org/Vault/P5/4.11.0/ 
     
@@ -2749,10 +2749,20 @@ Normalization 13. Critical Apparatus]</xs:documentation>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element name="name" type="tei:tei_macro.phraseSeq">
+  <xs:element name="name">
     <xs:annotation>
       <xs:documentation>(name, proper noun) contains a proper noun or noun phrase. [3.6.1. Referring Strings]</xs:documentation>
     </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="tei:tei_macro.phraseSeq">
+          <xs:attributeGroup ref="tei:tei_att.global.attribute.xmlid"/>
+          <xs:attributeGroup ref="tei:tei_att.datable.w3c.attribute.from"/>
+          <xs:attributeGroup ref="tei:tei_att.datable.w3c.attribute.to"/>
+          <xs:attributeGroup ref="tei:tei_att.datable.w3c.attribute.when"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
   </xs:element>
   <xs:element name="rs">
     <xs:annotation>
@@ -3621,10 +3631,20 @@ Elements 7.2.6. Speech Contents]</xs:documentation>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="resp" type="tei:tei_macro.phraseSeq.limited">
+  <xs:element name="resp">
     <xs:annotation>
       <xs:documentation>(responsibility) contains a phrase describing the nature of a person's intellectual responsibility, or an organization's role in the production or distribution of a work. [3.12.2.2. Titles, Authors, and Editors 2.2.1. The Title Statement 2.2.2. The Edition Statement 2.2.5. The Series Statement]</xs:documentation>
     </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="tei:tei_macro.phraseSeq.limited">
+          <xs:attributeGroup ref="tei:tei_att.global.attribute.xmllang"/>
+          <xs:attributeGroup ref="tei:tei_att.datable.w3c.attribute.when"/>
+          <xs:attributeGroup ref="tei:tei_att.datable.w3c.attribute.to"/>
+          <xs:attributeGroup ref="tei:tei_att.datable.w3c.attribute.from"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
   </xs:element>
   <xs:element name="title">
     <xs:annotation>

@@ -52,6 +52,8 @@
 			<change when="2026-05-25">
 				- Add @xml:lang on availability and licence.
 				- Add @type and @subtype on ab, and @type on date.
+				- Add @xml:id, @from, @ref, @to, and @when on name.
+				- Add @xml:lang, @from, @to, and @when on resp. 
 			</change>
 			<change when="2026-04-15">
 				- Add extent, dimensions, height, history, objectDesc, origin, physDesc,
@@ -1857,7 +1859,6 @@
 						<attDef ident="prev" mode="delete"/>
 						<attDef ident="exclude" mode="delete"/>
 						<attDef ident="select" mode="delete"/>
-						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="n" mode="delete"/>
 						<attDef ident="xml:lang" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
@@ -1870,6 +1871,10 @@
 						<attDef ident="type" mode="delete"/>
 						<attDef ident="subtype" mode="delete"/>
 						<attDef ident="calendar" mode="delete"/>
+						<attRef name="from" class="att.datable.w3c"/>
+						<attRef name="to" class="att.datable.w3c"/>
+						<attRef name="when" class="att.datable.w3c"/>
+						<attRef name="ref" class="att.canonical"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="note" mode="change">
@@ -2656,7 +2661,6 @@
 						<attDef ident="key" mode="delete"/>
 						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="n" mode="delete"/>
-						<attDef ident="xml:lang" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
 						<attDef ident="xml:space" mode="delete"/>
 						<attDef ident="facs" mode="delete"/>
@@ -2665,6 +2669,9 @@
 						<attDef ident="resp" mode="delete"/>
 						<attDef ident="source" mode="delete"/>
 						<attDef ident="calendar" mode="delete"/>
+						<attRef name="when" class="att.datable.w3c"/>
+						<attRef name="to" class="att.datable.w3c"/>
+						<attRef name="from" class="att.datable.w3c"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="respStmt" mode="change">
