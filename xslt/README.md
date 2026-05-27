@@ -66,13 +66,25 @@ Main stylesheet for transforming a preprocessed manuscript TEI XML document (a �
 
 Main stylesheet for transforming a preprocessed manuscript TEI XML document (a “web version”) to an HTML5 fragment, that can be included in a web page (does not generate a complete HTML document). Relies on several “shared” XSLT stylesheets. Unlike when transforming with `ms_changes.xsl`, the manuscript changes will *not* be visible in the result document.
 
+#### `publication-metadata.xsl`
+
+Main stylesheet for creating publication-level metadata as JSON from database metadata supplied through the `db-json` parameter and metadata read from referenced TEI XML documents. It is run with its initial template and does not require a primary source document.
+
 #### `required-global-variables.xsl`
 
 Stylesheet with required common global variables. This stylesheet must be imported by the main stylesheet if any of the `shared-*.xsl` stylesheets are also imported.
 
+#### `shared-date-functions.xsl`
+
+Stylesheet with common date-handling functions in the `slsFn` namespace (`https://www.sls.fi/ns/digitaledition/functions/`), including helpers for formatting dates and temporal terms.
+
 #### `shared-functions.xsl`
 
 Stylesheet with common XSLT functions in the `slsFn` namespace (`https://www.sls.fi/ns/digitaledition/functions/`). The `required-global-variables.xsl` must be imported before this stylesheet.
+
+#### `shared-language-functions.xsl`
+
+Stylesheet with common language-handling functions in the `slsFn` namespace (`https://www.sls.fi/ns/digitaledition/functions/`), including helpers for normalising language tags and resolving language names.
 
 #### `shared-match-templates.xsl`
 
@@ -81,6 +93,10 @@ Stylesheet with common match templates used by `est.xsl`, `ms_changes.xsl` and `
 #### `shared-named-templates.xsl`
 
 Stylesheet with common named templates. The `required-global-variables.xsl` and `shared-functions.xsl` must be imported before this stylesheet.
+
+#### `shared-tei-to-html-string-functions.xsl`
+
+Stylesheet with functions in the `slsFn` namespace (`https://www.sls.fi/ns/digitaledition/functions/`) for converting selected inline TEI markup into HTML fragment strings, primarily for metadata values.
 
 #### `title.xsl`
 
