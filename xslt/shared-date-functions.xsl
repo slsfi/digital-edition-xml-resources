@@ -17,12 +17,12 @@
 	*    Version: 1.0.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
-	*    Created: 2026-05-19
-	*    Licence: CC-BY 4.0 (Attribution 4.0 International),
+	*    Created: 2026-05-27
+	*    Licence: CC BY 4.0 (Attribution 4.0 International),
 	*             https://creativecommons.org/licenses/by/4.0/
 	*
 	*    Changes:
-	*        v1.0.0 (2026-05-19)
+	*        v1.0.0 (2026-05-27)
 	*
 	*    Description:
 	*        This XSLT document defines functions for handling dates in the
