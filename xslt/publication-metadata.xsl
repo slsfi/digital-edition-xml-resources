@@ -112,6 +112,31 @@
 	<xsl:variable name="meta-lang" as="xs:string"
 		          select="slsFn:normalise-language($db-meta?metadata_language)"/>
 
+	<!-- * Translations for @key values of resp elements. -->
+	<xsl:variable name="resp-key-translations" static="yes"
+	              as="map(xs:string, map(xs:string, xs:string))"
+	              select="
+	              map {
+	                  'en': map {
+	                      'collation': 'collation',
+	                      'editing': 'textual editing',
+	                      'encoding': 'TEI-encoding',
+	                      'transcription': 'transcription'
+	                  },
+	                  'sv': map {
+	                      'collation': 'kollationering',
+	                      'editing': 'edering',
+	                      'encoding': 'TEI-kodning',
+	                      'transcription': 'transkribering'
+	                  },
+	                  'fi': map {
+	                      'collation': 'kollaatio',
+	                      'editing': 'toimitus',
+	                      'encoding': 'TEI-koodaus',
+	                      'transcription': 'transkriptio'
+	                  }
+	              }
+	              "/>
 
 
 	<!-- * TEMPLATES ************************************************** -->
@@ -225,6 +250,8 @@
 			                      return normalize-space(string($r))
 			                  }"/>
 
+
+		<!-- * MAP OUTPUTTED AS JSON * -->
 		<xsl:map>
 			<xsl:map-entry key="'id'"
 				           select="$db-meta?publication_id"/>
@@ -440,11 +467,12 @@
 		<xsl:variable name="date-elem" as="element(*)"
 		              select="let $source-desc := $doc/tei:TEI/tei:teiHeader/tei:fileDesc
 		                           /tei:sourceDesc,
-		                          $history-orig-date := $source-desc/tei:msDesc/tei:history
-		                           /tei:origin/tei:origDate
+		                          $ms-desc := ($source-desc/tei:msDesc[@xml:lang eq $meta-lang][1],
+		                                       $source-desc/tei:msDesc[1])[1],
+		                          $history-orig-date := $ms-desc/tei:history/tei:origin/tei:origDate
 		                      return
-		                          ($history-orig-date[@when or @notBefore or @notAfter or @from or @to],
-		                           $source-desc//tei:origDate[@when or @notBefore or @notAfter or @from or @to],
+		                          ($history-orig-date[@when or @notBefore or @notAfter or @from or @to][1],
+		                           $source-desc//tei:origDate[@when or @notBefore or @notAfter or @from or @to][1],
 		                           $source-desc//tei:date[@when or @notBefore or @notAfter or @from or @to][1],
 		                           $doc/tei:TEI/tei:teiHeader/tei:profileDesc
 		                               /tei:correspDesc/tei:correspAction[@type eq 'sent']
@@ -498,8 +526,8 @@
 		                                        then if ($not-before castable as xs:gYear and
 		                                                 $not-after castable as xs:gYear and
 		                                                 boolean($date-content) and
-		                                                 starts-with($date-content, 'ca '))
-		                                                 then (slsFn:get-temporal-term('ca', $meta-lang), '~')[1] || substring($date-content, 3)
+		                                                 (starts-with($date-content, 'ca ') or starts-with($date-content, 'c. ')))
+		                                                 then (slsFn:get-temporal-term('ca', $meta-lang), '~')[1] || ' ' || substring($date-content, 4)
 		                                             else $not-before-term || ' ' || $not-before || ', ' || $not-after-term || ' ' || $not-after
 		                                    else if (exists($not-before))
 		                                        then $not-before-term || ' ' || $not-before
@@ -527,10 +555,8 @@
 		                          /tei:sourceDesc"/>
 		
 		<xsl:variable name="ms-desc" as="element(tei:msDesc)?"
-		              select="($doc/tei:TEI/tei:teiHeader/tei:fileDesc
-		                          /tei:sourceDesc/tei:msDesc[@xml:lang eq $meta-lang][1],
-		                      $doc/tei:TEI/tei:teiHeader/tei:fileDesc
-		                          /tei:sourceDesc/tei:msDesc[1])[1]"/>
+		              select="($source-desc/tei:msDesc[@xml:lang eq $meta-lang][1],
+		                       $source-desc/tei:msDesc[1])[1]"/>
 
 		<xsl:variable name="source-archive" as="xs:string?"
 		              select="let $ms-identifier := $ms-desc/tei:msIdentifier
@@ -775,7 +801,9 @@
 		<xsl:variable name="resp" as="xs:string?"
 		              select="let $resp-elem := ($resp-stmt/tei:resp[@xml:lang eq $meta-lang][1],
 		                                         $resp-stmt/tei:resp[not(@xml:lang)][1])[1],
-		                          $norm-resp := normalize-space($resp-elem/string()),
+		                          $norm-resp := if ($resp-elem[@key])
+		                                            then slsFn:get-resp-key-translation($resp-elem/@key, $meta-lang)
+		                                        else normalize-space($resp-elem/string()),
 		                          $resp-cont := if (boolean($norm-resp))
 		                                            then $norm-resp
 		                                        else (),
@@ -803,6 +831,24 @@
 			</xsl:map>
 		</xsl:if>
 		
+	</xsl:function>
+	
+	
+	<xsl:function name="slsFn:get-resp-key-translation" as="xs:string?">
+		<!-- * Returns the localised name of a <resp> @key value.
+			 * If the term is empty or unsupported, the empty
+			 * sequence is returned. * -->
+		<xsl:param name="key" as="xs:string?"/>
+		<xsl:param name="language" as="xs:string?"/>
+		
+		<xsl:variable name="lang" as="xs:string"
+		              select="if ($language = ('en', 'fi', 'sv'))
+		                          then $language
+		                      else 'sv'"/>
+	
+		<xsl:sequence select="if (boolean($key))
+			                      then $resp-key-translations($lang)($key)
+			                  else ()"/>
 	</xsl:function>
 
 
