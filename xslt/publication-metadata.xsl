@@ -17,18 +17,24 @@
 	*    Version: 1.0.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
-	*    Created: 2026-05-21
-	*    Licence: CC-BY 4.0 (Attribution 4.0 International),
-	*             https://creativecommons.org/licenses/by-nc/4.0/
+	*    Created: 2026-05-27
+	*    Licence: CC BY 4.0 (Attribution 4.0 International),
+	*             https://creativecommons.org/licenses/by/4.0/
 	*
 	*    Changes:
-	*        v1.0.0 (2026-05-21)
+	*        v1.0.0 (2026-05-27)
 	*
 	*    Description:
 	*        This XSLT document creates publication-level metadata as JSON.
 	*        It combines metadata supplied by the calling application with
 	*        metadata read from referenced TEI XML documents, normalises selected
 	*        values, and emits a compact metadata object for downstream use.
+	*        Optional fields are omitted when no usable value exists.
+	*
+	*	     Projects should modify the stylesheet to meet their specific
+	*        metadata needs. The stylesheet has designed to be as inclusive
+	*        as possible, so modifications mainly need to comment out
+	*        metadata fields that are not wanted in the output.
 	*
 	*    Usage:
 	*        Set the db-json input parameter on the XSLT processor and run the
@@ -39,7 +45,9 @@
 	*    Input parameters:
 	*        - db-json (xs:string?, required): A JSON object serialised as a
 	*          string. The object is parsed with parse-json() and is expected to
-	*          contain publication metadata from the database.
+	*          contain publication metadata from the database. Other JSON value
+	*          types are not supported. Values supplied as input are not
+	*          necessarily emitted in the output.
 	*
 	*          Expected top-level shape:
 	*
@@ -75,7 +83,11 @@
 	*          section_id, sort_order and type.
 	*
 	*    Output:
-	*        A JSON object containing normalised publication metadata.
+	*        A JSON object containing normalised publication metadata. Metadata
+	*        from TEI is taken from the reading text when available, or from a
+	*        single manuscript when that manuscript is the publication text. A
+	*        single manuscript used as the publication text is represented by
+	*        manuscript_id rather than a manuscripts array.
 	*
 	******************************************************************* -->
 
@@ -104,8 +116,8 @@
 
 	<!-- * GLOBAL VARIABLES ******************************************* -->
 
-	<!-- * The JSON text metadata from the database parsed into a map. * -->
-	<xsl:variable name="db-meta" as="map(*)" select="parse-json($db-json)"/>
+	<!-- * The JSON text metadata from the database parsed into a map, if supplied. * -->
+	<xsl:variable name="db-meta" as="map(*)?" select="parse-json($db-json)"/>
 
 	<!-- * Target language of the metadata, i.e. the language the output
 		 * metadata should be in. * -->
@@ -659,6 +671,8 @@
 
 
 	<xsl:function name="slsFn:get-dimensions-string" as="xs:string?">
+		<!-- * Formats a tei:dimensions element as "width x height", with
+			 * optional unit and extent. * -->
 		<xsl:param name="dim-elem" as="element(tei:dimensions)?"/>
 
 		<xsl:variable name="dim-extent" as="xs:string?"
