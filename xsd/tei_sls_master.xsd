@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2026-06-01T08:53:59Z. . 
+    Schema generated from ODD source 2026-06-01T12:03:40Z. . 
     TEI Edition: P5 Version 4.11.0. Last updated on 18th February 2026, revision 358d2e48e 
     TEI Edition Location: https://www.tei-c.org/Vault/P5/4.11.0/ 
     
@@ -1250,36 +1250,42 @@
   <xs:group name="tei_model.listLike">
     <xs:choice>
       <xs:element ref="tei:list"/>
+      <xs:element ref="tei:listWit"/>
       <xs:element ref="tei:table"/>
     </xs:choice>
   </xs:group>
   <xs:group name="tei_model.listLike_alternation">
     <xs:choice>
       <xs:element ref="tei:list"/>
+      <xs:element ref="tei:listWit"/>
       <xs:element ref="tei:table"/>
     </xs:choice>
   </xs:group>
   <xs:group name="tei_model.listLike_sequence">
     <xs:sequence>
       <xs:element ref="tei:list"/>
+      <xs:element ref="tei:listWit"/>
       <xs:element ref="tei:table"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="tei_model.listLike_sequenceOptional">
     <xs:sequence>
       <xs:element minOccurs="0" ref="tei:list"/>
+      <xs:element minOccurs="0" ref="tei:listWit"/>
       <xs:element minOccurs="0" ref="tei:table"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="tei_model.listLike_sequenceOptionalRepeatable">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:list"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:listWit"/>
       <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:table"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="tei_model.listLike_sequenceRepeatable">
     <xs:sequence>
       <xs:element maxOccurs="unbounded" ref="tei:list"/>
+      <xs:element maxOccurs="unbounded" ref="tei:listWit"/>
       <xs:element maxOccurs="unbounded" ref="tei:table"/>
     </xs:sequence>
   </xs:group>
@@ -5438,6 +5444,34 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationComId; 3] dbPublic
         <xs:group ref="tei:tei_model.global"/>
       </xs:choice>
       <xs:attributeGroup ref="tei:tei_att.witnessed.attributes"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="listWit">
+    <xs:annotation>
+      <xs:documentation>(witness list) lists definitions for all the witnesses referred to by a critical apparatus, optionally grouped hierarchically. [13.1. The Apparatus Entry, Readings, and Witnesses]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:group minOccurs="0" ref="tei:tei_model.headLike"/>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element ref="tei:witness"/>
+          <xs:element ref="tei:listWit"/>
+        </xs:choice>
+      </xs:sequence>
+      <xs:attributeGroup ref="tei:tei_att.global.attribute.xmlid"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="witness">
+    <xs:annotation>
+      <xs:documentation>(witness) contains either a description of a single witness referred to within the critical apparatus, or a list of witnesses which is to be referred to by a single sigil. [13.1. The Apparatus Entry, Readings, and Witnesses]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="tei:tei_model.limitedPhrase"/>
+        <xs:group ref="tei:tei_model.inter"/>
+        <xs:element ref="tei:note"/>
+      </xs:choice>
+      <xs:attributeGroup ref="tei:tei_att.global.attribute.xmlid"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="c">

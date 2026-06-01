@@ -23,6 +23,7 @@
 				- Add @key with distinct values on resp.
 				- Add @xml:id on bibl.
 				- Add @source on milestone.
+				- Add listWit and witness.
 			</change>
 			<change when="2026-05-26" who="#SK">
 				- Change the default Roma-generated licence to CC BY-SA 4.0.
@@ -162,7 +163,7 @@
 				<moduleRef key="linking" include="ab anchor seg"/>
 				<moduleRef key="transcr" include="addSpan delSpan handNotes handShift listTranspose
 					metamark restore space subst supplied transpose"/>
-				<moduleRef key="textcrit" include="app lem rdg"/>
+				<moduleRef key="textcrit" include="app lem listWit rdg witness"/>
 				<moduleRef key="analysis" include="c pc"/>
 				<moduleRef key="figures" include="cell figDesc figure row table"/>
 				<moduleRef key="msdescription" include="collection dimensions height history
@@ -1698,6 +1699,32 @@
 						<attDef ident="cert" mode="delete"/>
 						<attDef ident="resp" mode="delete"/>
 						<attDef ident="source" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="listWit" mode="change">
+					<attList>
+						<attDef ident="ana" mode="delete"/>
+						<attDef ident="change" mode="delete"/>
+						<attDef ident="corresp" mode="delete"/>
+						<attDef ident="synch" mode="delete"/>
+						<attDef ident="sameAs" mode="delete"/>
+						<attDef ident="copyOf" mode="delete"/>
+						<attDef ident="next" mode="delete"/>
+						<attDef ident="prev" mode="delete"/>
+						<attDef ident="exclude" mode="delete"/>
+						<attDef ident="select" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="style" mode="delete"/>
+						<attDef ident="rendition" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+						<attDef ident="sortKey" mode="delete"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="metamark" mode="change">
@@ -3496,6 +3523,32 @@
 						<attDef ident="unit" mode="delete"/>
 						<attDef ident="quantity" mode="delete"/>
 						<attDef ident="extent" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="witness" mode="change">
+					<attList>
+						<attDef ident="ana" mode="delete"/>
+						<attDef ident="change" mode="delete"/>
+						<attDef ident="corresp" mode="delete"/>
+						<attDef ident="synch" mode="delete"/>
+						<attDef ident="sameAs" mode="delete"/>
+						<attDef ident="copyOf" mode="delete"/>
+						<attDef ident="next" mode="delete"/>
+						<attDef ident="prev" mode="delete"/>
+						<attDef ident="exclude" mode="delete"/>
+						<attDef ident="select" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="style" mode="delete"/>
+						<attDef ident="rendition" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+						<attDef ident="sortKey" mode="delete"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="xenoData" mode="change">
