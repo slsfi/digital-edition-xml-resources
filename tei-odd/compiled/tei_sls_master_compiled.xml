@@ -30,7 +30,8 @@
 				- Add @xml:id on bibl.
 				- Add @source on milestone.
 				- Add listWit and witness.
-				- Add @xml:id on msIdentifier. 
+				- Add @xml:id on msIdentifier.
+				- Add @who on change.
 			</change>
 			<change when="2026-05-26" who="#SK">
 				- Change the default Roma-generated licence to CC BY-SA 4.0.
@@ -8738,7 +8739,7 @@ should be supplied for the <att>scheme</att> attribute.</p>
   </remarks><listRef>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/HD.html#HD6">2.6. The Revision Description</ref>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/HD.html#HD11">2.1.1. The TEI Header and Its Components</ref>
-  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="header" xml:id="gi-change" ident="change"><gloss versionDate="2016-11-25" xml:lang="en">change</gloss><gloss versionDate="2016-11-25" xml:lang="de">Änderung</gloss><gloss versionDate="2023-10-02" xml:lang="ja">変更</gloss><desc versionDate="2011-10-31" xml:lang="en">documents a change or set of changes made during the production of a source document, or during the revision of an electronic file.</desc><desc versionDate="2009-01-05" xml:lang="fr">résume une modification ou une correction apportée à une version particulière d’un texte électronique partagé entre plusieurs chercheurs.</desc><desc versionDate="2007-12-20" xml:lang="ko">몇몇 연구자들 사이에 공유된 전자 텍스트의 특정 버전에 대한 특정 변경 또는 수정 사항을 요약한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">概述多位研究者共享的某版本電子文本當中，某特定的內容變更或修正。</desc><desc versionDate="2023-10-02" xml:lang="ja">元文書の作成や電子ファイルの改訂においてなされた一つあるいは一連の変更を記述する。</desc><desc versionDate="2016-11-25" xml:lang="de">verzeichnet Änderungen oder Korrekturen während der Erstellung eines Basisdokuments oder während der Überarbeitung einer elektronischen Datei.</desc><desc versionDate="2007-05-04" xml:lang="es">resume un cambio o corrección determinada llevada a cabo en una versión dada de un texto electrónico en el que trabajan diversos investigadores.</desc><desc versionDate="2007-01-21" xml:lang="it">sintetizza un particolare cambiamento o correzione effettuato ad una particolare versione di un documento elettronico, condivisa da più ricercatori.</desc><classes><memberOf key="att.datable.w3c"/><memberOf key="att.global"/></classes><content><macroRef key="macro.specialPara"/></content><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="notBefore" mode="delete"/><attDef ident="notAfter" mode="delete"/><attDef ident="from" mode="delete"/><attDef ident="to" mode="delete"/><attDef ident="calendar" mode="delete"/><attDef ident="target" mode="delete"/></attList><exemplum xml:lang="en">
+  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="header" xml:id="gi-change" ident="change"><gloss versionDate="2016-11-25" xml:lang="en">change</gloss><gloss versionDate="2016-11-25" xml:lang="de">Änderung</gloss><gloss versionDate="2023-10-02" xml:lang="ja">変更</gloss><desc versionDate="2011-10-31" xml:lang="en">documents a change or set of changes made during the production of a source document, or during the revision of an electronic file.</desc><desc versionDate="2009-01-05" xml:lang="fr">résume une modification ou une correction apportée à une version particulière d’un texte électronique partagé entre plusieurs chercheurs.</desc><desc versionDate="2007-12-20" xml:lang="ko">몇몇 연구자들 사이에 공유된 전자 텍스트의 특정 버전에 대한 특정 변경 또는 수정 사항을 요약한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">概述多位研究者共享的某版本電子文本當中，某特定的內容變更或修正。</desc><desc versionDate="2023-10-02" xml:lang="ja">元文書の作成や電子ファイルの改訂においてなされた一つあるいは一連の変更を記述する。</desc><desc versionDate="2016-11-25" xml:lang="de">verzeichnet Änderungen oder Korrekturen während der Erstellung eines Basisdokuments oder während der Überarbeitung einer elektronischen Datei.</desc><desc versionDate="2007-05-04" xml:lang="es">resume un cambio o corrección determinada llevada a cabo en una versión dada de un texto electrónico en el que trabajan diversos investigadores.</desc><desc versionDate="2007-01-21" xml:lang="it">sintetizza un particolare cambiamento o correzione effettuato ad una particolare versione di un documento elettronico, condivisa da più ricercatori.</desc><classes><memberOf key="att.datable.w3c"/><memberOf key="att.global"/><memberOf key="att.ascribed"/></classes><content><macroRef key="macro.specialPara"/></content><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="notBefore" mode="delete"/><attDef ident="notAfter" mode="delete"/><attDef ident="from" mode="delete"/><attDef ident="to" mode="delete"/><attDef ident="calendar" mode="delete"/><attDef ident="target" mode="delete"/></attList><exemplum xml:lang="en">
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-change-egXML-tk">
       <titleStmt>
         <title> ... </title>
@@ -12109,6 +12110,66 @@ old Flemish original, between 1802 and 1845, according to <persName xml:id="AMH"
   </attList>
   <listRef>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/ST.html#STECAT">1.3.1. Attribute Classes</ref>
+  </listRef>
+</classSpec><classSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" module="tei" type="atts" xml:id="class-attr-ascribed" ident="att.ascribed">
+  <desc versionDate="2006-01-05" xml:lang="en">provides attributes for elements representing speech or action that can be ascribed to a
+    specific individual.</desc>
+  <desc versionDate="2007-12-20" xml:lang="ko">특정 개인의 대화 또는 행위를 표시하는 요소에 대한 속성을 제공한다.</desc>
+  <desc versionDate="2007-05-02" xml:lang="zh-TW">提供的元素屬性代表言詞或行為，可出自某一特定個人。</desc>
+  <desc versionDate="2022-05-09" xml:lang="ja">特定個人の発話や行動を示す要素に付随する。</desc>
+  <desc versionDate="2007-06-12" xml:lang="fr">fournit des attributs pour des éléments transcrivant la
+    parole ou l'action qui peuvent être attribuées à un individu en particulier.</desc>
+  <desc versionDate="2007-05-04" xml:lang="es">proporciona atributos para los elementos que representan
+    palabras o acciones atribuibles a individuos determinados.</desc>
+  <desc versionDate="2007-01-21" xml:lang="it">assegna degli attributi agli elementi che rappresentano
+    parole o azioni attribuibili a singoli individui</desc>
+  <attList>
+    <attDef ident="who">
+      <desc versionDate="2005-11-05" xml:lang="en">indicates the person, or group of people, to whom the element content is ascribed.</desc>
+      <desc versionDate="2007-12-20" xml:lang="ko">요소 내용이 속하는 사람 또는 사람의 그룹을 나타낸다.</desc>
+      <desc versionDate="2007-05-02" xml:lang="zh-TW">指出該元素內容所歸屬的個人或團體。</desc>
+      <desc versionDate="2008-04-05" xml:lang="ja">当該要素の内容が示す人物を示す。</desc>
+      <desc versionDate="2007-06-12" xml:lang="fr">indique la personne ou le groupe de personnes à qui
+        le contenu de l'élément est attribué.</desc>
+      <desc versionDate="2007-05-04" xml:lang="es">indica la persona o grupo de personas a las que se
+        refiere el contenido del elemento.</desc>
+      <desc versionDate="2007-01-21" xml:lang="it">indica la persona o gruppo di persone alle quali
+        viene attribuito il contenuto dell'elemento</desc>
+      <datatype maxOccurs="unbounded"><dataRef key="teidata.pointer"/></datatype>
+      <exemplum xml:lang="en">
+        <p>In the following example from Hamlet, speeches (<gi>sp</gi>) in the body of the play 
+        are linked to <gi>role</gi> elements in the <gi>castList</gi> using the <att>who</att>
+        attribute.</p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="class-attr-ascribed-egXML-jk" xml:lang="en" valid="feasible" source="#CODR-eg-293">
+          <castItem type="role">
+            <role xml:id="Barnardo">Bernardo</role>
+          </castItem>
+          <castItem type="role">
+            <role xml:id="Francisco">Francisco</role>
+            <roleDesc>a soldier</roleDesc>
+          </castItem>
+          <!-- ... -->
+          <sp who="#Barnardo">
+            <speaker>Bernardo</speaker>
+            <l n="1">Who's there?</l>
+          </sp>
+          <sp who="#Francisco">
+            <speaker>Francisco</speaker>
+            <l n="2">Nay, answer me: stand, and unfold yourself.</l>
+          </sp>
+        </egXML>
+      </exemplum>
+      <remarks versionDate="2013-11-22" xml:lang="en"><p>For transcribed speech, this will typically identify a participant or participant
+        group; in other contexts, it will point to any identified <gi>person</gi> element.</p></remarks>
+      <remarks versionDate="2013-11-22" xml:lang="fr"><p>Pour un discours transcrit, identifiera typiquement un participant ou
+        un groupe participant ; dans d'autres contextes, pointera vers n'importe quel élément
+          <gi>person</gi> identifié.</p></remarks>
+      <remarks versionDate="2018-12-31" xml:lang="ja"><p>転記された音声の場合、これは通常、参加者または参加者グループを識別する。他のコンテキストでは、識別された<gi>person</gi>要素を指し示す。</p></remarks>
+    </attDef>
+  </attList>
+  <listRef>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html#COHQQ">3.3.3. Quotation</ref>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/TS.html#TSBA">8.3. Elements Unique to Spoken Texts</ref>
   </listRef>
 </classSpec><moduleSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" n="ST" xml:id="DSTTEI2" ident="tei" type="core"/><moduleSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" n="CO" xml:id="DCO" ident="core"/><moduleSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" n="HD" xml:id="DHD" ident="header"/><moduleSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" n="DS" xml:id="DDS" ident="textstructure"/><moduleSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" n="SA" xml:id="DSA" ident="linking"/><moduleSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" n="PH" xml:id="DPH" ident="transcr"/><moduleSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" n="TC" xml:id="DTC" ident="textcrit"/><moduleSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" n="AI" xml:id="DAI" ident="analysis"/><moduleSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" n="FT" xml:id="DFTFF" ident="figures"/><moduleSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" n="MS" xml:id="DMSD2" ident="msdescription"/><moduleSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" n="ND" xml:id="DND" ident="namesdates"/></schemaSpec>
 		</body>

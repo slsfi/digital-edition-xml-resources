@@ -24,7 +24,8 @@
 				- Add @xml:id on bibl.
 				- Add @source on milestone.
 				- Add listWit and witness.
-				- Add @xml:id on msIdentifier. 
+				- Add @xml:id on msIdentifier.
+				- Add @who on change.
 			</change>
 			<change when="2026-05-26" who="#SK">
 				- Change the default Roma-generated licence to CC BY-SA 4.0.
@@ -3569,8 +3570,8 @@
 				</elementSpec>
 
 				<classRef key="att.citing"/>
+				<classRef key="att.ascribed"/>
 				<classSpec ident="att.anchoring" type="atts" mode="delete"/>
-				<classSpec ident="att.ascribed" type="atts" mode="delete"/>
 				<classSpec ident="att.ascribed.directed" type="atts" mode="delete"/>
 				<classSpec ident="att.cReferencing" type="atts" mode="delete"/>
 				<classSpec ident="att.calendarSystem" type="atts" mode="delete"/>
