@@ -27,6 +27,8 @@
       </tei:constraintDecl></tei:encodingDesc><revisionDesc>
 			<change when="2026-06-01" who="#SK">
 				- Add @key with distinct values on resp.
+				- Add @xml:id on bibl.
+				- Add @source on milestone.
 			</change>
 			<change when="2026-05-26" who="#SK">
 				- Change the default Roma-generated licence to CC BY-SA 4.0.
@@ -6291,7 +6293,7 @@ psychological significance.
     testo, come indicato da cambiamenti nel sistema di riferimento standard, qualora la sezione non
     sia rappresentata da un elemento strutturale.</desc><desc versionDate="2016-11-29" xml:lang="de">markiert einen Grenzpunkt, der Abschnitte eines Textes trennen kann, 
     typischerweise (aber nicht notwendigerweise) den Wechsel eines Bezugssystems, 
-    der nicht durch ein strukturelles Markup beschrieben werden kann.</desc><classes><memberOf key="att.datable.w3c"/><memberOf key="att.edition"/><memberOf key="att.milestoneUnit"/><memberOf key="att.global"/><memberOf key="att.breaking"/><memberOf key="att.spanning"/><memberOf key="att.typed"/><memberOf key="model.milestoneLike"/></classes><content><empty/></content><attList><attDef ident="ana" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="break" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="spanTo" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="from" mode="delete"/><attDef ident="to" mode="delete"/><attDef ident="notAfter" mode="delete"/><attDef ident="notBefore" mode="delete"/><attDef ident="type" mode="delete"/><attDef ident="rend" mode="change">
+    der nicht durch ein strukturelles Markup beschrieben werden kann.</desc><classes><memberOf key="att.datable.w3c"/><memberOf key="att.edition"/><memberOf key="att.milestoneUnit"/><memberOf key="att.global"/><memberOf key="att.breaking"/><memberOf key="att.spanning"/><memberOf key="att.typed"/><memberOf key="model.milestoneLike"/></classes><content><empty/></content><attList><attDef ident="ana" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="break" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="spanTo" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="from" mode="delete"/><attDef ident="to" mode="delete"/><attDef ident="notAfter" mode="delete"/><attDef ident="notBefore" mode="delete"/><attDef ident="type" mode="delete"/><attDef ident="rend" mode="change">
 							<datatype>
 								<dataRef key="teidata.enumerated"/>
 							</datatype>
@@ -7084,7 +7086,7 @@ epistemology, methodology and history of
         <sch:param name="tde" value="tei:bibl"/>
       </sch:pattern>
     </constraint>
-  </constraintSpec><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="type" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="key" mode="delete"/></attList><exemplum xml:lang="en">
+  </constraintSpec><attList><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="type" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="key" mode="delete"/></attList><exemplum xml:lang="en">
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-bibl-egXML-sb">
       <bibl>Blain, Clements and Grundy: Feminist Companion to Literature in English (Yale,
       1990)</bibl>

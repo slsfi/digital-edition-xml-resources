@@ -21,6 +21,8 @@
 		<revisionDesc>
 			<change when="2026-06-01" who="#SK">
 				- Add @key with distinct values on resp.
+				- Add @xml:id on bibl.
+				- Add @source on milestone.
 			</change>
 			<change when="2026-05-26" who="#SK">
 				- Change the default Roma-generated licence to CC BY-SA 4.0.
@@ -432,7 +434,6 @@
 				</elementSpec>
 				<elementSpec ident="bibl" mode="change">
 					<attList>
-						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="n" mode="delete"/>
 						<attDef ident="xml:lang" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
@@ -1756,7 +1757,6 @@
 						<attDef ident="xml:lang" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
 						<attDef ident="xml:space" mode="delete"/>
-						<attDef ident="source" mode="delete"/>
 						<attDef ident="facs" mode="delete"/>
 						<attDef ident="cert" mode="delete"/>
 						<attDef ident="resp" mode="delete"/>
