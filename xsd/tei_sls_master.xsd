@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2026-06-01T12:03:40Z. . 
+    Schema generated from ODD source 2026-06-01T13:47:55Z. . 
     TEI Edition: P5 Version 4.11.0. Last updated on 18th February 2026, revision 358d2e48e 
     TEI Edition Location: https://www.tei-c.org/Vault/P5/4.11.0/ 
     
@@ -5893,6 +5893,7 @@ Suggested values include: 1] label; 2] data</xs:documentation>
         </xs:sequence>
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="tei:msName"/>
       </xs:sequence>
+      <xs:attributeGroup ref="tei:tei_att.global.attribute.xmlid"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="institution">
