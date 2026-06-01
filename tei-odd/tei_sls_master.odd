@@ -19,6 +19,9 @@
 			</sourceDesc>
 		</fileDesc>
 		<revisionDesc>
+			<change when="2026-06-01" who="#SK">
+				- Add @key with distinct values on resp.
+			</change>
 			<change when="2026-05-26" who="#SK">
 				- Change the default Roma-generated licence to CC BY-SA 4.0.
 				- Add @xml:lang on availability and licence.
@@ -2646,7 +2649,6 @@
 						<attDef ident="prev" mode="delete"/>
 						<attDef ident="exclude" mode="delete"/>
 						<attDef ident="select" mode="delete"/>
-						<attDef ident="key" mode="delete"/>
 						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="n" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
@@ -2660,6 +2662,38 @@
 						<attRef name="when" class="att.datable.w3c"/>
 						<attRef name="to" class="att.datable.w3c"/>
 						<attRef name="from" class="att.datable.w3c"/>
+						<attDef ident="key" mode="change">
+							<desc versionDate="2026-06-01" xml:lang="en">
+								a machine readable key for the responsibility, used to
+								enable translation of the responsibility in an externally
+								defined, fixed way
+							</desc>
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="collation">
+									<desc versionDate="2026-06-01" xml:lang="en">
+										collation of the text
+									</desc>
+								</valItem>
+								<valItem mode="add" ident="editing">
+									<desc versionDate="2026-06-01" xml:lang="en">
+										textual (critical) editing of the text,
+										including, for example, emendations
+									</desc>
+								</valItem>
+								<valItem mode="add" ident="encoding">
+									<desc versionDate="2026-06-01" xml:lang="en">
+										structural encoding of the text in TEI
+									</desc>
+								</valItem>
+								<valItem mode="add" ident="transcription">
+									<desc versionDate="2026-06-01" xml:lang="en">
+										transcription of the textual content of the
+										text, can also be understood to encompass
+										the structural encoding of the text in TEI
+									</desc>
+								</valItem>
+							</valList>
+						</attDef>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="respStmt" mode="change">

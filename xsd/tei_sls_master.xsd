@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2026-05-26T17:48:29Z. . 
+    Schema generated from ODD source 2026-06-01T07:47:11Z. . 
     TEI Edition: P5 Version 4.11.0. Last updated on 18th February 2026, revision 358d2e48e 
     TEI Edition Location: https://www.tei-c.org/Vault/P5/4.11.0/ 
     
@@ -3644,6 +3644,35 @@ Elements 7.2.6. Speech Contents]</xs:documentation>
       <xs:complexContent>
         <xs:extension base="tei:tei_macro.phraseSeq.limited">
           <xs:attributeGroup ref="tei:tei_att.global.attribute.xmllang"/>
+          <xs:attribute name="key">
+            <xs:annotation>
+              <xs:documentation>a machine readable key for the responsibility, used to enable translation of the responsibility in an externally defined, fixed way </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="collation">
+                  <xs:annotation>
+                    <xs:documentation>collation of the text </xs:documentation>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="editing">
+                  <xs:annotation>
+                    <xs:documentation>textual (critical) editing of the text, including, for example, emendations </xs:documentation>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="encoding">
+                  <xs:annotation>
+                    <xs:documentation>structural encoding of the text in TEI </xs:documentation>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="transcription">
+                  <xs:annotation>
+                    <xs:documentation>transcription of the textual content of the text, can also be understood to encompass the structural encoding of the text in TEI </xs:documentation>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
           <xs:attributeGroup ref="tei:tei_att.datable.w3c.attribute.when"/>
           <xs:attributeGroup ref="tei:tei_att.datable.w3c.attribute.to"/>
           <xs:attributeGroup ref="tei:tei_att.datable.w3c.attribute.from"/>
