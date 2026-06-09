@@ -13,15 +13,17 @@
 	*
 	*    XSLT stylesheet: est.xsl
 	*
-	*    Version: 2.2.0
+	*    Version: 3.0.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-07
-	*    Licence: CC-BY-NC 4.0 (Attribution-NonCommercial 4.0
+	*    Licence: CC BY-NC 4.0 (Attribution-NonCommercial 4.0
 	*             International),
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v3.0.0 (2026-06-09)
+	*             - Update tei:app template based on changed spec.
 	*        v2.2.0 (2026-04-21)
 	*             - Don't output empty lines for lines with only deleted
 	*               content.
@@ -701,19 +703,46 @@
 
 
 	<xsl:template match="tei:app">
+		<xsl:variable name="lem-wit" as="element(tei:witness)*"
+		              select="slsFn:get-witnesses(tei:lem)"/>
 		<span class="choice tooltiptrigger ttChanges">
-			<xsl:apply-templates/>
+			<xsl:apply-templates select="tei:lem"/>
 		</span>
 		<span class="tooltip ttChanges" hidden="">
-			<xsl:text>tryckvarians{if (tei:lem/@wit) then ', källa: ' || tei:lem/@wit else ''}</xsl:text>
-			<xsl:text>; lydelse i övriga textvittnen:</xsl:text>
+			<xsl:text>tryckvarians{if (count($lem-wit) gt 1)
+				                       then ', källor: '
+				                   else if (count($lem-wit) gt 0)
+				                       then ', källa: '
+				                   else ''}</xsl:text>
+			<xsl:for-each select="$lem-wit">
+				<xsl:apply-templates select="if (exists(@n))
+					                             then @n
+					                         else ."/>
+				<xsl:if test="count($lem-wit) gt 1 and position() ne last()">
+					<xsl:text>, </xsl:text>
+				</xsl:if>
+			</xsl:for-each>
+			<xsl:text>;</xsl:text>
+			<br/>
+			<xsl:text>lydelse i övriga textvittnen:</xsl:text>
 			<xsl:for-each select="tei:rdg">
 				<br/>
 				<xsl:apply-templates select="node()"/>
-				<xsl:if test="@wit">
-					<xsl:text> ({@wit})</xsl:text>
+				<xsl:variable name="rdg-wit" as="element(tei:witness)*"
+		                      select="slsFn:get-witnesses(.)"/>
+				<xsl:if test="exists($rdg-wit)">
+					<xsl:text> (</xsl:text>
+					<xsl:for-each select="$rdg-wit">
+						<xsl:apply-templates select="if (exists(@n))
+							                             then @n
+							                         else ."/>
+						<xsl:if test="count($rdg-wit) gt 1 and position() ne last()">
+							<xsl:text>, </xsl:text>
+						</xsl:if>
+					</xsl:for-each>
+					<xsl:text>)</xsl:text>
 				</xsl:if>
-			</xsl:for-each>		
+			</xsl:for-each>
 		</span>
 	</xsl:template>
 

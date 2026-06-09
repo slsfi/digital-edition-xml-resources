@@ -13,15 +13,18 @@
 	*
 	*    XSLT stylesheet: shared-match-templates.xsl
 	*
-	*    Version: 3.1.0
+	*    Version: 3.2.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
-	*    Licence: CC-BY-NC 4.0 (Attribution-NonCommercial 4.0
+	*    Licence: CC BY-NC 4.0 (Attribution-NonCommercial 4.0
 	*             International),
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v3.2.0 (2026-06-09)
+	*             - Render tei:title inside tei:bibl or tei:witness in
+	*               tei:teiHeader as the HTML citation element <cite>.
 	*        v3.1.0 (2026-04-16)
 	*             - Treat missing @rend on <milestone unit="section"> as
 	*               @rend="blankLine".
@@ -393,25 +396,41 @@
 
 
 	<xsl:template match="tei:persName | tei:placeName | tei:rs | tei:title">
-		<span>
-			<xsl:call-template name="set-class-attr">
-				<xsl:with-param name="class-names"
-				                select="('tooltiptrigger',
-				                         if (local-name() eq 'placeName')
-				                             then 'placeName ttPlace'
-				                         else if (local-name() eq 'title')
-				                             then 'title ttTitle'
-				                         else 'person ttPerson',
-				                         @rend,
-				                         if (@cert eq 'low')
-				                             then 'uncertain' else (),
-				                         if (@role eq 'fictional')
-				                             then 'fictional' else ())"/>
-			</xsl:call-template>
-			<xsl:call-template name="set-attr-from-key"/>
-			<xsl:call-template name="set-attr-from-xml-lang"/>
-			<xsl:apply-templates/>
-		</span>
+		<xsl:choose>
+			<!-- tei:title inside tei:bibl or tei:witness in tei:teiHeader is
+				 rendered as the HTML citation element. -->
+			<xsl:when test="local-name() eq 'title' and
+							ancestor::tei:teiHeader and
+				            (parent::tei:bibl or parent::tei:witness)">
+				<cite>
+					<xsl:call-template name="set-attr-from-xml-lang"/>
+					<xsl:apply-templates/>
+				</cite>
+			</xsl:when>
+			<xsl:otherwise>
+				<!-- TODO: tei:title elements should be rendered as the HTML
+				     citation element <cite>. -->
+				<span>
+					<xsl:call-template name="set-class-attr">
+						<xsl:with-param name="class-names"
+						                select="('tooltiptrigger',
+						                         if (local-name() eq 'placeName')
+						                             then 'placeName ttPlace'
+						                         else if (local-name() eq 'title')
+						                             then 'title ttTitle'
+						                         else 'person ttPerson',
+						                         @rend,
+						                         if (@cert eq 'low')
+						                             then 'uncertain' else (),
+						                         if (@role eq 'fictional')
+						                             then 'fictional' else ())"/>
+					</xsl:call-template>
+					<xsl:call-template name="set-attr-from-key"/>
+					<xsl:call-template name="set-attr-from-xml-lang"/>
+					<xsl:apply-templates/>
+				</span>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 

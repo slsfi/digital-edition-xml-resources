@@ -14,15 +14,17 @@
 	*
 	*    XSLT stylesheet: shared-functions.xsl
 	*
-	*    Version: 1.2.0
+	*    Version: 1.3.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-07
-	*    Licence: CC-BY-NC 4.0 (Attribution-NonCommercial 4.0
+	*    Licence: CC BY-NC 4.0 (Attribution-NonCommercial 4.0
 	*             International),
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.3.0 (2026-06-09)
+	*             - Add norm-or-empty() and get-witnesses().
 	*        v1.2.0 (2026-04-16)
 	*             - Add 'illegible' to values handled by get-reason-text().
 	*        v1.1.2 (2025-11-19)
@@ -98,6 +100,24 @@
 		<xsl:param name="text" as="xs:string?"/>
 
 		<xsl:sequence select="replace($text, '%3A', ':')"/>
+	</xsl:function>
+	
+	
+	<xsl:function name="slsFn:norm-or-empty" as="xs:string?">
+	<!-- * Return the input text with normalized space. If the input text
+	     * is the empty sequence or whitespace-only, the function returns
+	     * the empty sequence. -->
+		<xsl:param name="text" as="xs:string?"/>
+		
+		<xsl:sequence select="
+			if (exists($text))
+			    then let $norm-text := normalize-space($text)
+			         return
+			             if (boolean($norm-text))
+			                 then $norm-text
+			             else ()
+			else ()
+		"/>
 	</xsl:function>
 
 
@@ -304,6 +324,21 @@
 		<xsl:sequence select="if (empty($elem-medium) or slsFn:is-same-medium-type($elem-medium, $text-medium))
 		                          then ()
 		                      else 'form-shift'"/>
+	</xsl:function>
+
+
+	<xsl:function name="slsFn:get-witnesses" as="element(tei:witness)*">
+	<!-- * Return the tei:witness elements with @xml:id values corresponding
+		 * to the @wit value of the $context-item. $context-item is typically
+		 * a tei:lem or tei:rdg element. * -->
+		<xsl:param name="context-item" as="element(*)?"/>
+		
+		<xsl:variable name="wit-refs" as="xs:string*"
+			          select="normalize-space($context-item/@wit) => tokenize()"/>
+
+		<xsl:sequence select="root($context-item)/tei:TEI/tei:teiHeader/tei:fileDesc
+			                  /tei:sourceDesc/tei:listWit
+			                  /tei:witness[('#' || @xml:id) = $wit-refs]"/>
 	</xsl:function>
 
 </xsl:stylesheet>
