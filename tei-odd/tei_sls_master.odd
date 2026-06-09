@@ -23,6 +23,7 @@
 			<change when="2026-06-09" who="#SK">
 				- Add correction, editorialDecl, hyphenation, interpretation, projectDesc,
 				  punctuation, and quotation.
+				- Add @n on item and witness.
 			</change>
 			<change when="2026-06-01" who="#SK">
 				- Add @key with distinct values on resp.
@@ -1481,7 +1482,6 @@
 						<attDef ident="prev" mode="delete"/>
 						<attDef ident="exclude" mode="delete"/>
 						<attDef ident="select" mode="delete"/>
-						<attDef ident="n" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
 						<attDef ident="xml:space" mode="delete"/>
 						<attDef ident="facs" mode="delete"/>
@@ -3668,7 +3668,6 @@
 						<attDef ident="prev" mode="delete"/>
 						<attDef ident="exclude" mode="delete"/>
 						<attDef ident="select" mode="delete"/>
-						<attDef ident="n" mode="delete"/>
 						<attDef ident="xml:lang" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
 						<attDef ident="xml:space" mode="delete"/>
