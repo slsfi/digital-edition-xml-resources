@@ -5,7 +5,7 @@
          xmlns:xlink="http://www.w3.org/1999/xlink"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2026-06-01T13:57:35Z. . 
+Schema generated from ODD source 2026-06-09T06:43:11Z. . 
 TEI Edition: P5 Version 4.11.0. Last updated on 18th February 2026, revision 358d2e48e 
 TEI Edition Location: https://www.tei-c.org/Vault/P5/4.11.0/ 
   
@@ -2334,7 +2334,20 @@ Suggested values include: 1] sv; 2] fi; 3] en; 4] fr; 5] de</a:documentation>
       <notAllowed/>
    </define>
    <define name="tei_model.encodingDescPart">
-      <notAllowed/>
+      <choice>
+         <ref name="tei_projectDesc"/>
+         <ref name="tei_editorialDecl"/>
+      </choice>
+   </define>
+   <define name="tei_model.editorialDeclPart">
+      <choice>
+         <ref name="tei_correction"/>
+         <ref name="tei_normalization"/>
+         <ref name="tei_quotation"/>
+         <ref name="tei_hyphenation"/>
+         <ref name="tei_interpretation"/>
+         <ref name="tei_punctuation"/>
+      </choice>
    </define>
    <define name="tei_model.profileDescPart">
       <choice>
@@ -3943,6 +3956,89 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationComId; 3] dbPublic
          </oneOrMore>
       </element>
    </define>
+   <define name="tei_projectDesc">
+      <element name="projectDesc">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(project description) describes in detail the aim or purpose for which an electronic file was encoded, together with any other relevant information concerning the process by which it was assembled or collected. [2.3.1. The Project Description 2.3. The Encoding Description 16.3.2. Declarable Elements]</a:documentation>
+         <oneOrMore>
+            <ref name="tei_model.pLike"/>
+         </oneOrMore>
+         <ref name="tei_att.global.attribute.xmllang"/>
+         <empty/>
+      </element>
+   </define>
+   <define name="tei_editorialDecl">
+      <element name="editorialDecl">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(editorial practice declaration) provides details of editorial principles and practices applied during the encoding of a text. [2.3.3. The Editorial Practices Declaration 2.3. The Encoding Description 16.3.2. Declarable Elements]</a:documentation>
+         <oneOrMore>
+            <choice>
+               <ref name="tei_model.pLike"/>
+               <ref name="tei_model.editorialDeclPart"/>
+            </choice>
+         </oneOrMore>
+         <ref name="tei_att.global.attribute.xmllang"/>
+         <empty/>
+      </element>
+   </define>
+   <define name="tei_correction">
+      <element name="correction">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(correction principles) states how and under what circumstances corrections have been made in the text. [2.3.3. The Editorial Practices Declaration 16.3.2. Declarable Elements]</a:documentation>
+         <oneOrMore>
+            <ref name="tei_model.pLike"/>
+         </oneOrMore>
+      </element>
+   </define>
+   <define name="tei_normalization">
+      <element name="normalization">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(normalization) indicates the extent of normalization or regularization of the original source carried out in converting it to electronic form. [2.3.3. The Editorial Practices Declaration 16.3.2. Declarable Elements]</a:documentation>
+         <oneOrMore>
+            <ref name="tei_model.pLike"/>
+         </oneOrMore>
+      </element>
+   </define>
+   <define name="tei_quotation">
+      <element name="quotation">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(quotation) specifies editorial practice adopted with respect to quotation marks in the original. [2.3.3. The Editorial Practices Declaration 16.3.2. Declarable Elements]</a:documentation>
+         <zeroOrMore>
+            <ref name="tei_model.pLike"/>
+         </zeroOrMore>
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  xmlns:rng="http://relaxng.org/ns/structure/1.0"
+                  id="tei_sls_master-quotation-quotationContents-constraint-rule-16">
+            <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xi="http://www.w3.org/2001/XInclude"
+                      context="tei:quotation">
+               <sch:report test="not( @marks )  and  not( tei:p )">
+          On <sch:name/>, either the @marks attribute should be used, or a paragraph of description provided
+        </sch:report>
+            </sch:rule>
+         </pattern>
+      </element>
+   </define>
+   <define name="tei_hyphenation">
+      <element name="hyphenation">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(hyphenation) summarizes the way in which hyphenation in a source text has been treated in an encoded version of it. [2.3.3. The Editorial Practices Declaration 16.3.2. Declarable Elements]</a:documentation>
+         <oneOrMore>
+            <ref name="tei_model.pLike"/>
+         </oneOrMore>
+      </element>
+   </define>
+   <define name="tei_interpretation">
+      <element name="interpretation">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(interpretation) describes the scope of any analytic or interpretive information added to the text in addition to the transcription. [2.3.3. The Editorial Practices Declaration]</a:documentation>
+         <oneOrMore>
+            <ref name="tei_model.pLike"/>
+         </oneOrMore>
+      </element>
+   </define>
+   <define name="tei_punctuation">
+      <element name="punctuation">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">specifies editorial practice adopted with respect to punctuation marks in the original. [2.3.3. The Editorial Practices Declaration 3.2. Treatment of Punctuation]</a:documentation>
+         <zeroOrMore>
+            <ref name="tei_model.pLike"/>
+         </zeroOrMore>
+      </element>
+   </define>
    <define name="tei_profileDesc">
       <element name="profileDesc">
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(text-profile description) provides a detailed description of non-bibliographic aspects of a text, specifically the languages and sublanguages used, the situation in which it was produced, the participants and their setting. [2.4. The Profile Description 2.1.1. The TEI Header and Its Components]</a:documentation>
@@ -4293,7 +4389,7 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationComId; 3] dbPublic
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="tei_sls_master-div-abstractModel-structure-div-in-l-constraint-rule-16">
+                  id="tei_sls_master-div-abstractModel-structure-div-in-l-constraint-rule-17">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       context="tei:l//tei:div">
@@ -4304,7 +4400,7 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationComId; 3] dbPublic
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="tei_sls_master-div-abstractModel-structure-div-in-ab-or-p-constraint-rule-17">
+                  id="tei_sls_master-div-abstractModel-structure-div-in-ab-or-p-constraint-rule-18">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       context="tei:div">
@@ -4520,7 +4616,7 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationComId; 3] dbPublic
          <ref name="tei_macro.abContent"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="tei_sls_master-ab-abstractModel-structure-ab-in-l-constraint-rule-18">
+                  id="tei_sls_master-ab-abstractModel-structure-ab-in-l-constraint-rule-19">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -4653,7 +4749,7 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationComId; 3] dbPublic
          <empty/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="tei_sls_master-addSpan-addSpan-requires-spanTo-constraint-rule-19">
+                  id="tei_sls_master-addSpan-addSpan-requires-spanTo-constraint-rule-20">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -4663,7 +4759,7 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationComId; 3] dbPublic
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="tei_sls_master-addSpan-addSpan-requires-spanTo-fr-constraint-rule-20">
+                  id="tei_sls_master-addSpan-addSpan-requires-spanTo-fr-constraint-rule-21">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -4703,7 +4799,7 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationComId; 3] dbPublic
          </attribute>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="tei_sls_master-addSpan-spanTo-spanTo-points-to-following-constraint-rule-21">
+                  id="tei_sls_master-addSpan-spanTo-spanTo-points-to-following-constraint-rule-22">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -4733,7 +4829,7 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationComId; 3] dbPublic
          <empty/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="tei_sls_master-delSpan-delSpan-requires-spanTo-constraint-rule-22">
+                  id="tei_sls_master-delSpan-delSpan-requires-spanTo-constraint-rule-23">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -4743,7 +4839,7 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationComId; 3] dbPublic
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="tei_sls_master-delSpan-delSpan-requires-spanTo-fr-constraint-rule-23">
+                  id="tei_sls_master-delSpan-delSpan-requires-spanTo-fr-constraint-rule-24">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -4773,7 +4869,7 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationComId; 3] dbPublic
          </attribute>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="tei_sls_master-delSpan-spanTo-spanTo-points-to-following-constraint-rule-24">
+                  id="tei_sls_master-delSpan-spanTo-spanTo-points-to-following-constraint-rule-25">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -4878,7 +4974,7 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationComId; 3] dbPublic
          </oneOrMore>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="tei_sls_master-subst-substContents1-constraint-rule-25">
+                  id="tei_sls_master-subst-substContents1-constraint-rule-26">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -5359,7 +5455,7 @@ Suggested values include: 1] label; 2] data</a:documentation>
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="tei_sls_master-msDesc-one_ms_singleton_max-constraint-rule-26">
+                  id="tei_sls_master-msDesc-one_ms_singleton_max-constraint-rule-27">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -5384,7 +5480,7 @@ Suggested values include: 1] label; 2] data</a:documentation>
          </zeroOrMore>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="tei_sls_master-dimensions-duplicateDim-constraint-rule-27">
+                  id="tei_sls_master-dimensions-duplicateDim-constraint-rule-28">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -5479,7 +5575,7 @@ Suggested values include: 1] label; 2] data</a:documentation>
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="tei_sls_master-msIdentifier-msId_minimal-constraint-rule-28">
+                  id="tei_sls_master-msIdentifier-msId_minimal-constraint-rule-29">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"

@@ -8,10 +8,11 @@
 			<publicationStmt>
 				<publisher xml:lang="sv">Svenska litteratursällskapet i Finland</publisher>
 				<publisher xml:lang="en">Society of Swedish Literature in Finland</publisher>
-                <ref target="https://www.sls.fi/">https://www.sls.fi/</ref>
+				<ref target="https://www.sls.fi/">https://www.sls.fi/</ref>
 				<availability status="free">
 					<licence target="https://creativecommons.org/licenses/by-sa/4.0/">Distributed
-						under a Creative Commons Attribution-ShareAlike 4.0 International License</licence>
+						under a Creative Commons Attribution-ShareAlike 4.0 International
+						License</licence>
 				</availability>
 			</publicationStmt>
 			<sourceDesc>
@@ -19,6 +20,10 @@
 			</sourceDesc>
 		</fileDesc>
 		<revisionDesc>
+			<change when="2026-06-09" who="#SK">
+				- Add correction, editorialDecl, hyphenation, interpretation, projectDesc,
+				  punctuation, and quotation.
+			</change>
 			<change when="2026-06-01" who="#SK">
 				- Add @key with distinct values on resp.
 				- Add @xml:id on bibl.
@@ -134,8 +139,8 @@
 				(SLS)</head>
 
 			<p>This TEI ODD defines a TEI customization that is used as the master TEI customization
-				for TEI-encoded text by the Society of Swedish Literature in Finland
-				(<ref target="https://www.sls.fi/">SLS</ref>). This customization can be further
+				for TEI-encoded text by the Society of Swedish Literature in Finland (<ref
+					target="https://www.sls.fi/">SLS</ref>). This customization can be further
 				customized for different text types or editions. The ODD was originally created in
 				October–December 2024, first with RomaJS 1.1.1, then by manual editing to fix
 				problems that RomaJS caused.</p>
@@ -143,16 +148,17 @@
 			<schemaSpec ident="tei_sls_master" start="TEI" prefix="tei_" targetLang="en" docLang="en">
 
 				<!-- required minimal header elements -->
-				<moduleRef key="header" include="availability change correspAction correspDesc
-					encodingDesc extent fileDesc handNote idno keywords licence notesStmt
-					publicationStmt profileDesc revisionDesc seriesStmt sourceDesc teiHeader
-					textClass titleStmt xenoData"/>
+				<moduleRef key="header" include="availability change correspAction correction
+					correspDesc editorialDecl encodingDesc extent fileDesc handNote hyphenation idno
+					interpretation keywords licence normalization notesStmt publicationStmt
+					profileDesc projectDesc punctuation quotation revisionDesc seriesStmt sourceDesc
+					teiHeader textClass titleStmt xenoData"/>
 
 				<!-- required core elements (p and title for use in titleStmt) -->
-				<moduleRef key="core" include="abbr add address addrLine author bibl biblScope choice
-					cit corr date del expan foreign gap graphic head hi item l label lb lg list
-					milestone name note orig p pb ptr publisher pubPlace q quote ref reg resp respStmt
-					rs term title unclear"/>
+				<moduleRef key="core" include="abbr add address addrLine author bibl biblScope
+					choice cit corr date del expan foreign gap graphic head hi item l label lb lg
+					list milestone name note orig p pb ptr publisher pubPlace q quote ref reg resp
+					respStmt rs term title unclear"/>
 
 				<!-- required textstructure elements (TEI, text, and body) -->
 				<moduleRef key="textstructure" include="argument body byline closer dateline div
@@ -169,8 +175,8 @@
 				<moduleRef key="analysis" include="c pc"/>
 				<moduleRef key="figures" include="cell figDesc figure row table"/>
 				<moduleRef key="msdescription" include="collection dimensions height history
-					institution msDesc msIdentifier msName objectDesc origDate origin
-					physDesc repository supportDesc width"/>
+					institution msDesc msIdentifier msName objectDesc origDate origin physDesc
+					repository supportDesc width"/>
 				<moduleRef key="namesdates" include="country persName placeName region settlement"/>
 
 				<elementSpec ident="ab" mode="change">
@@ -655,6 +661,22 @@
 						</attDef>
 					</attList>
 				</elementSpec>
+				<elementSpec ident="correction" mode="change">
+					<attList>
+						<attDef ident="status" mode="delete"/>
+						<attDef ident="method" mode="delete"/>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+					</attList>
+				</elementSpec>
 				<elementSpec ident="correspAction" mode="change">
 					<attList>
 						<attDef ident="xml:id" mode="delete"/>
@@ -904,6 +926,19 @@
 								<valItem mode="delete" ident="Y"/>
 							</valList>
 						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="editorialDecl" mode="change">
+					<attList>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="encodingDesc" mode="change">
@@ -1316,6 +1351,21 @@
 						<attDef ident="source" mode="delete"/>
 					</attList>
 				</elementSpec>
+				<elementSpec ident="hyphenation" mode="change">
+					<attList>
+						<attDef ident="eol" mode="delete"/>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+					</attList>
+				</elementSpec>
 				<elementSpec ident="idno" mode="change">
 					<attList>
 						<attDef ident="period" mode="delete"/>
@@ -1403,6 +1453,20 @@
 						<attDef ident="source" mode="delete"/>
 						<attDef ident="role" mode="delete"/>
 						<attDef ident="key" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="interpretation" mode="change">
+					<attList>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="item" mode="change">
@@ -1745,9 +1809,9 @@
 							<valList type="closed" mode="change">
 								<valItem ident="instruction" mode="add"/>
 								<valItem mode="add" ident="transp">
-									<desc versionDate="2025-02-25" xml:lang="en">the metamark
-										marks a transposition and the index of the transposed
-										text segment. The element should be self-closed.</desc>
+									<desc versionDate="2025-02-25" xml:lang="en">the metamark marks
+										a transposition and the index of the transposed text
+										segment. The element should be self-closed.</desc>
 								</valItem>
 							</valList>
 						</attDef>
@@ -1893,6 +1957,21 @@
 						<attRef name="to" class="att.datable.w3c"/>
 						<attRef name="when" class="att.datable.w3c"/>
 						<attRef name="ref" class="att.canonical"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="normalization" mode="change">
+					<attList>
+						<attDef ident="method" mode="delete"/>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="note" mode="change">
@@ -2375,6 +2454,19 @@
 						<attDef ident="source" mode="delete"/>
 					</attList>
 				</elementSpec>
+				<elementSpec ident="projectDesc" mode="change">
+					<attList>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+					</attList>
+				</elementSpec>
 				<elementSpec ident="ptr" mode="change">
 					<attList>
 						<attDef ident="ana" mode="delete"/>
@@ -2481,6 +2573,22 @@
 						<attDef ident="source" mode="delete"/>
 					</attList>
 				</elementSpec>
+				<elementSpec ident="punctuation" mode="change">
+					<attList>
+						<attDef ident="marks" mode="delete"/>
+						<attDef ident="placement" mode="delete"/>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
+					</attList>
+				</elementSpec>
 				<elementSpec ident="q" mode="change">
 					<attList>
 						<attDef ident="type" mode="delete"/>
@@ -2499,6 +2607,21 @@
 								<valItem mode="add" ident="smaller"/>
 							</valList>
 						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="quotation" mode="change">
+					<attList>
+						<attDef ident="marks" mode="delete"/>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="facs" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="source" mode="delete"/>
 					</attList>
 				</elementSpec>
 				<elementSpec ident="quote" mode="change">
@@ -3402,10 +3525,17 @@
 						<attDef ident="type" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="host">
-									<desc versionDate="2025-03-13" xml:lang="en">the title applies to a publication (journal, magazine, newspaper, anthology etc.), which acts as a container or host item for analytic items (e.g. articles, poems, or other works published as part of a larger item).</desc>
+									<desc versionDate="2025-03-13" xml:lang="en">the title applies
+										to a publication (journal, magazine, newspaper, anthology
+										etc.), which acts as a container or host item for analytic
+										items (e.g. articles, poems, or other works published as
+										part of a larger item).</desc>
 								</valItem>
 								<valItem mode="replace" ident="main">
-									<desc versionDate="2025-05-07" xml:lang="en">the main title of the work in the document; should only be used if the title element without type attribute is used for the display name of the work.</desc>
+									<desc versionDate="2025-05-07" xml:lang="en">the main title of
+										the work in the document; should only be used if the title
+										element without type attribute is used for the display name
+										of the work.</desc>
 								</valItem>
 							</valList>
 						</attDef>

@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2026-06-01T13:54:10Z. . 
+    Schema generated from ODD source 2026-06-09T06:38:24Z. . 
     TEI Edition: P5 Version 4.11.0. Last updated on 18th February 2026, revision 358d2e48e 
     TEI Edition Location: https://www.tei-c.org/Vault/P5/4.11.0/ 
     
@@ -1870,6 +1870,22 @@
       <xs:element ref="tei:encodingDesc"/>
       <xs:element ref="tei:profileDesc"/>
       <xs:element ref="tei:xenoData"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="tei_model.encodingDescPart">
+    <xs:choice>
+      <xs:element ref="tei:projectDesc"/>
+      <xs:element ref="tei:editorialDecl"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="tei_model.editorialDeclPart">
+    <xs:choice>
+      <xs:element ref="tei:correction"/>
+      <xs:element ref="tei:normalization"/>
+      <xs:element ref="tei:quotation"/>
+      <xs:element ref="tei:hyphenation"/>
+      <xs:element ref="tei:interpretation"/>
+      <xs:element ref="tei:punctuation"/>
     </xs:choice>
   </xs:group>
   <xs:group name="tei_model.profileDescPart">
@@ -4247,7 +4263,79 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationComId; 3] dbPublic
       <xs:documentation>(encoding description) documents the relationship between an electronic text and the source or sources from which it was derived. [2.3. The Encoding Description 2.1.1. The TEI Header and Its Components]</xs:documentation>
     </xs:annotation>
     <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:group ref="tei:tei_model.encodingDescPart"/>
+        <xs:group ref="tei:tei_model.pLike"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="projectDesc">
+    <xs:annotation>
+      <xs:documentation>(project description) describes in detail the aim or purpose for which an electronic file was encoded, together with any other relevant information concerning the process by which it was assembled or collected. [2.3.1. The Project Description 2.3. The Encoding Description 16.3.2. Declarable Elements]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
       <xs:group maxOccurs="unbounded" ref="tei:tei_model.pLike"/>
+      <xs:attributeGroup ref="tei:tei_att.global.attribute.xmllang"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="editorialDecl">
+    <xs:annotation>
+      <xs:documentation>(editorial practice declaration) provides details of editorial principles and practices applied during the encoding of a text. [2.3.3. The Editorial Practices Declaration 2.3. The Encoding Description 16.3.2. Declarable Elements]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:group ref="tei:tei_model.pLike"/>
+        <xs:group ref="tei:tei_model.editorialDeclPart"/>
+      </xs:choice>
+      <xs:attributeGroup ref="tei:tei_att.global.attribute.xmllang"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="correction">
+    <xs:annotation>
+      <xs:documentation>(correction principles) states how and under what circumstances corrections have been made in the text. [2.3.3. The Editorial Practices Declaration 16.3.2. Declarable Elements]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:group maxOccurs="unbounded" ref="tei:tei_model.pLike"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="normalization">
+    <xs:annotation>
+      <xs:documentation>(normalization) indicates the extent of normalization or regularization of the original source carried out in converting it to electronic form. [2.3.3. The Editorial Practices Declaration 16.3.2. Declarable Elements]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:group maxOccurs="unbounded" ref="tei:tei_model.pLike"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="quotation">
+    <xs:annotation>
+      <xs:documentation>(quotation) specifies editorial practice adopted with respect to quotation marks in the original. [2.3.3. The Editorial Practices Declaration 16.3.2. Declarable Elements]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="tei:tei_model.pLike"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="hyphenation">
+    <xs:annotation>
+      <xs:documentation>(hyphenation) summarizes the way in which hyphenation in a source text has been treated in an encoded version of it. [2.3.3. The Editorial Practices Declaration 16.3.2. Declarable Elements]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:group maxOccurs="unbounded" ref="tei:tei_model.pLike"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="interpretation">
+    <xs:annotation>
+      <xs:documentation>(interpretation) describes the scope of any analytic or interpretive information added to the text in addition to the transcription. [2.3.3. The Editorial Practices Declaration]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:group maxOccurs="unbounded" ref="tei:tei_model.pLike"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="punctuation">
+    <xs:annotation>
+      <xs:documentation>specifies editorial practice adopted with respect to punctuation marks in the original. [2.3.3. The Editorial Practices Declaration 3.2. Treatment of Punctuation]</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="tei:tei_model.pLike"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="profileDesc">

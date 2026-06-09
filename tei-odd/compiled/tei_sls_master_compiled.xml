@@ -8,10 +8,11 @@
 			<publicationStmt>
 				<publisher xml:lang="sv">Svenska litteratursällskapet i Finland</publisher>
 				<publisher xml:lang="en">Society of Swedish Literature in Finland</publisher>
-                <ref target="https://www.sls.fi/">https://www.sls.fi/</ref>
+				<ref target="https://www.sls.fi/">https://www.sls.fi/</ref>
 				<availability status="free">
 					<licence target="https://creativecommons.org/licenses/by-sa/4.0/">Distributed
-						under a Creative Commons Attribution-ShareAlike 4.0 International License</licence>
+						under a Creative Commons Attribution-ShareAlike 4.0 International
+						License</licence>
 				</availability>
 			</publicationStmt>
 			<sourceDesc>
@@ -25,6 +26,10 @@
         <sch:ns xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" prefix="sch" uri="http://purl.oclc.org/dsdl/schematron"/>
         <sch:ns xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" prefix="sch1x" uri="http://www.ascc.net/xml/schematron"/>
       </tei:constraintDecl></tei:encodingDesc><revisionDesc>
+			<change when="2026-06-09" who="#SK">
+				- Add correction, editorialDecl, hyphenation, interpretation, projectDesc,
+				  punctuation, and quotation.
+			</change>
 			<change when="2026-06-01" who="#SK">
 				- Add @key with distinct values on resp.
 				- Add @xml:id on bibl.
@@ -139,8 +144,7 @@
 				(SLS)</head>
 
 			<p>This TEI ODD defines a TEI customization that is used as the master TEI customization
-				for TEI-encoded text by the Society of Swedish Literature in Finland
-				(<ref target="https://www.sls.fi/">SLS</ref>). This customization can be further
+				for TEI-encoded text by the Society of Swedish Literature in Finland (<ref target="https://www.sls.fi/">SLS</ref>). This customization can be further
 				customized for different text types or editions. The ODD was originally created in
 				October–December 2024, first with RomaJS 1.1.1, then by manual editing to fix
 				problems that RomaJS caused.</p>
@@ -2522,6 +2526,21 @@ fin d'une division de texte.</desc>
       <gi>encodingDesc</gi> (Descripción de la codificación) y que aparecen en diversas ocasiones.</desc>
   <desc versionDate="2007-01-21" xml:lang="it">raggruppa gli elementi utilizzati all'interno di
       <gi>encodingDesc</gi> e che appaiono più volte.</desc>
+</classSpec><classSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" module="tei" type="model" ident="model.editorialDeclPart">
+  <desc versionDate="2007-10-18" xml:lang="en">groups elements which may be used inside <gi>editorialDecl</gi> and appear multiple times.</desc>
+  <desc versionDate="2009-01-05" xml:lang="fr">regroupe des éléments qui peuvent être employés dans
+    l'élément <gi>editorialDecl</gi> et souvent à de nombreuses reprises.</desc>
+  <desc versionDate="2007-12-20" xml:lang="ko">
+      <gi>editorialDecl</gi> 내부에 사용되어 여러 번 출현될 수 있는 요소들을 모아
+    놓는다.</desc>
+  <desc versionDate="2007-05-02" xml:lang="zh-TW">匯集可在<gi>editorialDecl</gi>中使用並且可多次出現的元素</desc>
+  <desc versionDate="2008-04-05" xml:lang="ja">要素<gi>editorialDecl</gi>中で使われ、複数回出現可能な要素をまとめる。</desc>
+  <desc versionDate="2018-07-18" xml:lang="de">umfasst Elemente, die innerhalb des <gi>editorialDecl</gi>-Elements
+    verwendet werden und mehrfach auftreten können.</desc>
+  <desc versionDate="2007-05-04" xml:lang="es">agrupa elementos que pueden aparecer al interno de
+      <gi>editorialDecl</gi> (declaración editorial) y que aparecen en diversas ocasiones.</desc>
+  <desc versionDate="2007-01-21" xml:lang="it">raggruppa gli elementi utilizzati all'interno di
+      <gi>editorialDecl</gi> e che appaiono più volte.</desc>
 </classSpec><classSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" module="tei" xml:id="PROFILE" type="model" ident="model.profileDescPart">
   <desc versionDate="2007-10-18" xml:lang="en">groups elements which may be used inside <gi>profileDesc</gi>
 and appear multiple times.</desc>
@@ -6852,9 +6871,16 @@ Elements</ref>
           <desc versionDate="2007-01-21" xml:lang="it">parafrasi descrittiva dell'opera che funge da titolo</desc>
           <desc versionDate="2017-06-04" xml:lang="de">Umschreibung des Werks, die als Titel fungiert.</desc>
         </valItem><valItem mode="add" ident="host">
-									<desc versionDate="2025-03-13" xml:lang="en">the title applies to a publication (journal, magazine, newspaper, anthology etc.), which acts as a container or host item for analytic items (e.g. articles, poems, or other works published as part of a larger item).</desc>
+									<desc versionDate="2025-03-13" xml:lang="en">the title applies
+										to a publication (journal, magazine, newspaper, anthology
+										etc.), which acts as a container or host item for analytic
+										items (e.g. articles, poems, or other works published as
+										part of a larger item).</desc>
 								</valItem><valItem mode="replace" ident="main">
-									<desc versionDate="2025-05-07" xml:lang="en">the main title of the work in the document; should only be used if the title element without type attribute is used for the display name of the work.</desc>
+									<desc versionDate="2025-05-07" xml:lang="en">the main title of
+										the work in the document; should only be used if the title
+										element without type attribute is used for the display name
+										of the work.</desc>
 								</valItem></valList><remarks versionDate="2005-01-14" xml:lang="en">
         <p>This attribute is provided for convenience in analysing
         titles and processing them according to their type; where such
@@ -8134,6 +8160,380 @@ source or sources from which it was derived.</desc><desc versionDate="2009-01-05
   </exemplum><listRef>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/HD.html#HD5">2.3. The Encoding Description</ref>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/HD.html#HD11">2.1.1. The TEI Header and Its Components</ref>
+  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="header" xml:id="gi-projectDesc" ident="projectDesc"><gloss versionDate="2005-01-14" xml:lang="en">project description</gloss><gloss versionDate="2009-01-05" xml:lang="fr">description du projet</gloss><gloss versionDate="2007-12-20" xml:lang="ko">프로젝트 기술</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">計畫描述</gloss><gloss versionDate="2006-10-18" xml:lang="de">Beschreibung des Projekts</gloss><gloss versionDate="2007-05-04" xml:lang="es">descripción del proyecto</gloss><gloss versionDate="2007-01-21" xml:lang="it">descrizione del progetto</gloss><desc versionDate="2005-01-14" xml:lang="en">describes in detail the aim or purpose for which an electronic file was encoded, together
+    with any other relevant information concerning the process by which it was assembled or
+    collected.</desc><desc versionDate="2009-01-05" xml:lang="fr">décrit en détail le but ou l’objectif visé dans
+    l’encodage d’un fichier électronique, ainsi que toute autre information pertinente sur la
+    manière dont il a été construit ou recueilli.</desc><desc versionDate="2007-12-20" xml:lang="ko">전자 파일이 부호화된 목적을 상세히 기술하며, 아울러 그것이 수집된 절차에 관한 기타 관련 정보를
+    기술한다, .</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">詳述將電子檔案編碼的目標或目的，以及其他關於檔案匯集或收集程序的任何資訊。</desc><desc versionDate="2008-04-05" xml:lang="ja">制作過程に関する情報も含めて、電子ファイルが作られた目的の詳細を示す。</desc><desc versionDate="2016-11-17" xml:lang="de">beschreibt detailliert Ziel bzw. Zweck, für den eine Datei kodiert wurde, zusammen mit weiteren relevanten Informationen, 
+        die das Verfahren betreffen, nach dem die Daten zusammengestellt oder gesammelt wurden.</desc><desc versionDate="2007-05-04" xml:lang="es">describe con detalle el objetivo o propósito para el que
+    un archivo electrónico ha sido codificado, junto a cualquier otra información relevante sobre el
+    proceso de codificación.</desc><desc versionDate="2007-01-21" xml:lang="it">descrive in dettaglio lo scopo per il quale un documento
+    elettronico è sato codigicato, insieme a qualsiasi altra informazione rilevante riguardo le
+    procedure di raccolta.</desc><classes><memberOf key="att.global"/><memberOf key="model.encodingDescPart"/></classes><content><classRef key="model.pLike" minOccurs="1" maxOccurs="unbounded"/></content><constraintSpec ident="projectDesc-is-declarable" scheme="schematron" xml:lang="en">
+    <constraint>
+      <sch:pattern is-a="declarable">
+        <sch:param name="tde" value="tei:projectDesc"/>
+      </sch:pattern>
+    </constraint>
+  </constraintSpec><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/></attList><exemplum xml:lang="en">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-projectDesc-egXML-gg">
+      <projectDesc>
+        <p>Texts collected for use in the Claremont Shakespeare Clinic, June 1990</p>
+      </projectDesc>
+    </egXML>
+  </exemplum><exemplum versionDate="2008-04-06" xml:lang="fr">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-projectDesc-egXML-ae" source="#fr-ex-Cyrus">
+      <projectDesc>
+        <p>La saisie a été effectuée par notre partenaire Datactivity. Le texte saisi a été
+            ensuite converti et remis en forme selon les normes du format XML, standard d’échange ou
+            d’affichage de documents permettant de séparer la forme et le contenu et offrant une
+            déclinaison d’outils qui donnent la possibilité d’exploiter un texte comme une véritable
+            base de données. La norme adoptée (DTD) est le TEI (Text Encoding Initiative). </p>
+        <p> Affichage et manipulation du texte (mise au format, filtrage, réorganisation) se font
+            sur un serveur Apache à l'aide de l'infrastructure Axkit.</p>
+        <p> Le moteur logiciel du site a été développé en Xpathscript et s'appuie sur les travaux
+            de Dominique Quatravaux (Alliance Francophone Pour l'Avancement d'XPathScript) et de
+            Yanick Champoux (support de Libxml via YPathScript).</p>
+        <p>Les programmes développés pour le site sont mis à la disposition en open-source sur
+            demande (contacter Alexandre Gefen). </p>
+        <p>Les fonctions de recherche plein texte sont fournies par Philologic dans le cadre du
+            partenariat du projet avec ARTFL.</p>
+        <p>L’architecture de travail, sous Linux, est destinée à garantir une haute disponibilité
+            et des performances optimales. La liaison avec Internet est assurée par les services
+            informatiques de l’Université de Neuchâtel (SITEL).</p>
+      </projectDesc>
+    </egXML>
+  </exemplum><exemplum xml:lang="zh-TW">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-projectDesc-egXML-we">
+      <projectDesc>
+        <p>文件收集於1990年7月，杭州杜甫詩作研討會使用</p>
+      </projectDesc>
+    </egXML>
+  </exemplum><listRef>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/HD.html#HD51">2.3.1. The Project Description</ref>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/HD.html#HD5">2.3. The Encoding Description</ref>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CC.html#CCAS2">16.3.2. Declarable Elements</ref>
+  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="header" xml:id="gi-editorialDecl" ident="editorialDecl"><gloss versionDate="2005-01-14" xml:lang="en">editorial practice declaration</gloss><gloss versionDate="2009-01-05" xml:lang="fr">déclaration des pratiques éditoriales</gloss><gloss versionDate="2007-12-20" xml:lang="ko">편집 실행 선언</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">編輯實行宣告</gloss><gloss versionDate="2016-11-17" xml:lang="de">Angabe der Editionsprinzipien</gloss><gloss versionDate="2007-05-04" xml:lang="es">declaración de la edición</gloss><gloss versionDate="2007-01-21" xml:lang="it">dichiarazione sulle pratiche editoriali</gloss><desc versionDate="2005-01-14" xml:lang="en">provides details of editorial principles and practices applied
+during the encoding of a text.</desc><desc versionDate="2009-01-05" xml:lang="fr">donne des précisions sur les pratiques et  les principes éditoriaux appliqués au cours de l’encodage du texte.</desc><desc versionDate="2007-12-20" xml:lang="ko">텍스트 부호화에서 적용된 편집 원리 및 기준의 상세 항목을 제시한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">提供文件編碼時使用的編輯原則與實行方法的細節。</desc><desc versionDate="2008-04-05" xml:lang="ja">テキストを符号化する際に適用される編集方針や編集方法の詳細を示す。</desc><desc versionDate="2006-10-18" xml:lang="de">beschreibt die Details der Editionsprinzipien und Verfahren, die bei der Kodierung des Textes angewandt wurden.</desc><desc versionDate="2007-05-04" xml:lang="es">proporciona detalles de principios editoriales y prácticas aplicadas en la codificación de un texto.</desc><desc versionDate="2007-01-21" xml:lang="it">fornisce dettagli su principi e pratiche editoriali seguite nella codifica di un testo.</desc><classes><memberOf key="att.global"/><memberOf key="model.encodingDescPart"/></classes><content><alternate minOccurs="1" maxOccurs="unbounded"><classRef key="model.pLike"/><classRef key="model.editorialDeclPart"/></alternate></content><constraintSpec ident="editorialDecl-is-declarable" scheme="schematron" xml:lang="en">
+    <constraint>
+      <sch:pattern is-a="declarable">
+        <sch:param name="tde" value="tei:editorialDecl"/>
+      </sch:pattern>
+    </constraint>
+  </constraintSpec><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/></attList><exemplum xml:lang="en">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-editorialDecl-egXML-be">
+      <editorialDecl>
+        <normalization>
+          <p>All words converted to Modern American spelling using
+ Websters 9th Collegiate dictionary
+  </p>
+        </normalization>
+        <quotation marks="all">
+          <p>All opening quotation marks converted to “ all closing
+ quotation marks converted to &amp;cdq;.</p>
+        </quotation>
+      </editorialDecl>
+    </egXML>
+  </exemplum><exemplum versionDate="2008-04-06" xml:lang="fr">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-editorialDecl-egXML-xq">
+      <editorialDecl>
+        <normalization>
+          <p>Certains mots coupés par accident typographique en fin de ligne ont été réassemblés
+              sans commentaire.</p>
+        </normalization>
+        <quotation marks="all">
+          <p>Les "guillements français" ont été remplacée par des "guillemets droits" (sans
+              symétrie)</p>
+        </quotation>
+      </editorialDecl>
+    </egXML>
+  </exemplum><exemplum xml:lang="zh-TW">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-editorialDecl-egXML-bz">
+      <editorialDecl>
+        <normalization>
+          <p> 所有字皆轉換為源自Websters 9th Collegiate字典的現代美語拼法</p>
+        </normalization>
+        <quotation marks="all">
+          <p>所有的前括號都改成" 後括號都改成 "</p>
+        </quotation>
+      </editorialDecl>
+    </egXML>
+  </exemplum><listRef>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/HD.html#HD53">2.3.3. The Editorial Practices Declaration</ref>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/HD.html#HD5">2.3. The Encoding Description</ref>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CC.html#CCAS2">16.3.2. Declarable Elements</ref>
+  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="header" xml:id="gi-correction" ident="correction"><gloss versionDate="2005-01-14" xml:lang="en">correction principles</gloss><gloss versionDate="2009-01-05" xml:lang="fr">règles de correction</gloss><gloss versionDate="2007-12-20" xml:lang="ko">수정 원리</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">更正原則</gloss><gloss versionDate="2006-10-18" xml:lang="de">Korrekturverfahren</gloss><gloss versionDate="2007-05-04" xml:lang="es">principios de corrección</gloss><gloss versionDate="2007-01-21" xml:lang="it">principi di correzione</gloss><gloss versionDate="2024-02-28" xml:lang="ja">修正の原則</gloss><desc versionDate="2005-01-14" xml:lang="en">states how and under what circumstances corrections have been made in the text.</desc><desc versionDate="2009-01-05" xml:lang="fr">établit comment et dans quelles circonstances des
+    corrections ont été apportées au texte.</desc><desc versionDate="2007-12-20" xml:lang="ko">텍스트의 수정의 상황과 방법에 대해 설명한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">說明文本中的更正是在什麼情況下、如何產生的。</desc><desc versionDate="2008-04-05" xml:lang="ja">テキスト中に施された修正の状況や方法を示す。</desc><desc versionDate="2006-10-18" xml:lang="de">gibt an, wie und unter welchen Bedingungen Korrekturen an
+    dem Text vorgenommen wurden.</desc><desc versionDate="2007-05-04" xml:lang="es">describe cómo y en qué casos se han hecho correcciones en
+    el texto.</desc><desc versionDate="2007-01-21" xml:lang="it">dichiara quante correzioni sono state apportate al testo
+    e in quali circostanze.</desc><classes><memberOf key="att.global"/><memberOf key="model.editorialDeclPart"/></classes><content><classRef key="model.pLike" minOccurs="1" maxOccurs="unbounded"/></content><constraintSpec ident="correction-is-declarable" scheme="schematron" xml:lang="en">
+    <constraint>
+      <sch:pattern is-a="declarable">
+        <sch:param name="tde" value="tei:correction"/>
+      </sch:pattern>
+    </constraint>
+  </constraintSpec><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="status" mode="delete"/><attDef ident="method" mode="delete"/></attList><exemplum xml:lang="en">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-correction-egXML-ee">
+      <correction>
+        <p>Errors in transcription controlled by using the WordPerfect spelling checker, with a user
+          defined dictionary of 500 extra words taken from Chambers Twentieth Century
+        Dictionary.</p>
+      </correction>
+    </egXML>
+  </exemplum><exemplum versionDate="2008-04-06" xml:lang="fr">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-correction-egXML-fq">
+      <correction>
+        <p>Les erreurs de transcriptions ont été détectées et corrigées à l'aide du correcteur
+            Cordial 2006 - Synapse</p>
+      </correction>
+    </egXML>
+  </exemplum><exemplum xml:lang="zh-TW">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-correction-egXML-op">
+      <correction>
+        <p>抄寫錯誤由WordPerfect拼寫檢查系統控制，該系統使用Chambers Twentieth Century Dictionary裡內含之使用者自訂的500個詞條。</p>
+      </correction>
+    </egXML>
+  </exemplum><remarks versionDate="2005-01-14" xml:lang="en">
+    <p>May be used to note the results of proof reading the text against its original, indicating
+      (for example) whether discrepancies have been silently rectified, or recorded using the
+      editorial tags described in section <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html#COED">3.5. Simple Editorial Changes</ref>.</p>
+  </remarks><remarks versionDate="2007-06-12" xml:lang="fr">
+    <p>Utilisé pour noter le résultat de la comparaison du texte et de l'original en indiquant par
+      exemple si les différences ont été faites sans être marquées, ou si elles ont été marquées en
+      utilisant les balises éditoriales décrites dans la section <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html#COED">3.5. Simple Editorial Changes</ref>.</p>
+  </remarks><remarks versionDate="2008-04-06" xml:lang="es">
+    <p>Puede ser utilizado para observar los resultados de la corrección de las lecturas del texto
+      en contraposición con su original, indicando (por ejemplo) si las discrepancias se han
+      rectificado silenciosamente, o se han registrado usando las etiquetas editoriales descritas en
+      la sección <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html#COED">3.5. Simple Editorial Changes</ref>.</p>
+  </remarks><remarks versionDate="2008-04-05" xml:lang="ja">
+    <p> 元資料を元に行われた校正結果を示すために使われるかもしれない。例え ば、相違点は密かに修正されているのか、または<ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html#COED">3.5. Simple Editorial Changes</ref>
+      にある編集用のタグを使用して記録されているのか、など。 </p>
+  </remarks><listRef>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/HD.html#HD53">2.3.3. The Editorial Practices Declaration</ref>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CC.html#CCAS2">16.3.2. Declarable Elements</ref>
+  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="header" xml:id="gi-normalization" ident="normalization"><gloss versionDate="2009-01-05" xml:lang="en">normalization</gloss><gloss versionDate="2009-01-05" xml:lang="fr">normalisation</gloss><desc versionDate="2005-01-14" xml:lang="en">indicates the extent of normalization or regularization of the original source carried out in converting it to electronic form.</desc><desc versionDate="2009-01-05" xml:lang="fr">indique l'extension de la normalisation ou de la régularisation effectuée sur le texte source dans sa conversion vers sa forme électronique.</desc><desc versionDate="2007-12-20" xml:lang="ko">전자 형식으로 변환할 때 수행된 원본 텍스트의 표준화 또는 규칙화의 정도를 표시한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">指出來源文件轉換成電子文本時規格化或標準化的程度。</desc><desc versionDate="2008-04-05" xml:lang="ja">元資料が電子形式に変換される際に施される正規化の程度を示す。</desc><desc versionDate="2006-10-18" xml:lang="de">gibt an, in welchem Ausmaß das Original bei der
+    Umwandlung in elektronische Form normalisiert und vereinheitlicht wurde.</desc><desc versionDate="2007-05-04" xml:lang="es">indica el grado de normalización o de regularización
+    aplicado a la fuente original en el proceso de conversión a formato electrónico.</desc><desc versionDate="2007-01-21" xml:lang="it">indica il grado di normalizzazione o regolarizzazione
+    della fonte effettuato nella conversione a documento elettronico.</desc><classes><memberOf key="att.global"/><memberOf key="model.editorialDeclPart"/></classes><content><classRef key="model.pLike" minOccurs="1" maxOccurs="unbounded"/></content><constraintSpec ident="normalization-is-declarable" scheme="schematron" xml:lang="en">
+    <constraint>
+      <sch:pattern is-a="declarable">
+        <sch:param name="tde" value="tei:normalization"/>
+      </sch:pattern>
+    </constraint>
+  </constraintSpec><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="method" mode="delete"/></attList><exemplum xml:lang="en">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-normalization-egXML-vt">
+      <editorialDecl>
+        <normalization method="markup">
+          <p>Where both upper- and lower-case i, j, u, v, and vv have been normalized, to modern
+            20th century typographical practice, the <gi>choice</gi> element has been used to
+            enclose <gi>orig</gi> and <gi>reg</gi> elements giving the original and new values
+            respectively. ... </p>
+        </normalization>
+        <normalization method="silent">
+          <p>Spacing between words and following punctuation has been regularized to zero spaces;
+            spacing between words has been regularized to one space.</p>
+        </normalization>
+        <normalization source="http://www.dict.sztaki.hu/webster">
+          <p>Spelling converted throughout to Modern American usage, based on Websters 9th
+            Collegiate dictionary.</p>
+        </normalization>
+      </editorialDecl>
+    </egXML>
+  </exemplum><exemplum versionDate="2008-04-06" xml:lang="fr">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-normalization-egXML-vq" source="#fr-ex-Acad">
+      <editorialDecl>
+        <normalization method="markup">
+          <p>Là où les majuscules et les minuscules i, j, u, v et vv ont été normalisées selon la
+              pratique typographique moderne, l'élément<gi> choice</gi> a été employé en association
+              avec <gi>orig</gi> et <gi>reg</gi>pour fournir à la fois les formes originales et les
+              formes nouvelles , respectivement ... </p>
+        </normalization>
+        <normalization method="silent">
+          <p> L'espace entre chaque mot a été régularisé à un espace. Un signe de ponctuation
+              simple est suivi d'un espace, un signe de ponctuation double est précédé et suivi d'un
+              espace.</p>
+        </normalization>
+        <normalization source="http://www.academie-francaise.fr/langue/orthographe/plan.html">
+          <p>Normalisation effectuée selon le Rapport Du Conseil Supérieur De La Langue Française
+              publié dans les documents administratifs du Journal officiel du 6 décembre 1990</p>
+        </normalization>
+      </editorialDecl>
+    </egXML>
+  </exemplum><exemplum xml:lang="zh-TW">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-normalization-egXML-xt">
+      <editorialDecl>
+        <normalization method="markup">
+          <p>當大寫與小寫的 i, j, u, v, 以及vv已經標準化，符合二十世紀現代印刷術，<gi>choice</gi>元素就用來包含 <gi>orig</gi> 還有
+              <gi>reg</gi> 兩個元素，並賦予新的意義。… </p>
+        </normalization>
+        <normalization method="silent">
+          <p>字與字後的標點符號之間規定沒有空格；字與字間規定留一個空格。</p>
+        </normalization>
+        <normalization source="http://www.dict.sztaki.hu/webster">
+          <p>拼字源於Websters 9th Collegiate字典的現代美語用法</p>
+        </normalization>
+      </editorialDecl>
+    </egXML>
+  </exemplum><listRef>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/HD.html#HD53">2.3.3. The Editorial Practices Declaration</ref>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CC.html#CCAS2">16.3.2. Declarable Elements</ref>
+  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="header" xml:id="gi-quotation" ident="quotation"><gloss versionDate="2007-06-12" xml:lang="en">quotation</gloss><gloss versionDate="2007-06-12" xml:lang="fr">citation</gloss><desc versionDate="2005-01-14" xml:lang="en">specifies editorial practice adopted with respect to quotation marks in the original.</desc><desc versionDate="2009-01-05" xml:lang="fr">décrit la pratique éditoriale adoptée par rapport aux guillements dans l’original.</desc><desc versionDate="2007-12-20" xml:lang="ko">원본 인용 부호에 관해 채택한 편집 방식을 명시한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">說明在編輯上是如何處理來源文件中的引文符號。</desc><desc versionDate="2008-04-06" xml:lang="ja">元資料にあった引用をどのように編集したのかを示す。</desc><desc versionDate="2006-10-18" xml:lang="de">beschreibt die editorische Praxis bezüglich der Anführungszeichen im Originaltext.</desc><desc versionDate="2007-05-04" xml:lang="es">indica las prácticas editoriales adoptadas respecto al entrecomillado en el original.</desc><desc versionDate="2007-01-21" xml:lang="it">specifica le pratiche editoriali rispetto all'uso delle virgolette nell'originale</desc><classes><memberOf key="att.global"/><memberOf key="model.editorialDeclPart"/></classes><content><classRef key="model.pLike" minOccurs="0" maxOccurs="unbounded"/></content><constraintSpec ident="quotation-is-declarable" scheme="schematron" xml:lang="en">
+    <constraint>
+      <sch:pattern is-a="declarable">
+        <sch:param name="tde" value="tei:quotation"/>
+      </sch:pattern>
+    </constraint>
+  </constraintSpec><constraintSpec ident="quotationContents" scheme="schematron" xml:lang="en">
+    <constraint>
+      <sch:rule context="tei:quotation">
+        <sch:report test="not( @marks )  and  not( tei:p )">
+          On <sch:name/>, either the @marks attribute should be used, or a paragraph of description provided
+        </sch:report>
+      </sch:rule>
+    </constraint>
+  </constraintSpec><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="marks" mode="delete"/></attList><exemplum xml:lang="en">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-quotation-egXML-tj">
+      <quotation marks="none">
+        <p>No quotation marks have been retained. Instead, the <att>rend</att> attribute on the
+            <gi>q</gi> element is used to specify what kinds of quotation mark was used, according
+          to the following list: <list type="gloss"><label>dq</label><item>double quotes, open and close</item><label>sq</label><item>single quotes, open and close</item><label>dash</label><item>long dash open, no close</item><label>dg</label><item>double guillemets, open and close</item></list>
+            </p>
+      </quotation>
+    </egXML>
+  </exemplum><exemplum versionDate="2008-04-06" xml:lang="fr">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-quotation-egXML-zn">
+      <quotation marks="none">
+        <p>Aucun guillemet n'a été conservé. Au lieu de cela, on a utilisé l'attribut
+            <att>rend</att> pour l'élément <gi>q</gi> afin de spécifier quel type de guillemet a été
+            utilisé, selon la liste suivante : <list type="gloss"><label>ga</label><item>guillemet allemand</item><label>gd</label><item>guillemet anglais ou guillemet dactylographique </item><label>gf</label><item>guillemet français</item></list>
+            </p>
+      </quotation>
+    </egXML>
+  </exemplum><exemplum versionDate="2008-04-06" xml:lang="fr">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-quotation-egXML-it">
+      <quotation marks="all">
+        <p>Tous les guillemets sont maintenus dans le texte et sont représentés par les caractères
+            Unicode appropriés.</p>
+      </quotation>
+    </egXML>
+  </exemplum><exemplum xml:lang="zh-TW">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-quotation-egXML-dn">
+      <quotation marks="none">
+        <p>不保留引號，改用元素<gi>q</gi>內的屬性<att>rend</att> 來區分引號的種類，種類如下：<list type="gloss"><label>dq</label><item>雙引號，前後各一</item><label>sq</label><item>單引號，前後各一</item><label>dash</label><item>破折號，僅前面一個</item><label>dg</label><item>雙箭號，前後各一</item></list>
+            </p>
+      </quotation>
+    </egXML>
+  </exemplum><exemplum xml:lang="zh-TW">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-quotation-egXML-lh">
+      <quotation marks="all">
+        <p>保留所有引號，以合適的Unicode字形表示。</p>
+      </quotation>
+    </egXML>
+  </exemplum><exemplum xml:lang="en">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-quotation-egXML-wk">
+      <quotation marks="all">
+        <p>All quotation marks are retained in the text and are represented by appropriate Unicode
+          characters.</p>
+      </quotation>
+    </egXML>
+  </exemplum><listRef>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/HD.html#HD53">2.3.3. The Editorial Practices Declaration</ref>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CC.html#CCAS2">16.3.2. Declarable Elements</ref>
+  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="header" xml:id="gi-hyphenation" ident="hyphenation"><gloss versionDate="2009-04-27" xml:lang="en">hyphenation</gloss><gloss versionDate="2009-04-27" xml:lang="fr">césurage</gloss><desc versionDate="2005-01-14" xml:lang="en">summarizes the way in which hyphenation in a source text has been treated in an encoded
+    version of it.</desc><desc versionDate="2009-01-05" xml:lang="fr">résume la façon dont les traits d'union sécants de fin de
+    ligne d’un texte source ont été traités dans sa version encodée.</desc><desc versionDate="2007-12-20" xml:lang="ko">원본 텍스트의 하이픈이 부호화된 버전에서 처리된 방법을 요약한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">概述來源文件裡的連字符號在電子化的版本中是如何被處理的。</desc><desc versionDate="2008-04-05" xml:lang="ja">元資料にあるハイフンが、符号化される場合にどのように扱われたかを示す。</desc><desc versionDate="2006-10-18" xml:lang="de">fasst zusammen, wie die Silbentrennung des Quelltextes in
+    der kodierten Fassung behandelt wurde.</desc><desc versionDate="2007-05-04" xml:lang="es">indica el modo en que han sido tratados el uso del guión
+    presente en el texto fuente en la versión codificada de este.</desc><desc versionDate="2007-01-21" xml:lang="it">riassume il modo in cui il trattino nell'originale sia
+    stato trattato nella versione codificata dello stesso testo.</desc><classes><memberOf key="att.global"/><memberOf key="model.editorialDeclPart"/></classes><content><classRef key="model.pLike" minOccurs="1" maxOccurs="unbounded"/></content><constraintSpec ident="hyphenation-is-declarable" scheme="schematron" xml:lang="en">
+    <constraint>
+      <sch:pattern is-a="declarable">
+        <sch:param name="tde" value="tei:hyphenation"/>
+      </sch:pattern>
+    </constraint>
+  </constraintSpec><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="eol" mode="delete"/></attList><exemplum xml:lang="en">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-hyphenation-egXML-un">
+      <hyphenation eol="some">
+        <p>End-of-line hyphenation silently removed where appropriate</p>
+      </hyphenation>
+    </egXML>
+  </exemplum><exemplum versionDate="2008-04-06" xml:lang="fr">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-hyphenation-egXML-rq">
+      <hyphenation eol="some">
+        <p>Le cas échéant, suppression du tiret de coupure de mot en de fin de ligne.</p>
+      </hyphenation>
+    </egXML>
+  </exemplum><exemplum xml:lang="zh-TW">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-hyphenation-egXML-ab">
+      <hyphenation eol="some">
+        <p>行末連字符號，必要時可以移除。</p>
+      </hyphenation>
+    </egXML>
+  </exemplum><listRef>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/HD.html#HD53">2.3.3. The Editorial Practices Declaration</ref>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CC.html#CCAS2">16.3.2. Declarable Elements</ref>
+  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="header" xml:id="gi-interpretation" ident="interpretation"><gloss versionDate="2007-06-12" xml:lang="en">interpretation</gloss><gloss versionDate="2007-06-12" xml:lang="fr">Interprétation</gloss><desc versionDate="2005-01-14" xml:lang="en">describes the scope of any analytic or interpretive information added to the text in
+    addition to the transcription.</desc><desc versionDate="2009-01-05" xml:lang="fr">décrit le champ d’application de toute information
+    analytique ou interprétative ajoutée à la transcription du texte.</desc><desc versionDate="2007-12-20" xml:lang="ko">전사본에 덧붙여 텍스트에 부착된 분석적 또는 해석적 정보의 범위를 기술한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">指出除了轉錄之外，文件中加入哪些分析性或詮釋性的資訊。</desc><desc versionDate="2008-04-05" xml:lang="ja">転記されたテキストに付加された、分析または解釈情報の範囲を示す。</desc><desc versionDate="2006-10-18" xml:lang="de">beschreibt den Umfang von Analyse oder Interpretation,
+    die zusätzlich zur Transkription dem Text hinzugefügt wurde.</desc><desc versionDate="2007-05-04" xml:lang="es">describe la finalidad de cualquier información analítica
+    o descriptiva añadida al texto en la transcripción.</desc><desc versionDate="2007-01-21" xml:lang="it">descrive l'estensione di qualsiasi informazione analitica
+    o interpretativa inserita nel testo, in aggiunta alla trascrizione</desc><classes><memberOf key="att.global"/><memberOf key="model.editorialDeclPart"/></classes><content><classRef key="model.pLike" minOccurs="1" maxOccurs="unbounded"/></content><constraintSpec ident="interpretation-is-declarable" scheme="schematron" xml:lang="en">
+    <constraint>
+      <sch:pattern is-a="declarable">
+        <sch:param name="tde" value="tei:interpretation"/>
+      </sch:pattern>
+    </constraint>
+  </constraintSpec><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/></attList><exemplum xml:lang="en">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-interpretation-egXML-be">
+      <interpretation>
+        <p>The part of speech analysis applied throughout section 4 was added by hand and has not
+          been checked</p>
+      </interpretation>
+    </egXML>
+  </exemplum><exemplum versionDate="2008-04-06" xml:lang="fr">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-interpretation-egXML-um">
+      <interpretation>
+        <p>La partie concernant l'analyse de discours qui a été appliquée partout dans la section
+            4 a été ajoutée à la main et n'a pas été vérifiée.</p>
+      </interpretation>
+    </egXML>
+  </exemplum><exemplum xml:lang="zh-TW">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-interpretation-egXML-dr">
+      <interpretation>
+        <p>第四節部份言說分析是手寫加上去的，尚未檢查。</p>
+      </interpretation>
+    </egXML>
+  </exemplum><listRef>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/HD.html#HD53">2.3.3. The Editorial Practices Declaration</ref>
+  </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="header" xml:id="gi-punctuation" ident="punctuation"><desc versionDate="2013-06-20" xml:lang="en">specifies editorial practice adopted with respect to punctuation marks in the original.</desc><classes><memberOf key="att.global"/><memberOf key="model.editorialDeclPart"/></classes><content><classRef key="model.pLike" minOccurs="0" maxOccurs="unbounded"/></content><constraintSpec ident="punctuation-is-declarable" scheme="schematron" xml:lang="en">
+    <constraint>
+      <sch:pattern is-a="declarable">
+        <sch:param name="tde" value="tei:punctuation"/>
+      </sch:pattern>
+    </constraint>
+  </constraintSpec><attList><attDef ident="xml:id" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="marks" mode="delete"/><attDef ident="placement" mode="delete"/></attList><exemplum xml:lang="en">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-punctuation-egXML-fl">
+      <punctuation marks="all" placement="internal">
+        <p>All punctuation marks in the source text have been retained and represented using the
+          appropriate Unicode code point. In cases where a punctuation mark and nearby markup convey
+          the same information (for example, a sentence ends with a question mark and is also tagged
+          as <gi>s</gi>) the punctuation mark is captured as content within the element.</p>
+      </punctuation>
+    </egXML>
+  </exemplum><exemplum xml:lang="en">
+    <p>External placement of punctuation:</p>
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-punctuation-egXML-qm" source="#MLK01">
+      <p>I would agree with Saint Augustine that “<quote>An unjust law is no law at all</quote>.”</p>
+    </egXML>
+  </exemplum><exemplum xml:lang="en">
+    <p>Internal placement of punctuation:</p>
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-punctuation-egXML-xn" source="#MLK01">
+      <p>I would agree with Saint Augustine that <quote>“An unjust law is no law at all.”</quote></p>
+    </egXML>
+  </exemplum><listRef>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/HD.html#HD53">2.3.3. The Editorial Practices Declaration</ref>
+    <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html#COPU">3.2. Treatment of Punctuation</ref>
   </listRef></elementSpec><elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="header" xml:id="gi-profileDesc" ident="profileDesc"><gloss versionDate="2005-01-14" xml:lang="en">text-profile description</gloss><gloss versionDate="2009-01-05" xml:lang="fr">description du profil</gloss><gloss versionDate="2007-12-20" xml:lang="ko">텍스트-개요 기술</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">文件背景描述</gloss><gloss versionDate="2006-10-18" xml:lang="de">Beschreibung des Textprofils</gloss><gloss versionDate="2007-05-04" xml:lang="es">descripción del perfil del texto.</gloss><gloss versionDate="2007-01-21" xml:lang="it">descrizione del profilo del testo</gloss><desc versionDate="2005-01-14" xml:lang="en">provides a detailed description of non-bibliographic aspects of a text, specifically the
     languages and sublanguages used, the situation in which it was produced, the participants and
     their setting.</desc><desc versionDate="2009-01-05" xml:lang="fr">fournit une description détaillée des aspects
@@ -10377,9 +10777,9 @@ source.</p>
    should be read rather than forming part of the actual content of
    the document.</desc><classes><memberOf key="att.global"/><memberOf key="att.placement"/><memberOf key="att.spanning"/><memberOf key="model.global"/></classes><content><macroRef key="macro.specialPara"/></content><attList><attDef ident="ana" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="place" mode="delete"/><attDef ident="spanTo" mode="delete"/><attDef ident="function" usage="req"><desc versionDate="2013-04-16" xml:lang="en">describes the function (for example  status, insertion,
 	 deletion, transposition) of the metamark.</desc><datatype minOccurs="1"><dataRef key="teidata.word"/></datatype><valList type="closed" mode="change"><valItem ident="instruction" mode="add"/><valItem mode="add" ident="transp">
-									<desc versionDate="2025-02-25" xml:lang="en">the metamark
-										marks a transposition and the index of the transposed
-										text segment. The element should be self-closed.</desc>
+									<desc versionDate="2025-02-25" xml:lang="en">the metamark marks
+										a transposition and the index of the transposed text
+										segment. The element should be self-closed.</desc>
 								</valItem></valList></attDef><attDef ident="target" mode="delete"/></attList><exemplum xml:lang="no">
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-metamark-egXML-zn">
       <line><seg xml:id="tp-ib01">bör</seg><metamark rend="underline" function="transposition" target="#tp-ib01" place="above">2.</metamark>
