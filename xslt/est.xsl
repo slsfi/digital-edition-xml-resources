@@ -22,8 +22,9 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
-	*        v3.0.0 (2026-06-09)
+	*        v3.0.0 (2026-06-10)
 	*             - Update tei:app template based on changed spec.
+	*             - Support custom numbers and markers on list items.
 	*        v2.2.0 (2026-04-21)
 	*             - Don't output empty lines for lines with only deleted
 	*               content.
@@ -354,11 +355,13 @@
 
 
 	<xsl:template match="tei:list">
-	<!-- * @rend values 'indent', 'disc' and 'dash' and missing @rend
-	     * results in an unordered list, otherwise an ordered list. * -->
+	<!-- * @rend values 'indent', 'disc','dash', and 'custom-marker' and
+		 * missing @rend results in an unordered list, otherwise an
+		 * ordered list. * -->
 		<xsl:element name="{if (not(@rend) or @rend eq 'indent'
 			                    or @rend eq 'hangingIndent'
-		                        or @rend eq 'disc' or @rend eq 'dash')
+		                        or @rend eq 'disc' or @rend eq 'dash'
+		                        or @rend eq 'custom-marker')
 		                        then 'ul'
 		                    else 'ol'}">
 			<xsl:call-template name="set-attr-from-xml-lang"/>
@@ -368,7 +371,8 @@
 				                             then @rend
 				                         else 'plain',
 				                         if (parent::tei:argument)
-				                             then 'argument' else ())"/>
+				                             then 'argument'
+				                         else ())"/>
 			</xsl:call-template>
 			<xsl:apply-templates/>
 		</xsl:element>
@@ -378,7 +382,19 @@
 	<xsl:template match="tei:item">
 		<li>
 			<xsl:call-template name="set-attr-from-xml-lang"/>
-			<xsl:apply-templates/>
+			<xsl:choose>
+				<xsl:when test="parent::tei:list[(@rend) = ('custom-marker', 'custom-number')]">
+					<span class="item-n">
+						<xsl:value-of select="normalize-space(@n)"/>
+					</span>
+					<div class="item-body">
+						<xsl:apply-templates/>
+					</div>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates/>
+				</xsl:otherwise>
+			</xsl:choose>
 		</li>
 	</xsl:template>
 

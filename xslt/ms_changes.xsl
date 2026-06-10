@@ -14,15 +14,17 @@
 	*
 	*    XSLT stylesheet: ms_changes.xsl
 	*
-	*    Version: 3.2.0
+	*    Version: 3.3.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
-	*    Licence: CC-BY-NC 4.0 (Attribution-NonCommercial 4.0
+	*    Licence: CC BY-NC 4.0 (Attribution-NonCommercial 4.0
 	*             International),
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v3.3.0 (2026-06-10)
+	*             - Support custom numbers and markers on list items.
 	*        v3.2.0 (2026-04-21)
 	*             - Render <note> without @place and not decendant of <p>
 	*               as <p>.
@@ -531,8 +533,9 @@
 
 
 	<xsl:template match="tei:list">
-	<!-- * @rend values 'indent', 'disc' and 'dash' and missing @rend
-	     * results in an unordered list, otherwise an ordered list. * -->
+	<!-- * @rend values 'indent', 'disc','dash', and 'custom-marker' and
+		 * missing @rend results in an unordered list, otherwise an
+		 * ordered list. * -->
 		<xsl:variable name="in-addspan" select="slsFn:is-in-addspan(.)"/>
     	<xsl:variable name="in-delspan" select="slsFn:is-in-delspan(.)"/>
 		<xsl:variable name="addspan-hand-attr"
@@ -541,7 +544,9 @@
 		              select="preceding::tei:delSpan[1]/@hand"/>
 
 		<xsl:element name="{if (not(@rend) or @rend eq 'indent'
-		                        or @rend eq 'disc' or @rend eq 'dash')
+			                    or @rend eq 'hangingIndent'
+		                        or @rend eq 'disc' or @rend eq 'dash'
+		                        or @rend eq 'custom-marker')
 		                        then 'ul'
 		                    else 'ol'}">
 			<xsl:call-template name="set-attr-from-xml-lang"/>
@@ -571,7 +576,19 @@
 	<xsl:template match="tei:item">
 		<li>
 			<xsl:call-template name="set-attr-from-xml-lang"/>
-			<xsl:call-template name="apply-templates-with-spanning-markup"/>
+			<xsl:choose>
+				<xsl:when test="parent::tei:list[(@rend) = ('custom-marker', 'custom-number')]">
+					<span class="item-n">
+						<xsl:value-of select="normalize-space(@n)"/>
+					</span>
+					<div class="item-body">
+						<xsl:call-template name="apply-templates-with-spanning-markup"/>
+					</div>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="apply-templates-with-spanning-markup"/>
+				</xsl:otherwise>
+			</xsl:choose>
 		</li>
 	</xsl:template>
 
