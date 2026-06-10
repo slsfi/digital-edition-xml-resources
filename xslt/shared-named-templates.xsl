@@ -17,7 +17,7 @@
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-07
-	*    Licence: CC-BY-NC 4.0 (Attribution-NonCommercial 4.0
+	*    Licence: CC BY-NC 4.0 (Attribution-NonCommercial 4.0
 	*             International),
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*

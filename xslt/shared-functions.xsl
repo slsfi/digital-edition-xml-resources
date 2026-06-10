@@ -23,7 +23,7 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
-	*        v1.3.0 (2026-06-09)
+	*        v1.3.0 (2026-06-10)
 	*             - Add norm-or-empty() and get-witnesses().
 	*        v1.2.0 (2026-04-16)
 	*             - Add 'illegible' to values handled by get-reason-text().
@@ -334,7 +334,7 @@
 		<xsl:param name="context-item" as="element(*)?"/>
 		
 		<xsl:variable name="wit-refs" as="xs:string*"
-			          select="normalize-space($context-item/@wit) => tokenize()"/>
+			          select="tokenize($context-item/@wit)"/>
 
 		<xsl:sequence select="root($context-item)/tei:TEI/tei:teiHeader/tei:fileDesc
 			                  /tei:sourceDesc/tei:listWit
