@@ -13,17 +13,22 @@
 	*
 	*    XSLT stylesheet: shared-match-templates.xsl
 	*
-	*    Version: 3.1.0
+	*    Version: 3.2.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
-	*    Licence: CC-BY-NC 4.0 (Attribution-NonCommercial 4.0
+	*    Licence: CC BY-NC 4.0 (Attribution-NonCommercial 4.0
 	*             International),
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v3.2.0 (2026-06-10)
+	*             - Render tei:title inside tei:bibl or tei:witness in
+	*               tei:teiHeader as the HTML citation element <cite>.
+	*             - Support @source in <milestone>.
+	*             - Add template for <msIdentifier>.
 	*        v3.1.0 (2026-04-16)
-	*             - Treat missing @rend on <milestone unit="section"> as
+	*             - Treat missing @rend in <milestone unit="section"> as
 	*               @rend="blankLine".
 	*        v3.0.0 (2026-04-16)
 	*             - Update <milestone> handling based on changed spec.
@@ -239,22 +244,49 @@
 					select="if ($rend-values) then $rend-values[1] else ()"/>
 				<hr class="milestone {if ($first-rend eq 'blankLine' or empty($rend-values)) then 'blank' else $first-rend}"/>
 			</xsl:when>
+
 			<xsl:when test="@unit eq 'part' and (@when or @ed)">
+				<xsl:variable name="milestone-date" as="xs:string?"
+				              select="slsFn:format-date-or-year(@when)"/>
+				<xsl:variable name="milestone-source" as="xs:string?"
+				              select="@ed"/>
 				<div class="milestone milestonePart">
 					<xsl:call-template name="set-attr-from-xml-id"/>
-					<xsl:variable name="milestone-date" as="xs:string?"
-					              select="slsFn:format-date-or-year(@when)"/>
-					<xsl:variable name="milestone-source" as="xs:string?"
-						select="@ed"/>
 					<xsl:text>{if ($milestone-source) then $milestone-source else ''}{if ($milestone-source and $milestone-date) then ' ' else ''}{if ($milestone-date) then $milestone-date else ''}</xsl:text>
 				</div>
 			</xsl:when>
+
+			<xsl:when test="@unit eq 'part' and @source">
+				<xsl:variable name="source-refs" as="xs:string*"
+				              select="tokenize(@source)"/>
+				<xsl:variable name="source-elems" as="element(*)*"
+				              select="if (exists($source-refs))
+				                          then root(.)/tei:TEI/tei:teiHeader/tei:fileDesc
+				                               /tei:sourceDesc//tei:*[('#' || @xml:id) = $source-refs]
+				                      else ()"/>
+				<xsl:if test="exists($source-elems)">
+					<div class="milestone milestonePart">
+						<xsl:call-template name="set-attr-from-xml-id"/>
+						<xsl:for-each select="$source-elems">
+							<xsl:apply-templates select="."/>
+							<xsl:if test="count($source-elems) gt 1 and position() ne last()">
+								<br/>
+							</xsl:if>
+						</xsl:for-each>
+					</div>
+				</xsl:if>
+				<xsl:if test="empty($source-elems)">
+					<xsl:comment>Unable to output milestone element with @source because no matching source elements found.</xsl:comment>
+				</xsl:if>
+			</xsl:when>
+
 			<xsl:when test="@unit eq 'item' and @n">
 				<div class="milestone milestoneItem">
 					<xsl:call-template name="set-attr-from-xml-id"/>
 					<xsl:text>{@n}</xsl:text>
 				</div>
 			</xsl:when>
+
 			<xsl:otherwise>
 				<hr class="milestone blank"/>
 			</xsl:otherwise>
@@ -393,25 +425,41 @@
 
 
 	<xsl:template match="tei:persName | tei:placeName | tei:rs | tei:title">
-		<span>
-			<xsl:call-template name="set-class-attr">
-				<xsl:with-param name="class-names"
-				                select="('tooltiptrigger',
-				                         if (local-name() eq 'placeName')
-				                             then 'placeName ttPlace'
-				                         else if (local-name() eq 'title')
-				                             then 'title ttTitle'
-				                         else 'person ttPerson',
-				                         @rend,
-				                         if (@cert eq 'low')
-				                             then 'uncertain' else (),
-				                         if (@role eq 'fictional')
-				                             then 'fictional' else ())"/>
-			</xsl:call-template>
-			<xsl:call-template name="set-attr-from-key"/>
-			<xsl:call-template name="set-attr-from-xml-lang"/>
-			<xsl:apply-templates/>
-		</span>
+		<xsl:choose>
+			<!-- tei:title inside tei:bibl or tei:witness in tei:teiHeader is
+				 rendered as the HTML citation element. -->
+			<xsl:when test="local-name() eq 'title' and
+							ancestor::tei:teiHeader and
+				            (parent::tei:bibl or parent::tei:witness)">
+				<cite>
+					<xsl:call-template name="set-attr-from-xml-lang"/>
+					<xsl:apply-templates/>
+				</cite>
+			</xsl:when>
+			<xsl:otherwise>
+				<!-- TODO: tei:title elements should be rendered as the HTML
+				     citation element <cite>. -->
+				<span>
+					<xsl:call-template name="set-class-attr">
+						<xsl:with-param name="class-names"
+						                select="('tooltiptrigger',
+						                         if (local-name() eq 'placeName')
+						                             then 'placeName ttPlace'
+						                         else if (local-name() eq 'title')
+						                             then 'title ttTitle'
+						                         else 'person ttPerson',
+						                         @rend,
+						                         if (@cert eq 'low')
+						                             then 'uncertain' else (),
+						                         if (@role eq 'fictional')
+						                             then 'fictional' else ())"/>
+					</xsl:call-template>
+					<xsl:call-template name="set-attr-from-key"/>
+					<xsl:call-template name="set-attr-from-xml-lang"/>
+					<xsl:apply-templates/>
+				</span>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 
@@ -439,6 +487,27 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</a>
+	</xsl:template>
+	
+	
+	<xsl:template match="tei:msIdentifier">
+		<!-- * This template is used when msIdentifier needs to be
+		     * serialized, for example, for tei:milestone. -->
+		<xsl:sequence select="let $norm-ms-name := slsFn:norm-or-empty(tei:msName[1]/string()),
+		                          $ms-name := if (exists($norm-ms-name))
+		                                          then '”' || $norm-ms-name || '”'
+		                                      else (),
+		                          $parts := (tei:collection,
+		                                     tei:repository,
+		                                     tei:institution,
+		                                     tei:settlement,
+		                                     tei:country,
+		                                     $ms-name,
+		                                     tei:idno)
+		                      return
+		                          $parts ! string(.)
+		                          ! normalize-space(.)
+		                          => string-join(', ')"/>
 	</xsl:template>
 
 </xsl:stylesheet>

@@ -13,15 +13,18 @@
 	*
 	*    XSLT stylesheet: shared-named-templates.xsl
 	*
-	*    Version: 1.4.0
+	*    Version: 1.4.1
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-07
-	*    Licence: CC-BY-NC 4.0 (Attribution-NonCommercial 4.0
+	*    Licence: CC BY-NC 4.0 (Attribution-NonCommercial 4.0
 	*             International),
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.4.1 (2026-06-10)
+	*             - Wrap footnote list item references in <span> for
+	*               enhanced styling options.
 	*        v1.4.0 (2025-11-20)
 	*             - Added parameter to the `document-heading` template for
 	*               adding a classname based on the heading level.
@@ -116,7 +119,9 @@
 				<xsl:call-template name="set-attr-from-xml-lang"/>
 				<a href="#{@xml:id}" class="xreference footnoteReference"
 				   rel="nofollow" role="doc-backlink">
-					<xsl:text>{ if (@n) then @n else '*)' } </xsl:text>
+					<span>
+						<xsl:text>{ if (@n) then @n else '*)' } </xsl:text>
+					</span>
 				</a>
 				<span class="footnoteText">
 					<xsl:apply-templates/>

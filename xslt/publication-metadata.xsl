@@ -570,6 +570,9 @@
 		              select="($source-desc/tei:msDesc[@xml:lang eq $meta-lang][1],
 		                       $source-desc/tei:msDesc[1])[1]"/>
 
+		<!-- TODO: refactor $source-archive so it is constructed using
+		     a function which is shared with the tei:msIdentifier template
+		     in shared-match-templates.xsl. -->
 		<xsl:variable name="source-archive" as="xs:string?"
 		              select="let $ms-identifier := $ms-desc/tei:msIdentifier
 		                      return
