@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2026-06-09T15:42:35Z. . 
+    Schema generated from ODD source 2026-06-10T08:57:30Z. . 
     TEI Edition: P5 Version 4.11.0. Last updated on 18th February 2026, revision 358d2e48e 
     TEI Edition Location: https://www.tei-c.org/Vault/P5/4.11.0/ 
     
@@ -3172,6 +3172,16 @@ Normalization 13. Critical Apparatus]</xs:documentation>
               <xs:list>
                 <xs:simpleType>
                   <xs:restriction base="xs:token">
+                    <xs:enumeration value="custom-marker">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="custom-number">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:enumeration>
                     <xs:enumeration value="dash">
                       <xs:annotation>
                         <xs:documentation/>
