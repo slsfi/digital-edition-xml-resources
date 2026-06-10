@@ -10,9 +10,10 @@
 				<publisher xml:lang="en">Society of Swedish Literature in Finland</publisher>
 				<ref target="https://www.sls.fi/">https://www.sls.fi/</ref>
 				<availability status="free">
-					<licence target="https://creativecommons.org/licenses/by-sa/4.0/">Distributed
-						under a Creative Commons Attribution-ShareAlike 4.0 International
-						License</licence>
+					<licence target="https://creativecommons.org/licenses/by-sa/4.0/">
+						Distributed under a Creative Commons Attribution-ShareAlike
+						4.0 International License
+					</licence>
 				</availability>
 			</publicationStmt>
 			<sourceDesc>
@@ -20,6 +21,9 @@
 			</sourceDesc>
 		</fileDesc>
 		<revisionDesc>
+			<change when="2026-06-10" who="#SK">
+				- Add "custom-marker" and "custom-number" to values of @rend on list.
+			</change>
 			<change when="2026-06-09" who="#SK">
 				- Add correction, editorialDecl, hyphenation, interpretation, projectDesc,
 				  punctuation, and quotation.
@@ -1740,6 +1744,8 @@
 						<attDef ident="subtype" mode="delete"/>
 						<attDef ident="rend" mode="change">
 							<valList type="closed" mode="change">
+								<valItem mode="add" ident="custom-marker"/>
+								<valItem mode="add" ident="custom-number"/>
 								<valItem mode="add" ident="dash"/>
 								<valItem mode="add" ident="decimal"/>
 								<valItem mode="add" ident="disc"/>
