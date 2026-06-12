@@ -21,6 +21,11 @@
 			</sourceDesc>
 		</fileDesc>
 		<revisionDesc>
+			<change when="2026-06-12" who="#SK">
+				- Add @xml:lang on floatingText.
+				- Change values of @type on div.
+				- Harmonise @part values across div and l.
+			</change>
 			<change when="2026-06-10" who="#SK">
 				- Add "custom-marker" and "custom-number" to values of @rend on list.
 			</change>
@@ -891,6 +896,7 @@
 						<memberOf key="att.placement" mode="delete"/>
 					</classes>
 					<attList>
+						<attRef name="part" class="att.fragmentable"/>
 						<attDef ident="n" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
 						<attDef ident="xml:space" mode="delete"/>
@@ -901,34 +907,31 @@
 						<attDef ident="subtype" mode="delete"/>
 						<attDef ident="rend" mode="delete"/>
 						<attDef ident="type" mode="change">
-							<valList type="closed" mode="change">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="abstract"/>
+								<valItem mode="add" ident="act"/>
+								<valItem mode="add" ident="appendix"/>
+								<valItem mode="add" ident="article"/>
+								<valItem mode="add" ident="bibliography"/>
+								<valItem mode="add" ident="book"/>
+								<valItem mode="add" ident="chapter"/>
+								<valItem mode="add" ident="colophon"/>
+								<valItem mode="add" ident="contents"/>
+								<valItem mode="add" ident="essay"/>
+								<valItem mode="add" ident="foreword"/>
+								<valItem mode="add" ident="index"/>
+								<valItem mode="add" ident="introduction"/>
 								<valItem mode="add" ident="letter"/>
-								<valItem mode="add" ident="letterpart"/>
+								<valItem mode="add" ident="notes"/>
+								<valItem mode="add" ident="part"/>
 								<valItem mode="add" ident="poem"/>
-								<valItem mode="add" ident="prose"/>
-							</valList>
-						</attDef>
-						<attDef ident="part" mode="change">
-							<valList type="closed" mode="change">
-								<valItem mode="change" ident="I">
-									<desc versionDate="2024-09-30" xml:lang="en">this is the initial
-										part of a fragmented element</desc>
-								</valItem>
-								<valItem mode="change" ident="F">
-									<desc versionDate="2024-09-30" xml:lang="en">this is the final
-										part of a fragmented element if there are three fragments,
-										or the second to last part if there are four
-										fragments</desc>
-								</valItem>
-								<valItem mode="change" ident="N">
-									<desc versionDate="2024-09-30" xml:lang="en">the element is not
-										fragmented, or no claim is made as to its completeness; this
-										value is equivalent to not having the part-attribute on the
-										element</desc>
-								</valItem>
-								<valItem mode="delete" ident="M"/>
-								<valItem mode="delete" ident="F2"/>
-								<valItem mode="delete" ident="Y"/>
+								<valItem mode="add" ident="preface"/>
+								<valItem mode="add" ident="scene"/>
+								<valItem mode="add" ident="section"/>
+								<valItem mode="add" ident="speech"/>
+								<valItem mode="add" ident="story"/>
+								<valItem mode="add" ident="subsection"/>
+								<valItem mode="add" ident="suite"/>
 							</valList>
 						</attDef>
 					</attList>
@@ -1056,7 +1059,6 @@
 					<attList>
 						<attDef ident="xml:id" mode="delete"/>
 						<attDef ident="n" mode="delete"/>
-						<attDef ident="xml:lang" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
 						<attDef ident="xml:space" mode="delete"/>
 						<attDef ident="facs" mode="delete"/>
@@ -1510,6 +1512,7 @@
 				</elementSpec>
 				<elementSpec ident="l" mode="change">
 					<attList>
+						<attRef name="part" class="att.fragmentable"/>
 						<attDef ident="ana" mode="delete"/>
 						<attDef ident="change" mode="delete"/>
 						<attDef ident="corresp" mode="delete"/>
@@ -1526,37 +1529,6 @@
 						<attDef ident="cert" mode="delete"/>
 						<attDef ident="resp" mode="delete"/>
 						<attDef ident="source" mode="delete"/>
-						<attDef ident="part" mode="change">
-							<valList type="closed" mode="change">
-								<valItem mode="change" ident="I">
-									<desc versionDate="2024-09-30" xml:lang="en">this is the initial
-										part of a fragmented element</desc>
-								</valItem>
-								<valItem mode="change" ident="M">
-									<desc versionDate="2024-09-30" xml:lang="en">this is a medial
-										part of a fragmented element if there are three fragments,
-										or the second fragment if there are four fragments</desc>
-								</valItem>
-								<valItem mode="change" ident="F">
-									<desc versionDate="2024-09-30" xml:lang="en">this is the final
-										part of a fragmented element if there are three fragments,
-										or the second to last part if there are four
-										fragments</desc>
-								</valItem>
-								<valItem mode="add" ident="F2">
-									<desc versionDate="2024-09-30" xml:lang="en">only used if there
-										are four fragments, in that case this is the final part of
-										the fragmented element</desc>
-								</valItem>
-								<valItem mode="change" ident="N">
-									<desc versionDate="2024-09-30" xml:lang="en">the element is not
-										fragmented, or no claim is made as to its completeness; this
-										value is equivalent to not having the part-attribute on the
-										element</desc>
-								</valItem>
-								<valItem mode="delete" ident="Y"/>
-							</valList>
-						</attDef>
 						<attDef ident="rend" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="center"/>
@@ -3793,12 +3765,12 @@
 								<valItem mode="change" ident="M">
 									<desc versionDate="2024-09-30" xml:lang="en">this is a medial
 										part of a fragmented element if there are three fragments,
-										or the second fragment if there are four fragments</desc>
+										and the second fragment if there are four fragments</desc>
 								</valItem>
 								<valItem mode="change" ident="F">
 									<desc versionDate="2024-09-30" xml:lang="en">this is the final
 										part of a fragmented element if there are two or three
-										fragments, or the second to last part if there are four
+										fragments, and the second to last part if there are four
 										fragments</desc>
 								</valItem>
 								<valItem mode="add" ident="F2">

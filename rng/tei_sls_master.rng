@@ -5,7 +5,7 @@
          xmlns:xlink="http://www.w3.org/1999/xlink"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2026-06-10T08:59:33Z. . 
+Schema generated from ODD source 2026-06-12T13:47:35Z. . 
 TEI Edition: P5 Version 4.11.0. Last updated on 18th February 2026, revision 358d2e48e 
 TEI Edition Location: https://www.tei-c.org/Vault/P5/4.11.0/ 
   
@@ -263,6 +263,9 @@ TEI Edition Location: https://www.tei-c.org/Vault/P5/4.11.0/
          </attribute>
       </optional>
    </define>
+   <define name="tei_att.fragmentable.attributes">
+      <ref name="tei_att.fragmentable.attribute.part"/>
+   </define>
    <define name="tei_att.fragmentable.attribute.part">
       <optional>
          <attribute xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
@@ -275,9 +278,9 @@ TEI Edition Location: https://www.tei-c.org/Vault/P5/4.11.0/
                <value>I</value>
                <a:documentation>(initial) this is the initial part of a fragmented element</a:documentation>
                <value>M</value>
-               <a:documentation>(medial) this is a medial part of a fragmented element if there are three fragments, or the second fragment if there are four fragments</a:documentation>
+               <a:documentation>(medial) this is a medial part of a fragmented element if there are three fragments, and the second fragment if there are four fragments</a:documentation>
                <value>F</value>
-               <a:documentation>(final) this is the final part of a fragmented element if there are two or three fragments, or the second to last part if there are four fragments</a:documentation>
+               <a:documentation>(final) this is the final part of a fragmented element if there are two or three fragments, and the second to last part if there are four fragments</a:documentation>
                <value>F2</value>
                <a:documentation>only used if there are four fragments, in that case this is the final part of the fragmented element</a:documentation>
             </choice>
@@ -3636,6 +3639,7 @@ Elements 7.2.6. Speech Contents]</a:documentation>
          <ref name="tei_att.global.attribute.xmlid"/>
          <ref name="tei_att.global.attribute.n"/>
          <ref name="tei_att.global.attribute.xmllang"/>
+         <ref name="tei_att.fragmentable.attributes"/>
          <optional>
             <attribute name="rend">
                <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(rendition) indicates how the element in question was rendered or presented in the source text.</a:documentation>
@@ -3651,27 +3655,7 @@ Elements 7.2.6. Speech Contents]</a:documentation>
                </list>
             </attribute>
          </optional>
-         <optional>
-            <attribute xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
-                       name="part"
-                       a:defaultValue="N">
-               <a:documentation>specifies whether or not its parent element is fragmented in some way, typically by some other overlapping structure: for example a speech which is divided between two or more verse stanzas, a paragraph which is split across a page division, a verse line which is divided between two speakers.</a:documentation>
-               <choice>
-                  <value>N</value>
-                  <a:documentation>(no) the element is not fragmented, or no claim is made as to its completeness; this value is equivalent to not having the part-attribute on the element</a:documentation>
-                  <value>I</value>
-                  <a:documentation>(initial) this is the initial part of a fragmented element</a:documentation>
-                  <value>M</value>
-                  <a:documentation>(medial) this is a medial part of a fragmented element if there are three fragments, or the second fragment if there are four fragments</a:documentation>
-                  <value>F</value>
-                  <a:documentation>(final) this is the final part of a fragmented element if there are three fragments, or the second to last part if there are four fragments</a:documentation>
-                  <value>F2</value>
-                  <a:documentation>only used if there are four fragments, in that case this is the final part of the fragmented element</a:documentation>
-                  <value>F2</value>
-                  <a:documentation>only used if there are four fragments, in that case this is the final part of the fragmented element</a:documentation>
-               </choice>
-            </attribute>
-         </optional>
+         <ref name="tei_att.fragmentable.attribute.part"/>
          <empty/>
       </element>
    </define>
@@ -4327,6 +4311,7 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationComId; 3] dbPublic
                <rng:ref name="tei_model.global"/>
             </rng:zeroOrMore>
          </group>
+         <ref name="tei_att.global.attribute.xmllang"/>
          <optional>
             <attribute name="type">
                <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">characterizes the element in some sense, using any convenient classification scheme or typology.</a:documentation>
@@ -4414,38 +4399,69 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationComId; 3] dbPublic
         </sch:report>
             </sch:rule>
          </pattern>
+         <ref name="tei_att.fragmentable.attributes"/>
          <ref name="tei_att.global.attribute.xmlid"/>
          <ref name="tei_att.global.attribute.xmllang"/>
          <optional>
-            <attribute xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
-                       name="part"
-                       a:defaultValue="N">
-               <a:documentation>specifies whether or not its parent element is fragmented in some way, typically by some other overlapping structure: for example a speech which is divided between two or more verse stanzas, a paragraph which is split across a page division, a verse line which is divided between two speakers.</a:documentation>
-               <choice>
-                  <value>N</value>
-                  <a:documentation>(no) the element is not fragmented, or no claim is made as to its completeness; this value is equivalent to not having the part-attribute on the element</a:documentation>
-                  <value>I</value>
-                  <a:documentation>(initial) this is the initial part of a fragmented element</a:documentation>
-                  <value>F</value>
-                  <a:documentation>(final) this is the final part of a fragmented element if there are three fragments, or the second to last part if there are four fragments</a:documentation>
-               </choice>
-            </attribute>
-         </optional>
-         <optional>
             <attribute name="type">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">characterizes the element in some sense, using any convenient classification scheme or typology.</a:documentation>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">characterizes the element in some sense, using any convenient classification scheme or typology.
+Suggested values include: 1] abstract; 2] act; 3] appendix; 4] article; 5] bibliography; 6] book; 7] chapter; 8] colophon; 9] contents; 10] essay; 11] foreword; 12] index; 13] introduction; 14] letter; 15] notes; 16] part; 17] poem; 18] preface; 19] scene; 20] section; 21] speech; 22] story; 23] subsection; 24] suite</a:documentation>
                <choice>
+                  <value>abstract</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>act</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>appendix</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>article</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>bibliography</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>book</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>chapter</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>colophon</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>contents</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>essay</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>foreword</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>index</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>introduction</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <value>letter</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-                  <value>letterpart</value>
+                  <value>notes</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>part</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <value>poem</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-                  <value>prose</value>
+                  <value>preface</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>scene</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>section</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>speech</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>story</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>subsection</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>suite</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <data type="token">
+                     <param name="pattern">[^\p{C}\p{Z}]+</param>
+                  </data>
                </choice>
             </attribute>
          </optional>
+         <ref name="tei_att.fragmentable.attribute.part"/>
          <empty/>
       </element>
    </define>

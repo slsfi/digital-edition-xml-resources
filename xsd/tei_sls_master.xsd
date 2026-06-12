@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!--
-    Schema generated from ODD source 2026-06-10T08:57:30Z. . 
+    Schema generated from ODD source 2026-06-12T13:05:14Z. . 
     TEI Edition: P5 Version 4.11.0. Last updated on 18th February 2026, revision 358d2e48e 
     TEI Edition Location: https://www.tei-c.org/Vault/P5/4.11.0/ 
     
@@ -165,6 +165,9 @@
       </xs:simpleType>
     </xs:attribute>
   </xs:attributeGroup>
+  <xs:attributeGroup name="tei_att.fragmentable.attributes">
+    <xs:attributeGroup ref="tei:tei_att.fragmentable.attribute.part"/>
+  </xs:attributeGroup>
   <xs:attributeGroup name="tei_att.fragmentable.attribute.part">
     <xs:attribute name="part" default="N">
       <xs:annotation>
@@ -184,12 +187,12 @@
           </xs:enumeration>
           <xs:enumeration value="M">
             <xs:annotation>
-              <xs:documentation>(medial) this is a medial part of a fragmented element if there are three fragments, or the second fragment if there are four fragments</xs:documentation>
+              <xs:documentation>(medial) this is a medial part of a fragmented element if there are three fragments, and the second fragment if there are four fragments</xs:documentation>
             </xs:annotation>
           </xs:enumeration>
           <xs:enumeration value="F">
             <xs:annotation>
-              <xs:documentation>(final) this is the final part of a fragmented element if there are two or three fragments, or the second to last part if there are four fragments</xs:documentation>
+              <xs:documentation>(final) this is the final part of a fragmented element if there are two or three fragments, and the second to last part if there are four fragments</xs:documentation>
             </xs:annotation>
           </xs:enumeration>
           <xs:enumeration value="F2">
@@ -3892,6 +3895,7 @@ Elements 7.2.6. Speech Contents]</xs:documentation>
       <xs:attributeGroup ref="tei:tei_att.global.attribute.xmlid"/>
       <xs:attributeGroup ref="tei:tei_att.global.attribute.n"/>
       <xs:attributeGroup ref="tei:tei_att.global.attribute.xmllang"/>
+      <xs:attributeGroup ref="tei:tei_att.fragmentable.attributes"/>
       <xs:attribute name="rend">
         <xs:annotation>
           <xs:documentation>(rendition) indicates how the element in question was rendered or presented in the source text.</xs:documentation>
@@ -3920,45 +3924,7 @@ Elements 7.2.6. Speech Contents]</xs:documentation>
           </xs:restriction>
         </xs:simpleType>
       </xs:attribute>
-      <xs:attribute name="part" default="N">
-        <xs:annotation>
-          <xs:documentation>specifies whether or not its parent element is fragmented in some way, typically by some other overlapping structure: for example a speech which is divided between two or more verse stanzas, a paragraph which is split across a page division, a verse line which is divided between two speakers.</xs:documentation>
-        </xs:annotation>
-        <xs:simpleType>
-          <xs:restriction base="xs:token">
-            <xs:enumeration value="N">
-              <xs:annotation>
-                <xs:documentation>(no) the element is not fragmented, or no claim is made as to its completeness; this value is equivalent to not having the part-attribute on the element</xs:documentation>
-              </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="I">
-              <xs:annotation>
-                <xs:documentation>(initial) this is the initial part of a fragmented element</xs:documentation>
-              </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="M">
-              <xs:annotation>
-                <xs:documentation>(medial) this is a medial part of a fragmented element if there are three fragments, or the second fragment if there are four fragments</xs:documentation>
-              </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="F">
-              <xs:annotation>
-                <xs:documentation>(final) this is the final part of a fragmented element if there are three fragments, or the second to last part if there are four fragments</xs:documentation>
-              </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="F2">
-              <xs:annotation>
-                <xs:documentation>only used if there are four fragments, in that case this is the final part of the fragmented element</xs:documentation>
-              </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="F2">
-              <xs:annotation>
-                <xs:documentation>only used if there are four fragments, in that case this is the final part of the fragmented element</xs:documentation>
-              </xs:annotation>
-            </xs:enumeration>
-          </xs:restriction>
-        </xs:simpleType>
-      </xs:attribute>
+      <xs:attributeGroup ref="tei:tei_att.fragmentable.attribute.part"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="lg">
@@ -4572,6 +4538,7 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationComId; 3] dbPublic
         <xs:element ref="tei:body"/>
         <xs:group minOccurs="0" maxOccurs="unbounded" ref="tei:tei_model.global"/>
       </xs:sequence>
+      <xs:attributeGroup ref="tei:tei_att.global.attribute.xmllang"/>
       <xs:attribute name="type">
         <xs:annotation>
           <xs:documentation>characterizes the element in some sense, using any convenient classification scheme or typology.</xs:documentation>
@@ -4631,61 +4598,241 @@ Suggested values include: 1] dbPublicationId; 2] dbPublicationComId; 3] dbPublic
           </xs:sequence>
         </xs:sequence>
       </xs:sequence>
+      <xs:attributeGroup ref="tei:tei_att.fragmentable.attributes"/>
       <xs:attributeGroup ref="tei:tei_att.global.attribute.xmlid"/>
       <xs:attributeGroup ref="tei:tei_att.global.attribute.xmllang"/>
-      <xs:attribute name="part" default="N">
-        <xs:annotation>
-          <xs:documentation>specifies whether or not its parent element is fragmented in some way, typically by some other overlapping structure: for example a speech which is divided between two or more verse stanzas, a paragraph which is split across a page division, a verse line which is divided between two speakers.</xs:documentation>
-        </xs:annotation>
-        <xs:simpleType>
-          <xs:restriction base="xs:token">
-            <xs:enumeration value="N">
-              <xs:annotation>
-                <xs:documentation>(no) the element is not fragmented, or no claim is made as to its completeness; this value is equivalent to not having the part-attribute on the element</xs:documentation>
-              </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="I">
-              <xs:annotation>
-                <xs:documentation>(initial) this is the initial part of a fragmented element</xs:documentation>
-              </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="F">
-              <xs:annotation>
-                <xs:documentation>(final) this is the final part of a fragmented element if there are three fragments, or the second to last part if there are four fragments</xs:documentation>
-              </xs:annotation>
-            </xs:enumeration>
-          </xs:restriction>
-        </xs:simpleType>
-      </xs:attribute>
       <xs:attribute name="type">
         <xs:annotation>
-          <xs:documentation>characterizes the element in some sense, using any convenient classification scheme or typology.</xs:documentation>
+          <xs:documentation>characterizes the element in some sense, using any convenient classification scheme or typology.
+Suggested values include: 1] abstract; 2] act; 3] appendix; 4] article; 5] bibliography; 6] book; 7] chapter; 8] colophon; 9] contents; 10] essay; 11] foreword; 12] index; 13] introduction; 14] letter; 15] notes; 16] part; 17] poem; 18] preface; 19] scene; 20] section; 21] speech; 22] story; 23] subsection; 24] suite</xs:documentation>
         </xs:annotation>
         <xs:simpleType>
-          <xs:restriction base="xs:token">
-            <xs:enumeration value="letter">
-              <xs:annotation>
-                <xs:documentation/>
-              </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="letterpart">
-              <xs:annotation>
-                <xs:documentation/>
-              </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="poem">
-              <xs:annotation>
-                <xs:documentation/>
-              </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="prose">
-              <xs:annotation>
-                <xs:documentation/>
-              </xs:annotation>
-            </xs:enumeration>
-          </xs:restriction>
+          <xs:union>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="abstract">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="act">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="appendix">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="article">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="bibliography">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="book">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="chapter">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="colophon">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="contents">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="essay">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="foreword">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="index">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="introduction">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="letter">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="notes">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="part">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="poem">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="preface">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="scene">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="section">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="speech">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="story">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="subsection">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="suite">
+                  <xs:annotation>
+                    <xs:documentation/>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:pattern value="[^\p{C}\p{Z}]+"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:union>
         </xs:simpleType>
       </xs:attribute>
+      <xs:attributeGroup ref="tei:tei_att.fragmentable.attribute.part"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="byline">
