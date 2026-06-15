@@ -27,6 +27,9 @@
         <sch:ns xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" prefix="sch" uri="http://purl.oclc.org/dsdl/schematron"/>
         <sch:ns xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" prefix="sch1x" uri="http://www.ascc.net/xml/schematron"/>
       </tei:constraintDecl></tei:encodingDesc><revisionDesc>
+			<change when="2026-06-15" who="#SK">
+				- Remove duplicate @part declarations from div and l.
+			</change>
 			<change when="2026-06-12" who="#SK">
 				- Add @xml:lang on floatingText.
 				- Change values of @type on div.
@@ -7200,7 +7203,7 @@ epistemology, methodology and history of
 								<valItem mode="add" ident="center"/>
 								<valItem mode="add" ident="indent"/>
 							</valList>
-						</attDef><attRef name="part" class="att.fragmentable"/></attList><exemplum xml:lang="und">
+						</attDef></attList><exemplum xml:lang="und">
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-l-egXML-lc" source="#l-td-eg-1">
       <l met="x/x/x/x/x/" real="/xx/x/x/x/">Shall I compare thee to a summer's day?</l>
     </egXML>
@@ -9639,7 +9642,7 @@ supplied to printer.</change>
 								<valItem mode="add" ident="subsection"/>
 								<valItem mode="add" ident="suite"/>
 							</valList>
-						</attDef><attRef name="part" class="att.fragmentable"/></attList><exemplum xml:lang="en">
+						</attDef></attList><exemplum xml:lang="en">
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-div-egXML-ma" source="#bentham">
       <body>
         <div type="part">

@@ -21,6 +21,9 @@
 			</sourceDesc>
 		</fileDesc>
 		<revisionDesc>
+			<change when="2026-06-15" who="#SK">
+				- Remove duplicate @part declarations from div and l.
+			</change>
 			<change when="2026-06-12" who="#SK">
 				- Add @xml:lang on floatingText.
 				- Change values of @type on div.
@@ -896,7 +899,6 @@
 						<memberOf key="att.placement" mode="delete"/>
 					</classes>
 					<attList>
-						<attRef name="part" class="att.fragmentable"/>
 						<attDef ident="n" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
 						<attDef ident="xml:space" mode="delete"/>
@@ -1512,7 +1514,6 @@
 				</elementSpec>
 				<elementSpec ident="l" mode="change">
 					<attList>
-						<attRef name="part" class="att.fragmentable"/>
 						<attDef ident="ana" mode="delete"/>
 						<attDef ident="change" mode="delete"/>
 						<attDef ident="corresp" mode="delete"/>
