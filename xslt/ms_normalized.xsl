@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: ms_normalized.xsl
 	*
-	*    Version: 2.3.0
+	*    Version: 2.4.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
@@ -22,6 +22,9 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v2.4.0 (2026-06-17)
+	*             - Render <note> without @place and not descendant of <p>
+	*               and with <p> children as <div>.
 	*        v2.3.0 (2026-06-10)
 	*             - Support custom numbers and markers on list items.
 	*        v2.2.0 (2026-04-21)
@@ -565,7 +568,12 @@
 			</span>
 		</xsl:if>
 		<xsl:if test="not(@place) and not(ancestor::tei:p)">
-			<p>
+			<xsl:variable name="element-name" as="xs:string"
+			              select="if (tei:p)
+			                          then 'div'
+			                      else 'p'"/>
+
+			<xsl:element name="{$element-name}">
 				<xsl:call-template name="set-attr-from-xml-lang"/>
 				<xsl:call-template name="set-class-attr">
 					<xsl:with-param name="class-names"
@@ -575,7 +583,7 @@
 						         else ())"/>
 				</xsl:call-template>
 				<xsl:apply-templates/>
-			</p>
+			</xsl:element>
 		</xsl:if>
 	</xsl:template>
 
