@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: shared-match-templates.xsl
 	*
-	*    Version: 3.2.0
+	*    Version: 4.0.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
@@ -22,6 +22,9 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v4.0.0 (2026-06-24)
+	*             - Update <div> output based on changed spec.
+	*             - Support @xml:lang in <floatingText>.
 	*        v3.2.0 (2026-06-10)
 	*             - Render tei:title inside tei:bibl or tei:witness in
 	*               tei:teiHeader as the HTML citation element <cite>.
@@ -112,19 +115,20 @@
 
 
 	<xsl:template match="tei:div">
-	<!-- * If the <div> has a <head> child or @type of the <div> is
-	     * 'letterpart', wrap in <section>, otherwise in a <div>. However,
-	     * a <div> without attributes will not be outputted. The @type
-	     * value will be added as a class name to @class, and if the type
-	     * changes, the class name 'incorp' will also be added. * -->
+	<!-- * If the <div> has a <head> child or @part and the ancestor
+		 * <text> is of type 'letter', wrap in <section>, otherwise in
+		 * a <div>. However, a <div> without attributes will not be
+		 * outputted. The @type value will be added as a class name to
+		 * @class, if the <div> is a part of a letter, the value will
+		 * be 'letterpart'. * -->
 		<xsl:variable name="class-names" as="xs:string*"
-			select="(@type,
-		             if (ancestor::tei:div[@type][1]/@type ne current()/@type
-		                 or (parent::tei:body
-			                 and ancestor::tei:text/@type ne current()/@type))
-			         then 'incorp' else ())"/>
+			select="if (@part and exists(ancestor::tei:text[@type eq 'letter']))
+			            then 'letterpart'
+			        else if (@type)
+			            then @type
+			        else ()"/>
 		<xsl:variable name="element-name" as="xs:string"
-		              select="if (*[self::tei:head] or (@type eq 'letterpart'))
+		              select="if (*[self::tei:head] or ('letterpart') = $class-names)
 		                          then 'section'
 		                      else 'div'"/>
 
@@ -159,6 +163,7 @@
 		                      else 'div'"/>
 
 		<xsl:element name="{$element-name}">
+			<xsl:call-template name="set-attr-from-xml-lang"/>
 			<xsl:call-template name="set-class-attr">
 				<xsl:with-param name="class-names"
 				                select="(if (@type) then @type else 'prose',
@@ -464,7 +469,7 @@
 
 
 	<xsl:template match="tei:ref | tei:ptr[not(@type)]">
-	<!-- TODO: Hyperlinks should only used for navigation to real URLs.
+	<!-- TODO: Hyperlinks should only be used for navigation to real URLs.
 	     Should be using a <button> when not navigating to a URL. -->
 		<a>
 			<xsl:call-template name="set-class-attr">

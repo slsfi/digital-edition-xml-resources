@@ -54,6 +54,10 @@ Stylesheets in the folder:
 
 Main stylesheet for transforming a preprocessed reading-text TEI XML document (a “web version”) to an HTML5 fragment, that can be included in a web page (does not generate a complete HTML document). Relies on several “shared” XSLT stylesheets.
 
+#### `est_downloadable_xml.xsl`
+
+Stylesheet for transforming a preprocessed reading-text TEI XML document (a “web version”) to a version (another XML document) that the user can download.
+
 #### `introduction.xsl`
 
 Main stylesheet for transforming a introduction TEI XML document to an HTML5 fragment, that can be included in a web page (does not generate a complete HTML document). Relies on several “shared” XSLT stylesheets.
