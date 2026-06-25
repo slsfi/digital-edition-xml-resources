@@ -14,7 +14,7 @@
 	*
 	*    XSLT stylesheet: shared-functions.xsl
 	*
-	*    Version: 1.3.0
+	*    Version: 1.4.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-07
@@ -23,6 +23,8 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.4.0 (2026-06-25)
+	*             - Add is-in-addspan() and is-in-delspan().
 	*        v1.3.0 (2026-06-10)
 	*             - Add norm-or-empty() and get-witnesses().
 	*        v1.2.0 (2026-04-16)
@@ -339,6 +341,40 @@
 		<xsl:sequence select="root($context-item)/tei:TEI/tei:teiHeader/tei:fileDesc
 			                  /tei:sourceDesc/tei:listWit
 			                  /tei:witness[('#' || @xml:id) = $wit-refs]"/>
+	</xsl:function>
+
+
+	<xsl:function name="slsFn:is-in-addspan" as="xs:boolean">
+	<!-- * Returns true if the passed element is within an addSpan,
+	     * otherwise false. * -->
+		<xsl:param name="current" as="node()"/>
+
+		<xsl:variable name="preceding-add-spans"
+		              select="$current/preceding::tei:addSpan"/>
+		<xsl:variable name="add-span-ids"
+		              select="for $span in $preceding-add-spans
+		                      return $span/@spanTo"/>
+		<xsl:sequence select="some $id in $add-span-ids
+		                      satisfies $current/following::tei:anchor[
+		                          ('#' || @xml:id) eq $id
+		                      ]"/>
+	</xsl:function>
+
+
+	<xsl:function name="slsFn:is-in-delspan" as="xs:boolean">
+	<!-- * Returns true if the passed element is within a delSpan,
+	     * otherwise false. * -->
+		<xsl:param name="current" as="node()"/>
+
+		<xsl:variable name="preceding-del-spans"
+		              select="$current/preceding::tei:delSpan"/>
+		<xsl:variable name="del-span-ids"
+		              select="for $span in $preceding-del-spans
+		                      return $span/@spanTo"/>
+		<xsl:sequence select="some $id in $del-span-ids
+		                      satisfies $current/following::tei:anchor[
+		                          ('#' || @xml:id) eq $id
+		                      ]"/>
 	</xsl:function>
 
 </xsl:stylesheet>

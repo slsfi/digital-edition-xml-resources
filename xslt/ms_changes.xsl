@@ -14,7 +14,7 @@
 	*
 	*    XSLT stylesheet: ms_changes.xsl
 	*
-	*    Version: 3.4.0
+	*    Version: 4.0.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
@@ -23,6 +23,12 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v4.0.0 (2026-06-25)
+	*             - Fix rendering of captions of inline figures.
+	*             - Move the named templates `apply-templates-with-spanning-markup`
+	*               and `render-transpose-end-mark` to shared-named-templates.xsl.
+	*             - Move the functions `slsFn:is-in-addspan` and
+	*               `slsFn:is-in-delspan` to shared-functions.xsl.
 	*        v3.4.0 (2026-06-17)
 	*             - Render <note> without @place and not descendant of <p>
 	*               and with <p> children as <div>.
@@ -281,19 +287,12 @@
 	</xsl:template>
 
 
-	<xsl:template match="tei:head[parent::tei:table]">
-		<caption>
-			<xsl:call-template name="set-class-attr-from-rend"/>
-			<xsl:call-template name="apply-templates-with-spanning-markup"/>
-		</caption>
-	</xsl:template>
-
-
-	<xsl:template match="tei:head[parent::tei:figure]">
-		<figcaption>
-			<xsl:call-template name="set-class-attr-from-rend"/>
-			<xsl:call-template name="apply-templates-with-spanning-markup"/>
-		</figcaption>
+	<xsl:template match="tei:head[parent::tei:figure or parent::tei:table]">
+		<xsl:call-template name="render-caption">
+			<xsl:with-param name="set-class-from-rend" select="true()"/>
+			<xsl:with-param name="apply-templates-with-spanning-markup"
+			                select="true()"/>
+		</xsl:call-template>
 	</xsl:template>
 
 
@@ -1074,71 +1073,6 @@
 
 	<!-- * NAMED TEMPLATES ******************************************** -->
 
-	<xsl:template name="apply-templates-with-spanning-markup">
-	<!-- * This template acts as a transparent substitute for xsl:apply-templates
-	     * but adds logic to conditionally wrap the output in <span> elements
-	     * when the context node is inside a TEI <addSpan> or <delSpan> range.
-	     *
-	     * Functionality:
-	     * - Detects whether the current node falls within the bounds of
-	     *   an active <addSpan> or <delSpan>.
-	     * - If in an active span, wraps the result of xsl:apply-templates in
-	     *   a <span> with CSS class names reflecting the span type and @hand
-	         metadata:
-	     *     - 'addSpan' or 'delSpan' depending on the type.
-	     *     - 'hand' if the corresponding span has a @hand attribute.
-	     *     - 'strikethrough' if @rend='strikethrough' is set on a <delSpan>.
-	     * - Always invokes render-transpose-end-mark after applying templates.
-	     *
-	     * Usage Notes:
-	     * - Replace plain xsl:apply-templates with this template when rendering
-	     *   TEI content potentially governed by editorial change markup.
-	     * - Assumes nesting rules where <addSpan> may contain <delSpan> but not
-	     *   vice versa.
-	     * - Relies on supporting templates like set-class-attr and
-	     *   render-transpose-end-mark, and on consistent TEI header <handNote>
-	     *   usage. *-->
-		<xsl:variable name="in-addspan" select="slsFn:is-in-addspan(.)"/>
-    	<xsl:variable name="in-delspan" select="slsFn:is-in-delspan(.)"/>
-
-		<!-- * Case: Either addSpan or delSpan. * -->
-		<xsl:if test="$in-addspan or $in-delspan">
-			<xsl:variable name="addspan-elem"
-			              select="preceding::tei:addSpan[1]"/>
-			<xsl:variable name="delspan-elem"
-			              select="preceding::tei:delSpan[1]"/>
-
-			<span>
-				<xsl:call-template name="set-class-attr">
-					<xsl:with-param name="class-names"
-					                select="(if ($in-addspan)
-					                             then (if ($addspan-elem/@hand)
-					                                       then 'addSpan hand'
-					                                   else 'addSpan')
-					                         else (),
-					                         if ($in-delspan)
-					                             then (if ($delspan-elem/@hand)
-					                                       then 'delSpan delSpanHand'
-					                                   else 'delSpan')
-					                         else (),
-					                         if ($delspan-elem/@rend eq 'strikethrough')
-					                             then 'strikethrough'
-					                         else (),
-					                         slsFn:get-form-shift-classname(.))"/>
-				</xsl:call-template>
-				<xsl:apply-templates/>
-				<xsl:call-template name="render-transpose-end-mark"/>
-			</span>
-		</xsl:if>
-
-		<!-- * Case: Neither addSpan nor delSpan. * -->
-		<xsl:if test="not($in-addspan) and not($in-delspan)">
-			<xsl:call-template name="apply-templates-with-optional-form-shift-wrapper"/>
-			<xsl:call-template name="render-transpose-end-mark"/>
-		</xsl:if>
-	</xsl:template>
-
-
 	<xsl:template name="render-hand-tooltip">
 		<xsl:variable name="medium-attr" as="xs:string?"
 		              select="if (@medium) then @medium else ()"/>
@@ -1228,13 +1162,6 @@
 	</xsl:template>
 
 
-	<xsl:template name="render-transpose-end-mark">
-		<xsl:if test="tei:metamark[@function eq 'transp']">
-			<span class="editorial-hi">|</span>
-		</xsl:if>
-	</xsl:template>
-
-
 
 	<!-- * FUNCTIONS ************************************************** -->
 
@@ -1279,40 +1206,6 @@
 		                      else if ($medium-text)
 		                          then $medium-text
 		                      else ()"/>
-	</xsl:function>
-
-
-	<xsl:function name="slsFn:is-in-addspan" as="xs:boolean">
-	<!-- * Returns true if the passed element is within an addSpan,
-	     * otherwise false. * -->
-		<xsl:param name="current" as="node()"/>
-
-		<xsl:variable name="preceding-add-spans"
-		              select="$current/preceding::tei:addSpan"/>
-		<xsl:variable name="add-span-ids"
-		              select="for $span in $preceding-add-spans
-		                      return $span/@spanTo"/>
-		<xsl:sequence select="some $id in $add-span-ids
-		                      satisfies $current/following::tei:anchor[
-		                          ('#' || @xml:id) eq $id
-		                      ]"/>
-	</xsl:function>
-
-
-	<xsl:function name="slsFn:is-in-delspan" as="xs:boolean">
-	<!-- * Returns true if the passed element is within a delSpan,
-	     * otherwise false. * -->
-		<xsl:param name="current" as="node()"/>
-
-		<xsl:variable name="preceding-del-spans"
-		              select="$current/preceding::tei:delSpan"/>
-		<xsl:variable name="del-span-ids"
-		              select="for $span in $preceding-del-spans
-		                      return $span/@spanTo"/>
-		<xsl:sequence select="some $id in $del-span-ids
-		                      satisfies $current/following::tei:anchor[
-		                          ('#' || @xml:id) eq $id
-		                      ]"/>
 	</xsl:function>
 
 </xsl:stylesheet>

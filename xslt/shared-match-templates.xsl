@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: shared-match-templates.xsl
 	*
-	*    Version: 4.0.0
+	*    Version: 4.1.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
@@ -22,6 +22,9 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v4.1.0 (2026-06-25)
+	*             - Fix rendering of inline figures.
+	*             - Support @rend on figures for figure alignment.
 	*        v4.0.0 (2026-06-24)
 	*             - Update <div> output based on changed spec.
 	*             - Support @xml:lang in <floatingText>.
@@ -300,25 +303,48 @@
 
 
 	<xsl:template match="tei:figure">
-		<xsl:choose>
-			<xsl:when test="@type eq 'placeholder'">
-				<!-- TODO: implement placeholder figure -->
-			</xsl:when>
-		</xsl:choose>
-		<figure>
+		<!-- TODO: implement @type eq 'placeholder' -->
+		<!-- * In HTML, <figure> is not allowed in <p>, so we need to use
+		     * <span> instead. * -->
+		<xsl:variable name="element-name" as="xs:string"
+				      select="if (ancestor::tei:p)
+				                  then 'span'
+				              else 'figure'"/>
+		<xsl:variable name="first-rend-value" as="xs:string?"
+		              select="if (@rend)
+		                          then tokenize(@rend)[1]
+		                      else ()"/>
+		
+		<xsl:element name="{$element-name}">
 			<xsl:call-template name="set-attr-from-xml-id"/>
+			<xsl:call-template name="set-class-attr">
+				<xsl:with-param name="class-names"
+				                select="(if ($element-name eq 'span')
+				                             then 'inline-figure'
+				                         else (),
+				                         $first-rend-value)"/>
+			</xsl:call-template>
+			
+			<xsl:if test="$element-name eq 'span'">
+				<xsl:attribute name="role" select="'figure'"/>
+				<xsl:if test="tei:head">
+					<xsl:attribute name="aria-label" select="tei:head/string()"/>
+				</xsl:if>
+			</xsl:if>
+			
 			<xsl:apply-templates/>
-		</figure>
+		</xsl:element>
 	</xsl:template>
 
 
 	<xsl:template match="tei:graphic">
+		<!-- TODO: implement @type eq 'placeholder' -->
 		<xsl:if test="not(parent::tei:figure[@type eq 'placeholder'])">
 			<xsl:variable name="fig-desc"
 		                  select="parent::tei:figure/tei:figDesc"/>
-			<img src="{@url}" loading="lazy" alt="{if ($fig-desc)
-			                                           then string($fig-desc)
-			                                       else 'illustration'}">
+			<img src="{@url}" alt="{if ($fig-desc)
+			                            then string($fig-desc)
+			                        else 'illustration'}">
 				<xsl:where-populated>
 					<xsl:attribute name="height"
 						select="translate(@height, 'px', '')"/>
@@ -342,7 +368,7 @@
 		              then @target
 		          else '#' || @target}">
 			<img class="symbol" src="{$icons-base-path}/image_symbol.svg"
-			     alt="illustration" loading="lazy"/>
+			     alt="illustration"/>
 		</a>
 	</xsl:template>
 

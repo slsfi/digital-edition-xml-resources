@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: shared-named-templates.xsl
 	*
-	*    Version: 1.4.1
+	*    Version: 1.5.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-07
@@ -22,6 +22,10 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.5.0 (2026-06-25)
+	*             - Add templates `apply-templates-with-spanning-markup`
+	*               and `render-transpose-end-mark` (moved from
+	*               ms_changes.xsl).
 	*        v1.4.1 (2026-06-10)
 	*             - Wrap footnote list item references in <span> for
 	*               enhanced styling options.
@@ -381,6 +385,120 @@
 				<xsl:apply-templates/>
 			</xsl:otherwise>
 		</xsl:choose>
+	</xsl:template>
+
+
+	<xsl:template name="apply-templates-with-spanning-markup">
+	<!-- * This template acts as a transparent substitute for xsl:apply-templates
+	     * but adds logic to conditionally wrap the output in <span> elements
+	     * when the context node is inside a TEI <addSpan> or <delSpan> range.
+	     *
+	     * Functionality:
+	     * - Detects whether the current node falls within the bounds of
+	     *   an active <addSpan> or <delSpan>.
+	     * - If in an active span, wraps the result of xsl:apply-templates in
+	     *   a <span> with CSS class names reflecting the span type and @hand
+	         metadata:
+	     *     - 'addSpan' or 'delSpan' depending on the type.
+	     *     - 'hand' if the corresponding span has a @hand attribute.
+	     *     - 'strikethrough' if @rend='strikethrough' is set on a <delSpan>.
+	     * - Always invokes render-transpose-end-mark after applying templates.
+	     *
+	     * Usage Notes:
+	     * - Replace plain xsl:apply-templates with this template when rendering
+	     *   TEI content potentially governed by editorial change markup.
+	     * - Assumes nesting rules where <addSpan> may contain <delSpan> but not
+	     *   vice versa.
+	     * - Relies on supporting templates like set-class-attr and
+	     *   render-transpose-end-mark, and on consistent TEI header <handNote>
+	     *   usage. * -->
+		<xsl:variable name="in-addspan" select="slsFn:is-in-addspan(.)"/>
+    	<xsl:variable name="in-delspan" select="slsFn:is-in-delspan(.)"/>
+
+		<!-- * Case: Either addSpan or delSpan. * -->
+		<xsl:if test="$in-addspan or $in-delspan">
+			<xsl:variable name="addspan-elem"
+			              select="preceding::tei:addSpan[1]"/>
+			<xsl:variable name="delspan-elem"
+			              select="preceding::tei:delSpan[1]"/>
+
+			<span>
+				<xsl:call-template name="set-class-attr">
+					<xsl:with-param name="class-names"
+					                select="(if ($in-addspan)
+					                             then (if ($addspan-elem/@hand)
+					                                       then 'addSpan hand'
+					                                   else 'addSpan')
+					                         else (),
+					                         if ($in-delspan)
+					                             then (if ($delspan-elem/@hand)
+					                                       then 'delSpan delSpanHand'
+					                                   else 'delSpan')
+					                         else (),
+					                         if ($delspan-elem/@rend eq 'strikethrough')
+					                             then 'strikethrough'
+					                         else (),
+					                         slsFn:get-form-shift-classname(.))"/>
+				</xsl:call-template>
+				<xsl:apply-templates/>
+				<xsl:call-template name="render-transpose-end-mark"/>
+			</span>
+		</xsl:if>
+
+		<!-- * Case: Neither addSpan nor delSpan. * -->
+		<xsl:if test="not($in-addspan) and not($in-delspan)">
+			<xsl:call-template name="apply-templates-with-optional-form-shift-wrapper"/>
+			<xsl:call-template name="render-transpose-end-mark"/>
+		</xsl:if>
+	</xsl:template>
+
+
+	<xsl:template name="render-transpose-end-mark">
+		<xsl:if test="tei:metamark[@function eq 'transp']">
+			<span class="editorial-hi">|</span>
+		</xsl:if>
+	</xsl:template>
+
+
+	<xsl:template name="render-caption">
+	<!-- * Render <head> with <table> or <figure> parent as a caption,
+		 * figcaption or span element, optionally setting class names
+		 * from @rend and applying templates with spanning markup (for
+		 * manuscripts). * -->
+		<xsl:param name="set-class-from-rend"
+			       as="xs:boolean" select="false()"/>
+		<xsl:param name="apply-templates-with-spanning-markup"
+			       as="xs:boolean" select="false()"/>
+
+		<xsl:variable name="element-name" as="xs:string"
+				      select="if (parent::tei:figure)
+				                  then if (ancestor::tei:p)
+				                           then 'span'
+				                       else 'figcaption'
+				              else if (parent::tei:table)
+				                   then 'caption'
+				              else 'span'"/>
+
+		<xsl:element name="{$element-name}">
+			<xsl:call-template name="set-class-attr">
+				<xsl:with-param name="class-names"
+			                    select="(if ($element-name eq 'span')
+			                                 then 'inline-caption'
+			                             else (),
+			                             if ($set-class-from-rend and boolean(@rend))
+			                                 then @rend
+			                             else ())"/>
+			</xsl:call-template>
+
+			<xsl:choose>
+				<xsl:when test="$apply-templates-with-spanning-markup">
+					<xsl:call-template name="apply-templates-with-spanning-markup"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:element>
 	</xsl:template>
 
 </xsl:stylesheet>

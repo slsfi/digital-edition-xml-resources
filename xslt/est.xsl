@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: est.xsl
 	*
-	*    Version: 3.1.0
+	*    Version: 3.1.1
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-07
@@ -22,6 +22,8 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v3.1.1 (2026-06-25)
+	*             - Fix rendering of captions of inline figures.
 	*        v3.1.0 (2026-06-17)
 	*             - Render <note> without @place and not descendant of <p>
 	*               and with <p> children as <div>.
@@ -191,17 +193,8 @@
 	</xsl:template>
 
 
-	<xsl:template match="tei:head[parent::tei:table]">
-		<caption>
-			<xsl:apply-templates/>
-		</caption>
-	</xsl:template>
-
-
-	<xsl:template match="tei:head[parent::tei:figure]">
-		<figcaption>
-			<xsl:apply-templates/>
-		</figcaption>
+	<xsl:template match="tei:head[parent::tei:figure or parent::tei:table]">
+		<xsl:call-template name="render-caption"/>
 	</xsl:template>
 
 

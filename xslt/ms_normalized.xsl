@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: ms_normalized.xsl
 	*
-	*    Version: 2.4.0
+	*    Version: 2.4.1
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
@@ -22,6 +22,8 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v2.4.1 (2026-06-25)
+	*             - Fix rendering of captions of inline figures.
 	*        v2.4.0 (2026-06-17)
 	*             - Render <note> without @place and not descendant of <p>
 	*               and with <p> children as <div>.
@@ -228,19 +230,10 @@
 	</xsl:template>
 
 
-	<xsl:template match="tei:head[parent::tei:table]">
-		<caption>
-			<xsl:call-template name="set-class-attr-from-rend"/>
-			<xsl:apply-templates/>
-		</caption>
-	</xsl:template>
-
-
-	<xsl:template match="tei:head[parent::tei:figure]">
-		<figcaption>
-			<xsl:call-template name="set-class-attr-from-rend"/>
-			<xsl:apply-templates/>
-		</figcaption>
+	<xsl:template match="tei:head[parent::tei:figure or parent::tei:table]">
+		<xsl:call-template name="render-caption">
+			<xsl:with-param name="set-class-from-rend" select="true()"/>
+		</xsl:call-template>
 	</xsl:template>
 
 

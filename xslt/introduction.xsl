@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: introduction.xsl
 	*
-	*    Version: 1.1.0
+	*    Version: 1.1.1
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-11-18
@@ -22,6 +22,8 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.1.1 (2026-06-25)
+	*             - Fix rendering of captions of inline figures.
 	*        v1.1.0 (2026-06-10)
 	*             - Support custom numbers and markers on list items.
 	*        v1.0.0 (2025-11-18)
@@ -256,17 +258,8 @@
 	</xsl:template>
 
 
-	<xsl:template match="tei:head[parent::tei:table]">
-		<caption>
-			<xsl:apply-templates/>
-		</caption>
-	</xsl:template>
-
-
-	<xsl:template match="tei:head[parent::tei:figure]">
-		<figcaption>
-			<xsl:apply-templates/>
-		</figcaption>
+	<xsl:template match="tei:head[parent::tei:figure or parent::tei:table]">
+		<xsl:call-template name="render-caption"/>
 	</xsl:template>
 
 
