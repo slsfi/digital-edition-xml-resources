@@ -21,6 +21,9 @@
 			</sourceDesc>
 		</fileDesc>
 		<revisionDesc>
+			<change when="2026-06-25" who="#SK">
+				- Add @rend on figure.
+			</change>
 			<change when="2026-06-15" who="#SK">
 				- Remove duplicate @part declarations from div and l.
 			</change>
@@ -1030,12 +1033,39 @@
 						<attDef ident="xml:lang" mode="delete"/>
 						<attDef ident="xml:base" mode="delete"/>
 						<attDef ident="xml:space" mode="delete"/>
-						<attDef ident="rend" mode="delete"/>
 						<attDef ident="facs" mode="delete"/>
 						<attDef ident="cert" mode="delete"/>
 						<attDef ident="resp" mode="delete"/>
 						<attDef ident="source" mode="delete"/>
 						<attDef ident="subtype" mode="delete"/>
+						<attDef ident="rend" mode="change">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="block">
+									<desc versionDate="2026-06-25" xml:lang="en">standalone block figure</desc>
+								</valItem>
+								<valItem mode="add" ident="full">
+									<desc versionDate="2026-06-25" xml:lang="en">standalone/full-width figure</desc>
+								</valItem>
+								<valItem mode="add" ident="left">
+									<desc versionDate="2026-06-25" xml:lang="en">block-aligned left, no text wrap</desc>
+								</valItem>
+								<valItem mode="add" ident="center">
+									<desc versionDate="2026-06-25" xml:lang="en">block-aligned center, no text wrap</desc>
+								</valItem>
+								<valItem mode="add" ident="right">
+									<desc versionDate="2026-06-25" xml:lang="en">block-aligned right, no text wrap</desc>
+								</valItem>
+								<valItem mode="add" ident="float-left">
+									<desc versionDate="2026-06-25" xml:lang="en">left-floating figure with text wrap</desc>
+								</valItem>
+								<valItem mode="add" ident="float-right">
+									<desc versionDate="2026-06-25" xml:lang="en">right-floating figure with text wrap</desc>
+								</valItem>
+								<valItem mode="add" ident="inline">
+									<desc versionDate="2026-06-25" xml:lang="en">inline-block figure within running text</desc>
+								</valItem>
+							</valList>
+						</attDef>
 						<attDef ident="type" mode="change">
 							<valList type="closed" mode="change">
 								<valItem mode="add" ident="placeholder"/>
