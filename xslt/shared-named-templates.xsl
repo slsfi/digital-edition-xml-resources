@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: shared-named-templates.xsl
 	*
-	*    Version: 1.5.0
+	*    Version: 1.6.0
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-03-07
@@ -22,6 +22,9 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v1.6.0 (2026-06-26)
+	*             - Always set first alignment-controlling @rend value as
+	*               class name on figure and table captions, if present.
 	*        v1.5.0 (2026-06-25)
 	*             - Add templates `apply-templates-with-spanning-markup`
 	*               and `render-transpose-end-mark` (moved from
@@ -464,7 +467,10 @@
 	<!-- * Render <head> with <table> or <figure> parent as a caption,
 		 * figcaption or span element, optionally setting class names
 		 * from @rend and applying templates with spanning markup (for
-		 * manuscripts). * -->
+		 * manuscripts). Even though class names should not be set
+		 * from @rend, the first alignment-controlling @rend-value
+		 * (if any are present), is still set as class name on the
+		 * output element. * -->
 		<xsl:param name="set-class-from-rend"
 			       as="xs:boolean" select="false()"/>
 		<xsl:param name="apply-templates-with-spanning-markup"
@@ -478,6 +484,11 @@
 				              else if (parent::tei:table)
 				                   then 'caption'
 				              else 'span'"/>
+		<xsl:variable name="tokenized-rend" as="xs:string*"
+		              select="tokenize(@rend)"/>
+		<!-- @rend-values that control alignment -->
+		<xsl:variable name="alignment-rends" as="xs:string+"
+		              select="('center', 'left', 'right')"/>
 
 		<xsl:element name="{$element-name}">
 			<xsl:call-template name="set-class-attr">
@@ -485,8 +496,10 @@
 			                    select="(if ($element-name eq 'span')
 			                                 then 'inline-caption'
 			                             else (),
-			                             if ($set-class-from-rend and boolean(@rend))
-			                                 then @rend
+			                             if (exists($tokenized-rend))
+			                                 then if ($set-class-from-rend)
+			                                          then @rend
+			                                      else ($alignment-rends[. = $tokenized-rend])[1]
 			                             else ())"/>
 			</xsl:call-template>
 
