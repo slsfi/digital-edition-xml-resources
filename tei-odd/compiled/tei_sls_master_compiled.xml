@@ -27,6 +27,9 @@
         <sch:ns xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" prefix="sch" uri="http://purl.oclc.org/dsdl/schematron"/>
         <sch:ns xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" prefix="sch1x" uri="http://www.ascc.net/xml/schematron"/>
       </tei:constraintDecl></tei:encodingDesc><revisionDesc>
+			<change when="2026-06-26" who="#SK">
+				- Remove "block" and "inline" from @rend values on figure.
+			</change>
 			<change when="2026-06-25" who="#SK">
 				- Add @rend on figure.
 			</change>
@@ -11508,12 +11511,6 @@ to use nested tables.</p>
     illustrazioni o figure.</desc><desc versionDate="2017-06-19" xml:lang="de">umfasst Elemente, die grafische Informationen repräsentieren oder beinhalten, wie z. B. eine
     Abbildung, Formel oder Diagramm.</desc><classes><memberOf key="att.global"/><memberOf key="att.typed"/><memberOf key="model.global"/></classes><content><alternate minOccurs="0" maxOccurs="unbounded"><classRef key="model.headLike"/><classRef key="model.common"/><elementRef key="figDesc"/><classRef key="model.graphicLike"/><classRef key="model.global"/><classRef key="model.divBottom"/></alternate></content><attList><attDef ident="n" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="rend" mode="change">
 							<valList type="closed" mode="change">
-								<valItem mode="add" ident="block">
-									<desc versionDate="2026-06-25" xml:lang="en">standalone block figure</desc>
-								</valItem>
-								<valItem mode="add" ident="full">
-									<desc versionDate="2026-06-25" xml:lang="en">standalone/full-width figure</desc>
-								</valItem>
 								<valItem mode="add" ident="left">
 									<desc versionDate="2026-06-25" xml:lang="en">block-aligned left, no text wrap</desc>
 								</valItem>
@@ -11523,14 +11520,14 @@ to use nested tables.</p>
 								<valItem mode="add" ident="right">
 									<desc versionDate="2026-06-25" xml:lang="en">block-aligned right, no text wrap</desc>
 								</valItem>
+								<valItem mode="add" ident="full">
+									<desc versionDate="2026-06-25" xml:lang="en">stretched to fill width</desc>
+								</valItem>
 								<valItem mode="add" ident="float-left">
-									<desc versionDate="2026-06-25" xml:lang="en">left-floating figure with text wrap</desc>
+									<desc versionDate="2026-06-25" xml:lang="en">left-floating with text wrap</desc>
 								</valItem>
 								<valItem mode="add" ident="float-right">
-									<desc versionDate="2026-06-25" xml:lang="en">right-floating figure with text wrap</desc>
-								</valItem>
-								<valItem mode="add" ident="inline">
-									<desc versionDate="2026-06-25" xml:lang="en">inline-block figure within running text</desc>
+									<desc versionDate="2026-06-25" xml:lang="en">right-floating with text wrap</desc>
 								</valItem>
 							</valList>
 						</attDef><attDef ident="type" mode="change">

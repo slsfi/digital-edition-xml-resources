@@ -21,6 +21,9 @@
 			</sourceDesc>
 		</fileDesc>
 		<revisionDesc>
+			<change when="2026-06-26" who="#SK">
+				- Remove "block" and "inline" from @rend values on figure.
+			</change>
 			<change when="2026-06-25" who="#SK">
 				- Add @rend on figure.
 			</change>
@@ -1040,12 +1043,6 @@
 						<attDef ident="subtype" mode="delete"/>
 						<attDef ident="rend" mode="change">
 							<valList type="closed" mode="change">
-								<valItem mode="add" ident="block">
-									<desc versionDate="2026-06-25" xml:lang="en">standalone block figure</desc>
-								</valItem>
-								<valItem mode="add" ident="full">
-									<desc versionDate="2026-06-25" xml:lang="en">standalone/full-width figure</desc>
-								</valItem>
 								<valItem mode="add" ident="left">
 									<desc versionDate="2026-06-25" xml:lang="en">block-aligned left, no text wrap</desc>
 								</valItem>
@@ -1055,14 +1052,14 @@
 								<valItem mode="add" ident="right">
 									<desc versionDate="2026-06-25" xml:lang="en">block-aligned right, no text wrap</desc>
 								</valItem>
+								<valItem mode="add" ident="full">
+									<desc versionDate="2026-06-25" xml:lang="en">stretched to fill width</desc>
+								</valItem>
 								<valItem mode="add" ident="float-left">
-									<desc versionDate="2026-06-25" xml:lang="en">left-floating figure with text wrap</desc>
+									<desc versionDate="2026-06-25" xml:lang="en">left-floating with text wrap</desc>
 								</valItem>
 								<valItem mode="add" ident="float-right">
-									<desc versionDate="2026-06-25" xml:lang="en">right-floating figure with text wrap</desc>
-								</valItem>
-								<valItem mode="add" ident="inline">
-									<desc versionDate="2026-06-25" xml:lang="en">inline-block figure within running text</desc>
+									<desc versionDate="2026-06-25" xml:lang="en">right-floating with text wrap</desc>
 								</valItem>
 							</valList>
 						</attDef>

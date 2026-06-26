@@ -5,7 +5,7 @@
          xmlns:xlink="http://www.w3.org/1999/xlink"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2026-06-25T13:10:29Z. . 
+Schema generated from ODD source 2026-06-26T11:40:19Z. . 
 TEI Edition: P5 Version 4.11.0. Last updated on 18th February 2026, revision 358d2e48e 
 TEI Edition Location: https://www.tei-c.org/Vault/P5/4.11.0/ 
   
@@ -5441,22 +5441,18 @@ Suggested values include: 1] label; 2] data</a:documentation>
                <list>
                   <oneOrMore>
                      <choice>
-                        <value>block</value>
-                        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">standalone block figure</a:documentation>
-                        <value>full</value>
-                        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">standalone/full-width figure</a:documentation>
                         <value>left</value>
                         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">block-aligned left, no text wrap</a:documentation>
                         <value>center</value>
                         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">block-aligned center, no text wrap</a:documentation>
                         <value>right</value>
                         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">block-aligned right, no text wrap</a:documentation>
+                        <value>full</value>
+                        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">stretched to fill width</a:documentation>
                         <value>float-left</value>
-                        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">left-floating figure with text wrap</a:documentation>
+                        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">left-floating with text wrap</a:documentation>
                         <value>float-right</value>
-                        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">right-floating figure with text wrap</a:documentation>
-                        <value>inline</value>
-                        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">inline-block figure within running text</a:documentation>
+                        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">right-floating with text wrap</a:documentation>
                      </choice>
                   </oneOrMore>
                </list>
