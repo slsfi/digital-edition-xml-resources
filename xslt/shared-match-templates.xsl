@@ -13,7 +13,7 @@
 	*
 	*    XSLT stylesheet: shared-match-templates.xsl
 	*
-	*    Version: 4.1.0
+	*    Version: 4.1.1
 	*    Author:  Sebastian Köhler, Svenska litteratursällskapet i Finland,
 	*             https://www.sls.fi/
 	*    Created: 2025-04-24
@@ -22,6 +22,9 @@
 	*             https://creativecommons.org/licenses/by-nc/4.0/
 	*
 	*    Changes:
+	*        v4.1.1 (2026-06-26)
+	*             - Prefix @rend of <figure> with 'fig-' when converting
+	*               to a class name.
 	*        v4.1.0 (2026-06-25)
 	*             - Fix rendering of inline figures.
 	*             - Support @rend on figures for figure alignment.
@@ -29,8 +32,8 @@
 	*             - Update <div> output based on changed spec.
 	*             - Support @xml:lang in <floatingText>.
 	*        v3.2.0 (2026-06-10)
-	*             - Render tei:title inside tei:bibl or tei:witness in
-	*               tei:teiHeader as the HTML citation element <cite>.
+	*             - Render <title> inside <bibl> or <witness> in
+	*               <teiHeader> as the HTML citation element <cite>.
 	*             - Support @source in <milestone>.
 	*             - Add template for <msIdentifier>.
 	*        v3.1.0 (2026-04-16)
@@ -311,9 +314,7 @@
 				                  then 'span'
 				              else 'figure'"/>
 		<xsl:variable name="first-rend-value" as="xs:string?"
-		              select="if (@rend)
-		                          then tokenize(@rend)[1]
-		                      else ()"/>
+		              select="tokenize(@rend)[1]"/>
 		
 		<xsl:element name="{$element-name}">
 			<xsl:call-template name="set-attr-from-xml-id"/>
@@ -322,7 +323,7 @@
 				                select="(if ($element-name eq 'span')
 				                             then 'inline-figure'
 				                         else (),
-				                         $first-rend-value)"/>
+				                         'fig-' || $first-rend-value)"/>
 			</xsl:call-template>
 			
 			<xsl:if test="$element-name eq 'span'">
