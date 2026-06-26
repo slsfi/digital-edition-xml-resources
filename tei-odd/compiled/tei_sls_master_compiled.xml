@@ -29,6 +29,7 @@
       </tei:constraintDecl></tei:encodingDesc><revisionDesc>
 			<change when="2026-06-26" who="#SK">
 				- Remove "block" and "inline" from @rend values on figure.
+				- Add "center", "left", and "right" to @rend values on head.
 			</change>
 			<change when="2026-06-25" who="#SK">
 				- Add @rend on figure.
@@ -5969,6 +5970,9 @@ entre les Romains.</label>
 								<valItem mode="add" ident="underlineDashed"/>
 								<valItem mode="add" ident="underlineDouble"/>
 								<valItem mode="add" ident="uppercase"/>
+								<valItem mode="add" ident="center"/>
+								<valItem mode="add" ident="left"/>
+								<valItem mode="add" ident="right"/>
 							</valList>
 						</attDef><attDef ident="type" mode="change">
 							<valList type="closed" mode="change">
